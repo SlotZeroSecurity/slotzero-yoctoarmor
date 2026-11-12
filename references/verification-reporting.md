@@ -195,7 +195,7 @@ For Medium+, test a variant over amount, timing, ordering, or failure mode and p
 ## Report and completion gates
 
 Use `references/report-template.md` for the full technical annex and
-`references/pashov-report-format.md` for the reader-facing report. Assign `C-01/H-01/M-01/L-01/I-01` only after dedup and verification.
+`references/slotzero-report-format.md` for the reader-facing report. Assign `C-01/H-01/M-01/L-01/I-01` only after dedup and verification.
 
 Draft readiness requires the technical and accounting gates below. Pending human
 decisions are allowed only in a clearly labelled draft and must not be invented

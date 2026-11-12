@@ -260,7 +260,7 @@ class ThreatModelReportingTests(unittest.TestCase):
         write_jsonl(self.run / "triage.jsonl", [{"candidate_id": "blind-1", "triage": self.row["triage"]}])
 
     def test_exclusion_survives_accounting_but_cannot_be_presented_as_finding(self):
-        from render_pashov_report import render
+        from render_slotzero_report import render
         from report_assembly import assemble
         self.fixture.cli("resume", self.run)
         report = self.fixture.rendered_report()
@@ -272,7 +272,7 @@ class ThreatModelReportingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "excluded candidate"):
             assemble(self.run, self.manifest, "# Draft\n## Findings\nblind-1\n")
         self.fixture.cli("finalize", self.run, "--report", report)
-        content = self.run / "pashov-content.jsonl"
+        content = self.run / "slotzero-content.jsonl"
         content.write_text("")
         compact = render(self.run, content)
         self.assertNotIn("blind-1", compact)
@@ -295,7 +295,7 @@ class ThreatModelReportingTests(unittest.TestCase):
         self.assertIn("threat_model_assessment", result.stderr)
 
     def test_override_limitation_reaches_both_reports(self):
-        from render_pashov_report import render
+        from render_slotzero_report import render
         fixture = lifecycle.RunLifecycleTests()
         fixture.setUp()
         self.addCleanup(fixture.doCleanups)
@@ -308,7 +308,7 @@ class ThreatModelReportingTests(unittest.TestCase):
         self.assertIn("explicitly overridden", report.read_text())
         self.assertIn("false-positive likelihood", report.read_text())
         fixture.cli("finalize", fixture.run_dir, "--report", report)
-        content = fixture.run_dir / "pashov-content.jsonl"
+        content = fixture.run_dir / "slotzero-content.jsonl"
         content.write_text("")
         self.assertIn("explicitly overridden", render(fixture.run_dir, content))
 

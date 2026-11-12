@@ -4,7 +4,7 @@ Use this reference only for a requested target audit. Resolve `<skill>` to the d
 
 For a target audit, retain the existing Slot Zero banner only in the full
 [technical annex](report-template.md). The reader-facing
-[Pashov-v4-style report](pashov-report-format.md) begins with its compact
+[Slot Zero report format](slotzero-report-format.md) begins with its compact
 security-review heading and does not repeat that banner. Do not print a second
 report or preface during resumed phases.
 
@@ -27,7 +27,7 @@ and the complete registry-derived NEP coverage ledger. Deep mode retains its add
 - **Standard**: audit all relevant source; sample each applicable mutation family.
 - **Explicit files**: treat named files as primary scope, but read all context needed to validate them.
 - **Deep** (`--deep`): run uncertain conditional roles, all applicable mutations, fresh corpus/chain agents, verify every severity, and finish an exclusion-list rescan.
-- **File output** (request-level `--file-output`): retain the compact Pashov-style report and full technical annex in the run directory on every scan. The flag requests an additional copy of the compact report to an explicitly requested destination outside audited source. Return the compact report in the conversation regardless of the flag.
+- **File output** (request-level `--file-output`): retain the compact report in the Slot Zero report format and full technical annex in the run directory on every scan. The flag requests an additional copy of the compact report to an explicitly requested destination outside audited source. Return the compact report in the conversation regardless of the flag.
 - **Discovery passes** (`--loop [N]`): bare `--loop` selects 3; an explicit integer 1–10 selects that many without another question. Also honor a count stated in ordinary language. Otherwise ask before scope discovery or any expensive audit work: 1, **3 recommended**, 5, or a custom integer 1–10. One pass has no prior-pass context. This repeats fresh L2 and blind L3 discovery, not L0, L1, active testing, NEP review, counterexample rescan, or the human-informed rescan. It is not a claim of greater confidence.
 
 Exclude generated `target/`, `node_modules/`, `dist/`, `build/`, vendored dependencies, and unrelated crates. Tests/examples are verification context. Include adjacent TypeScript/JavaScript/Solidity only when it affects signing, indexing, relaying, bridging, settlement, or user security.
@@ -46,7 +46,7 @@ Load only what the current phase needs:
 - **Corpus echo:** only after blind L2/L3 discovery is frozen, load the selected category files and any later-discovered categories justified by target evidence.
 - **Historical source review:** L1 and post-blind echo use the [binding protocol](pattern-portability.md) before consulting selected [historical examples](satoshi-issue-corpus.md) and [source dispositions](satoshi-issue-corpus.json). Do not load complete ledgers into workers. Training cases and answers are maintenance material, not target-audit inputs.
 - **Judging:** minimal candidate packet, cited target context, security model, and [verification rules](verification-reporting.md).
-- **Reporting:** [compact Pashov-style format](pashov-report-format.md) and [full technical annex template](report-template.md).
+- **Reporting:** [Slot Zero report format](slotzero-report-format.md) and [full technical annex template](report-template.md).
 
 ## Phase 0 — Freeze scope and build L0
 
@@ -267,9 +267,9 @@ those from validated records. The controller-rendered `draft-report.md` is the
 **technical annex** and remains the finalized, hashed source of truth for all
 registry-selected NEPs, proof, limitations, and dispositions.
 
-After the technical annex is finalized, create `pashov-content.jsonl` with one
+After the technical annex is finalized, create `slotzero-content.jsonl` with one
 concise presentation row for each verified finding and unscored lead. Follow
-[Pashov-v4-style report](pashov-report-format.md) for the row contract and
+[Slot Zero report format](slotzero-report-format.md) for the row contract and
 source-backed diff rules. Render the reader-facing report deterministically:
 
 ```text
@@ -277,9 +277,9 @@ python3 <skill>/scripts/near_audit.py render-report <run-dir> \
   --body <run-dir>/report-body.md --output <run-dir>/draft-report.md --stage draft
 python3 <skill>/scripts/near_audit.py finalize <run-dir> \
   --report <run-dir>/draft-report.md --stage draft
-python3 <skill>/scripts/render_pashov_report.py <run-dir> \
-  --content <run-dir>/pashov-content.jsonl \
-  --output <run-dir>/pashov-report.md
+python3 <skill>/scripts/render_slotzero_report.py <run-dir> \
+  --content <run-dir>/slotzero-content.jsonl \
+  --output <run-dir>/slotzero-report.md
 ```
 
 Deliver the renderer's stdout as the conversation report. It prints the whole
@@ -290,13 +290,13 @@ human decisions. Do not reword or shorten the deterministic reader-facing
 report in the conversation. Presentation cannot promote a lead, alter a
 verdict, or replace the complete human-feedback gate. Explicit user requested
 confirmation or omission in the compact report must follow
-[presentation review edits](pashov-report-format.md#presentation-rows), remain
+[presentation review edits](slotzero-report-format.md#presentation-rows), remain
 counted, and leave the technical evidence intact. If the renderer rejects a row, fix the
 presentation input and rerun it; never weaken the technical ledger or bypass
 its recorded report hash.
 
 For approval, render a separate approved technical body/output with `--stage approved`
-after human gates, then render a separate Pashov-style report bound to that
+after human gates, then render a separate report in the Slot Zero report format bound to that
 approved technical report. Existing runs remain bound to the skill configuration
 that created them; use that preserved package for their controller operations.
 

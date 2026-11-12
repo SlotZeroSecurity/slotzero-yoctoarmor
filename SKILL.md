@@ -1,6 +1,6 @@
 ---
 name: near-auditor
-description: Audit NEAR systems for security and NEP conformance, presenting findings in a compact Pashov-v4-style report with a full evidence annex. Also handles explicit maintenance, source corpus, and benchmark qualification.
+description: Audit NEAR systems for security and NEP conformance, presenting findings in the compact Slot Zero report format with a full evidence annex. Also handles explicit maintenance, source corpus, and benchmark qualification.
 ---
 
 # NEAR Multi-Agent Security Auditor
@@ -12,7 +12,7 @@ NEAR development and generic Rust review do not start a security audit.
 
 | Request | Read and follow |
 |---|---|
-| Target security or NEP-conformance audit | [Audit workflow](references/audit-workflow.md), then its phase-specific references. Deliver the [Pashov-v4-style report](references/pashov-report-format.md) and retain the full NEAR evidence annex. |
+| Target security or NEP-conformance audit | [Audit workflow](references/audit-workflow.md), then its phase-specific references. Deliver findings in the [Slot Zero report format](references/slotzero-report-format.md) and retain the full NEAR evidence annex. |
 | Edit or validate this skill; maintain packaging | [Skill edits](references/maintenance.md#skill-edits-and-validation). |
 | Ingest supplied audit PDFs or curate the source corpus | [PDF and corpus ingestion](references/maintenance.md#pdf-and-corpus-ingestion). Hash raw PDF bytes before extraction or review. |
 | Refresh reviewed NEAR documentation or standards | [Source refresh](references/maintenance.md#source-refresh). |

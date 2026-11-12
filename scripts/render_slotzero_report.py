@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render a concise Pashov-v4-shaped review from a finalized NEAR evidence run.
+"""Render a concise review in the Slot Zero report format from a finalized NEAR evidence run.
 
 The technical report remains the source of detailed proof and the NEP ledger.
 This renderer only changes presentation; it cannot add or change verdicts.
@@ -241,8 +241,8 @@ def render(run: Path, content_path: Path, project: str | None = None) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run_dir", type=Path)
-    parser.add_argument("--content", type=Path, default=Path("pashov-content.jsonl"))
-    parser.add_argument("--output", type=Path, default=Path("pashov-report.md"))
+    parser.add_argument("--content", type=Path, default=Path("slotzero-content.jsonl"))
+    parser.add_argument("--output", type=Path, default=Path("slotzero-report.md"))
     parser.add_argument("--project", help="display name when the frozen target is an isolated copy")
     args = parser.parse_args()
     run = args.run_dir.resolve()
@@ -258,7 +258,7 @@ def main() -> None:
         temporary = Path(handle.name)
         handle.write(report)
     os.replace(temporary, output)
-    # Pashov v4 prints the full small report; a large report gets a counted top-three slice.
+    # The Slot Zero report format prints the full small report; a large report gets a counted top-three slice.
     count = report.count("**Description**")
     if count <= 20:
         print(report, end="")

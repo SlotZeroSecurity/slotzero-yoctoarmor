@@ -8,10 +8,10 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-import render_pashov_report as formatter
+import render_slotzero_report as formatter
 
 
-class PashovReportTests(unittest.TestCase):
+class SlotZeroReportTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -55,7 +55,7 @@ class PashovReportTests(unittest.TestCase):
             {"candidate_id": "D-002", "title": "Potential repeated call", "location": "Sample.vulnerable",
              "description": "The repeated-call state remains unverified.", "code_smells": ["unbound callback"]},
         ]
-        self.write_jsonl("pashov-content.jsonl", self.rows)
+        self.write_jsonl("slotzero-content.jsonl", self.rows)
 
     def write_json(self, name, value):
         (self.run / name).write_text(json.dumps(value))
@@ -65,7 +65,7 @@ class PashovReportTests(unittest.TestCase):
 
     def test_renders_all_supported_verdicts_and_excludes_refuted(self):
         with patch.object(formatter, "pass_sightings", return_value={"D-001": 1, "D-002": 0, "D-003": 0}):
-            text = formatter.render(self.run, self.run / "pashov-content.jsonl", "sample")
+            text = formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
         self.assertIn("# 🔐 Draft Security Review — sample", text)
         self.assertIn("[85] **1. Anyone can act**", text)
         self.assertIn("+ require_role();", text)
@@ -79,14 +79,14 @@ class PashovReportTests(unittest.TestCase):
     def test_tampered_final_report_fails_closed(self):
         (self.run / "draft-report.md").write_text("altered")
         with self.assertRaisesRegex(ValueError, "finalized hash"):
-            formatter.render(self.run, self.run / "pashov-content.jsonl", "sample")
+            formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
 
     def test_diff_requires_exact_frozen_source_line(self):
         self.rows[0]["fix"]["old"] = ["not_in_source();"]
-        self.write_jsonl("pashov-content.jsonl", self.rows)
+        self.write_jsonl("slotzero-content.jsonl", self.rows)
         with patch.object(formatter, "pass_sightings", return_value={}):
             with self.assertRaisesRegex(ValueError, "absent from frozen source"):
-                formatter.render(self.run, self.run / "pashov-content.jsonl", "sample")
+                formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
 
 
 if __name__ == "__main__":

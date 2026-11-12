@@ -387,14 +387,14 @@ The default deliverable is a **draft**. Human review is required before findings
 
 | Artifact | Purpose |
 | --- | --- |
-| `pashov-report.md` | Compact reader-facing security review, retained in the run directory and delivered in the conversation according to renderer output rules. |
+| `slotzero-report.md` | Compact reader-facing security review, retained in the run directory and delivered in the conversation according to renderer output rules. |
 | `draft-report.md` | Full technical annex: finalized evidence, receipt traces, scope, proof, limitations, and dispositions. |
 | `run-manifest.json`, `run-events/`, `run-state.json` | Frozen inputs/configuration, event history, worker observations, and phase progress. |
 | `surface.json`, `semantic-ir.json`, `intent-model.json` | Target inventory, navigation graph, and grounded intent model. |
 | Candidate and disposition JSONL ledgers | Raw discoveries, deduplication, verdicts, rejected/blocked candidates, and complete accounting. |
 | NEP, official-guidance, and active-test ledgers | Standards coverage, routed guidance, schedules, invariants, mutations, and applicable differential/upgrade evidence. |
 
-Severity and confidence are separate. Repeated discoveries do not prove correctness. Draft reports and benchmark smoke fixtures do not certify deployment safety or establish L4 qualification. See the [compact report format](references/pashov-report-format.md) and [verification/reporting rules](references/verification-reporting.md).
+Severity and confidence are separate. Repeated discoveries do not prove correctness. Draft reports and benchmark smoke fixtures do not certify deployment safety or establish L4 qualification. See the [compact report format](references/slotzero-report-format.md) and [verification/reporting rules](references/verification-reporting.md).
 
 ## Controller reference
 
@@ -504,8 +504,8 @@ python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" render-report "$NEARSHIELD_RUN
 python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" finalize "$NEARSHIELD_RUN" \
   --report "$NEARSHIELD_RUN/draft-report.md" --stage draft
 # Prepare source-backed presentation rows using the compact report schema first:
-python3 "$NEARSHIELD_SKILL/scripts/render_pashov_report.py" "$NEARSHIELD_RUN" \
-  --content "$NEARSHIELD_RUN/pashov-content.jsonl" --output "$NEARSHIELD_RUN/pashov-report.md"
+python3 "$NEARSHIELD_SKILL/scripts/render_slotzero_report.py" "$NEARSHIELD_RUN" \
+  --content "$NEARSHIELD_RUN/slotzero-content.jsonl" --output "$NEARSHIELD_RUN/slotzero-report.md"
 ```
 
 Keep report artifacts inside the run directory. An AI-requested `--file-output` copy is a separate delivery action outside audited source. For approved delivery, use separate approved report outputs and `--stage approved` only after the human gates pass; do not relabel a draft as approved.
@@ -538,7 +538,7 @@ Qualification helpers live under `maintain.py qualification`; corpus and standar
 - [Agent catalog](references/agent-catalog.md), [capability model](references/capability-model.md), and [semantic pipeline](references/semantic-pipeline.md)
 - [Run journal and worker adapter](references/runtime-adapter.md)
 - [Attack-lens routing index](references/attack-lenses-index.json) and [NEAR security model](references/near-security-model.md)
-- [Finding schema](references/finding-schema.md), [technical annex template](references/report-template.md), and [compact report format](references/pashov-report-format.md)
+- [Finding schema](references/finding-schema.md), [technical annex template](references/report-template.md), and [compact report format](references/slotzero-report-format.md)
 - [Threat-model contract](references/threat-model.md)
 - [Maintenance](references/maintenance.md) and [source provenance](references/provenance.md)
 

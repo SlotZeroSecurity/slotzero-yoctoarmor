@@ -1,6 +1,6 @@
-# Pashov-v4-style reader report
+# Slot Zero report format
 
-The reader-facing report follows the Pashov v4 sequence and compact finding shape:
+The Slot Zero report format uses this sequence and compact finding shape:
 `# 🔐 Draft Security Review`, Scope table, Findings sorted by confidence, Findings
 List, unscored Leads, disclaimer. A finding has `[score] **number. Title**`, a
 `Contract.function` meta line, one short `**Description**` stating actor, mechanism,
@@ -14,12 +14,12 @@ nearest integer. Repeat sightings appear as `seen in k/N runs`; they never add
 confidence. The Scope table records revision and draft/human-review status. The
 full technical report is linked as the annex because NEAR receipt proofs, the
 NEP ledger, guidance cards, and all case dispositions do not fit the compact
-Pashov shape. The compact report is a presentation of the finalized technical
+Slot Zero report format. The compact report is a presentation of the finalized technical
 verdicts, never another judging stage.
 
 ## Presentation rows
 
-Write `<run-dir>/pashov-content.jsonl` as one JSON object per verified finding and
+Write `<run-dir>/slotzero-content.jsonl` as one JSON object per verified finding and
 one per lead. Each object has:
 
 - `candidate_id`: an exact ID in `verdicts.jsonl`;
@@ -49,12 +49,11 @@ validated run ledgers, not the presentation rows. Refuted, duplicate, and
 standards-only cases remain in the technical annex and never appear as leads.
 
 The technical report must already be finalized in `run-state.json`. The renderer
-checks its SHA-256 and source fingerprint before writing `pashov-report.md`.
+checks its SHA-256 and source fingerprint before writing `slotzero-report.md`.
 The compact file stays in the run directory. The renderer prints that exact file
 for at most 20 findings. At 21 or more, it prints a counted top-three list and
 the full file path; the retained report still has every finding. Use `--project`
 when a frozen target copy has a generated directory name.
 
-The result has no Solidity-specific vulnerability assumptions or Pashov
-branding/affiliation claim. It borrows the report layout and terse writing
-style only. Keep the NEAR audit's proof and human-approval limits explicit.
+The Slot Zero report format keeps NEAR-specific evidence and terse finding
+descriptions. Keep the NEAR audit's proof and human-approval limits explicit.
