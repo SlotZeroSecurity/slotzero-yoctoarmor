@@ -19,6 +19,7 @@ The AI host orchestrates the audit and dispatches workers. The Python controller
 
 - [Quick start](#quick-start)
 - [Installation](#installation)
+- [Threat model](#threat-model)
 - [Modes and discovery passes](#modes-and-discovery-passes)
 - [Usage examples](#usage-examples)
 - [Architecture](#architecture)
@@ -31,8 +32,9 @@ The AI host orchestrates the audit and dispatches workers. The Python controller
 ## Quick start
 
 1. Install the complete skill using the instructions for your host below.
-2. Start a new host session in the NEAR repository you want reviewed.
-3. Invoke `near-auditor` with an explicit target, mode, and discovery-pass count.
+2. Place a repository-specific `THREAT_MODEL.md` at the audited repository root (see [Threat model](#threat-model)).
+3. Start a new host session in the NEAR repository you want reviewed.
+4. Invoke `near-auditor` with an explicit target, mode, and discovery-pass count.
 
 For Codex, paste this into the conversation after installation:
 
@@ -144,6 +146,98 @@ python3 scripts/maintain.py check
 
 **Known V1 documentation packaging issue:** both checks currently scan all Markdown for external URLs, including this README. With this README present, they report its badge and reference URLs as a package error. This documentation change does not modify those validators. See [troubleshooting](#maintenance-and-troubleshooting); do not treat a reported failure as a passed preflight.
 
+## Threat model
+
+Every scan starts with **`<target-root>/THREAT_MODEL.md`**. Describe the assets,
+attacker capabilities, trusted roles, and security properties for the actual
+repository. Every audit agent reads this file first, including independent
+verification and rescan workers. NEARShield records its digest and checks it
+throughout the run. Changing, removing, or later adding it requires a fresh scan.
+
+If the file is missing or empty, NEARShield stops and displays:
+
+> Auditing without explicit assets, attacker capabilities, trusted roles, and
+> security properties increases the likelihood of false positives and the effort
+> needed to validate findings. Generate the threat model and restart the scan,
+> or explicitly choose to continue without it.
+
+Use the [OpenAI Codex Security threat-model skill](https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/threat-model)
+to generate a repository-specific model. Use the complete skill/plugin with its
+supporting references, not an isolated copy of its entry file. Explicitly request
+this destination because the upstream skill may otherwise save a differently
+named artifact:
+
+```text
+Use the threat-model skill to generate a threat model for /absolute/path/to/near-project.
+Save it as /absolute/path/to/near-project/THREAT_MODEL.md. Identify assets,
+attacker capabilities, trusted roles, and security properties from the actual
+repository, and distinguish assumptions from established facts.
+```
+
+Review the result, then restart the NEARShield audit in a fresh run directory.
+If that skill is unavailable, report that limitation; do not claim it ran or
+substitute a generic model as if it were repository-specific.
+
+### Explicit continuation without a model
+
+You can explicitly tell the host to continue without the model for one scan.
+The controller equivalent is `run ... --allow-missing-threat-model`. The host must
+not supply this flag without your explicit choice; silence is not permission.
+A valid existing model is always used, even with the flag. Unreadable files,
+symlinks, and invalid UTF-8 are errors that the flag cannot bypass.
+
+Overridden runs disclose inferred assumptions and the increased validation burden
+in worker packets and reports. They cannot invent trusted-role assumptions to
+exclude issues. The flag does not permanently disable the prerequisite.
+
+### Example model
+
+This is an **illustrative Vault model**, not a default set of assumptions for
+NEAR. Adapt owner authority, oracle dependencies, transaction ordering, and flash
+liquidity capabilities to the repository and execution environment.
+
+```markdown
+# Threat model
+
+## Assets
+- User deposits held by the Vault
+
+## Trusted roles
+- Owner (multisig): can pause and upgrade, assumed honest
+- Chainlink price feeds: assumed honest but can be stale
+
+## Attacker
+- Any unprivileged address, can use flash loans and front-run
+
+## Security properties
+- A user can only withdraw what their shares are worth
+- Nobody but the owner can pause or upgrade the protocol
+```
+
+### How findings are filtered
+
+Triage and independent verification record a `threat_model_assessment` with the
+model digest, exact model citations, attacker capabilities, trust assumptions,
+and target-code evidence. Excluding a trusted-role attack requires checking
+privilege escalation, authorization bypass, manipulation of the trusted actor,
+and harm during honest operation.
+
+| Candidate | Treatment under the example model |
+| --- | --- |
+| Honest owner deliberately upgrades to malicious code | Exclude when the attack depends entirely on violating the explicit honest-owner assumption and no alternate unprivileged path exists. |
+| Unprivileged user bypasses the upgrade or pause guard | Retain for verification; owner trust does not cover unauthorized callers. |
+| An attacker exploits a stale honest price feed | Retain for verification; staleness is explicitly allowed. |
+| An honest admin action causes users to withdraw more than their share value | Retain for verification against the explicit property. |
+| A trust boundary is ambiguous or absent from the model | Keep scope unresolved; do not silently exclude. |
+
+Excluded issues are recorded as `out_of_scope`, not experimentally refuted or
+false-positive exploits. They stay in the evidence ledger and a separate annex
+accounting section, but are absent from findings, leads, recommendations, and
+severity totals. Finalization and report rendering reject missing assessments,
+stale digests, invalid citations, and excluded findings presented as reportable.
+Citation validation establishes provenance; agents and human reviewers still
+validate the meaning of the evidence. See the [assessment contract](references/threat-model.md).
+
 ## Modes and discovery passes
 
 Mode determines scope and testing effort. Discovery passes determine how many fresh blind L2/L3 searches are scheduled; these are independent settings.
@@ -210,7 +304,8 @@ Generated build output, vendored dependencies, and unrelated crates are excluded
 
 ```mermaid
 flowchart TD
-    A[Freeze scope and build semantic inventory] --> B[L0: target intent model]
+    TM[Read threat model or record explicit override] --> A[Freeze scope and build semantic inventory]
+    A --> B[L0: target intent model]
     B --> C[L1: routed pattern baseline]
     B --> D[L2: fresh blind intent passes]
     C --> E[L3: blind specialist passes and active testing]
@@ -332,6 +427,7 @@ python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
 | `--worker-capacity N` | Requested positive spawned-worker count, excluding the orchestrator; parser default 8. The example uses 1 without assuming host capacity. |
 | `--runtime-capacity N` | Observed positive host worker capacity; unknown by default. Requested capacity cannot exceed it. Unknown runtime capacity permits only one recorded active worker. |
 | `--orchestrator-model NAME` | Record an observed orchestrator model identifier; unknown by default. Does not select or launch a model. |
+| `--allow-missing-threat-model` | Explicit per-scan continuation if the model is missing/empty; absent by default. Cannot bypass invalid files or discard a supplied model. |
 | `--worker-model NAME` | Record an observed worker model identifier; unknown by default. Does not configure host workers. |
 
 Alternative initializations, **choose one for a fresh run directory**:
@@ -422,6 +518,7 @@ Maintenance, corpus ingestion, standards refresh, and benchmark qualification ar
 
 | Symptom | Action |
 | --- | --- |
+| Missing or empty `THREAT_MODEL.md` | Generate and review the target model, save it at the target root, then restart; alternatively explicitly authorize the per-scan override. |
 | Skill is not discovered | Confirm the directory is named `near-auditor`, contains `SKILL.md` and supporting folders, and sits in a documented host skill location. Start a new session and check host permissions. |
 | Clone returns “not found” | Confirm the authenticated account has access to this private repository. |
 | Preflight reports an external URL in `README.md` | Known V1 packaging conflict: both `doctor` and `maintain.py check` scan every Markdown file, including public-facing badge/reference links. This README is intentionally retained; the validator policy needs a separate code change before whole-checkout checks can pass. Other errors require independent investigation. |
@@ -442,6 +539,7 @@ Qualification helpers live under `maintain.py qualification`; corpus and standar
 - [Run journal and worker adapter](references/runtime-adapter.md)
 - [Attack-lens routing index](references/attack-lenses-index.json) and [NEAR security model](references/near-security-model.md)
 - [Finding schema](references/finding-schema.md), [technical annex template](references/report-template.md), and [compact report format](references/pashov-report-format.md)
+- [Threat-model contract](references/threat-model.md)
 - [Maintenance](references/maintenance.md) and [source provenance](references/provenance.md)
 
 For professional review, [request an audit from Slot Zero Security](https://slotzerosecurity.com/contact). Explore [public audit reports](https://github.com/SlotZeroSecurity/audits) and follow [Slot Zero Security on X](https://x.com/Slot_Zero_Sec).

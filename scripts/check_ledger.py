@@ -21,7 +21,7 @@ def active_patterns() -> dict[str, dict[str, object]]:
     return validate_index()["cards"]
 
 
-VERDICTS = {"valid", "valid_downgraded", "lead", "false_positive"}
+VERDICTS = {"valid", "valid_downgraded", "lead", "false_positive", "out_of_scope"}
 PROOF_STATUSES = {
     "VERIFIED_EXECUTED",
     "VERIFIED_STRUCTURAL",
@@ -29,6 +29,7 @@ PROOF_STATUSES = {
     "PARTIAL",
     "CONTESTED",
     "REFUTED",
+    "NOT_APPLICABLE",
 }
 SEVERITIES = {"critical", "high", "medium", "low", "informational"}
 IMPACTS = {"Severe", "Moderate", "Minor", "None"}
@@ -48,8 +49,8 @@ DISCOVERY_TECHNIQUES = {
     "counterexample_rescan",
     "verified_seed_variant",
 }
-TRIAGE_STATUSES = {"passed", "rejected", "blocked"}
-VERIFICATION_STATUSES = {"verified", "downgraded", "lead", "refuted", "blocked", "contested"}
+TRIAGE_STATUSES = {"passed", "rejected", "blocked", "out_of_scope"}
+VERIFICATION_STATUSES = {"verified", "downgraded", "lead", "refuted", "blocked", "contested", "out_of_scope"}
 HUMAN_DISPOSITIONS = {
     "approved",
     "rejected",
@@ -370,6 +371,7 @@ def validate_ledgers(
     verdicts: dict[str, dict[str, object]],
     dispositions: dict[str, dict[str, object]],
     stage: str = "approved",
+    manifest: dict | None = None,
 ) -> dict[str, object]:
     """Validate all automated evidence; draft additionally permits pending review."""
     if stage not in {"draft", "approved"}:
@@ -377,6 +379,11 @@ def validate_ledgers(
     counts = validate_dedup(raw, dedup, dispositions)
     deduplicated = ledger_index(dedup, "deduplicated candidate")
     verdicts = ledger_index(verdicts, "verdict")
+    if manifest is not None:
+        from threat_model import validate_verdict_assessments
+        validate_verdict_assessments(list(verdicts.values()), manifest)
+    elif any(row.get("verdict") == "out_of_scope" for row in verdicts.values()):
+        raise ValueError("out_of_scope requires a frozen threat-model manifest")
 
     missing_verdicts = sorted(set(deduplicated) - set(verdicts))
     unknown_verdicts = sorted(set(verdicts) - set(deduplicated))
@@ -394,6 +401,8 @@ def validate_ledgers(
             raise ValueError(f"verdict {candidate_id}: triage evidence must be a list")
         if triage_status == "rejected" and not triage.get("blocking_fact"):
             raise ValueError(f"verdict {candidate_id}: rejected triage requires blocking_fact")
+        if triage_status == "out_of_scope" and (row.get("verdict") != "out_of_scope" or not triage.get("blocking_fact")):
+            raise ValueError(f"verdict {candidate_id}: out_of_scope triage requires exclusion evidence and matching verdict")
         if triage_status == "passed" and not triage.get("packet_hash"):
             raise ValueError(f"verdict {candidate_id}: passed triage requires packet_hash")
         expected_stage = "adversarial_verification" if triage_status == "passed" else "evidence_triage"
@@ -414,6 +423,8 @@ def validate_ledgers(
             raise ValueError(f"verdict {candidate_id}: blocked triage must end lead")
         if row.get("proof_status") not in PROOF_STATUSES:
             raise ValueError(f"verdict {candidate_id}: invalid or missing proof_status")
+        if verdict != "out_of_scope" and (row.get("proof_status") == "NOT_APPLICABLE" or row.get("poc_status") == "NOT_APPLICABLE" or row.get("verification_status") == "out_of_scope"):
+            raise ValueError(f"verdict {candidate_id}: exclusion status requires out_of_scope")
         if verdict in {"valid", "valid_downgraded"}:
             severity = str(row.get("severity", "")).lower()
             if severity not in SEVERITIES:
@@ -463,9 +474,14 @@ def main() -> int:
     parser.add_argument("dispositions", type=Path)
     parser.add_argument("--stage", choices=("draft", "approved"), default="approved")
     args = parser.parse_args()
+    manifest_path = args.verdicts.parent / "run-manifest.json"
+    manifest = None
+    if manifest_path.is_file():
+        from run_integrity import validate_bindings
+        manifest = validate_bindings(args.verdicts.parent)
     print(json.dumps(validate_ledgers(
         args.raw_candidates, args.deduplicated, args.verdicts, args.dispositions,
-        stage=args.stage,
+        stage=args.stage, manifest=manifest,
     )))
     return 0
 

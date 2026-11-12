@@ -207,7 +207,7 @@ def write_json(path: Path, value: object) -> None:
 ACTIVE_ROLES = {"invariant-synthesis", "mutation-analysis", "async-state-explorer", "nep-differential", "temporal-upgrade"}
 
 
-def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1) -> list[dict[str, object]]:
+def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1, threat_model: dict | None = None) -> list[dict[str, object]]:
     packets: list[dict[str, object]] = []
     routed_lenses = list(surface.get("selected_pattern_references", []))
 
@@ -222,6 +222,10 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
         additional_outputs: list[str] | None = None,
         discovery_pass: int | None = None,
     ) -> None:
+        if threat_model is not None and threat_model["status"] == "provided":
+            allowed = [str(Path(surface["root"]) / "THREAT_MODEL.md"), *allowed]
+        if role in {"evidence-triage", "adversarial-verifier"}:
+            allowed = [*allowed, "references/threat-model.md"]
         packet: dict[str, object] = {
             "schema_version": 1,
             "packet_id": f"{phase}:{role}" + (f":pass-{discovery_pass:02d}" if discovery_pass is not None else ""),
@@ -397,8 +401,12 @@ def initialize(args: argparse.Namespace) -> dict[str, object]:
     from source_inventory import snapshot_inputs, validate_root
     from map_surface import discover
 
-    passes = choose_discovery_passes(args.loop)
     target = validate_root(args.target)
+    from threat_model import inspect_model, WARNING
+    threat_model = inspect_model(target, args.allow_missing_threat_model)
+    if threat_model["status"] == "overridden":
+        print("WARNING: " + WARNING + " Explicit override recorded for this run.", file=sys.stderr)
+    passes = choose_discovery_passes(args.loop)
     if not target.is_dir():
         raise ValueError(f"target is not a directory: {target}")
     if args.mode == "explicit-files" and not args.files:
@@ -458,7 +466,9 @@ def initialize(args: argparse.Namespace) -> dict[str, object]:
     revision, dirty = git_state(target)
     nep = read_json(REFERENCES / "nep-registry.json")
     docs = read_json(REFERENCES / "official-docs-registry.json")
-    packets = make_work_packets(run_dir, surface, passes)
+    if inspect_model(target, args.allow_missing_threat_model) != threat_model:
+        raise ValueError("threat-model changed during initialization; start a new run")
+    packets = make_work_packets(run_dir, surface, passes, threat_model)
     if passes > 1:
         for number in range(1, passes + 1):
             (run_dir / "l2" / f"pass-{number:02d}").mkdir()
@@ -491,6 +501,7 @@ def initialize(args: argparse.Namespace) -> dict[str, object]:
         "started_at": utc_now(),
         "run_directory_id": run_dir.name,
         "trust_assumptions": [],
+        "threat_model": threat_model,
         "semantic_ir_hash": canonical_hash(semantic),
         "semantic_extractor_hash": semantic["extractor_hash"],
         "content_fingerprint": semantic["content_fingerprint"],
@@ -912,6 +923,8 @@ def parser() -> argparse.ArgumentParser:
     run.add_argument("--runtime-capacity", type=int, help="Observed spawned-worker slots; omit when unknown")
     run.add_argument("--orchestrator-model", default=None)
     run.add_argument("--worker-model", default=None)
+    run.add_argument("--allow-missing-threat-model", action="store_true",
+                     help="Explicit per-run override for missing/empty THREAT_MODEL.md; increases false-positive likelihood and validation effort")
     run.set_defaults(handler=initialize)
     for name in ("status", "resume", "finalize"):
         command = commands.add_parser(name)

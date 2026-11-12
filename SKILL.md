@@ -21,6 +21,14 @@ NEAR development and generic Rust review do not start a security audit.
 Maintenance, ingestion, and qualification do not initialize a target audit.
 Read only the selected route and references needed for the requested work.
 
+Target audits require `<target-root>/THREAT_MODEL.md` before discovery. If missing
+or empty, stop, explain increased false-positive likelihood and validation effort,
+and offer generation/restart via [README](README.md#threat-model), or explicit
+per-scan continuation with `--allow-missing-threat-model`. Silence never permits
+continuation. Every audit worker reads the model first. Validate trust assumptions
+and alternate attacker paths before excluding issues; retain exclusions in evidence
+accounting, not findings. Follow the [threat-model contract](references/threat-model.md).
+
 ## Shared contract
 
 Resolve `<skill>` from this invoked SKILL.md. Source checkouts, raw reports, and

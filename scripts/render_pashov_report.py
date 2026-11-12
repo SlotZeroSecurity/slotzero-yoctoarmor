@@ -113,6 +113,9 @@ def render(run: Path, content_path: Path, project: str | None = None) -> str:
     record = state.get("report") or {}
     if state.get("status") not in {"draft_ready", "complete"}:
         raise ValueError("the technical report must be finalized before the compact report")
+    if manifest.get("schema_version", 0) >= 6:
+        from check_run_artifacts import validate_run
+        validate_run(run, final=True, stage=record.get("stage", "draft"))
     technical = contained(run, Path(record.get("path", "")))
     if not technical.is_file():
         raise ValueError("recorded technical report is missing")
@@ -123,6 +126,9 @@ def render(run: Path, content_path: Path, project: str | None = None) -> str:
         raise ValueError("technical report is bound to a different source snapshot")
     if record.get("configuration_hash") != manifest.get("configuration_hash"):
         raise ValueError("technical report is bound to a different skill configuration")
+    if manifest.get("schema_version", 0) >= 6:
+        from report_assembly import validate_assembled
+        validate_assembled(run, manifest, technical.read_text(encoding="utf-8"))
     verdicts = {row["candidate_id"]: row for row in read_jsonl(run / "verdicts.jsonl")}
     candidates = {row["candidate_id"]: row for row in read_jsonl(run / "deduplicated.jsonl")}
     findings = {cid for cid, row in verdicts.items() if row["verdict"] in VALID}
@@ -183,6 +189,9 @@ def render(run: Path, content_path: Path, project: str | None = None) -> str:
     lines += [f"| **Revision** | `{manifest['target_revision']}` |",
               f"| **Review status** | {review_text} |",
               f"| **NEAR evidence and NEP ledger** | [Technical annex]({technical}) |"]
+    if manifest.get("schema_version", 0) >= 6:
+        from threat_model import report_context
+        lines.append(f"| **Threat model** | {report_context(manifest)} |")
     if omitted:
         lines.append(f"| **Presentation exclusions** | {len(omitted)} audited finding{'s' if len(omitted) != 1 else ''} omitted at the user's request; retained in the annex |")
     lines += ["", "---", "", "## Findings", ""]

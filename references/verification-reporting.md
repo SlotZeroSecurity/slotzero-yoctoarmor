@@ -30,6 +30,16 @@
 
 ## Evidence-triage gate
 
+Read the supplied target `THREAT_MODEL.md` first and follow the
+[assessment and exclusion contract](threat-model.md). Record an evidence-backed
+assessment at triage and independently for each passed survivor at verification.
+An explicitly trusted admin's malicious authorized action alone is out of scope;
+first rule out escalation, bypass, manipulation, and honest-operation harm.
+Staleness allowed by an honest-feed assumption remains in scope. Never exclude
+merely because a role is owner/admin or a property is not listed. Ambiguity is
+unresolved. With an explicit missing-model override, disclose inferred assumptions
+and never exclude on invented trust. `out_of_scope` is not an executed refutation.
+
 The first judge reads the deduplicated candidate and only enough target context to
 decide whether expensive verification is warranted. Record exact source/export
 evidence, receipt reachability, attacker control, violated invariant, plausible
@@ -38,6 +48,7 @@ harm, scope, duplication, standards classification, and counter-evidence.
 - `passed`: create a hashed minimal evidence packet and continue to a fresh verifier.
 - `rejected`: name a positive blocking fact, not an intuition or missing PoC.
 - `blocked`: name the exact evidence needed; do not convert uncertainty into refutation.
+- `out_of_scope`: cite an explicit threat-model assumption and all required alternate-path checks; retain exclusion accounting without claiming experimental refutation.
 
 The triage agent cannot invent a different mechanism, change scope, assign final
 severity, or hide a candidate. Its structured object is embedded in the final
@@ -117,6 +128,7 @@ autonomous learning; durable scanner changes remain offline, reviewed releases.
 - `PARTIAL`: mechanism proven; material precondition or harm incomplete.
 - `CONTESTED`: skeptic disagreement or unavailable material context.
 - `REFUTED`: exact plus one reasonable relaxed variant fail because a proven defense blocks harm.
+- `NOT_APPLICABLE`: reserved for an evidence-backed `out_of_scope` verdict; no exploit execution/refutation is claimed.
 - `DUPLICATE` / `CHAIN_ABSORBED`: retained in the ledger.
 
 Before `REFUTED`, confirm exact commit/function/macros/features/export, callers and initialization, helper/standard guards, exact preconditions, harm assertion, one relaxed timing/amount/state variant, and an independent positive blocking condition.

@@ -792,7 +792,7 @@ def validate_phase(run_dir: Path, phase: str, *, manifest: dict | None = None) -
         validate_dedup(*values)
     elif phase == "two-stage-judge":
         values = ledger_inputs(run_dir)
-        validate_ledgers(**values, stage="draft")
+        validate_ledgers(**values, stage="draft", manifest=manifest if manifest["schema_version"] >= 6 else None)
         triage = unique(strict_jsonl(run_dir / "triage.jsonl"), "candidate_id", "triage")
         if set(triage) != set(values["dedup"]):
             raise ValueError("triage artifact must account for every deduplicated candidate")
@@ -809,14 +809,14 @@ def validate_phase(run_dir: Path, phase: str, *, manifest: dict | None = None) -
         if set(ids) != set(summary["new_candidate_ids"]):
             raise ValueError("rescan summary differs from its producer output")
         reconcile_candidates(run_dir)
-        validate_ledgers(**ledger_inputs(run_dir), stage="draft")
+        validate_ledgers(**ledger_inputs(run_dir), stage="draft", manifest=manifest if manifest["schema_version"] >= 6 else None)
     elif phase == "human-feedback":
         from record_feedback import validate_feedback
         validate_feedback(run_dir, require_complete=True)
     elif phase == "informed-rescan":
         validate_feedback_and_informed_rescan(run_dir, True, "approved")
         reconcile_candidates(run_dir)
-        validate_ledgers(**ledger_inputs(run_dir), stage="draft")
+        validate_ledgers(**ledger_inputs(run_dir), stage="draft", manifest=manifest if manifest["schema_version"] >= 6 else None)
     else:
         raise ValueError(f"unknown validation phase: {phase}")
 
@@ -856,7 +856,7 @@ def validate_run(run_dir: Path, *, final: bool = False, stage: str = "approved")
         for phase in PHASES[:7]:
             validate_phase(run_dir, phase, manifest=manifest)
         reconcile_candidates(run_dir)
-        validate_ledgers(**ledger_inputs(run_dir), stage=stage)
+        validate_ledgers(**ledger_inputs(run_dir), stage=stage, manifest=manifest if manifest["schema_version"] >= 6 else None)
         raw_ids = set(ledger_inputs(run_dir)["raw"])
         for filename in ("invariant-ledger.jsonl", "async-schedules.jsonl", "nep-differential.jsonl", "temporal-upgrade.jsonl", "official-guidance-coverage.jsonl", "nep-coverage.jsonl"):
             for row in load_jsonl(run_dir / filename, required=False):

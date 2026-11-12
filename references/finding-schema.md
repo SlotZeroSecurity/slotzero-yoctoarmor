@@ -168,6 +168,11 @@ Allowed dispositions: `conformant`, `security_candidate`, `conformance_deviation
 
 ## Verifier verdict
 
+Current controlled runs require the [threat-model assessment contract](threat-model.md#assessment-shape)
+inside triage and, for passed survivors, at verdict top level. Exclusions use
+`out_of_scope` and `NOT_APPLICABLE`, not false-positive or refuted outcomes.
+Scope ambiguity stays a lead; human disposition stays pending until actual review.
+
 Verifier artifacts also use JSONL:
 
 ```json
@@ -203,17 +208,17 @@ Verifier artifacts also use JSONL:
 }
 ```
 
-Allowed triage statuses are `passed`, `rejected`, and `blocked`. A passed triage
+Allowed triage statuses are `passed`, `rejected`, `blocked`, and `out_of_scope`. A passed triage
 must continue to adversarial verification. A rejected triage requires a concrete
 `blocking_fact`; a blocked triage names missing evidence. Allowed verification
 statuses are `verified`, `downgraded`, `lead`, `refuted`, `blocked`, and
-`contested`. Allowed human dispositions are `pending`, `approved`, `rejected`,
+`contested`, and `out_of_scope`. Allowed human dispositions are `pending`, `approved`, `rejected`,
 `standards_only`, `advisory`, `duplicate`, `out_of_scope`, and `blocked`. Approved
 report generation cannot proceed while a reportable finding or conformance
 deviation remains `pending`; a draft may retain clearly labelled pending decisions.
 Follow [finalization rules](verification-reporting.md#draft-and-approved-finalization).
 
-Allowed verdicts: `valid`, `valid_downgraded`, `lead`, `false_positive`. Allowed proof statuses are listed in `verification-reporting.md`. A false positive must name `blocking_defense`; a blocked build uses `poc_status: BUILD_BLOCKED` and is not automatically false.
+Allowed verdicts: `valid`, `valid_downgraded`, `lead`, `false_positive`, `out_of_scope`. Allowed proof statuses are listed in `verification-reporting.md`. A false positive must name `blocking_defense`; a blocked build uses `poc_status: BUILD_BLOCKED` and is not automatically false.
 
 ## Unresolved-assumption row
 

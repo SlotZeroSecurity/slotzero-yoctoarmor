@@ -54,3 +54,8 @@ gain, and median wall-time and input-token overhead at or below 20%. Public
 smoke fixtures are regressions, not qualification evidence. If representative
 targets or actual usage exports are unavailable, leave the release-gain claim
 unverified rather than synthesizing measurements.
+
+All audit role packets begin with a supplied threat-model read-first instruction
+or an explicit missing-model override notice. The supplied model is the first
+allowed input. This is an instruction contract, not proof of reading. Model drift
+blocks packet access and run continuation. See [threat-model.md](threat-model.md).

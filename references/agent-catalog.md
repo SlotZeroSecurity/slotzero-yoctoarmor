@@ -17,6 +17,15 @@
 
 ## Shared operating rules
 
+Before analysis, every audit worker reads the target root's `THREAT_MODEL.md`
+when provided. Apply its assets, capabilities, trust assumptions, and properties;
+preserve ambiguity and model contents. On explicit override disclose assumptions
+without inventing trusted-role exclusions. Neutral L0/L2 receive the supplied
+model as target context, never the attack corpus. Triage and verification use the
+[threat-model contract](threat-model.md) and independently assess alternate
+unprivileged paths before excluding a trusted-role attack. Excluded rows remain
+in evidence accounting, not reported findings.
+
 Use the [audit workflow](audit-workflow.md#phase-2--blind-l3-discovery-and-active-testing)
 for role selection, runtime metadata, scheduling, and collection. Roles are prompt
 assignments to available Codex subagents, not global agent-config names.
@@ -486,7 +495,10 @@ assigned artifacts.
 
 ## Verification prompt
 
-Run evidence triage first. A fresh verifier receives only a survivor packet:
+Run evidence triage first. Read THREAT_MODEL.md before the candidate packet.
+Record threat_model_assessment in triage; each passed survivor needs a new
+assessment at the verdict top level. Apply the contract in threat-model.md.
+A fresh verifier receives only a survivor packet plus the supplied threat model:
 
 ```text
 Assume candidate {candidate_id} is a false positive. Read only its complete
@@ -498,7 +510,7 @@ Apply gates in order: runtime-valid receipt graph; reachable live state; attacke
 control under predecessor/signer/current/key rules; every success/failure/refund
 branch; material terminal harm. Prefer a local sandbox PoC; never use testnet or
 mainnet without explicit authorization. Return exactly one JSON verdict:
-valid, valid_downgraded, lead, or false_positive, using the complete verifier
+valid, valid_downgraded, lead, false_positive, or out_of_scope, using the complete verifier
 verdict object in finding-schema.md: proof status, severity when valid, impact,
 likelihood, all five confidence axes and exact total, rationale, evidence,
 blocking defense where applicable, PoC status, and external assumptions. Stop

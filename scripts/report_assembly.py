@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
+from html import escape
 
 from run_integrity import artifact_path, read_json, read_jsonl
 
@@ -42,6 +44,9 @@ def canonical_front(run_dir: Path, manifest: dict) -> str:
         raise ValueError("report requires all L2 and L3 discovery passes")
     dedup = {row["candidate_id"]: row for row in read_jsonl(run_dir / "deduplicated.jsonl")}
     verdicts = {row["candidate_id"]: row for row in read_jsonl(run_dir / "verdicts.jsonl")}
+    if manifest.get("schema_version", 0) >= 6:
+        from threat_model import validate_verdict_assessments
+        validate_verdict_assessments(list(verdicts.values()), manifest)
     origins = discovery_origins(run_dir, manifest)
     by_target: dict[str, set[int]] = {candidate: set() for candidate in dedup}
     for row in read_jsonl(run_dir / "dispositions.jsonl"):
@@ -71,20 +76,52 @@ def canonical_front(run_dir: Path, manifest: dict) -> str:
             lines.append(f"| `{candidate}` | {verdict['severity'].title()} | {sentence} | {len(by_target[candidate])}/{planned} |")
     else:
         lines.append("Top 0 of 0 — no verified findings.")
+    if manifest.get("schema_version", 0) >= 6:
+        from threat_model import report_context
+        lines += ["", report_context(manifest)]
     return "\n".join(lines) + "\n\n"
 
 
+def exclusions(run_dir: Path) -> str:
+    """Retain exclusions as accounting, never findings or recommendations."""
+    rows = [row for row in read_jsonl(run_dir / "verdicts.jsonl") if row["verdict"] == "out_of_scope"]
+    if not rows:
+        return ""
+    def cell(value: str) -> str:
+        return escape(" ".join(value.split())).replace("|", "&#124;")
+    lines = ["## Threat-model exclusions", "", "Excluded from findings and leads; retained only for audit accounting.", "",
+             "| Candidate | Model evidence | Exclusion reason |", "| --- | --- | --- |"]
+    for row in sorted(rows, key=lambda item: item["candidate_id"]):
+        assessment = row.get("threat_model_assessment", row["triage"]["threat_model_assessment"])
+        citations = "; ".join(f"{c['path']}:{c['start']}-{c['end']}: {c['quote']}" for c in assessment["model_citations"])
+        lines.append(f"| {cell(row['candidate_id'])} | {cell(citations)} | {cell(assessment['rationale'])} |")
+    return "\n".join(lines) + "\n"
+
+
+def reject_excluded_presentation(run_dir: Path, text: str) -> None:
+    for row in read_jsonl(run_dir / "verdicts.jsonl"):
+        if row["verdict"] == "out_of_scope" and re.search(r"(?<![\w-])" + re.escape(row["candidate_id"]) + r"(?![\w-])", text):
+            raise ValueError(f"excluded candidate may appear only in generated exclusion accounting: {row['candidate_id']}")
+
+
 def assemble(run_dir: Path, manifest: dict, body: str) -> str:
+    if "## Threat-model exclusions" in body:
+        raise ValueError("threat-model exclusion accounting is generated, not authored in the body")
+    reject_excluded_presentation(run_dir, body)
     if "## Scope at a glance" in body or "## Top findings —" in body:
         raise ValueError("body already contains an assembled front section")
     lines = body.splitlines(keepends=True)
     index = next((i for i, line in enumerate(lines) if line.startswith("# ")), None)
     if index is None:
         raise ValueError("report body has no title heading")
-    return "".join(lines[:index + 1]) + "\n" + canonical_front(run_dir, manifest) + "".join(lines[index + 1:])
+    return "".join(lines[:index + 1]) + "\n" + canonical_front(run_dir, manifest) + "".join(lines[index + 1:]) + "\n" + exclusions(run_dir)
 
 
 def validate_assembled(run_dir: Path, manifest: dict, report: str) -> None:
+    excluded = exclusions(run_dir)
+    if excluded and report.count(excluded) != 1:
+        raise ValueError("report must retain exact threat-model exclusion accounting")
+    reject_excluded_presentation(run_dir, report.replace(excluded, "") if excluded else report)
     if not report.startswith("```text\n███████╗"):
         raise ValueError("Slot Zero NEAR banner missing from report start")
     front = canonical_front(run_dir, manifest)

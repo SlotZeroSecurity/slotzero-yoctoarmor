@@ -245,3 +245,10 @@ List every planned discovery pass and L2/L3 packet with complete, failed, or
 missing status. Count raw candidates per pass, unique deduplicated candidates,
 and verified findings separately. Never mark coverage complete when a pass,
 packet, source binding, or record validation failed.
+
+## Threat-model reporting contract
+
+The controller inserts the model digest or explicit-override limitation and the
+Threat-model exclusions accounting section. Do not put excluded candidate IDs in
+the authored body, findings, leads, recommendations, or severity totals. Preserve
+them in raw and verdict ledgers. See [the contract](threat-model.md).

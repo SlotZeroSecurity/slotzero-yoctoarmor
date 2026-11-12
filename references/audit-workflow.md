@@ -10,6 +10,14 @@ report or preface during resumed phases.
 
 ## Inputs and modes
 
+First enforce the [threat-model prerequisite](threat-model.md). Require the target
+root's `THREAT_MODEL.md`, or stop for generation/restart or explicit per-scan
+continuation. Only an explicit user choice permits the controller flag
+`--allow-missing-threat-model`; record the limitation without inventing trust.
+Every worker reads the supplied model first, including judges and rescans.
+Apply evidence-backed threat-model assessments to every triage and every passed
+survivor's verification. Exclusions remain in accounting, never findings.
+
 Resolve the target root before acting. Never mutate audited source. Default to
 standard mode unless explicit files or deep mode are requested. L0–L4 describe
 demonstrated capabilities, not audit modes. Preserve all 12 core roles, applicable

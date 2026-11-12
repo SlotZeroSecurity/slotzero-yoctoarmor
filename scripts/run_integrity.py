@@ -142,6 +142,8 @@ def validate_bindings(run_dir: Path, skill: Path | None = None) -> dict:
     current = snapshot_inputs(target, [Path(item) for item in manifest.get("explicit_files", [])])
     if manifest.get("input_snapshot") != current or manifest.get("input_fingerprint") != canonical_hash(current):
         raise ValueError("source/context drift: input files changed, appeared or disappeared; start a new run")
+    from threat_model import validate_model_binding
+    validate_model_binding(manifest)
     if manifest.get("surface_hash") != canonical_hash(read_json(run_dir / "surface.json")):
         raise ValueError("surface manifest differs from its frozen hash")
     if manifest.get("neutral_surface_hash") != canonical_hash(read_json(run_dir / "neutral-surface.json")):
