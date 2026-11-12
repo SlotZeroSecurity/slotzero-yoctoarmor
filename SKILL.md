@@ -1,9 +1,9 @@
 ---
-name: near-auditor
-description: Audit NEAR systems for security and NEP conformance, presenting findings in the compact Slot Zero report format with a full evidence annex. Also handles explicit maintenance, source corpus, and benchmark qualification.
+name: nearshield-v1
+description: Slot Zero Security Framework for NEAR Code Review
 ---
 
-# NEAR Multi-Agent Security Auditor
+# NEARShield v1
 
 Choose the request route before resolving a target or creating a run. Ordinary
 NEAR development and generic Rust review do not start a security audit.

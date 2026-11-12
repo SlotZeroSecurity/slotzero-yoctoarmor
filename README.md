@@ -11,7 +11,7 @@
 
 NEARShield combines target modeling, NEAR-specific attack patterns, independent discovery agents, active testing, NEP conformance review, and adversarial verification. It produces a concise security report backed by a full technical evidence annex.
 
-**Version:** V1 · **Skill name:** `near-auditor` · **Controller:** `scripts/near_audit.py`
+**Version:** V1 · **Skill name:** `nearshield-v1` · **Controller:** `scripts/near_audit.py`
 
 The AI host orchestrates the audit and dispatches workers. The Python controller prepares work packets, tracks evidence, and validates phase gates; running it alone does not perform an AI audit.
 
@@ -34,12 +34,12 @@ The AI host orchestrates the audit and dispatches workers. The Python controller
 1. Install the complete skill using the instructions for your host below.
 2. Place a repository-specific `THREAT_MODEL.md` at the audited repository root (see [Threat model](#threat-model)).
 3. Start a new host session in the NEAR repository you want reviewed.
-4. Invoke `near-auditor` with an explicit target, mode, and discovery-pass count.
+4. Invoke `nearshield-v1` with an explicit target, mode, and discovery-pass count.
 
 For Codex, paste this into the conversation after installation:
 
 ```text
-$near-auditor Audit /absolute/path/to/near-project in standard mode with --loop 3.
+$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3.
 Keep audit artifacts outside the target repository and deliver the draft report
 with its technical annex. Use the available subagents for the required roles.
 ```
@@ -65,7 +65,7 @@ Personal installation, available across projects:
 ```bash
 mkdir -p "$HOME/.agents/skills"
 git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  "$HOME/.agents/skills/near-auditor"
+  "$HOME/.agents/skills/nearshield-v1"
 ```
 
 For a project installation, run from the project root instead:
@@ -73,10 +73,10 @@ For a project installation, run from the project root instead:
 ```bash
 mkdir -p .agents/skills
 git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  .agents/skills/near-auditor
+  .agents/skills/nearshield-v1
 ```
 
-Start a new Codex session and select or invoke **`$near-auditor`**. These examples use the currently documented skill locations; existing installations may use a different configured path. See [Codex skill documentation](https://learn.chatgpt.com/docs/build-skills).
+Start a new Codex session and select or invoke **`$nearshield-v1`**. These examples use the currently documented skill locations; existing installations may use a different configured path. See [Codex skill documentation](https://learn.chatgpt.com/docs/build-skills).
 
 ### Claude Code
 
@@ -85,7 +85,7 @@ Personal installation:
 ```bash
 mkdir -p "$HOME/.claude/skills"
 git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  "$HOME/.claude/skills/near-auditor"
+  "$HOME/.claude/skills/nearshield-v1"
 ```
 
 For a project installation, run from the project root instead:
@@ -93,13 +93,13 @@ For a project installation, run from the project root instead:
 ```bash
 mkdir -p .claude/skills
 git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  .claude/skills/near-auditor
+  .claude/skills/nearshield-v1
 ```
 
 Invoke the skill in a local Claude Code session:
 
 ```text
-/near-auditor Audit /absolute/path/to/near-project in standard mode with --loop 3.
+/nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3.
 Use the available subagents and report any unsupported orchestration requirement.
 ```
 
@@ -112,7 +112,7 @@ Personal installation:
 ```bash
 mkdir -p "$HOME/.config/opencode/skills"
 git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  "$HOME/.config/opencode/skills/near-auditor"
+  "$HOME/.config/opencode/skills/nearshield-v1"
 ```
 
 For a project installation, run from the project root instead:
@@ -120,18 +120,18 @@ For a project installation, run from the project root instead:
 ```bash
 mkdir -p .opencode/skills
 git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  .opencode/skills/near-auditor
+  .opencode/skills/nearshield-v1
 ```
 
 Ask OpenCode to load the skill explicitly:
 
 ```text
-Load the near-auditor skill and audit /absolute/path/to/near-project in standard
+Load the nearshield-v1 skill and audit /absolute/path/to/near-project in standard
 mode with 3 discovery passes. Use available subagents for the required roles
 and report any unsupported orchestration requirement.
 ```
 
-See [OpenCode skills](https://opencode.ai/docs/skills/) and [OpenCode agents](https://opencode.ai/docs/agents/). A custom `/near-auditor` command is not required by these instructions.
+See [OpenCode skills](https://opencode.ai/docs/skills/) and [OpenCode agents](https://opencode.ai/docs/agents/). A custom `/nearshield-v1` command is not required by these instructions.
 
 ### Host compatibility and preflight
 
@@ -259,33 +259,33 @@ Loops repeat **blind L2 intent reasoning and blind L3 specialist discovery**, wi
 
 ## Usage examples
 
-These examples are **messages to the AI host**, not shell commands. For Claude Code replace `$near-auditor` with `/near-auditor`; for OpenCode start with “Load the near-auditor skill.”
+These examples are **messages to the AI host**, not shell commands. For Claude Code replace `$nearshield-v1` with `/nearshield-v1`; for OpenCode start with “Load the nearshield-v1 skill.”
 
 ### Standard audit with one pass
 
 ```text
-$near-auditor Audit /absolute/path/to/near-project in standard mode with --loop 1.
+$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 1.
 Deliver the compact draft report and full technical annex.
 ```
 
 ### Standard audit with three passes
 
 ```text
-$near-auditor Audit /absolute/path/to/near-project in standard mode with --loop 3.
+$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3.
 Keep the discovery contexts independent and account for all required coverage.
 ```
 
 ### Deep audit with five passes
 
 ```text
-$near-auditor Audit /absolute/path/to/near-project --deep --loop 5.
+$nearshield-v1 Audit /absolute/path/to/near-project --deep --loop 5.
 Run the applicable deep-mode gates and report any verification blockers.
 ```
 
 ### Audit selected files
 
 ```text
-$near-auditor Audit /absolute/path/to/near-project with --loop 1.
+$nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
 Use explicit-file scope: contracts/vault/src/lib.rs and contracts/vault/src/fees.rs.
 Read the surrounding context needed to establish reachability and impact.
 ```
@@ -293,7 +293,7 @@ Read the surrounding context needed to establish reachability and impact.
 ### Copy the compact report to another location
 
 ```text
-$near-auditor Audit /absolute/path/to/near-project in standard mode with --loop 3
+$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3
 and --file-output. Copy the compact report to /absolute/path/to/reviews/nearshield.md,
 outside the audited repository. Retain the complete run artifacts and annex.
 ```
@@ -408,7 +408,7 @@ The recommended entry point is the **AI-host prompt**. The commands below suppor
 Set these paths in your shell before using the examples. Use a fresh, empty run directory outside the target. The installed skill path depends on your host.
 
 ```bash
-NEARSHIELD_SKILL="/absolute/path/to/near-auditor"
+NEARSHIELD_SKILL="/absolute/path/to/nearshield-v1"
 NEARSHIELD_TARGET="/absolute/path/to/near-project"
 NEARSHIELD_RUN="/absolute/path/to/audit-runs/near-project-v1"
 
@@ -519,7 +519,7 @@ Maintenance, corpus ingestion, standards refresh, and benchmark qualification ar
 | Symptom | Action |
 | --- | --- |
 | Missing or empty `THREAT_MODEL.md` | Generate and review the target model, save it at the target root, then restart; alternatively explicitly authorize the per-scan override. |
-| Skill is not discovered | Confirm the directory is named `near-auditor`, contains `SKILL.md` and supporting folders, and sits in a documented host skill location. Start a new session and check host permissions. |
+| Skill is not discovered | Confirm the directory is named `nearshield-v1`, contains `SKILL.md` and supporting folders, and sits in a documented host skill location. Start a new session and check host permissions. |
 | Clone returns “not found” | Confirm the authenticated account has access to this private repository. |
 | Preflight reports an external URL in `README.md` | Known V1 packaging conflict: both `doctor` and `maintain.py check` scan every Markdown file, including public-facing badge/reference links. This README is intentionally retained; the validator policy needs a separate code change before whole-checkout checks can pass. Other errors require independent investigation. |
 | Worker execution is unavailable | Report incomplete multi-agent coverage; do not describe serial review as a complete run. Claude Code/OpenCode end-to-end compatibility remains unverified. |

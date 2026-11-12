@@ -1,4 +1,4 @@
 interface:
-  display_name: "NEAR Multi-Agent Auditor"
-  short_description: "NEAR security and NEP audit reviews"
-  default_prompt: "Use $near-auditor to audit this NEAR repository and prepare a draft for human review."
+  display_name: "NEARShield v1"
+  short_description: "Slot Zero Security Framework for NEAR Code Review"
+  default_prompt: "Use $nearshield-v1 to audit this NEAR repository and prepare a draft for human review."
