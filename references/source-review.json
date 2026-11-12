@@ -1,0 +1,817 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-20",
+  "source_repository": "AuditOneAuditReviews/omnibridge-satoshi-review",
+  "source_revision": "02d623f7ca05c2b2f50530fce9480cfb9642ad3d",
+  "method": "Public issue bodies and discussions read from the source repository; target deployment and linked fixes were not independently reproduced.",
+  "issues": {
+    "SATOSHI-1": {
+      "issue_number": 1,
+      "variant_id": "SAT-01",
+      "body_sha256": "773589d1fcc0b7aa1e455bce96a96556395398d477c65e0808e82e439a1e6f11",
+      "discussion_sha256": "632d8588217ca44d82c85da9de88dd24b4d94d27376d7ace2818ec8fe13d7422",
+      "comment_ids": [
+        "5728216723",
+        "5744326842",
+        "5759890771",
+        "5765804830",
+        "6240372765"
+      ],
+      "source_updated_at": "2026-10-19T09:45:29Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Quota race confirmed; project links fixes #98/#101. Cleanup and excess-storage claims narrowed."
+    },
+    "SATOSHI-2": {
+      "issue_number": 2,
+      "variant_id": "SAT-02",
+      "body_sha256": "86862482cbe36556bc268aa614d2554f0cf438b6dcd418e0bbdc2f5e2b8d17de",
+      "discussion_sha256": "f765c563427bd49bd6e3d43a9a2e293e0314000cf7981435b894a62433fda0fe",
+      "comment_ids": [
+        "5728262172",
+        "5777018196",
+        "5990911691",
+        "6074822786"
+      ],
+      "source_updated_at": "2026-10-09T05:20:05Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project reports post-fee minimum checks in PR #83; separate from unsafe cleanup."
+    },
+    "SATOSHI-3": {
+      "issue_number": 3,
+      "variant_id": "SAT-03",
+      "body_sha256": "d2b2331e042cf6bbe84a97fa29e12dd9ba818cfb35cae24d0ce1ddc0c3a3a3b5",
+      "discussion_sha256": "445d2227a9542b816ac7546b0ff1f5588b3de5f599e8c50cc1e33537907f87c6",
+      "comment_ids": [
+        "5720535527",
+        "5728523376",
+        "5749165821",
+        "6240447920"
+      ],
+      "source_updated_at": "2026-10-19T03:29:16Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #73. Discussion narrows impact to inventory/liquidity accounting."
+    },
+    "SATOSHI-5": {
+      "issue_number": 5,
+      "variant_id": "SAT-04",
+      "body_sha256": "6373df2f8f7d621dce247df9b60dbc057204d4e29eeb4b677a8d412e403d0730",
+      "discussion_sha256": "1659bb1f85f42dec73072e38ee8e7a2c65fa44c2dafd19bf193b4e5e9f90b0e2",
+      "comment_ids": [
+        "5728523360",
+        "5989199674"
+      ],
+      "source_updated_at": "2026-10-09T05:17:10Z",
+      "disposition": "confirmed_removed_reported",
+      "root_cause_and_disposition": "Project removed completed-migration functionality in PR #82."
+    },
+    "SATOSHI-6": {
+      "issue_number": 6,
+      "variant_id": "SAT-05",
+      "body_sha256": "e047c402544c29923e5153ef7c438ef700fe542df103bcef8418313561c69084",
+      "discussion_sha256": "952053cab2f2ee99e0c97f17db7603046fc8cd68181e2fc9d8352e4eac3f1b65",
+      "comment_ids": [
+        "5720400294",
+        "5728523355",
+        "5749918749",
+        "6235544622"
+      ],
+      "source_updated_at": "2026-10-19T03:02:04Z",
+      "disposition": "confirmed_removed_reported",
+      "root_cause_and_disposition": "Migration removal reported; runtime caps and source-derived PoC limits remain historical."
+    },
+    "SATOSHI-7": {
+      "issue_number": 7,
+      "variant_id": "SAT-06",
+      "body_sha256": "bfa148113d6b0d8124d1331e7442758a7b9dc94b2fb497852aa750f8000b906c",
+      "discussion_sha256": "1c295f417b23c9e3f9b22f8a661a58fcdec678ebd03e4237cb24d9e9f9d6fff1",
+      "comment_ids": [
+        "5728523418",
+        "6292341400",
+        "6294257109"
+      ],
+      "source_updated_at": "2026-10-20T15:15:42Z",
+      "disposition": "mechanism_confirmed_impact_disputed",
+      "root_cause_and_disposition": "The discussion confirms result misclassification. Latest response says unresolved state and manual recovery address failed or unparseable mint results; partial acceptance remains an acknowledged no-refund limitation."
+    },
+    "SATOSHI-8": {
+      "issue_number": 8,
+      "variant_id": "SAT-07",
+      "body_sha256": "5481b9354c116701c163199ea0f292532911a00ec76c365e23d0a3b53ad8aeb3",
+      "discussion_sha256": "4d43ca6229da4e656eb323bcd0ec1968a64beb6bfddec4cb1669b398e691b921",
+      "comment_ids": [
+        "5728613490",
+        "6127340499"
+      ],
+      "source_updated_at": "2026-10-19T18:17:13Z",
+      "disposition": "acknowledged_conditional",
+      "root_cause_and_disposition": "Project accepts the short in-flight trusted-dependency window."
+    },
+    "SATOSHI-9": {
+      "issue_number": 9,
+      "variant_id": "SAT-08",
+      "body_sha256": "8f134839abc73a515b73645bcc911d46e30e6052ade3bfe3d1d7e854d75f33aa",
+      "discussion_sha256": "132a09d4610aabc6aa169b92b42607037fbd2df250034e36dfa6260b63f573f9",
+      "comment_ids": [
+        "5720604136",
+        "5728613566",
+        "6235581619"
+      ],
+      "source_updated_at": "2026-10-19T01:11:54Z",
+      "disposition": "confirmed_removed_reported",
+      "root_cause_and_disposition": "Project removed migration; source and mock/sandbox evidence have different coverage."
+    },
+    "SATOSHI-10": {
+      "issue_number": 10,
+      "variant_id": "SAT-09",
+      "body_sha256": "086a7258fa4e1ed73744ad749734030ae17a91af0daf08faf0178e4b2fe478a4",
+      "discussion_sha256": "b40e923778877f9022af55fedade5840c2e76b5e9e29340048702d10092bab89",
+      "comment_ids": [
+        "5728613485",
+        "5745973321",
+        "5748418191",
+        "6179114730"
+      ],
+      "source_updated_at": "2026-10-16T11:14:59Z",
+      "disposition": "hardening_negative_control",
+      "root_cause_and_disposition": "Missing global cap alone does not prove overload; project notes finite UTXOs and plans removal of account caps."
+    },
+    "SATOSHI-11": {
+      "issue_number": 11,
+      "variant_id": "SAT-10",
+      "body_sha256": "9c2a282987515b1ae1a6a3bc793e68672a0bec219f0fd945ae1d79e1e7861621",
+      "discussion_sha256": "19c8bce9baad0c5b1adf46055cc75e20020ccc0d8cefaeea0cb2ce20e9ec607e",
+      "comment_ids": [
+        "5728613472",
+        "5744719620",
+        "5760137872",
+        "5765288925",
+        "6289969347",
+        "6295078879"
+      ],
+      "source_updated_at": "2026-10-20T15:53:51Z",
+      "disposition": "mechanism_confirmed_impact_disputed",
+      "root_cause_and_disposition": "Latest discussion describes mitigation only under the trusted-withdrawal configuration; missing proof verification and recovery limits remain acknowledged."
+    },
+    "SATOSHI-12": {
+      "issue_number": 12,
+      "variant_id": "SAT-11",
+      "body_sha256": "9c846ad8c25b3e01546dfa3755eb8d8a1aa48c9d712e94cfba4d32c337ad8989",
+      "discussion_sha256": "b4043e3be4776c5a88276920b0486eae5ac3d3ddd44fa15e9ff848a937b0bb75",
+      "comment_ids": [
+        "5728613465",
+        "5745054737",
+        "5763526877",
+        "5993757433",
+        "6054107858"
+      ],
+      "source_updated_at": "2026-10-08T06:43:08Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #85; unrelated-user freeze was not isolated by the submitted control."
+    },
+    "SATOSHI-13": {
+      "issue_number": 13,
+      "variant_id": "SAT-12",
+      "body_sha256": "89109b0cb4128f079b20c0f8ddf89adeae702a6a27f45b2ccc3f1d133396cd2c",
+      "discussion_sha256": "7613dd41c608d0f8019c8f060869fc3d89cfd2fd6a6050632a4037aa4b97ef76",
+      "comment_ids": [
+        "5728741293",
+        "5745977213",
+        "5748253997",
+        "6126916455"
+      ],
+      "source_updated_at": "2026-10-16T11:17:15Z",
+      "disposition": "intentional_negative_control",
+      "root_cause_and_disposition": "Project explicitly confirms optional templates and persistent restrictions are intentional."
+    },
+    "SATOSHI-14": {
+      "issue_number": 14,
+      "variant_id": "SAT-12",
+      "body_sha256": "b8a1da2be4fab7eb5739575d29396c5497db450c0b1bb44043a4893d6bcd9753",
+      "discussion_sha256": "30ea1aaf2f9b49baab7d50d3eba5f0dc1a82a7191298944434cff8a9e0e8fea1",
+      "comment_ids": [
+        "5728741296",
+        "5745983995",
+        "5748220530",
+        "6126257412"
+      ],
+      "source_updated_at": "2026-10-16T11:18:16Z",
+      "disposition": "intentional_negative_control",
+      "root_cause_and_disposition": "Project explicitly confirms optional templates and persistent restrictions are intentional."
+    },
+    "SATOSHI-15": {
+      "issue_number": 15,
+      "variant_id": "SAT-13",
+      "body_sha256": "988b86c7290590713e1f33326f59f8d41e09504ceb6a6e7fc0e65da2b91fe679",
+      "discussion_sha256": "89d2bc876eff0e12fa8b40735650b81f6b4bab9f08d9935a91ffcd999e93ad66",
+      "comment_ids": [
+        "5728741338",
+        "6037582263",
+        "6074770043"
+      ],
+      "source_updated_at": "2026-10-09T05:15:30Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #88; retain bounded overpayment and denomination caveat."
+    },
+    "SATOSHI-16": {
+      "issue_number": 16,
+      "variant_id": "SAT-14",
+      "body_sha256": "1807c1f397903eed7d15118bcea88ac4607f5d51d07a0639235e4f4ec08ed22a",
+      "discussion_sha256": "c1cc177ef9ea2032b6d27112c3d6448fb2db2b0b991d6441303120a0c3db55f1",
+      "comment_ids": [
+        "5728741332",
+        "5745244264",
+        "6267663873"
+      ],
+      "source_updated_at": "2026-10-19T16:39:23Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #99; concrete safe-mint zero result establishes retry inflation."
+    },
+    "SATOSHI-17": {
+      "issue_number": 17,
+      "variant_id": "SAT-15",
+      "body_sha256": "e194ba01a85906b8fd138e8ea990bf626d55f5b09dcc82e1d9298da3cfb8ddd5",
+      "discussion_sha256": "e20c7eeb95af54e61acc9066310dd5aaf6b2c2ea4f125ad71edd489027ff07a8",
+      "comment_ids": [
+        "5713321399",
+        "5720479743",
+        "5728741314",
+        "6235766259"
+      ],
+      "source_updated_at": "2026-10-19T01:10:41Z",
+      "disposition": "acknowledged_integration_limit",
+      "root_cause_and_disposition": "Project supports only all-or-zero receivers; preserve partial-use conservation test."
+    },
+    "SATOSHI-18": {
+      "issue_number": 18,
+      "variant_id": "SAT-16",
+      "body_sha256": "5a9a95b22aaa93312fa7606d6748c0a8ed73169b60a80596e60ad9bc13fab410",
+      "discussion_sha256": "282ef57085489444761c527d5b898a0828ddde5fb0baab206fad7a3f72fd122a",
+      "comment_ids": [
+        "5721112248",
+        "5728877792",
+        "6270163403"
+      ],
+      "source_updated_at": "2026-10-19T18:16:14Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #100; rejecting before marking preserves refund or later admission, subject to fees."
+    },
+    "SATOSHI-19": {
+      "issue_number": 19,
+      "variant_id": "SAT-17",
+      "body_sha256": "798c47e55687ecdd18bd443795d4cf2936361eac67221d945a0cb7f36326d35d",
+      "discussion_sha256": "7bef6acc404b44310a5dc47bddbf5d934c02d9f2affe4d1048aac7d293871782",
+      "comment_ids": [
+        "5720800151",
+        "5728877768",
+        "5756768996",
+        "5767824782",
+        "5989182239",
+        "6067975638"
+      ],
+      "source_updated_at": "2026-10-08T19:59:24Z",
+      "disposition": "confirmed_removed_reported",
+      "root_cause_and_disposition": "Project removed migration in PR #82; separate from user activity during one migration."
+    },
+    "SATOSHI-20": {
+      "issue_number": 20,
+      "variant_id": "SAT-18",
+      "body_sha256": "0d10fd2fbb74a795c8039d055e5eb229a925727b1fa1ae5a459f04d0b7cba694",
+      "discussion_sha256": "ac438400a72f2599d3a7cd9d107d6cb5dc52579db04ca284ac7e64b327762a21",
+      "comment_ids": [
+        "5726522987",
+        "5728877251",
+        "6000055033",
+        "6006811096"
+      ],
+      "source_updated_at": "2026-10-16T13:04:07Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #87; review distinguishes PendingSign and PendingVerify cleanup."
+    },
+    "SATOSHI-21": {
+      "issue_number": 21,
+      "variant_id": "SAT-14",
+      "body_sha256": "d3a010155cfae3491891035b8c180c6fe5490fa37ddef62fa53e2a8b904762fd",
+      "discussion_sha256": "6786b95f64cf5ba7f92c38108d765bf420f16eefab83c19f9f1344c6f67f83aa",
+      "comment_ids": [
+        "5719032051",
+        "5728877756",
+        "5745242909",
+        "6270356116",
+        "6277959796"
+      ],
+      "source_updated_at": "2026-10-19T21:40:55Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #99; concrete safe-mint zero result establishes retry inflation."
+    },
+    "SATOSHI-22": {
+      "issue_number": 22,
+      "variant_id": "SAT-19",
+      "body_sha256": "4590dfcdc5deabfff8e8cfd527e90c610a83fa681bf8b32a9c37d1c08cae2a4b",
+      "discussion_sha256": "bf489f94b61d3fd10367977d92da7fa7fe6586e68f434c6e96ac710f34f73c38",
+      "comment_ids": [
+        "5713331077",
+        "5728710042",
+        "5728877822",
+        "5746025750",
+        "5746163572",
+        "5990162192"
+      ],
+      "source_updated_at": "2026-10-16T13:03:51Z",
+      "disposition": "acknowledged_risk_tradeoff",
+      "root_cause_and_disposition": "Project accepts resize behavior to prioritize finalization; no reorg or loss demonstrated."
+    },
+    "SATOSHI-23": {
+      "issue_number": 23,
+      "variant_id": "SAT-20",
+      "body_sha256": "7d332c336b606cb2c860babfa2a9da191383b261018eaefc331b6f30e041920f",
+      "discussion_sha256": "64eb4c7f344287a74aa7644d9261240b691230f553602ab6354893b8e1d48c26",
+      "comment_ids": [
+        "5713333221",
+        "5729082836"
+      ],
+      "source_updated_at": "2026-10-16T14:45:10Z",
+      "disposition": "qa_conditional",
+      "root_cause_and_disposition": "Operator-only empty-output validation gap; signed original may still complete."
+    },
+    "SATOSHI-24": {
+      "issue_number": 24,
+      "variant_id": "SAT-08",
+      "body_sha256": "3f12c64f9821a45e4b0edc2c692569ea0dcc2b01f8ca48f3a14fcbb42280fa08",
+      "discussion_sha256": "2858ed8c857c1d77211a61c906581d3af797849906f6d89025804e79a6d31f17",
+      "comment_ids": [
+        "5713335209",
+        "5713335264",
+        "5713335299",
+        "5713335327",
+        "5721039711",
+        "5729082808",
+        "5748166230",
+        "6271835516",
+        "6278090230"
+      ],
+      "source_updated_at": "2026-10-19T21:45:59Z",
+      "disposition": "confirmed_removed_reported",
+      "root_cause_and_disposition": "Project removed migration; source and mock/sandbox evidence have different coverage."
+    },
+    "SATOSHI-25": {
+      "issue_number": 25,
+      "variant_id": "SAT-16",
+      "body_sha256": "88dac0e93b00521388d4a5ef3927fc1e2787dbedda5177e2bc5bb78764ea7fc7",
+      "discussion_sha256": "cdc6c9b4dd46bbff7b8028c9ebbb64020483e4f6aaf90939f9c14b31afcd875a",
+      "comment_ids": [
+        "5717763558",
+        "5721124319",
+        "5729082816",
+        "6272323809",
+        "6277998420"
+      ],
+      "source_updated_at": "2026-10-19T21:41:02Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #100; rejecting before marking preserves refund or later admission, subject to fees."
+    },
+    "SATOSHI-26": {
+      "issue_number": 26,
+      "variant_id": "SAT-21",
+      "body_sha256": "f298ffb1e77622b65dd0f53b623ae6427dacc623ab4908195aaae89c3817934e",
+      "discussion_sha256": "6b2d3af95d447eee23f5621d08361f5fdf9dc70135d2f0083cae55194fc2cfa6",
+      "comment_ids": [
+        "6246614183"
+      ],
+      "source_updated_at": "2026-10-18T06:34:42Z",
+      "disposition": "acknowledged_conditional",
+      "root_cause_and_disposition": "Team reports no planned token rotation; future rotation must preserve original token binding."
+    },
+    "SATOSHI-27": {
+      "issue_number": 27,
+      "variant_id": "SAT-01",
+      "body_sha256": "ccd6d17232cb92a994a216f89886e660d564a0a3ccdd4f54164dcac671c374f6",
+      "discussion_sha256": "780930c129b4dc34c30278b38012efd4df54affcbdc798d73a7b158263371d92",
+      "comment_ids": [
+        "5718010397",
+        "5728171584",
+        "5744095521",
+        "6271769259"
+      ],
+      "source_updated_at": "2026-10-19T16:15:07Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Quota race confirmed; project links fixes #98/#101. Cleanup and excess-storage claims narrowed."
+    },
+    "SATOSHI-28": {
+      "issue_number": 28,
+      "variant_id": "SAT-10",
+      "body_sha256": "9198fa9ad192b2f1e1ce9786baa7a0689ff9914d9ec7e3305b81dae80085e903",
+      "discussion_sha256": "8361b74d79851330808a70700dd020f88625fe4a214201274a4572da5a7a2c1c",
+      "comment_ids": [
+        "5718121601",
+        "5728152818",
+        "5744743553",
+        "6290010099"
+      ],
+      "source_updated_at": "2026-10-20T11:39:46Z",
+      "disposition": "mechanism_confirmed_impact_disputed",
+      "root_cause_and_disposition": "Latest discussion says on-chain Orchard proof verification is intentionally omitted; the project reports mitigation through the trusted-withdrawal configuration. Do not generalize to permissionless proof trust."
+    },
+    "SATOSHI-29": {
+      "issue_number": 29,
+      "variant_id": "SAT-06",
+      "body_sha256": "682a2696eb9eb24cd5c0a0fa048641b326adfd437b478a18e68d3852dda7d5c3",
+      "discussion_sha256": "42cf485c42e56dc8066820a3450e9cf5c12775e8c6c8a577a44d921f20846bf9",
+      "comment_ids": [
+        "5720908700",
+        "5725420626",
+        "5728105432",
+        "5768592784",
+        "6292315083"
+      ],
+      "source_updated_at": "2026-10-20T13:44:35Z",
+      "disposition": "mechanism_confirmed_impact_disputed",
+      "root_cause_and_disposition": "Latest response reports a fix that keeps failed or unparseable safe-mint outcomes unresolved pending manual recovery; partial receiver acceptance is not fully refunded."
+    },
+    "SATOSHI-34/QA-01": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-01",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "acknowledged_subsidy",
+      "root_cause_and_disposition": "Project accepts fee-funded standard-flow registration subsidy."
+    },
+    "SATOSHI-34/QA-02": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-02",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_fixed_reported",
+      "root_cause_and_disposition": "Project reports exact user-output accounting."
+    },
+    "SATOSHI-34/QA-03": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-03",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_scope_conditional_fixed_reported",
+      "root_cause_and_disposition": "Release hardening reported; CI was outside stated contract scope."
+    },
+    "SATOSHI-34/QA-04": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-04",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_fixed_reported",
+      "root_cause_and_disposition": "Project reports configuration-validation changes."
+    },
+    "SATOSHI-34/QA-05": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-05",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_acknowledged",
+      "root_cause_and_disposition": "Project retains existing diagnostics."
+    },
+    "SATOSHI-34/QA-06": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-06",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_fixed_reported",
+      "root_cause_and_disposition": "Project reports expiry visibility changes."
+    },
+    "SATOSHI-34/QA-07": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-07",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_deployment_condition_absent",
+      "root_cause_and_disposition": "Project reports direct relayers only, so signer equals payer."
+    },
+    "SATOSHI-34/QA-08": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-08",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_scope_conditional_fixed_reported",
+      "root_cause_and_disposition": "Project reports one-yocto setter change; token contract scope caveat retained."
+    },
+    "SATOSHI-34/QA-09": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-09",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_deployment_requirement",
+      "root_cause_and_disposition": "Project acknowledges recommendation and considers redeployment sufficient for an initialization race."
+    },
+    "SATOSHI-34/QA-10": {
+      "issue_number": 34,
+      "variant_id": "SAT-QA-10",
+      "body_sha256": "d08b4410cdfd7de776b5a29854aa0982a5db3bc6921393eee15c0723f7ed77f4",
+      "discussion_sha256": "57bf97198ba9d597efc6239c3974c7c605726851da37a3e05311a957e5802279",
+      "comment_ids": [
+        "5725922437",
+        "5729082803",
+        "6170820538",
+        "6175899998",
+        "6221365801"
+      ],
+      "source_updated_at": "2026-10-16T17:47:18Z",
+      "disposition": "qa_fixed_reported",
+      "root_cause_and_disposition": "Documentation correction was followed by an additional fix to describe retry rather than lost-and-found."
+    },
+    "SATOSHI-35": {
+      "issue_number": 35,
+      "variant_id": "SAT-22",
+      "body_sha256": "d77154227e7e0cb2980f47b534b104f994c8c6742dbeef93058301f318b7385f",
+      "discussion_sha256": "66a11a9d6e84e2a7cead1691769da60ecd6a1967ae3e8aef5aeee87c6af30c21",
+      "comment_ids": [
+        "5726327482",
+        "5729082790",
+        "6130354327"
+      ],
+      "source_updated_at": "2026-10-14T18:41:35Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #76 removing embedded bytes from new UTXOs."
+    },
+    "SATOSHI-36": {
+      "issue_number": 36,
+      "variant_id": "SAT-24",
+      "body_sha256": "dcdb155ceaa45ee7d2ebd12f2b6b7ab2c6506d94631c5022839f352b3e5b8574",
+      "discussion_sha256": "220def9e18b9318b16bbc0bc632ccae687b936226e9fc638d6dc840c90954096",
+      "comment_ids": [
+        "5726239361",
+        "5729233787",
+        "6130151701",
+        "6175579423",
+        "6219657679",
+        "6237412916"
+      ],
+      "source_updated_at": "2026-10-17T18:39:32Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project accepted the expired-cancel case and links PR #97 allowing repeated cancellation."
+    },
+    "SATOSHI-37": {
+      "issue_number": 37,
+      "variant_id": "SAT-06",
+      "body_sha256": "6ea7174dc552217143d4e70ba5579419aa848c067a7d409db52186d1467e65ba",
+      "discussion_sha256": "fee64c99dcd93b32fb55a3908df3529d759c2276ed73c1fd86b9040719a1a743",
+      "comment_ids": [
+        "5729233785",
+        "6292337153"
+      ],
+      "source_updated_at": "2026-10-20T13:45:39Z",
+      "disposition": "mechanism_confirmed_impact_disputed",
+      "root_cause_and_disposition": "Latest response reports that failed or unparseable safe-mint results remain unresolved instead of crediting inventory; review partial acceptance separately."
+    },
+    "SATOSHI-39": {
+      "issue_number": 39,
+      "variant_id": "SAT-25",
+      "body_sha256": "cb204269994683dbd5c04debba5e46bef3dfd1ddc4735dd77081aea459e1b209",
+      "discussion_sha256": "cd43573df6832b771825bcb99948f5005a3c4d86bfb29ea4980c604141b13bd9",
+      "comment_ids": [
+        "5728266097",
+        "5729233777",
+        "5743405036",
+        "5749307591",
+        "5992856490"
+      ],
+      "source_updated_at": "2026-10-09T21:08:56Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #84; mint retry does not restore refund cost or waiting time."
+    },
+    "SATOSHI-40": {
+      "issue_number": 40,
+      "variant_id": "SAT-23",
+      "body_sha256": "c3c21eb14e66ade9cc0e94d2cc71f1a5df0759de5f7eb22119012a6da2c653f3",
+      "discussion_sha256": "b097b34db79a9fbef67d359a4a5bc037c55eaad84ece1f23a743ae929a503532",
+      "comment_ids": [
+        "5726088765",
+        "5729233759",
+        "6129884845",
+        "6175271250",
+        "6220211644"
+      ],
+      "source_updated_at": "2026-10-16T16:42:13Z",
+      "disposition": "confirmed_partial_legacy_subsidy",
+      "root_cause_and_disposition": "PR #91 adds pricing; discussion demonstrates old change-UTXO undercharge and project accepts residual legacy subsidy."
+    },
+    "SATOSHI-41": {
+      "issue_number": 41,
+      "variant_id": "SAT-05",
+      "body_sha256": "aea30adad28a7f86bc6d1235ad1b312e8247486b70aec72c11595490cb507462",
+      "discussion_sha256": "d5953a6e96436eeeafcbe2fc38794f516a3a9ae70e5835c5b7cb7885eefc04a5",
+      "comment_ids": [
+        "5717932176",
+        "5729351823",
+        "6235812230"
+      ],
+      "source_updated_at": "2026-10-17T16:23:36Z",
+      "disposition": "confirmed_removed_reported",
+      "root_cause_and_disposition": "Migration removal reported; runtime caps and source-derived PoC limits remain historical."
+    },
+    "SATOSHI-42": {
+      "issue_number": 42,
+      "variant_id": "SAT-08",
+      "body_sha256": "d5ed4b61fe0f173a0ad95a4d4f0069eb50a3a4ec436b0f6772631b6157c2795e",
+      "discussion_sha256": "ce774537eb60282b78fc267e049f892e44e05fca27768a86c5e9b98c987786e1",
+      "comment_ids": [
+        "5729353036",
+        "6235839836"
+      ],
+      "source_updated_at": "2026-10-17T16:23:26Z",
+      "disposition": "confirmed_removed_reported",
+      "root_cause_and_disposition": "Project removed migration; source and mock/sandbox evidence have different coverage."
+    },
+    "SATOSHI-43": {
+      "issue_number": 43,
+      "variant_id": "SAT-21",
+      "body_sha256": "048e80ec975a45940c7b4d5e2b424895e50e064963172b5c0def90e7565a2636",
+      "discussion_sha256": "54068cd0d91f792a61af7ae8b85db366c2a949ada25203d385a5f2804a9a6b49",
+      "comment_ids": [
+        "5725800947",
+        "5729354227",
+        "6235973859"
+      ],
+      "source_updated_at": "2026-10-17T17:16:00Z",
+      "disposition": "acknowledged_conditional",
+      "root_cause_and_disposition": "Team reports no planned token rotation; future rotation must preserve original token binding."
+    },
+    "SATOSHI-44": {
+      "issue_number": 44,
+      "variant_id": "SAT-26",
+      "body_sha256": "c51639ed03844a0f3d62ae8bda5d7524f60884136254da13fc1f3d6e96e4bcd7",
+      "discussion_sha256": "23f0db4e02ed79f8b58e14fa08ea0ab5aad90fd1dbba5c4ae9cd17ae15ff7189",
+      "comment_ids": [
+        "5725315481",
+        "5729355449",
+        "6128454627"
+      ],
+      "source_updated_at": "2026-10-14T16:41:23Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #90; ordinary deposit completion can remain available."
+    },
+    "SATOSHI-45": {
+      "issue_number": 45,
+      "variant_id": "SAT-27",
+      "body_sha256": "50b02de7f2b54db2d0085fd843a1afa4d44ecd6b204643c9f81a6869a1f4066f",
+      "discussion_sha256": "6b145a128f5313bf884cc35ec18df5b81ff154d3b7c86f739372eae5b754b401",
+      "comment_ids": [
+        "5725175367",
+        "5726934404",
+        "5729356628",
+        "5743915230",
+        "5756904117",
+        "6199556594",
+        "6201376209"
+      ],
+      "source_updated_at": "2026-10-15T20:15:37Z",
+      "disposition": "acknowledged_mitigated_reported",
+      "root_cause_and_disposition": "Intentional optimistic mode; project reports a 100-year unsafe-refund timelock. Deployment not independently verified."
+    },
+    "SATOSHI-46": {
+      "issue_number": 46,
+      "variant_id": "SAT-15",
+      "body_sha256": "95b03d0b1246c95fdebb0371b2d65218efbe0c813c8532ba588ea9f07bbe4004",
+      "discussion_sha256": "26620ff06e3957993a18f65d950db799c2667028f94123c48b032ba032943568",
+      "comment_ids": [
+        "5717852528",
+        "5729410715",
+        "6239952544"
+      ],
+      "source_updated_at": "2026-10-19T12:44:49Z",
+      "disposition": "acknowledged_integration_limit",
+      "root_cause_and_disposition": "Project supports only all-or-zero receivers; preserve partial-use conservation test."
+    },
+    "SATOSHI-47": {
+      "issue_number": 47,
+      "variant_id": "SAT-03",
+      "body_sha256": "2762ccd22be4dc602ff486f20864bfe70db00aaccddb443aac31206eb45e5e21",
+      "discussion_sha256": "9e1da24b67c94703e5080fce917fb4a56cc8a043a24236ea3457cbc69442994e",
+      "comment_ids": [
+        "5729411926",
+        "6240079935"
+      ],
+      "source_updated_at": "2026-10-17T21:47:52Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #73. Discussion narrows impact to inventory/liquidity accounting."
+    },
+    "SATOSHI-48": {
+      "issue_number": 48,
+      "variant_id": "SAT-28",
+      "body_sha256": "a9b74716c9fd4077b0b702c8a3e2864dcbb0ffb15156d8eca0de7773ce4ad531",
+      "discussion_sha256": "490f0b1f564f9838742bcc77c0f1df401bb3a91e4a5c531ec8a17f62502245d5",
+      "comment_ids": [
+        "5729413107",
+        "5730455556",
+        "5745803170",
+        "5969474419"
+      ],
+      "source_updated_at": "2026-10-09T20:58:25Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #81 prohibiting rejection after execution rather than trying to revoke signatures."
+    },
+    "SATOSHI-49": {
+      "issue_number": 49,
+      "variant_id": "SAT-16",
+      "body_sha256": "aaaf0da965fd03ceb6aff8cf9a11a7a8362b7ce9ece2e6751ed597ca32ca0293",
+      "discussion_sha256": "41c464839dc1a57cde092ea70445569bd37f420d5e5b12a80953fb07ba3b9b0e",
+      "comment_ids": [
+        "5717749048",
+        "5729414263",
+        "5745939164",
+        "5748102961",
+        "5766254590",
+        "6272728643"
+      ],
+      "source_updated_at": "2026-10-19T17:05:17Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #100; rejecting before marking preserves refund or later admission, subject to fees."
+    },
+    "SATOSHI-50": {
+      "issue_number": 50,
+      "variant_id": "SAT-29",
+      "body_sha256": "b7e3fc19ff1c28fd8674e310b510fb0d1bd6988cd4f3cff58c4a72618beee33e",
+      "discussion_sha256": "59798151d306138965aab11f275696fd98250e5d69d8b54578109b1ffb065f96",
+      "comment_ids": [
+        "5729415399",
+        "5733940626",
+        "5736793656",
+        "5762766845",
+        "5766254896",
+        "5768331735",
+        "6033386099"
+      ],
+      "source_updated_at": "2026-10-09T20:59:00Z",
+      "disposition": "confirmed_fixed_reported",
+      "root_cause_and_disposition": "Project links PR #81; valid non-dust control establishes independence from #2."
+    }
+  }
+}

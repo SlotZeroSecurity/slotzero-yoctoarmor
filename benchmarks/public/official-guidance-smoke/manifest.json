@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "project_id": "public-official-guidance-smoke",
+  "track": "smart-contracts-cross-chain",
+  "purpose": "Public training fixture for official-guidance routing and safe-twin regression; not held-out L4 evidence.",
+  "vulnerable_source": "vulnerable.rs",
+  "safe_twin_source": "safe.rs",
+  "ground_truth": "ground-truth.jsonl",
+  "root_cause_count": 10,
+  "l4_eligible": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "baseline_name": "near-auditor-v2-freeze",
+  "branch": "0xasen_near_auditor_v2",
+  "revision": "11e660acd3d7f320b41e67f7632f273e526f8d19",
+  "frozen_at": "2026-08-30",
+  "unit_tests_passing": 23,
+  "tracks": [
+    "smart-contracts"
+  ],
+  "representative_runtime_and_token_telemetry": "pending",
+  "held_out_l4_attestation": "not_qualified",
+  "notes": [
+    "This is the pre-semantic-pipeline v2 comparison point.",
+    "No runtime, token, precision, or recall value is fabricated when representative runs are unavailable.",
+    "Future comparisons must preserve dataset and configuration identity."
+  ]
+}

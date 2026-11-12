@@ -1,0 +1,1060 @@
+{
+  "schema_version": 1,
+  "taxonomy": "NA",
+  "categories": {
+    "auth": {
+      "file": "references/attack-lenses/auth.md",
+      "ids": [
+        "NA-AUTH-001",
+        "NA-AUTH-002",
+        "NA-AUTH-003",
+        "NA-AUTH-004",
+        "NA-AUTH-005",
+        "NA-AUTH-006",
+        "NA-AUTH-007",
+        "NA-AUTH-008",
+        "NA-AUTH-009",
+        "NA-AUTH-010",
+        "NA-AUTH-011",
+        "NA-AUTH-012"
+      ]
+    },
+    "async": {
+      "file": "references/attack-lenses/async.md",
+      "ids": [
+        "NA-ASYNC-001",
+        "NA-ASYNC-002",
+        "NA-ASYNC-003",
+        "NA-ASYNC-004",
+        "NA-ASYNC-005",
+        "NA-ASYNC-006",
+        "NA-ASYNC-007",
+        "NA-ASYNC-008",
+        "NA-ASYNC-009",
+        "NA-ASYNC-010",
+        "NA-ASYNC-011",
+        "NA-ASYNC-012",
+        "NA-ASYNC-013",
+        "NA-ASYNC-014",
+        "NA-ASYNC-015",
+        "NA-ASYNC-016",
+        "NA-ASYNC-017"
+      ]
+    },
+    "account": {
+      "file": "references/attack-lenses/account.md",
+      "ids": [
+        "NA-ACCOUNT-001",
+        "NA-ACCOUNT-002",
+        "NA-ACCOUNT-003",
+        "NA-ACCOUNT-004",
+        "NA-ACCOUNT-005",
+        "NA-ACCOUNT-006",
+        "NA-ACCOUNT-007"
+      ]
+    },
+    "state": {
+      "file": "references/attack-lenses/state.md",
+      "ids": [
+        "NA-STATE-001",
+        "NA-STATE-002",
+        "NA-STATE-003",
+        "NA-STATE-004",
+        "NA-STATE-005",
+        "NA-STATE-006",
+        "NA-STATE-007",
+        "NA-STATE-008",
+        "NA-STATE-009",
+        "NA-STATE-010",
+        "NA-STATE-011",
+        "NA-STATE-012",
+        "NA-STATE-013",
+        "NA-STATE-014",
+        "NA-STATE-015",
+        "NA-STATE-016"
+      ]
+    },
+    "econ": {
+      "file": "references/attack-lenses/econ.md",
+      "ids": [
+        "NA-ECON-001",
+        "NA-ECON-002",
+        "NA-ECON-003",
+        "NA-ECON-004"
+      ]
+    },
+    "resource": {
+      "file": "references/attack-lenses/resource.md",
+      "ids": [
+        "NA-RESOURCE-001",
+        "NA-RESOURCE-002",
+        "NA-RESOURCE-003",
+        "NA-RESOURCE-004",
+        "NA-RESOURCE-005",
+        "NA-RESOURCE-006",
+        "NA-RESOURCE-007",
+        "NA-RESOURCE-008",
+        "NA-RESOURCE-009",
+        "NA-RESOURCE-010"
+      ]
+    },
+    "integration": {
+      "file": "references/attack-lenses/integration.md",
+      "ids": [
+        "NA-INTEGRATION-001",
+        "NA-INTEGRATION-002",
+        "NA-INTEGRATION-003",
+        "NA-INTEGRATION-004",
+        "NA-INTEGRATION-005",
+        "NA-INTEGRATION-006",
+        "NA-INTEGRATION-007",
+        "NA-INTEGRATION-008"
+      ]
+    },
+    "crypto": {
+      "file": "references/attack-lenses/crypto.md",
+      "ids": [
+        "NA-CRYPTO-001",
+        "NA-CRYPTO-002",
+        "NA-CRYPTO-003",
+        "NA-CRYPTO-004",
+        "NA-CRYPTO-005",
+        "NA-CRYPTO-006",
+        "NA-CRYPTO-007",
+        "NA-CRYPTO-008"
+      ]
+    },
+    "runtime": {
+      "file": "references/attack-lenses/runtime.md",
+      "ids": [
+        "NA-RUNTIME-001",
+        "NA-RUNTIME-002"
+      ]
+    },
+    "offchain": {
+      "file": "references/attack-lenses/offchain.md",
+      "ids": [
+        "NA-OFFCHAIN-001",
+        "NA-OFFCHAIN-002",
+        "NA-OFFCHAIN-003",
+        "NA-OFFCHAIN-004",
+        "NA-OFFCHAIN-005",
+        "NA-OFFCHAIN-006",
+        "NA-OFFCHAIN-007",
+        "NA-OFFCHAIN-008",
+        "NA-OFFCHAIN-009",
+        "NA-OFFCHAIN-010",
+        "NA-OFFCHAIN-011",
+        "NA-OFFCHAIN-012"
+      ]
+    }
+  },
+  "cards": {
+    "NA-AUTH-001": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Signer/predecessor confusion enables confused-deputy calls",
+      "activation": "composable public methods authorize or pay `signer_account_id`, or self-callbacks infer the original user from predecessor.",
+      "related_ids": [
+        "NA-AUTH-009"
+      ]
+    },
+    "NA-AUTH-002": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Exposed privileged/internal endpoint",
+      "activation": "missing/ignored role check, unprotected `#[private]` path, public test helper, user-controlled authority argument, an internal or trait implementation annotated with `#[near]`/`#[near_bindgen]` exports a helper that bypasses its guarded wrapper, initialization/ownership/admin transitions do not follow one explicit caller-and-role policy, or revocation/renunciation can remove the final principal needed for pause, upgrade, recovery, or another documented critical operation.",
+      "related_ids": []
+    },
+    "NA-AUTH-003": {
+      "category": "auth",
+      "kind": "security",
+      "title": "One-yocto or function-call-key boundary is unsafe",
+      "activation": "a sensitive exported method is nonpayable, omits exact `assert_one_yocto()`/equivalent validation, accepts zero or arbitrary deposit, or remains callable through a compromised third-party function-call key without the intended wallet-confirmation boundary.",
+      "related_ids": [
+        "NA-AUTH-010"
+      ]
+    },
+    "NA-AUTH-004": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Stale access key bypasses new governance",
+      "activation": "ownership changes without rotating full-access/function-call keys, keys cannot be removed, or fallback keys bypass delay/multisig.",
+      "related_ids": []
+    },
+    "NA-AUTH-005": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Initialization is public, repeatable, or binds unsafe first state",
+      "activation": "initializer is exported without `#[init]`/state-existence protection, `ignore_state` is reachable, first caller selects owner, or role/config/account relationships are not validated.",
+      "related_ids": [
+        "NA-AUTH-011"
+      ]
+    },
+    "NA-AUTH-006": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Effective upgrade authority bypasses governance",
+      "activation": "self-upgrade, full-access key, owner plugin, or staged code bypasses multisig/timelock.",
+      "related_ids": []
+    },
+    "NA-AUTH-007": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Signed intent replay, recomposition, or weak domain binding",
+      "activation": "failed bundles leave replayable sub-intents, nonce consumption is late, a purpose/type discriminator or other domain field is absent, two accepted message schemas can encode the same signed bytes/hash for different privileged actions, or key state is unbounded.",
+      "related_ids": []
+    },
+    "NA-AUTH-008": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Passkey/solver verification accepts attacker-controlled context",
+      "activation": "Passkey assertions, device registration, or solver quotes accepted by a value-bearing path",
+      "related_ids": []
+    },
+    "NA-AUTH-009": {
+      "category": "auth",
+      "kind": "conditional",
+      "title": "Separate caller, originator, payer, and beneficiary",
+      "activation": "Calls can be forwarded or delegated; A later credit or authorization uses one identity in place of another",
+      "related_ids": [
+        "NA-AUTH-001",
+        "NA-ASYNC-003"
+      ]
+    },
+    "NA-AUTH-010": {
+      "category": "auth",
+      "kind": "conditional",
+      "title": "Check privileged methods against limited credentials",
+      "activation": "A credential may invoke only selected methods or low-friction actions; A privileged state change may be reachable with that credential",
+      "related_ids": [
+        "NA-AUTH-003"
+      ]
+    },
+    "NA-AUTH-011": {
+      "category": "auth",
+      "kind": "conditional",
+      "title": "Bind initialization to deployment authority",
+      "activation": "A newly deployed object needs one-time initialization; An untrusted actor may reach it before initialization completes",
+      "related_ids": [
+        "NA-AUTH-005"
+      ]
+    },
+    "NA-ASYNC-001": {
+      "category": "async",
+      "kind": "security",
+      "title": "Late reservation enables split-receipt double spend",
+      "activation": "a method checks available state, emits a promise, and only debits/locks/consumes in a callback.",
+      "related_ids": [
+        "NA-ASYNC-010",
+        "NA-ASYNC-016"
+      ]
+    },
+    "NA-ASYNC-002": {
+      "category": "async",
+      "kind": "security",
+      "title": "Missing or incomplete failure compensation",
+      "activation": "state changes before a promise and no complete callback handles failure, malformed return, or low gas.",
+      "related_ids": [
+        "NA-ASYNC-014",
+        "NA-ECON-004",
+        "NA-STATE-012"
+      ]
+    },
+    "NA-ASYNC-003": {
+      "category": "async",
+      "kind": "security",
+      "title": "Callback authority or identity mismatch",
+      "activation": "a callback/resolver/migrate/internal endpoint lacks `#[private]`, trusts callback arguments or injected promise results as caller authentication, or uses predecessor as the original user.",
+      "related_ids": [
+        "NA-AUTH-009"
+      ]
+    },
+    "NA-ASYNC-004": {
+      "category": "async",
+      "kind": "security",
+      "title": "Promise graph or return semantics are misinterpreted",
+      "activation": "wrong or unchecked `promise_results_count`, wrong `promise_result` index, missing `and/then`, no returned terminal promise, unchecked `PromiseResult` bytes, top-level execution success is treated as business success, a proof/event/authorization is consumed before every required downstream effect succeeds, or settlement applies a fee, route, oracle bound, protocol version, or external configuration that changed after the initiating receipt without binding the user's accepted bounds.",
+      "related_ids": [
+        "NA-ASYNC-012",
+        "NA-ASYNC-013",
+        "NA-ASYNC-015"
+      ]
+    },
+    "NA-ASYNC-005": {
+      "category": "async",
+      "kind": "security",
+      "title": "Pending state can be permanently poisoned",
+      "activation": "lock is set before unbounded work, log/serialization, low-gas callback, yield, or external dependency.",
+      "related_ids": [
+        "NA-ASYNC-011",
+        "NA-INTEGRATION-007",
+        "NA-STATE-009",
+        "NA-ASYNC-017"
+      ]
+    },
+    "NA-ASYNC-006": {
+      "category": "async",
+      "kind": "security",
+      "title": "Stale callback snapshot overwrites intervening state",
+      "activation": "an initiating receipt serializes a mutable struct or derived share/rate value into callback arguments and the callback later writes it back after another receipt can mutate the same record.",
+      "related_ids": [
+        "NA-STATE-006"
+      ]
+    },
+    "NA-ASYNC-007": {
+      "category": "async",
+      "kind": "security",
+      "title": "A foreign operation releases or extends another operation's lock",
+      "activation": "a shared boolean lock has no operation token; a public ping/retry or unrelated callback unconditionally calls `unlock`; or a later user's action refreshes a shared deadline that governs earlier pending withdrawals.",
+      "related_ids": []
+    },
+    "NA-ASYNC-008": {
+      "category": "async",
+      "kind": "security",
+      "title": "Resumable cursor is not bound to operation context",
+      "activation": "a public method stores one shared iterator/cursor but accepts the recipient, transfer-versus-recovery mode, filter, limit, or asset again on later calls; initial-only validation is skipped on resume; or concurrent callers can advance or replace the same checkpoint.",
+      "related_ids": [
+        "NA-RESOURCE-006"
+      ]
+    },
+    "NA-ASYNC-009": {
+      "category": "async",
+      "kind": "security",
+      "title": "Resolver refund/ownership semantics break conservation",
+      "activation": "resolver public, malformed result unchecked, FT failure does not attempt full refund, FT refund is not capped by both the original transfer and receiver's current balance, actual-spent return polarity is inverted, an NFT resolver overwrites an intervening retransfer/burn, mirrors are not restored, NFT approval mutation is not restricted to the current owner, an approved transfer accepts a stale/mismatched supplied `approval_id`, re-approval reuses an ID, transfer fails to clear approvals, approval notification failure is incorrectly treated as rollback, or a bridge/escrow consumes its proof/nonce and marks settlement terminal before learning the actual amount used versus refunded by `ft_transfer_call`.",
+      "related_ids": [
+        "NA-ASYNC-015"
+      ]
+    },
+    "NA-ASYNC-010": {
+      "category": "async",
+      "kind": "security",
+      "title": "Reserve capacity before concurrent work",
+      "activation": "A bounded resource is checked before allocation; Another operation can pass the check before the first allocation commits",
+      "related_ids": [
+        "NA-ASYNC-001",
+        "NA-RESOURCE-001"
+      ]
+    },
+    "NA-ASYNC-011": {
+      "category": "async",
+      "kind": "security",
+      "title": "Recover when the effect commits but bookkeeping fails",
+      "activation": "The business effect and local accounting can commit independently; The accounting step can fail after the effect",
+      "related_ids": [
+        "NA-ASYNC-005",
+        "NA-ACCOUNT-002",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-ASYNC-012": {
+      "category": "async",
+      "kind": "security",
+      "title": "Separate transport success from business completion",
+      "activation": "Completion depends on an external or deferred result; The interface can fail, return malformed data, or report partial work",
+      "related_ids": [
+        "NA-ASYNC-004",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-ASYNC-013": {
+      "category": "async",
+      "kind": "security",
+      "title": "Define authority across dependency rotation",
+      "activation": "Work is dispatched to a trusted dependency; Its identity or authority can change before the result is applied",
+      "related_ids": [
+        "NA-ASYNC-004",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-ASYNC-014": {
+      "category": "async",
+      "kind": "security",
+      "title": "Count logical work once across retries",
+      "activation": "A logical operation can be retried; A derived counter can commit independently of its business outcome",
+      "related_ids": [
+        "NA-ASYNC-002",
+        "NA-ACCOUNT-002"
+      ]
+    },
+    "NA-ASYNC-015": {
+      "category": "async",
+      "kind": "security",
+      "title": "Preserve entitlement after partial completion",
+      "activation": "A downstream operation can accept part of an input; Returned or unused value is held by an intermediary",
+      "related_ids": [
+        "NA-ASYNC-009",
+        "NA-ACCOUNT-003",
+        "NA-ASYNC-004"
+      ]
+    },
+    "NA-ASYNC-016": {
+      "category": "async",
+      "kind": "security",
+      "title": "Serialize or deduplicate overlapping bulk operations",
+      "activation": "An authorized bulk operation has deferred effects; Another invocation can begin before completion is recorded",
+      "related_ids": [
+        "NA-ASYNC-001",
+        "NA-STATE-003"
+      ]
+    },
+    "NA-ASYNC-017": {
+      "category": "async",
+      "kind": "security",
+      "title": "Recover when cancellation itself expires or fails",
+      "activation": "An operation reserves resources; Its cancellation or replacement is a separate operation that can become unusable",
+      "related_ids": [
+        "NA-ASYNC-005",
+        "NA-ACCOUNT-003",
+        "NA-STATE-004"
+      ]
+    },
+    "NA-ACCOUNT-001": {
+      "category": "account",
+      "kind": "security",
+      "title": "Global storage delta is charged to the wrong account",
+      "activation": "per-user accounting compares current whole-contract `env::storage_usage()` with a user baseline, spans an external/interleaved operation, or assigns another account's growth during liquidation/cleanup.",
+      "related_ids": []
+    },
+    "NA-ACCOUNT-002": {
+      "category": "account",
+      "kind": "security",
+      "title": "Liability, reserve, fee, or supply accounting is inconsistent",
+      "activation": "raw account balance is used as deposits, refundable depositor principal also funds storage or rewards, time-based rewards are not bounded by earned fees or a separately funded reserve, balances are sampled after untrusted calls, an adapter or external market can report assets/proceeds without reconciliation to observed token deltas or a bounded authoritative source, protocol or a shared relayer account subsidizes caller-controlled attached deposits/fees (including repeated one-yocto child calls), paths omit a ledger update or external transfer, a terminal fee can be bypassed by leaving dust, or a caller-controlled list charges/burns/consumes an entitlement once while granting a payout, mint, vote, claim, refund, or other benefit per occurrence.",
+      "related_ids": [
+        "NA-ASYNC-011",
+        "NA-ASYNC-014",
+        "NA-ACCOUNT-007"
+      ]
+    },
+    "NA-ACCOUNT-003": {
+      "category": "account",
+      "kind": "security",
+      "title": "Accumulated value has no safe claim or recovery transition",
+      "activation": "value accrues in state or contract balance but no exported method can release it, the only recipient can become unregistered, or emergency/pause states disable recovery permanently.",
+      "related_ids": [
+        "NA-RESOURCE-007",
+        "NA-ASYNC-015",
+        "NA-ACCOUNT-006",
+        "NA-ASYNC-017",
+        "NA-STATE-013",
+        "NA-STATE-015",
+        "NA-ACCOUNT-007"
+      ]
+    },
+    "NA-ACCOUNT-004": {
+      "category": "account",
+      "kind": "security",
+      "title": "Accrual or reward snapshot is not settled before mutation",
+      "activation": "rate/weight/config/position changes do not call the relevant accrue/snapshot function for every affected asset and account, or a time-chunk/snapshot design accounts only finalized periods so borrowing, repaying, supplying, withdrawing, liquidating, or changing collateral within the open period receives free time or loses earned value.",
+      "related_ids": []
+    },
+    "NA-ACCOUNT-005": {
+      "category": "account",
+      "kind": "security",
+      "title": "Vault share conversion or managed-asset accounting dilutes claimants",
+      "activation": "the first depositor or a direct donor can manipulate price-per-share; zero-share deposits are accepted; paid-out versus required amounts use the wrong rounding direction; `total_assets` omits direct donations or trusts mutable adapter-reported values without balance-delta/bounded reconciliation; a positional market-to-adapter mapping can silently change after reordering; virtual offsets, underlying asset identity, or conversion basis can change after capitalization; preview/max results omit limits or fees; or async withdrawal burns/finalizes shares without an operation-bound rollback/recovery path.",
+      "related_ids": []
+    },
+    "NA-ACCOUNT-006": {
+      "category": "account",
+      "kind": "security",
+      "title": "Preserve recovery when the primary operation is rejected",
+      "activation": "The system already controls a user's resource; A policy threshold rejects normal processing while consuming an admission marker",
+      "related_ids": [
+        "NA-ACCOUNT-003",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-ACCOUNT-007": {
+      "category": "account",
+      "kind": "quality",
+      "title": "Assign all residual value after allocation",
+      "activation": "An allocation leaves a remainder after requested outputs and costs; The remainder can become unowned or inaccessible",
+      "related_ids": [
+        "NA-ACCOUNT-002",
+        "NA-ACCOUNT-003"
+      ]
+    },
+    "NA-STATE-001": {
+      "category": "state",
+      "kind": "security",
+      "title": "Coupled indexes or lifecycle state diverge",
+      "activation": "one path updates a primary map but not secondary index, manual token/NFT transfer bypasses protocol mirrors, two logical roles such as sender/receiver resolve to the same storage key and independently computed stale snapshots are written sequentially, code mutates an owned/deserialized value returned by a legacy `near_sdk::collections` lookup without reinserting/replacing it in the collection, a destructive full-object replacement silently erases fields that should survive, or an in-flight sale, bid, bond, liquidation, promise, or queue entry references an object that another public path can merge, delete, replace, or renumber before settlement.",
+      "related_ids": [
+        "NA-STATE-008",
+        "NA-STATE-009",
+        "NA-STATE-010",
+        "NA-STATE-012",
+        "NA-CRYPTO-008",
+        "NA-STATE-015"
+      ]
+    },
+    "NA-STATE-002": {
+      "category": "state",
+      "kind": "security",
+      "title": "Getter or validation path mutates/creates state",
+      "activation": "`or_insert`/lazy initialization appears in getters, checks, or rejected paths, or a read-like method uses `Option::take`, legacy `LazyOption::take`, or an equivalent destructive accessor and unintentionally replaces/removes live state.",
+      "related_ids": []
+    },
+    "NA-STATE-003": {
+      "category": "state",
+      "kind": "security",
+      "title": "Migration corrupts or strands persistent state",
+      "activation": "no versioning/migration, wrong old struct, public/repeatable migration, unbounded migration, or orphaned state.",
+      "related_ids": [
+        "NA-STATE-005",
+        "NA-RESOURCE-006",
+        "NA-STATE-006",
+        "NA-ASYNC-016",
+        "NA-ECON-004"
+      ]
+    },
+    "NA-STATE-004": {
+      "category": "state",
+      "kind": "security",
+      "title": "Missing state-machine transition or validation bypass",
+      "activation": "An input loses value or capacity through fees or transformations",
+      "related_ids": [
+        "NA-INTEGRATION-006",
+        "NA-STATE-005",
+        "NA-STATE-007",
+        "NA-STATE-008",
+        "NA-STATE-011",
+        "NA-ASYNC-017",
+        "NA-STATE-013",
+        "NA-STATE-014",
+        "NA-STATE-016"
+      ]
+    },
+    "NA-STATE-005": {
+      "category": "state",
+      "kind": "security",
+      "title": "Check individual allocation as well as aggregate totals",
+      "activation": "A supplied list determines allocations; Validation checks aggregate totals without establishing unique complete membership",
+      "related_ids": [
+        "NA-STATE-004",
+        "NA-STATE-003"
+      ]
+    },
+    "NA-STATE-006": {
+      "category": "state",
+      "kind": "security",
+      "title": "Reconcile mutations during snapshot migration",
+      "activation": "A snapshot is copied to a new representation; The old representation can change before cutover",
+      "related_ids": [
+        "NA-STATE-003",
+        "NA-ASYNC-006",
+        "NA-ECON-001"
+      ]
+    },
+    "NA-STATE-007": {
+      "category": "state",
+      "kind": "applicability",
+      "title": "Prove resource amplification before reporting missing limits",
+      "activation": "Users can request resource-consuming work; A proposed finding depends on aggregate demand or missing quotas",
+      "related_ids": [
+        "NA-STATE-004",
+        "NA-RESOURCE-005"
+      ]
+    },
+    "NA-STATE-008": {
+      "category": "state",
+      "kind": "applicability",
+      "title": "Distinguish optional restrictions from required permissions",
+      "activation": "Membership and restriction configuration have independent lifecycles; An absent rule has defined policy semantics",
+      "related_ids": [
+        "NA-STATE-004",
+        "NA-STATE-001",
+        "NA-OFFCHAIN-007"
+      ]
+    },
+    "NA-STATE-009": {
+      "category": "state",
+      "kind": "security",
+      "title": "Clean every losing attempt after a winner completes",
+      "activation": "Several attempts represent one logical operation; Attempts occupy different states and share quota or indexes",
+      "related_ids": [
+        "NA-STATE-001",
+        "NA-ASYNC-005"
+      ]
+    },
+    "NA-STATE-010": {
+      "category": "state",
+      "kind": "security",
+      "title": "Preserve decision semantics when bounded history changes",
+      "activation": "Security or risk decisions rely on bounded historical data; Resizing or eviction can change the meaning of missing entries",
+      "related_ids": [
+        "NA-STATE-001",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-STATE-011": {
+      "category": "state",
+      "kind": "security",
+      "title": "Validate collection cardinality before per-item checks",
+      "activation": "A nonempty collection is required for a valid operation; A path relies only on checks applied to each member",
+      "related_ids": [
+        "NA-STATE-004",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-STATE-012": {
+      "category": "state",
+      "kind": "security",
+      "title": "Preserve rights across provisional-to-final transitions",
+      "activation": "A provisional operation coexists with a paid or time-dependent recovery claim; Finalization deletes or overwrites that claim",
+      "related_ids": [
+        "NA-STATE-001",
+        "NA-ASYNC-002"
+      ]
+    },
+    "NA-STATE-013": {
+      "category": "state",
+      "kind": "security",
+      "title": "Validate destinations before committing to delivery",
+      "activation": "A user supplies a destination for later recovery or delivery; The system stores or charges for it before validating usability",
+      "related_ids": [
+        "NA-STATE-004",
+        "NA-ACCOUNT-003"
+      ]
+    },
+    "NA-STATE-014": {
+      "category": "state",
+      "kind": "applicability",
+      "title": "Make optimistic approval assumptions explicit",
+      "activation": "An action becomes executable unless a reviewer vetoes it; Its safety depends on timely review rather than fully automated validity",
+      "related_ids": [
+        "NA-STATE-004",
+        "NA-ECON-003"
+      ]
+    },
+    "NA-STATE-015": {
+      "category": "state",
+      "kind": "security",
+      "title": "Keep replay protection compatible with recovery",
+      "activation": "Cleanup deletes an operation or recovery record; A consumed marker survives and blocks every legitimate retry",
+      "related_ids": [
+        "NA-STATE-001",
+        "NA-ACCOUNT-003",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-STATE-016": {
+      "category": "state",
+      "kind": "quality",
+      "title": "Validate configuration combinations",
+      "activation": "Several settings jointly determine an operational invariant; Individual type checks allow incompatible combinations",
+      "related_ids": [
+        "NA-STATE-004",
+        "NA-ECON-002"
+      ]
+    },
+    "NA-ECON-001": {
+      "category": "econ",
+      "kind": "security",
+      "title": "Asset identity, unit, or collateral type is confused",
+      "activation": "generic tuples/strings or shared maps let collateral types merge, code assumes underlying equals collateral, global liquidity substitutes for asset-specific liquidity, chain-specific recipient/address encodings are accepted under the wrong chain kind, or logs/metadata disagree with execution.",
+      "related_ids": [
+        "NA-STATE-006",
+        "NA-INTEGRATION-008",
+        "NA-ECON-004"
+      ]
+    },
+    "NA-ECON-002": {
+      "category": "econ",
+      "kind": "security",
+      "title": "Rounding, precision, overflow, or unit error changes value",
+      "activation": "division precedes multiplication, `f32`/`f64` or float-derived configuration participates in monetary accounting, APY/unit semantics are ambiguous, intermediates overflow, casts truncate, decimal scaling or exponentiation can panic or underflow a nonzero value to zero, caps disagree, or an increase/decrease delta subtracts operands in the wrong direction and permanently reverts or credits the wrong amount.",
+      "related_ids": [
+        "NA-STATE-016"
+      ]
+    },
+    "NA-ECON-003": {
+      "category": "econ",
+      "kind": "security",
+      "title": "Public input, reveal, reward, or randomness can be ordered, copied, or biased",
+      "activation": "challenge/proof/reveal/answer/solution data is public before inclusion and the first valid submitter receives value or changes exclusive state; a permissionless finalization/signing call lets the transaction sender choose an unbound fee beneficiary that a copier can replace; auctions, first-come mints/claims, or trades expose predictable price impact; or `env::random_seed()` influences material value while the producer for that block can predict the seed and choose matching inputs, transaction order/inclusion, or whether to include a later resolve. The seed's deterministic/verifiable derivation does not remove this producer advantage.",
+      "related_ids": [
+        "NA-STATE-014"
+      ]
+    },
+    "NA-ECON-004": {
+      "category": "econ",
+      "kind": "security",
+      "title": "Bind compensation to the original resource generation",
+      "activation": "An operation can settle or compensate later; A configured resource can be replaced while it is pending",
+      "related_ids": [
+        "NA-ECON-001",
+        "NA-ASYNC-002",
+        "NA-STATE-003"
+      ]
+    },
+    "NA-RESOURCE-001": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Attacker-induced storage is unpaid or underpriced",
+      "activation": "public/hook methods grow state for free, use constants/partial key sizes, subsidize third-party storage deposits, let a caller choose a fee or deposit charged to a shared relayer/storage account, permit Sybil records, or let an attacker repeat individually cheap writes whose storage stake is borne disproportionately by the contract.",
+      "related_ids": [
+        "NA-ASYNC-010",
+        "NA-RESOURCE-007",
+        "NA-RESOURCE-008",
+        "NA-RESOURCE-009",
+        "NA-RESOURCE-010"
+      ]
+    },
+    "NA-RESOURCE-002": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Persistent prefix collision or orphaned nested state",
+      "activation": "raw string concatenation, timestamp/height uniqueness, reused enum prefix, or removal of a parent record/collection handle without deleting the child collection's prefixed raw keys.",
+      "related_ids": []
+    },
+    "NA-RESOURCE-003": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Detached SDK collection loses metadata or aliases state",
+      "activation": "a method constructs `Vector`, `LookupMap`, `UnorderedMap`, `IterableMap`, `LookupSet`, `Lazy`, `LazyOption`, or a similar collection locally with an existing/raw prefix; modifies it without persisting its metadata; or prevents a `near_sdk::store` value from running its version-specific `Drop`/`flush` path through `mem::forget`, static retention, or equivalent control flow.",
+      "related_ids": []
+    },
+    "NA-RESOURCE-004": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Native root collection bloats `STATE` and bricks execution",
+      "activation": "contract state contains attacker-growable native `Vec`, `HashMap`, `HashSet`, `BTreeMap`, `String`, or nested native collections instead of SDK persistent collections.",
+      "related_ids": []
+    },
+    "NA-RESOURCE-005": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Unbounded work, logs, or state serialization blocks core operations",
+      "activation": "unbounded args/collections, root native collections, unnecessarily iterable/ordered structures, batch iteration, large logs or JSON/Borsh payloads, repeated full serialization, stale gas constants, callback gas starvation, or approval/state admission can grow beyond what a mandatory future revoke/unregister/cleanup operation can process.",
+      "related_ids": [
+        "NA-RESOURCE-006",
+        "NA-STATE-007",
+        "NA-RESOURCE-008"
+      ]
+    },
+    "NA-RESOURCE-006": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Make mandatory bulk work bounded and resumable",
+      "activation": "A required operation processes a growing population in one execution; Smaller independent executions cannot satisfy its global completion check",
+      "related_ids": [
+        "NA-RESOURCE-005",
+        "NA-STATE-003",
+        "NA-ASYNC-008"
+      ]
+    },
+    "NA-RESOURCE-007": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Assign every accepted surplus to a payer and policy",
+      "activation": "Admission accepts more than a required amount; Success or failure accounts for only the required portion",
+      "related_ids": [
+        "NA-RESOURCE-001",
+        "NA-ACCOUNT-003"
+      ]
+    },
+    "NA-RESOURCE-008": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Budget repeated variable-length payloads",
+      "activation": "User-influenced variable-length data is persisted; One logical object is copied into multiple records or responses",
+      "related_ids": [
+        "NA-RESOURCE-001",
+        "NA-RESOURCE-005"
+      ]
+    },
+    "NA-RESOURCE-009": {
+      "category": "resource",
+      "kind": "security",
+      "title": "Account for old records in new pricing paths",
+      "activation": "Creation or copying consumes metered resources; Legacy objects were stored under a different charging rule",
+      "related_ids": [
+        "NA-RESOURCE-001"
+      ]
+    },
+    "NA-RESOURCE-010": {
+      "category": "resource",
+      "kind": "policy",
+      "title": "Make sponsorship and refund attribution explicit",
+      "activation": "One principal funds setup or registration for another; The beneficiary may later withdraw or reclaim the funding",
+      "related_ids": [
+        "NA-RESOURCE-001",
+        "NA-INTEGRATION-002"
+      ]
+    },
+    "NA-INTEGRATION-001": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Receiver hook trusts the wrong token or sender context",
+      "activation": "an FT hook accepts a counterfeit predecessor, an NFT hook treats `sender_id` as `previous_owner_id` even though an approved operator can make them differ, or free-form `msg` selects an unvalidated asset, beneficiary, route, or action.",
+      "related_ids": []
+    },
+    "NA-INTEGRATION-002": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Standard ABI or lifecycle semantics drift breaks interoperability",
+      "activation": "any of the 50 pinned registry NEPs is claimed, exported, activated, implemented, or materially depended upon and its exact behavior differs. Examples include signature/serializer/numeric representation drift; optional/default or panic/`false`/`null` mismatch; wrong return polarity; missing ABI; deposit-rule conflict; lifecycle ordering drift; unsupported peer assumptions; NEP-145 beneficiary/payer/refund confusion or withdrawal without value transfer; NEP-171/178 approval-ID representation; wallet/signature domain mismatch; host-function ABI/result confusion; or node/runtime activation/state-transition disagreement.",
+      "related_ids": [
+        "NA-RESOURCE-010"
+      ]
+    },
+    "NA-INTEGRATION-003": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Finality, proof, or timeout races release value twice",
+      "activation": "proof and timeout/unlock can race, a nonce/proof is consumed too early or too late relative to terminal downstream success, source confirmations are weak, a sequence/reset is not scoped to the configured emitter, security-relevant header/event metadata is omitted from the canonical proof identity, or a callback is not idempotent.",
+      "related_ids": [
+        "NA-INTEGRATION-006",
+        "NA-ASYNC-011",
+        "NA-ASYNC-012",
+        "NA-ASYNC-013",
+        "NA-INTEGRATION-007",
+        "NA-INTEGRATION-008",
+        "NA-ACCOUNT-006",
+        "NA-STATE-010",
+        "NA-STATE-011",
+        "NA-CRYPTO-008",
+        "NA-STATE-015",
+        "NA-OFFCHAIN-011"
+      ]
+    },
+    "NA-INTEGRATION-004": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Valid proof is accepted from an untrusted emitter or route",
+      "activation": "proof verification establishes inclusion/finality but the consumer accepts an attacker-deployed contract's otherwise valid event, trusts an emitter supplied inside the proof payload, or mutates token/address mappings before comparing the event origin with the configured per-chain factory/locker.",
+      "related_ids": []
+    },
+    "NA-INTEGRATION-005": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Stale, manipulable, or unavailable input corrupts decisions",
+      "activation": "a price/reward/rate lacks freshness, decimals, source authentication, fallback, or manipulation bounds; or a confidence interval is applied in the wrong direction or without a policy bound so uncertainty itself triggers unsafe liquidation or borrowing.",
+      "related_ids": []
+    },
+    "NA-INTEGRATION-006": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Validate the result after costs and transformations",
+      "activation": "An input loses value or capacity through fees or transformations; A downstream system imposes a minimum usable result",
+      "related_ids": [
+        "NA-INTEGRATION-003",
+        "NA-STATE-004"
+      ]
+    },
+    "NA-INTEGRATION-007": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Verify meaning and authorization before shared commitment",
+      "activation": "Untrusted structured data can reserve shared resources; Parsing does not establish all required semantic or authorization predicates",
+      "related_ids": [
+        "NA-INTEGRATION-003",
+        "NA-ASYNC-005"
+      ]
+    },
+    "NA-INTEGRATION-008": {
+      "category": "integration",
+      "kind": "security",
+      "title": "Distinguish accepted state from usable resources",
+      "activation": "An upstream system accepts or records a resource; Independent rules govern when that resource may be consumed",
+      "related_ids": [
+        "NA-INTEGRATION-003",
+        "NA-ECON-001"
+      ]
+    },
+    "NA-CRYPTO-001": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Ambiguous, non-canonical, or incomplete decoding changes authority or execution",
+      "activation": "custom delimiter parsing is context-free, a decoder accepts trailing bytes, nested values can inject actions, external IDs have inconsistent case normalization, security-sensitive account fields remain unvalidated strings, or a compact/custom AccountId representation is not injective, canonical, length-bounded, and exactly reversible.",
+      "related_ids": []
+    },
+    "NA-CRYPTO-002": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Threshold request, participant, transcript, or response is not cryptographically bound",
+      "activation": "peer IDs are accepted without unique asset-to-network binding; vector position is confused with participant index; a coordinator can choose unchecked derivation data; a response handler accepts a caller or `payload_hash` not bound to the pending request; or two operation purposes share the same transcript/signature domain.",
+      "related_ids": [
+        "NA-CRYPTO-008"
+      ]
+    },
+    "NA-CRYPTO-003": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Threshold, quorum, corruption, or resharing assumptions disagree across phases",
+      "activation": "signing threshold differs from reliable-broadcast corruption bounds; `threshold = 1`, changed membership, or changed threshold reaches an untested/invalid branch; a coordinator waits for every participant despite a threshold protocol; or `>= threshold` early responses can override a contrary honest majority.",
+      "related_ids": []
+    },
+    "NA-CRYPTO-004": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Presignature reuse across split views leaks the signing key",
+      "activation": "disjoint or equivocating signer views can select the same presignature for different messages, tweaks, or participant subsets; presignature consumption is tracked only locally; or participant-count/index bounds permit overlapping threshold groups to complete inconsistent sessions.",
+      "related_ids": []
+    },
+    "NA-CRYPTO-005": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Secret material survives or crosses an unsafe operational boundary",
+      "activation": "secrets are passed on command lines, persisted in CI/container artifacts, retained after DKG/resharing, stored with excessive permissions, or left in ordinary buffers without a deliberate zeroization/threat-model decision.",
+      "related_ids": []
+    },
+    "NA-CRYPTO-006": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Encryption nonce, context binding, or key derivation is unsafe",
+      "activation": "AES-GCM or another nonce-sensitive AEAD repeats a nonce; encrypted database values can be swapped between keys/records because AAD omits identity; a raw hash substitutes for a required KDF; or ciphertext/version/key-rotation context is ambiguous.",
+      "related_ids": []
+    },
+    "NA-CRYPTO-007": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Attestation does not bind the claimed platform, TCB, measurement, and runtime configuration",
+      "activation": "TCB status is ignored; environment parsing/tagging changes what was measured or claimed; privileged container/runtime configuration lies outside the attested boundary; or attestation proves code but not the key/configuration used for MPC/CKD decisions.",
+      "related_ids": []
+    },
+    "NA-CRYPTO-008": {
+      "category": "crypto",
+      "kind": "security",
+      "title": "Treat deletion and authority revocation separately",
+      "activation": "An operation creates externally usable authority; Local rejection or deletion can occur after that authority exists",
+      "related_ids": [
+        "NA-CRYPTO-002",
+        "NA-STATE-001",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-RUNTIME-001": {
+      "category": "runtime",
+      "kind": "security",
+      "title": "Untrusted host/runtime work can panic, allocate, or execute before proportional charging",
+      "activation": "gas is deducted after allocation/read/serialization; lengths or multiplication overflow before a bound; attacker-controlled receipt/account/Wasm data drives large allocation; deserialization or storage imports panic; or runtime backends/architectures disagree on accepted input or result.",
+      "related_ids": []
+    },
+    "NA-RUNTIME-002": {
+      "category": "runtime",
+      "kind": "security",
+      "title": "Block production, fork choice, finalization, or validator-set transitions violate agreement/liveness",
+      "activation": "producer scheduling can be sped up/manipulated, block acceptance enables systematic censorship, validator removal/update crashes or diverges, mutable process state substitutes for consensus state, or finalization logic permits conflicting forks.",
+      "related_ids": []
+    },
+    "NA-OFFCHAIN-001": {
+      "category": "offchain",
+      "kind": "security",
+      "title": "Indexer trusts failed, foreign, or malformed chain data",
+      "activation": "substring contract match, tx acceptance without receipt checks, untrusted decode with panic, optimistic data used for irreversible payout, or failed outcome args/logs are ingested.",
+      "related_ids": []
+    },
+    "NA-OFFCHAIN-002": {
+      "category": "offchain",
+      "kind": "security",
+      "title": "Relayer retry, persistence, or nonce ordering loses/doubles funds",
+      "activation": "pub/sub loss, Redis/DB outage, send-before-persist, parallel access-key nonces, retry without event identity, or ABI parameter drift.",
+      "related_ids": []
+    },
+    "NA-OFFCHAIN-003": {
+      "category": "offchain",
+      "kind": "security",
+      "title": "Unsafe off-chain input or authorization reaches a dangerous sink",
+      "activation": "string-interpolated SQL, source/client-side password authorization, unsafe callback URL, public mutation route, or production mock/test endpoint.",
+      "related_ids": []
+    },
+    "NA-OFFCHAIN-004": {
+      "category": "offchain",
+      "kind": "security",
+      "title": "Dependency/build/release configuration changes security semantics",
+      "activation": "Deployment or release tooling consumes external tools or mutable build inputs",
+      "related_ids": [
+        "NA-OFFCHAIN-009"
+      ]
+    },
+    "NA-OFFCHAIN-005": {
+      "category": "offchain",
+      "kind": "quality_only",
+      "title": "Missing or incomplete security tests",
+      "activation": "Responses or operations have intentional bounds",
+      "related_ids": [
+        "NA-OFFCHAIN-010"
+      ]
+    },
+    "NA-OFFCHAIN-006": {
+      "category": "offchain",
+      "kind": "quality_only",
+      "title": "Missing or inconsistent security observability",
+      "activation": "Responses or operations have intentional bounds",
+      "related_ids": [
+        "NA-OFFCHAIN-010",
+        "NA-OFFCHAIN-011"
+      ]
+    },
+    "NA-OFFCHAIN-007": {
+      "category": "offchain",
+      "kind": "quality_only",
+      "title": "Documentation or specification is incomplete",
+      "activation": "Membership and restriction configuration have independent lifecycles",
+      "related_ids": [
+        "NA-STATE-008",
+        "NA-OFFCHAIN-012"
+      ]
+    },
+    "NA-OFFCHAIN-008": {
+      "category": "offchain",
+      "kind": "quality_only",
+      "title": "Non-material code quality or efficiency issue",
+      "activation": "The named target behavior exists and can be reached by an attacker.",
+      "related_ids": []
+    },
+    "NA-OFFCHAIN-009": {
+      "category": "offchain",
+      "kind": "quality",
+      "title": "Bind release artifacts to reviewed inputs",
+      "activation": "Deployment or release tooling consumes external tools or mutable build inputs; Those inputs can affect shipped artifacts",
+      "related_ids": [
+        "NA-OFFCHAIN-004"
+      ]
+    },
+    "NA-OFFCHAIN-010": {
+      "category": "offchain",
+      "kind": "quality",
+      "title": "Expose useful diagnostics without removing bounds",
+      "activation": "Responses or operations have intentional bounds; Failures do not expose enough information for correct recovery",
+      "related_ids": [
+        "NA-OFFCHAIN-006",
+        "NA-OFFCHAIN-005"
+      ]
+    },
+    "NA-OFFCHAIN-011": {
+      "category": "offchain",
+      "kind": "quality",
+      "title": "Distinguish validity deadlines from observation deadlines",
+      "activation": "An operation has an execution-validity deadline; Operators or clients must observe status and may submit evidence later",
+      "related_ids": [
+        "NA-OFFCHAIN-006",
+        "NA-INTEGRATION-003"
+      ]
+    },
+    "NA-OFFCHAIN-012": {
+      "category": "offchain",
+      "kind": "quality",
+      "title": "Keep documented recovery aligned with implemented states",
+      "activation": "Users or operators depend on recovery instructions; Documentation may describe an obsolete failure branch",
+      "related_ids": [
+        "NA-OFFCHAIN-007"
+      ]
+    },
+    "NA-AUTH-012": {
+      "category": "auth",
+      "kind": "security",
+      "title": "Public session credential can be reassigned across owners",
+      "activation": "Public credential identifier plus cross-owner registration of a live session",
+      "related_ids": [
+        "NA-AUTH-004",
+        "NA-AUTH-008"
+      ]
+    }
+  }
+}

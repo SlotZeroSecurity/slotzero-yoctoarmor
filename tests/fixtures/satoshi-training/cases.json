@@ -1,0 +1,149 @@
+{
+  "kind": "informed_training_pairs",
+  "evaluation_claim": "No model evaluation or target exploit reproduction",
+  "cases": [
+    {
+      "id": "async-capacity-admission",
+      "variant_ids": ["SAT-01"],
+      "candidate": "A replacement request checks an account's last free pending slot, calls an external height provider, and inserts its record only in the callback. Two requests pass before either callback.",
+      "safe_control": "Admission reserves an operation-bound slot before dispatch; failed dispatch releases only that reservation, and insertion consumes it once.",
+      "expected": {
+        "evidence": "Compare concurrent requests with a sequential second request that is rejected. Measure records and marginal storage beyond one permitted replacement.",
+        "recovery": "Fail the external call, retry, and clean a losing sibling using the real authorized caller; verify capacity and storage return without releasing another request's reservation.",
+        "exclusion": "Bounded same-owner replacement growth does not establish unbounded spam, forced MPC activity, or harm to another user."
+      }
+    },
+    {
+      "id": "settlement-result-semantics",
+      "variant_ids": ["SAT-06", "SAT-15"],
+      "candidate": "A bridge marks an outpoint finalized on any successful promise receipt. The terminal result may encode zero, partial, or full accepted tokens; a failed result or malformed bytes may follow an earlier committed mint.",
+      "safe_control": "The bridge validates the complete promise graph and exact used/unused ABI, records remainder claims, and retains operation-bound recovery for ambiguous outcomes. It releases backing only after proving no corresponding liability survives.",
+      "expected": {
+        "evidence": "Trace Failed, malformed, zero, partial, and full results separately, including ft_on_transfer failure resolved as zero. Pin whether partial acceptance is possible in the actual token integration.",
+        "recovery": "Retry each ambiguous state without reissuing tokens; reconcile minted supply, backing, remainder entitlement, and replay marker.",
+        "exclusion": "Reject partial-acceptance findings for an enforced all-or-zero integration. Receipt failure alone neither proves no mint nor authorizes a refund."
+      }
+    },
+    {
+      "id": "mint-survives-callback",
+      "variant_ids": ["SAT-03"],
+      "candidate": "Token minting commits, then the bookkeeping callback exhausts gas or storage while registering the backing outpoint.",
+      "safe_control": "A stored operation binds minted liabilities to the outpoint, and a bounded authenticated retry completes bookkeeping without calling mint again.",
+      "expected": {
+        "evidence": "Observe committed token balances and missing inventory after the failed callback, with gas and storage failure tested independently.",
+        "recovery": "Prove one successful registration and rejection of duplicate registration; check refunds cannot release backing for already-issued tokens.",
+        "exclusion": "An inventory omission does not itself prove BTC absence, insolvency, or permanent freezing."
+      }
+    },
+    {
+      "id": "live-migration-user-race",
+      "variant_ids": ["SAT-08", "SAT-21"],
+      "candidate": "A privileged migration snapshots holder balances while ordinary transfers remain enabled; callbacks later settle or compensate through the mutable current-token setting.",
+      "safe_control": "All relevant asset mutations are quiescent, in-flight operations are drained or epoch-bound, and settlement and compensation use the immutable originating token.",
+      "expected": {
+        "evidence": "Construct a reachable transfer between snapshot and commit, or rotate a token before a real failure callback; compare per-holder balances and token identity, not only total supply.",
+        "recovery": "Exercise migration success and failure after each interleaving and ensure balances reconcile on the correct asset.",
+        "exclusion": "A migration admission lock alone is not asset quiescence. A mock sequence without a reachable receipt schedule is insufficient."
+      }
+    },
+    {
+      "id": "overlapping-migrations",
+      "variant_ids": ["SAT-04", "SAT-05", "SAT-17"],
+      "candidate": "An operator submits migration B before A settles; holder input may repeat an account and the one-shot promise batch may exceed runtime limits.",
+      "safe_control": "A migration-specific operation lock serializes A and B, holders are unique, and bounded batches resume with idempotent checkpoints.",
+      "expected": {
+        "evidence": "Show privileged overlap separately from ordinary user races; test duplicate holder ownership and pin action, dependency, and gas limits independently.",
+        "recovery": "Fail and retry a batch without duplicate credit; determine the actual receipt rollback boundary.",
+        "exclusion": "Do not assume an over-limit atomic batch executes a prefix. Preserved total supply does not prove correct individual ownership."
+      }
+    },
+    {
+      "id": "unsigned-refund-cleanup",
+      "variant_ids": ["SAT-02", "SAT-29"],
+      "candidate": "An unsigned refund is rejected and deleted, but the finalized-deposit marker survives and no claimant recovery path remains. Its output is valid and above dust thresholds.",
+      "safe_control": "Rejection preserves a recoverable refund entitlement and original waiting period, with safe replay protection; retries cannot mint and refund the same deposit.",
+      "expected": {
+        "evidence": "Trace refund record, marker, backing, claimant, and retry authorization before and after cleanup using a valid non-dust transaction.",
+        "recovery": "Demonstrate claim recovery exactly once; separately test post-fee dust boundaries to avoid conflating admission validity with cleanup.",
+        "exclusion": "Deleting a marker is unsafe when signatures or minted liabilities survive. A dust-only test cannot establish the distinct cleanup mechanism."
+      }
+    },
+    {
+      "id": "signatures-survive-rejection",
+      "variant_ids": ["SAT-28", "SAT-25"],
+      "candidate": "A refund is executable or already signed; rejecting its application record leaves a transaction candidate signable. Elsewhere a pending deposit finalizes by deleting a paid refund request.",
+      "safe_control": "The first path disallows rejection after execution starts and reconciles outstanding signatures. The second preserves the paid claim or follows a documented claimant-preserving settlement transition.",
+      "expected": {
+        "evidence": "Map pending versus finalized deposit states, immutable beneficiary, signing authority, and all surviving transaction candidates.",
+        "recovery": "Try signing after rejection and repeating finalization; check fees, waiting periods, replay barriers, and claim ownership.",
+        "exclusion": "A surviving signature for a fixed rightful beneficiary does not automatically prove theft. A successful mint retry does not restore a separately deleted refund right."
+      }
+    },
+    {
+      "id": "orchard-authorization",
+      "variant_ids": ["SAT-10"],
+      "candidate": "A parsed transaction reserves shared liquidity after structural checks, but its Orchard proof or authorization is invalid.",
+      "safe_control": "The exact transaction is fully authorized and validated before shared inventory commitment, or reservations are bounded and safely released without requiring an impossible confirmation.",
+      "expected": {
+        "evidence": "Start with a valid transaction, corrupt one proof component, and use the pinned consensus verifier to establish rejection while application admission succeeds.",
+        "recovery": "Exercise actual signing and cancellation paths, fees, expiry, and all reserved UTXOs; measure marginal shared-liquidity impact.",
+        "exclusion": "Parsing failure is a different defect. PendingSign alone does not prove permanent lockup, and attacker-funded transactions alone do not prove third-party loss."
+      }
+    },
+    {
+      "id": "coinbase-spendability",
+      "variant_ids": ["SAT-11"],
+      "candidate": "The bridge accepts inclusion and ordinary confirmation depth for a coinbase output, then attempts to spend it before maturity.",
+      "safe_control": "The bridge identifies coinbase outputs from verified transaction data and enforces chain-specific maturity using the correct inclusion/spend-height boundary.",
+      "expected": {
+        "evidence": "Test one block below, at, and above maturity using the pinned consensus rule; distinguish transaction index zero from a proven coinbase classification.",
+        "recovery": "Determine whether waiting, replacing, or canceling restores progress and what other liquidity remains usable.",
+        "exclusion": "A mock proof is not consensus evidence. One unusable UTXO does not by itself establish permanent global freezing."
+      }
+    },
+    {
+      "id": "retry-ring-accounting",
+      "variant_ids": ["SAT-14", "SAT-19"],
+      "candidate": "A failed mint can be retried; every retry increments the same deposit-volume ring cell. A later cleanup decrements a reused cell, and resizing can discard still-relevant security history.",
+      "safe_control": "Each outpoint contributes once, reversals bind the original height and epoch, and resizing preserves all history required by the confirmation policy.",
+      "expected": {
+        "evidence": "Compare the same outpoint retried with two legitimate distinct deposits. Separate receipts that commit a bump from same-receipt panics that roll it back.",
+        "recovery": "Advance through cell reuse and shrink/grow operations, then test a verified deposit colliding with lost history under the exact PR lineage.",
+        "exclusion": "Elapsed time alone does not prove a history collision or double spend. An explicitly accepted history/security tradeoff requires documenting the policy."
+      }
+    },
+    {
+      "id": "variable-and-legacy-storage",
+      "variant_ids": ["SAT-22", "SAT-23"],
+      "candidate": "A fixed fee stores attacker-controlled transaction bytes multiple times. RBF copying of an older unpaid record duplicates bytes without charging for that legacy allocation.",
+      "safe_control": "Admission and every copy or replacement charge the responsible payer for actual byte deltas, including legacy records, and refunds follow actual deletion.",
+      "expected": {
+        "evidence": "Measure storage_usage deltas for short and long valid transactions, copies, and old versus newly priced records; reconcile attached deposits and sponsorship.",
+        "recovery": "Clean winners and losing siblings and verify storage refunds reach the correct payer without duplicate credit.",
+        "exclusion": "A valid fixed fee covering worst-case bounded storage is safe. New-record pricing alone does not establish coverage for legacy copies; quantify bounded marginal loss."
+      }
+    },
+    {
+      "id": "expired-cancellation",
+      "variant_ids": ["SAT-18", "SAT-24"],
+      "candidate": "A Zcash replacement cancellation expires, leaving its reservation pending. Losing transaction candidates also remain indexed after another candidate confirms.",
+      "safe_control": "Recovery checks all original and replacement candidates, proves relevant expiry or finality, clears losing indexes, and reconciles fees once.",
+      "expected": {
+        "evidence": "Enumerate PendingSign and PendingVerify siblings, expiry heights, cancellation predicates, and the actual authorized cleanup caller.",
+        "recovery": "Retry cancellation and cleanup; verify no live competing transaction can spend released liquidity and account for timely inclusion proved later.",
+        "exclusion": "Bitcoin transaction age does not revoke a signature. Expiry constrains inclusion, not necessarily the later proof-submission time."
+      }
+    },
+    {
+      "id": "intent-and-policy-controls",
+      "variant_ids": ["SAT-07", "SAT-09", "SAT-12", "SAT-27"],
+      "candidate": "A reviewer flags a missing global account cap, an optional whitelist template being absent, an old light-client result rejected after revocation, and an optimistic refund awaiting operator veto.",
+      "safe_control": "Policy intentionally permits open template configuration and paid per-account use; revocation intentionally rejects compromised dependencies; the refund mechanism explicitly trusts timely operator review.",
+      "expected": {
+        "evidence": "Pin documented policy, actual resource amplification, dependency-compromise assumptions, knowledge needed to match the refund message, and operator availability.",
+        "recovery": "Inspect grandfathering or retry policy and verify any claimed disabling timelock on the specific deployment rather than trusting a discussion claim.",
+        "exclusion": "Treat #13 and #14 as negative examples. Do not call the #45 operator-veto model an unauthorized bypass or claim its reported mitigation is independently verified."
+      }
+    }
+  ]
+}

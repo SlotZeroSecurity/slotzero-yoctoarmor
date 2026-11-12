@@ -1,0 +1,1049 @@
+{
+  "schema_version": 1,
+  "source": {
+    "repository": "near/NEPs",
+    "commit": "91562ccd72f6d30f4e37e4b53f7f193cc808b5d8",
+    "document_count": 51,
+    "runtime_policy": "Protocol and runtime requirements apply only when activated for the target chain and version.",
+    "reviewed_at": "2026-10-20",
+    "scope_policy": "Select current security-relevant NEPs by target behavior and chain version; activate legacy standards only when target claims or uses them."
+  },
+  "status_policy": {
+    "Final": "normative_when_applicable",
+    "Approved": "normative_when_applicable",
+    "Draft": "advisory_only",
+    "New": "advisory_only"
+  },
+  "categories": {
+    "process-legacy": {
+      "role_id": "nep-process-legacy",
+      "checklist": "references/nep-process-legacy.md",
+      "ids": [
+        "0001",
+        "0021"
+      ]
+    },
+    "token-assets": {
+      "role_id": "nep-token-assets",
+      "checklist": "references/nep-token-assets.md",
+      "ids": [
+        "0141",
+        "0145",
+        "0148",
+        "0171",
+        "0177",
+        "0178",
+        "0181",
+        "0199",
+        "0245",
+        "0256",
+        "0300",
+        "0393",
+        "0621"
+      ]
+    },
+    "contract-interfaces": {
+      "role_id": "nep-contract-interfaces",
+      "checklist": "references/nep-contract-interfaces.md",
+      "ids": [
+        "0297",
+        "0330",
+        "0452"
+      ]
+    },
+    "wallet-auth": {
+      "role_id": "nep-wallet-auth",
+      "checklist": "references/nep-wallet-auth.md",
+      "ids": [
+        "0366",
+        "0368",
+        "0408",
+        "0413",
+        "0448",
+        "0492",
+        "0518",
+        "0616",
+        "0641"
+      ]
+    },
+    "runtime-resources": {
+      "role_id": "nep-runtime-resources",
+      "checklist": "references/nep-runtime-resources.md",
+      "ids": [
+        "0264",
+        "0399",
+        "0418",
+        "0455",
+        "0491",
+        "0519",
+        "0536",
+        "0591",
+        "0611",
+        "0638",
+        "0642"
+      ]
+    },
+    "crypto-host": {
+      "role_id": "nep-crypto-host",
+      "checklist": "references/nep-crypto-host.md",
+      "ids": [
+        "0364",
+        "0488",
+        "0635",
+        "0645",
+        "0646"
+      ]
+    },
+    "protocol-node": {
+      "role_id": "nep-protocol-node",
+      "checklist": "references/nep-protocol-node.md",
+      "ids": [
+        "0508",
+        "0509",
+        "0514",
+        "0539",
+        "0568",
+        "0584",
+        "0639",
+        "0652"
+      ]
+    }
+  },
+  "neps": {
+    "0001": {
+      "title": "NEP Purpose and Guidelines",
+      "status": "Approved",
+      "type": "Developer Tools",
+      "category": "process-legacy",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "process_only",
+      "version_gate": "not executable",
+      "signals": [
+        "NEP lifecycle",
+        "proposal status"
+      ],
+      "source_sha256": "9c8af4e71aa1217cf3120e0089c42c567792af45a3f8d852b64b23d66b0c6cd7"
+    },
+    "0021": {
+      "title": "Fungible Token Standard",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "process-legacy",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [
+        "0141"
+      ],
+      "activation": "superseded",
+      "version_gate": "legacy exported interface",
+      "signals": [
+        "inc_allowance",
+        "transfer_from",
+        "get_allowance"
+      ],
+      "source_sha256": "8f32e40b696366886161b45c0dd7f45bcf7f25ad5ff4349c0b00b053d82c276b"
+    },
+    "0141": {
+      "title": "Fungible Token Standard",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0297"
+      ],
+      "supersedes": [
+        "0021"
+      ],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported FT interface/version",
+      "signals": [
+        "ft_transfer",
+        "ft_transfer_call",
+        "ft_on_transfer",
+        "ft_resolve_transfer"
+      ],
+      "source_sha256": "39b9cb206355ba56756e9af70e5c3b9fa86aae6572d0f921bded116bf7d1d38b"
+    },
+    "0145": {
+      "title": "Storage Management",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported storage-management interface",
+      "signals": [
+        "storage_deposit",
+        "storage_withdraw",
+        "storage_unregister",
+        "storage_balance_bounds"
+      ],
+      "source_sha256": "42f234b39a40a147cf163192a1b9b0f8eb455c8db9a4377e5f72d5a7ebb437f6"
+    },
+    "0148": {
+      "title": "Fungible Token Metadata",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0141"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported metadata interface",
+      "signals": [
+        "ft_metadata",
+        "FungibleTokenMetadata"
+      ],
+      "source_sha256": "cecaa8258fa6595cd1e1faeb8b3056be0cb33efe8046a53e5c3ba80ca5876e7f"
+    },
+    "0171": {
+      "title": "Non Fungible Token Standard",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0297"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported NFT core interface",
+      "signals": [
+        "nft_transfer",
+        "nft_transfer_call",
+        "nft_on_transfer",
+        "nft_resolve_transfer"
+      ],
+      "source_sha256": "f4c2d8ddf354d105a298b051bffb4478bc79b2f1739279ce2c6d2a97a6dfb628"
+    },
+    "0177": {
+      "title": "Non Fungible Token Metadata",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0171"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported NFT metadata interface",
+      "signals": [
+        "nft_metadata",
+        "TokenMetadata",
+        "NFTContractMetadata"
+      ],
+      "source_sha256": "a2a398e3504644fa75360f7a30a1b51d3e1bbf68e710954319476c907b724767"
+    },
+    "0178": {
+      "title": "Non Fungible Token Approval Management",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0171"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported NFT approval interface",
+      "signals": [
+        "nft_approve",
+        "nft_revoke",
+        "nft_is_approved",
+        "approval_id"
+      ],
+      "source_sha256": "e353105919002c85558a509d315043635e906507ad3c678d41018979b16caeb1"
+    },
+    "0181": {
+      "title": "Non Fungible Token Enumeration",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0171"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported NFT enumeration interface",
+      "signals": [
+        "nft_total_supply",
+        "nft_tokens_for_owner",
+        "nft_supply_for_owner"
+      ],
+      "source_sha256": "81d74377eb4ae15949a516fa97fef08ce8175ef2c7db371af377b62f06df02b6"
+    },
+    "0199": {
+      "title": "Non Fungible Token Royalties and Payouts",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0171",
+        "0178"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported payout interface",
+      "signals": [
+        "nft_payout",
+        "nft_transfer_payout",
+        "max_len_payout",
+        "royalty"
+      ],
+      "source_sha256": "ae0c85546005e5b61ac9defd9192a748d4e47ded3a754815626fa41e399e11df"
+    },
+    "0245": {
+      "title": "Multi Token Standard",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [
+        "0297"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "exported multi-token interface",
+      "signals": [
+        "mt_transfer",
+        "mt_batch_transfer",
+        "mt_on_transfer",
+        "MultiToken"
+      ],
+      "source_sha256": "4f5049c6f1e464bc83f4a11cca1369739d732a839998178eb915f1e54e53147a"
+    },
+    "0256": {
+      "title": "Non-Fungible Token Events",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "NFT events claim or consumer",
+      "signals": [
+        "nft_mint",
+        "nft_transfer",
+        "nft_burn",
+        "EVENT_JSON"
+      ],
+      "source_sha256": "6e6f43d602aa5cb0373a4022689fc10aaee5de3fcd1dc35ee2772b9f4f537f41"
+    },
+    "0264": {
+      "title": "Utilization of unspent gas for promise function calls",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active promise gas-weight semantics",
+      "signals": [
+        "with_unused_gas_weight",
+        "gas_weight",
+        "promise_batch_action_function_call_weight"
+      ],
+      "source_sha256": "f93565364b436bb355b67f851bbfc4dfce2851b6b79663a8d3a52f22fd86cfc5"
+    },
+    "0297": {
+      "title": "Events",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "contract-interfaces",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "event claim or material consumer",
+      "signals": [
+        "EVENT_JSON",
+        "event_version",
+        "standard"
+      ],
+      "source_sha256": "ab11ca0e1a838c1e012933f972e76d084546e072bb32137e61ac24db968d2821"
+    },
+    "0300": {
+      "title": "Fungible Token Events",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "FT events claim or consumer",
+      "signals": [
+        "ft_mint",
+        "ft_transfer",
+        "ft_burn",
+        "EVENT_JSON"
+      ],
+      "source_sha256": "0353608c474fcf952bc70183deb0be50bf2b9707c6f50945d25288a57c02ba50"
+    },
+    "0330": {
+      "title": "Source Metadata",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "contract-interfaces",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "metadata export or source-verification claim",
+      "signals": [
+        "contract_source_metadata",
+        "source_metadata",
+        "build_info"
+      ],
+      "source_sha256": "4c1e9271ed8d3c53955c172891851ca29cd05e2312a33eba48d53046c8fc85da"
+    },
+    "0364": {
+      "title": "Efficient signature verification and hashing precompile functions",
+      "status": "Final",
+      "type": "Runtime Spec",
+      "category": "crypto-host",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active host-function ABI",
+      "signals": [
+        "ecrecover",
+        "ed25519_verify",
+        "keccak",
+        "ripemd",
+        "signature_verify"
+      ],
+      "source_sha256": "240f007aece2a9657e2104f9a2132abf2a0effb077ca936f02d1e4a02e6bdb24"
+    },
+    "0366": {
+      "title": "Meta Transactions",
+      "status": "Final",
+      "type": "Protocol Track",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active DelegateAction semantics",
+      "signals": [
+        "DelegateAction",
+        "SignedDelegateAction",
+        "meta_transaction",
+        "relayer"
+      ],
+      "source_sha256": "af95c37503e8d41e259675833e87d21055673a4af74551a7c89c54f96a3744d4"
+    },
+    "0368": {
+      "title": "Bridge Wallets",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "wallet_integration",
+      "version_gate": "bridge-wallet API claim",
+      "signals": [
+        "bridgeWallet",
+        "postMessage",
+        "wallet bridge",
+        "targetOrigin"
+      ],
+      "source_sha256": "d70f828279813ea289c87ee739aeda4db03f7eb8620a697d10d6e0762d690744"
+    },
+    "0393": {
+      "title": "Soulbound Token",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "token-assets",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "SBT issuer/registry claim",
+      "signals": [
+        "sbt",
+        "soul_transfer",
+        "issuer",
+        "registry",
+        "ban"
+      ],
+      "source_sha256": "ceb2ce1fbe63e3f0d64ea53cae9758869d5f6768d661e71bed341bbeb5de9826"
+    },
+    "0399": {
+      "title": "Flat Storage",
+      "status": "Final",
+      "type": "Protocol Track",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "active flat-storage implementation",
+      "signals": [
+        "FlatStorage",
+        "flat_head",
+        "flat_state",
+        "FlatStateDelta"
+      ],
+      "source_sha256": "2754b7b7b148c9fe899a6377c2f955e9b146302d4fe9a39ec316a8e68af6604d"
+    },
+    "0408": {
+      "title": "Injected Wallet API",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "wallet_integration",
+      "version_gate": "injected-wallet API claim",
+      "signals": [
+        "injected wallet",
+        "wallet provider",
+        "window.near",
+        "selector"
+      ],
+      "source_sha256": "d1e534f63194ad7553cc2b47b2e7f02498c570eccff8495b0bfed2f58be324f5"
+    },
+    "0413": {
+      "title": "Near Wallet API - support for signMessage method",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "wallet_integration",
+      "version_gate": "signMessage implementation/verification",
+      "signals": [
+        "signMessage",
+        "sign_message",
+        "NEP413",
+        "callbackUrl"
+      ],
+      "source_sha256": "a1571dfeab5f594abe04817f9c6d62f0674b69e7db2a58687821e129b7fd27af"
+    },
+    "0418": {
+      "title": "Remove attached_deposit view panic",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "target view-call runtime behavior",
+      "signals": [
+        "attached_deposit",
+        "view_call",
+        "ViewConfig"
+      ],
+      "source_sha256": "f1be3128f6bfc5d4bf5cedddef7196a5b3bfad60b0b12de3da37aad9805f430e"
+    },
+    "0448": {
+      "title": "Zero-balance Accounts",
+      "status": "Final",
+      "type": "Protocol Track",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active account-creation rules",
+      "signals": [
+        "create_account",
+        "zero balance",
+        "access keys",
+        "implicit account"
+      ],
+      "source_sha256": "d72e2695ea83cf6d428a6746f4b1356170e0a4184d7fb9461247b4536c96d121"
+    },
+    "0452": {
+      "title": "Linkdrop Standard",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "contract-interfaces",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "linkdrop API claim",
+      "signals": [
+        "create_account_and_claim",
+        "claim",
+        "linkdrop",
+        "add_access_key"
+      ],
+      "source_sha256": "076b660ef8a8680e19ee6f20d7df122b56e703bd2d60c563c3167c14c0c64fc4"
+    },
+    "0455": {
+      "title": "Parameter Compute Costs",
+      "status": "Final",
+      "type": "Protocol Track",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "active compute-cost parameter set",
+      "signals": [
+        "compute_cost",
+        "ExtCosts",
+        "parameter table",
+        "chunk compute"
+      ],
+      "source_sha256": "43be2fd45a5d3b092c0eb264cd2a6da04a8de8415acfe0204994462eb1f5ef1b"
+    },
+    "0488": {
+      "title": "Host Functions for BLS12-381 Curve Operations",
+      "status": "Final",
+      "type": "Runtime Spec",
+      "category": "crypto-host",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active BLS12-381 host ABI",
+      "signals": [
+        "bls12_381",
+        "pairing_check",
+        "g1",
+        "g2"
+      ],
+      "source_sha256": "c2f398d50781d14307b1dcd7a5d15e9157a4e35af935ae3b2aa6ed1a36740ae0"
+    },
+    "0491": {
+      "title": "Non-Refundable Storage Staking",
+      "status": "Final",
+      "type": "Protocol Track",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active account storage-balance model",
+      "signals": [
+        "nonrefundable",
+        "storage staking",
+        "AccountV2",
+        "storage_usage"
+      ],
+      "source_sha256": "1a99b9931a0851df37ecd35f1197391ada092ea67cde3eb0292a510e1b5c5660"
+    },
+    "0492": {
+      "title": "Restrict creation of Ethereum Addresses",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active account-ID creation validation",
+      "signals": [
+        "0x account",
+        "ethereum address",
+        "create_account",
+        "AccountId validation"
+      ],
+      "source_sha256": "4cf201ecb64bb6b152ba972b0ededaa91c48ce6dc12e1673eb50725e4d6912a9"
+    },
+    "0508": {
+      "title": "Resharding v2",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "V2 layout transition version/network",
+      "signals": [
+        "resharding",
+        "ShardLayoutV2",
+        "split_state",
+        "split boundary"
+      ],
+      "source_sha256": "147d9f1e98dcdc157f98bfa12cf5d1c7b3d42dd54f0e824a8443ffb9c9ede4cc"
+    },
+    "0509": {
+      "title": "Stateless validation Stage 0",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "stateless-validation activation",
+      "signals": [
+        "state witness",
+        "chunk endorsement",
+        "ChunkValidator",
+        "stateless validation"
+      ],
+      "source_sha256": "d6bf11c4a7ac65147cf0be8020ccefc0128a988eef271e9c57e5caf8fd62a291"
+    },
+    "0514": {
+      "title": "Reducing the number of Block Producer Seats in `testnet`",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "testnet genesis/epoch configuration",
+      "signals": [
+        "num_block_producer_seats",
+        "testnet",
+        "chunk_only_producers"
+      ],
+      "source_sha256": "75b91f505d838ea58cffb3def45ce814e93cd3c1624dad5886985d9a37b84095"
+    },
+    "0518": {
+      "title": "Web3-Compatible Wallets Support",
+      "status": "New",
+      "type": "Protocol",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "proposal or experimental feature only",
+      "signals": [
+        "eth implicit",
+        "wallet contract",
+        "ecrecover",
+        "0x account"
+      ],
+      "source_sha256": "b84948f3cfd92527750dbb6a9f9c82b59ef0aaad6517bdbae9e2d01c6257fc52"
+    },
+    "0519": {
+      "title": "Yield Execution",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active yield/resume host ABI",
+      "signals": [
+        "promise_yield_create",
+        "promise_yield_resume",
+        "yield_resume",
+        "YieldTimeout"
+      ],
+      "source_sha256": "32b4f9f579babcdd2c611d520131847f8d33da52d13723ec5aae9f768701248f"
+    },
+    "0536": {
+      "title": "Reduce the number of gas refunds",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "active gas-refund model",
+      "signals": [
+        "gas_refund",
+        "pessimistic gas price",
+        "refund receipt"
+      ],
+      "source_sha256": "ce11e2c69de0b9703930294651d90ebdbd2bef0abeeca8575049e34c9c0ef6a3"
+    },
+    "0539": {
+      "title": "Cross-Shard Congestion Control",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "congestion-control activation",
+      "signals": [
+        "CongestionInfo",
+        "delayed receipts",
+        "congestion control",
+        "outgoing receipts"
+      ],
+      "source_sha256": "517cd2a924389ffc9afa4ac0f7df34f35a6782d98094c2a4a69d9e29f0a25993"
+    },
+    "0568": {
+      "title": "Resharding V3",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "V3 layout transition version/network",
+      "signals": [
+        "ReshardingV3",
+        "ShardLayoutV3",
+        "split_shard",
+        "resharding"
+      ],
+      "source_sha256": "82d7ac2fc778681c9eec08e996aa9bd31611ca38689eb08a6b4dfd6c7eac03ac"
+    },
+    "0584": {
+      "title": "Cross-shard bandwidth scheduler",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "node_feature",
+      "version_gate": "bandwidth-scheduler activation",
+      "signals": [
+        "BandwidthScheduler",
+        "bandwidth_request",
+        "receipt buffer",
+        "max_shard_bandwidth"
+      ],
+      "source_sha256": "94e4f774322f0441399358397ea7e872256e105c1aba983cf47bb7a606c99f3d"
+    },
+    "0591": {
+      "title": "Global Contracts",
+      "status": "Final",
+      "type": "Protocol",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [
+        "0491"
+      ],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "global-contract protocol feature",
+      "signals": [
+        "DeployGlobalContract",
+        "UseGlobalContract",
+        "global contract",
+        "code hash"
+      ],
+      "source_sha256": "ca9c146c78d61acd3a60bd2bc325e34df42eef5fe9857fa039bb4913807bd22b"
+    },
+    "0611": {
+      "title": "Pending Transaction Queue and Gas Keys",
+      "status": "Draft",
+      "type": "Protocol",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "draft/experimental feature only",
+      "signals": [
+        "PendingTransactionQueue",
+        "GasKey",
+        "gas key",
+        "pending transaction"
+      ],
+      "source_sha256": "d2598ed12f999b122531d234a16ab7170f706884d2d82f02d21dede5df5e48c5"
+    },
+    "0616": {
+      "title": "Deterministic AccountIds",
+      "status": "Approved",
+      "type": "Protocol",
+      "category": "wallet-auth",
+      "requires": [],
+      "supersedes": [
+        "0605"
+      ],
+      "superseded_by": [],
+      "activation": "runtime_feature",
+      "version_gate": "deterministic-account feature activation",
+      "signals": [
+        "deterministic account",
+        "CreateDeterministicAccount",
+        "global contract",
+        "init code"
+      ],
+      "source_sha256": "f1303a97bc3ae1d6e9b2ec1ca429d275f2c6ba39f9e80ef43fd0702c6c551b25"
+    },
+    "0621": {
+      "title": "Vault NEP",
+      "status": "Approved",
+      "type": "Contract Standard",
+      "category": "token-assets",
+      "requires": [
+        "0141"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "vault API claim",
+      "signals": [
+        "vault_deposit",
+        "vault_mint",
+        "vault_withdraw",
+        "vault_redeem",
+        "preview_deposit"
+      ],
+      "source_sha256": "724e96d824937d5154dd7ae06d30cc2af633aad548cee18ff30eae8168b3fcc4"
+    },
+    "0635": {
+      "title": "P-256 ECDSA Signature Verification Host Function",
+      "status": "Draft",
+      "type": "Runtime Spec",
+      "category": "crypto-host",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "draft/experimental host feature",
+      "signals": [
+        "p256_verify",
+        "secp256r1",
+        "prime256v1",
+        "WebAuthn"
+      ],
+      "source_sha256": "27ee3ab7f8f5ec7e18b87e7b42de76dfba50c9c51e638aa002c6019724e81987"
+    },
+    "0638": {
+      "title": "`chain_id()` host function",
+      "status": "Draft",
+      "type": "Protocol",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "draft/experimental host feature",
+      "signals": [
+        "chain_id",
+        "network_id",
+        "domain separator",
+        "cross-chain replay"
+      ],
+      "source_sha256": "07fed987c50345c9f98ebb746f85bd8ae3bd95d1d92b7fe5af3dee654688d4a9"
+    },
+    "0639": {
+      "title": "Dynamic Resharding",
+      "status": "Draft",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [
+        "0568"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "draft/experimental node feature",
+      "signals": [
+        "dynamic resharding",
+        "split proposal",
+        "memory usage threshold",
+        "ShardLayout"
+      ],
+      "source_sha256": "e318a0ba13750468eeba60c2e22903bec9f026596411b540fa4a8e6733d3328c"
+    },
+    "0641": {
+      "title": "Offchain Authorizations for Smart Contracts",
+      "status": "Final",
+      "type": "Standards Track",
+      "category": "wallet-auth",
+      "requires": [
+        "0413"
+      ],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "claimed_interface",
+      "version_gate": "w_resolve_auth or verifier claim",
+      "signals": [
+        "w_resolve_auth",
+        "OffchainMessage",
+        "pending authorizations",
+        "authorization path"
+      ],
+      "source_sha256": "288d863365996b7a2ef34a5d4718c0e90ca60ea9c09df6788a98b10b96cb3b0e"
+    },
+    "0642": {
+      "title": "Account cost increase",
+      "status": "New",
+      "type": "Protocol",
+      "category": "runtime-resources",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "proposal or experimental feature only",
+      "signals": [
+        "account_creation_charge",
+        "min_gas_purchase_price",
+        "available_surplus"
+      ],
+      "source_sha256": "bbdb42f16458c1d0d8e4e3821d92394915d68ac9595bf2bb624b203c0ae3864a"
+    },
+    "0645": {
+      "title": "ML-DSA-65 Post-Quantum Transaction Signatures",
+      "status": "Draft",
+      "type": "Protocol",
+      "category": "crypto-host",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "draft protocol feature; confirm implementation version",
+      "signals": [
+        "ML-DSA-65",
+        "PostQuantumSignatures",
+        "ml_dsa",
+        "SHA3-256 key handle"
+      ],
+      "source_sha256": "9872b707e0def3d098a31ad8a36d248a05cafdcd231a4501a3130c820e22c756"
+    },
+    "0646": {
+      "title": "FIPS 202 SHA-3 Host Functions",
+      "status": "Draft",
+      "type": "Protocol",
+      "category": "crypto-host",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "advisory_feature",
+      "version_gate": "draft/experimental host feature",
+      "signals": [
+        "sha3_256",
+        "sha3_384",
+        "sha3_512",
+        "FIPS 202"
+      ],
+      "source_sha256": "fcbb1191ebeb23208f8f3136c8c553797275c51dde4e923731bed98d4e4e22a6"
+    },
+    "0652": {
+      "title": "Early Chunk Producer Reassignment",
+      "status": "Draft",
+      "type": "Protocol",
+      "category": "protocol-node",
+      "requires": [],
+      "supersedes": [],
+      "superseded_by": [],
+      "activation": "target_runtime_feature",
+      "version_gate": "only when target runtime explicitly implements EarlyKickout at a pinned protocol version",
+      "signals": [
+        "runtime_consensus"
+      ],
+      "source_sha256": "04db57d7dba521ff4529060836bec9bf2d2f6353ba8de59dcbee7bf3edf53f23"
+    }
+  }
+}

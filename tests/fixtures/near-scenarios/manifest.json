@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "name": "callback-replay",
+      "vulnerable": "callback-replay/vulnerable.rs",
+      "safe": "callback-replay/safe.rs",
+      "patterns": [
+        "NA-ASYNC-001",
+        "NA-ASYNC-003"
+      ],
+      "schedule": "Two withdrawals before callback, then replay resolver",
+      "invariant": "Each claim is reserved before dispatch and settled once."
+    },
+    {
+      "name": "token-refund",
+      "vulnerable": "token-refund/vulnerable.rs",
+      "safe": "token-refund/safe.rs",
+      "patterns": [
+        "NA-ASYNC-009"
+      ],
+      "schedule": "Receiver spends part of transfer, returns full unused amount",
+      "invariant": "Refund never exceeds original transfer or live receiver balance."
+    },
+    {
+      "name": "storage-charge",
+      "vulnerable": "storage-charge/vulnerable.rs",
+      "safe": "storage-charge/safe.rs",
+      "patterns": [
+        "NA-ACCOUNT-001"
+      ],
+      "schedule": "User B writes storage between user A baseline and A update",
+      "invariant": "A payer covers only operation-local storage growth."
+    },
+    {
+      "name": "value-claim",
+      "vulnerable": "value-claim/vulnerable.rs",
+      "safe": "value-claim/safe.rs",
+      "patterns": [
+        "NA-ACCOUNT-005"
+      ],
+      "schedule": "First depositor then direct donation then victim deposit",
+      "invariant": "Shares reflect actual assets and no deposit silently mints zero shares."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "project_id": "public-async-auth-smoke",
+  "track": "smart-contracts",
+  "purpose": "Public training and scorer smoke fixture; not held-out L4 evidence.",
+  "vulnerable_source": "vulnerable.rs",
+  "safe_twin_source": "safe.rs",
+  "ground_truth": "ground-truth.jsonl",
+  "root_cause_count": 3,
+  "l4_eligible": false
+}
