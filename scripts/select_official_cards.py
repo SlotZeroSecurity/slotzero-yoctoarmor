@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import json
 import re
@@ -10,8 +12,8 @@ from pathlib import Path
 
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-GUIDE = SKILL_ROOT / "references" / "official-docs-attacker-guide.md"
-REGISTRY = SKILL_ROOT / "references" / "official-docs-registry.json"
+GUIDE = SKILL_ROOT / reference_relative('docs_cards')
+REGISTRY = SKILL_ROOT / reference_relative('docs_registry')
 CARD_HEADING = re.compile(r"^###\s+(DOC-[A-Z0-9-]+)\s+—.*$", re.MULTILINE)
 
 

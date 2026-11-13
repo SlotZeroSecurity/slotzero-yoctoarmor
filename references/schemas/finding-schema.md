@@ -94,10 +94,10 @@ Use `kind: lead` when reachability, attacker control, receipt path, or material 
 
 Every discovery item uses `locations[]`, even when it has one location. A deduplicated item unions all constituent locations; never compress multiple methods into a single string.
 
-`nep_ids` and `standard_requirements` are optional for non-standards mechanisms. When present, IDs must exist in `nep-registry.json`, and every requirement must name the exact pinned NEP plus a concise normative rule and source section. A NEP match is classification/provenance, not target proof.
+`nep_ids` and `standard_requirements` are optional for non-standards mechanisms. When present, IDs must exist in `references/standards/neps/nep-registry.json`, and every requirement must name the exact pinned NEP plus a concise normative rule and source section. A NEP match is classification/provenance, not target proof.
 
 `official_guidance_ids` and `guidance_evidence` are optional outside L2. When
-present, every ID must exist in `official-docs-registry.json` and must have an
+present, every ID must exist in `references/standards/official-docs/docs-registry.json` and must have an
 exact pinned URL path and source-section evidence item. Official guidance is
 non-normative provenance: it cannot replace source evidence, reachability,
 material harm, or adversarial verification.
@@ -168,7 +168,7 @@ Allowed dispositions: `conformant`, `security_candidate`, `conformance_deviation
 
 ## Verifier verdict
 
-Current controlled runs require the [threat-model assessment contract](threat-model.md#assessment-shape)
+Current controlled runs require the [threat-model assessment contract](../workflow/threat-model.md#assessment-shape)
 inside triage and, for passed survivors, at verdict top level. Exclusions use
 `out_of_scope` and `NOT_APPLICABLE`, not false-positive or refuted outcomes.
 Scope ambiguity stays a lead; human disposition stays pending until actual review.
@@ -216,9 +216,9 @@ statuses are `verified`, `downgraded`, `lead`, `refuted`, `blocked`, and
 `standards_only`, `advisory`, `duplicate`, `out_of_scope`, and `blocked`. Approved
 report generation cannot proceed while a reportable finding or conformance
 deviation remains `pending`; a draft may retain clearly labelled pending decisions.
-Follow [finalization rules](verification-reporting.md#draft-and-approved-finalization).
+Follow [finalization rules](../reporting/verification-reporting.md#draft-and-approved-finalization).
 
-Allowed verdicts: `valid`, `valid_downgraded`, `lead`, `false_positive`, `out_of_scope`. Allowed proof statuses are listed in `verification-reporting.md`. A false positive must name `blocking_defense`; a blocked build uses `poc_status: BUILD_BLOCKED` and is not automatically false.
+Allowed verdicts: `valid`, `valid_downgraded`, `lead`, `false_positive`, `out_of_scope`. Allowed proof statuses are listed in `references/reporting/verification-reporting.md`. A false positive must name `blocking_defense`; a blocked build uses `poc_status: BUILD_BLOCKED` and is not automatically false.
 
 ## Unresolved-assumption row
 
@@ -291,7 +291,7 @@ blocked. Exactly one iteration is allowed.
 ## Active-test rows
 
 `invariant-ledger.jsonl` and `async-schedules.jsonl` use the fields defined in
-`capability-model.md`. Each counterexample links ordinary `candidate_ids`.
+`references/workflow/capability-model.md`. Each counterexample links ordinary `candidate_ids`.
 Mutation results additionally record `mutation_id`, `operator_family`,
 `target_path`, `expected_mechanism`, `mode`, `outcome` (`killed`, `survived`, or
 `blocked`), and matching candidate IDs. A killed mutant is benchmark evidence,
@@ -350,5 +350,5 @@ Allowed dispositions are `survives`, `merged`, `chain_absorbed`, `quality`, and 
 - `[CORPUS-PRECEDENT]` historical analogue; contributes no target proof
 
 For completion, each rescan input receives `status: complete` or `blocked` and
-exact `review_evidence` target citations. See [the review contract](review-contract.md)
+exact `review_evidence` target citations. See [the review contract](../workflow/review-contract.md)
 for schema-2 rescan summaries and the derived stopping criterion.

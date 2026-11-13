@@ -5,7 +5,7 @@ Do not give it, the mechanism library, source ledgers, or exercise answers to
 L0, L2, blind L3, or NEP-only discovery. No additional discovery phase is needed.
 
 The [mechanism library](attack-lenses-index.json) is the primary representation of
-the lessons. [Historical source cards](satoshi-issue-corpus.md) preserve specific
+the lessons. [Historical source cards](../sources/issues/omnibridge-satoshi/findings.md) preserve specific
 implementations and discussions. Read examples only after forming a
 target-grounded mechanism hypothesis; do not require the target to contain the
 example's API, terminology, or architecture.

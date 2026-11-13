@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 sys.dont_write_bytecode = True
+from reference_paths import reference_relative
 from package_policy import external_url_paths
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,10 +24,14 @@ COMMANDS = {
 def package_check() -> dict[str, object]:
     from pattern_routing import validate_index
     index = validate_index()
-    history = json.loads((ROOT / "references/historical-id-map.json").read_text())
+    history = json.loads((ROOT / reference_relative('historical_id_map')).read_text())
     for row in (*history["canonical"].values(), *history["portable"].values()):
         if not set(row["new_ids"]) <= set(index["cards"]):
             raise ValueError("historical translation points outside active lens index")
+    from reference_links import reference_link_errors
+    link_errors = reference_link_errors(ROOT)
+    if link_errors:
+        raise ValueError("; ".join(link_errors))
     contaminated = external_url_paths(ROOT)
     if contaminated:
         raise ValueError(f"external URL in package: {contaminated}")

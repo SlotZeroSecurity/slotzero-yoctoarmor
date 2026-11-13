@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from support import reference_relative
+
 import json
 import tempfile
 import unittest
@@ -104,7 +106,7 @@ class SemanticPipelineTest(unittest.TestCase):
     def test_offline_near_scenarios_route_to_relevant_lenses(self) -> None:
         root = SKILL / "tests/fixtures/near-scenarios"
         cases = json.loads((root / "manifest.json").read_text())["cases"]
-        index = json.loads((SKILL / "references/attack-lenses-index.json").read_text())["cards"]
+        index = json.loads((SKILL / reference_relative('attack_index')).read_text())["cards"]
         self.assertEqual(4, len(cases))
         for case in cases:
             folder = root / case["name"]

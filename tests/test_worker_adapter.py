@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from support import reference_relative
+
 import json
 import os
 from pathlib import Path
@@ -48,9 +50,9 @@ class WorkerAdapterTests(unittest.TestCase):
             packet_id = next(row["packet_id"] for row in packets if row["role_id"] == role)
             view = self.cli("packet", self.run_dir, packet_id)
             self.assertEqual(view["surface"], "neutral-surface.json")
-            self.assertEqual(view["references"], ["references/neutral-schemas.md"])
+            self.assertEqual(view["references"], [reference_relative('neutral_schemas')])
             self.assertEqual(view["owned_official_cards"], [])
-            self.assertNotIn("official-docs-attacker-guide.md", view["prompt"])
+            self.assertNotIn(reference_relative('docs_cards'), view["prompt"])
 
     def test_missing_and_oversized_outputs_remain_visible(self) -> None:
         self.cli("worker", self.run_dir, "start", self.packet, "--worker-id", "host-worker-1")

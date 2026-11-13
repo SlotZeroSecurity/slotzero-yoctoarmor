@@ -1,4 +1,6 @@
 """Category-index closure, permanent IDs, and self-contained package rules."""
+
+from support import reference_path
 import json
 import re
 import subprocess
@@ -33,7 +35,7 @@ class PatternPortabilityTests(unittest.TestCase):
                     self.assertRegex(block, rf"- \*\*{field}:\*\* \S", (card_id, field))
 
     def test_historical_translation_is_many_to_many_and_never_active(self):
-        history = json.loads((REF / "historical-id-map.json").read_text())
+        history = json.loads((reference_path('historical_id_map', root=REF.parent)).read_text())
         index = validate_index()
         self.assertEqual(56, len(history["canonical"]))
         self.assertEqual(39, len(history["portable"]))
@@ -43,7 +45,7 @@ class PatternPortabilityTests(unittest.TestCase):
         self.assertTrue(any(len(row["new_ids"]) > 1 for row in history["canonical"].values()))
         old_ids = set(history["canonical"])
         for path in ROOT.rglob("*"):
-            if path.is_file() and path != REF / "historical-id-map.json" and path.suffix in {".md", ".json", ".py", ".rs", ".yaml"}:
+            if path.is_file() and path != reference_path('historical_id_map', root=REF.parent) and path.suffix in {".md", ".json", ".py", ".rs", ".yaml"}:
                 content = path.read_text(errors="replace")
                 self.assertFalse(any(re.search(rf"(?<![A-Z0-9-]){re.escape(old)}(?![A-Z0-9-])", content) for old in old_ids), path)
 

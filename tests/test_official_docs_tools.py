@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from support import reference_relative
+
 import importlib.util
 import json
 import subprocess
@@ -15,7 +17,7 @@ from support import run
 
 
 SKILL = Path(__file__).resolve().parent.parent
-REGISTRY = SKILL / "references" / "official-docs-registry.json"
+REGISTRY = SKILL / reference_relative('docs_registry')
 SCRIPTS = SKILL / "scripts"
 FIXTURE = SKILL / "benchmarks" / "public" / "official-guidance-smoke"
 

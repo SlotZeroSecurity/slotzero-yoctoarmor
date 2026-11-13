@@ -24,14 +24,14 @@
 - A PoC must assert terminal material harm, not merely callability or a reachable state.
 - Default to a local NEAR sandbox. Never use mainnet/testnet or credentials without explicit authorization.
 - A compilation or environment failure is `BUILD_BLOCKED`, not `REFUTED`.
-- NEP status or non-conformance never substitutes for a reachable target mechanism. Keep harmless deviations in the 50-row conformance matrix.
+- NEP status or non-conformance never substitutes for a reachable target mechanism. Keep harmless deviations in the registry-derived conformance matrix.
 - Human approval is mandatory for findings and conformance deviations included in an approved report; a draft may retain clearly labelled pending human decisions.
 - L4 describes a separately measured track; it is never inferred from one target audit.
 
 ## Evidence-triage gate
 
 Read the supplied target `THREAT_MODEL.md` first and follow the
-[assessment and exclusion contract](threat-model.md). Record an evidence-backed
+[assessment and exclusion contract](../workflow/threat-model.md). Record an evidence-backed
 assessment at triage and independently for each passed survivor at verification.
 An explicitly trusted admin's malicious authorized action alone is out of scope;
 first rule out escalation, bypass, manipulation, and honest-operation harm.
@@ -84,7 +84,7 @@ Calibrate official best-practice advice at this gate. Missing compact AccountId 
 
 Verify the candidate's exact mechanism and one reasonable relaxed variant; do not rerun the whole discovery checklist. The evidence packet must identify the relevant role or NEP requirement, necessary runtime/version assumptions, exact exports and guards, receipt/state trace, defenses already checked, and terminal harm claim.
 
-- Load only the packet, cited target/dependency context, `near-security-model.md`, and this file. Consult one assigned NEP checklist only when the candidate alleges that exact standard requirement; never load all role, NEP, or corpus catalogs.
+- Load only the packet, cited target/dependency context, `references/workflow/near-security-model.md`, and this file. Consult one assigned NEP checklist only when the candidate alleges that exact standard requirement; never load all role, NEP, or corpus catalogs.
 - Reproduce the relevant hostile actor, boundary, failure, replay, interleaving, storage/gas, or malformed-return condition from the packet. Use malicious mocks or local sandbox execution when receipt scheduling, balances, storage, gas, token callbacks, or migration behavior matters.
 - For a standards candidate, prove target applicability and the exact violated Final/Approved requirement. Draft/New divergence remains advisory unless the implemented code independently causes material harm.
 - For a protocol/runtime candidate, prove feature activation for the target chain/version. For a node candidate, prove the target implements the affected subsystem.
@@ -194,8 +194,8 @@ For Medium+, test a variant over amount, timing, ordering, or failure mode and p
 
 ## Report and completion gates
 
-Use `references/report-template.md` for the full technical annex and
-`references/slotzero-report-format.md` for the reader-facing report. Assign `C-01/H-01/M-01/L-01/I-01` only after dedup and verification.
+Use `references/reporting/technical-annex-template.md` for the full technical annex and
+`references/reporting/slotzero-report-format.md` for the reader-facing report. Assign `C-01/H-01/M-01/L-01/I-01` only after dedup and verification.
 
 Draft readiness requires the technical and accounting gates below. Pending human
 decisions are allowed only in a clearly labelled draft and must not be invented
@@ -231,7 +231,7 @@ or blocked checks as an unmet stopping criterion; do not run an unlimited loop.
 
 ## Technical-annex presentation
 
-Use the streamlined section order in `report-template.md`. The assembler inserts
+Use the streamlined section order in `references/reporting/technical-annex-template.md`. The assembler inserts
 scope, the actual requested review stage, the top findings, and any threat-model
 exclusions. Omit those generated sections from the authored body. The annex banner
 subtitle is `NEARShield v1  - SLOT ZERO SECURITY`; the console banner is unchanged.
@@ -295,6 +295,6 @@ Never self-author human labels, reviewer identities/times, runtime metadata,
 telemetry, benchmark answers, or performance results. Retain the draft and run
 evidence after either stage. Cleanup requires an explicit user request naming
 the run directory; resolve that exact directory and preserve requested reports
-before any removal. See [run setup](audit-workflow.md#phase-0--freeze-scope-and-build-l0)
+before any removal. See [run setup](../workflow/audit-workflow.md#phase-0--freeze-scope-and-build-l0)
 for supported schemas and read-only handling of older runs. Never claim absence
 of vulnerabilities, deployment safety, runtime improvement, or L4 without evidence.

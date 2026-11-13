@@ -1,4 +1,6 @@
 """Historical finding accounting stays linked to the active taxonomy."""
+
+from support import reference_path
 import importlib.util
 import json
 from pathlib import Path
@@ -11,9 +13,9 @@ REFERENCES = SKILL_ROOT / "references"
 
 class CorpusIntegrityTests(unittest.TestCase):
     def test_original_and_legacy_reports_resolve_to_new_cards(self):
-        index = json.loads((REFERENCES / "attack-lenses-index.json").read_text())["cards"]
-        corpus = json.loads((REFERENCES / "corpus-index.json").read_text())
-        legacy = json.loads((REFERENCES / "legacy-design-review.json").read_text())
+        index = json.loads((reference_path('attack_index', root=REFERENCES.parent)).read_text())["cards"]
+        corpus = json.loads((reference_path('original_findings_index', root=REFERENCES.parent)).read_text())
+        legacy = json.loads((reference_path('legacy_design_review', root=REFERENCES.parent)).read_text())
         self.assertEqual(222, len(corpus["findings"]))
         self.assertEqual(21, len(legacy["reports"]))
         self.assertEqual(185, sum(row["indexed_finding_count"] for row in legacy["reports"]))
@@ -25,7 +27,7 @@ class CorpusIntegrityTests(unittest.TestCase):
             self.assertLessEqual(set(report["mapped_new_ids"]), set(index))
 
     def test_pdf_manifest_retains_unique_terminal_sources(self):
-        manifest_path = REFERENCES / "pdf-corpus-manifest.json"
+        manifest_path = reference_path('report_registry', root=REFERENCES.parent)
         manifest = json.loads(manifest_path.read_text())
         digests = [row["sha256"] for row in manifest["reports"]]
         self.assertEqual(len(digests), len(set(digests)))
@@ -39,7 +41,7 @@ class CorpusIntegrityTests(unittest.TestCase):
         spec = importlib.util.spec_from_file_location("near_audit", SKILL_ROOT / "scripts/near_audit.py")
         audit = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(audit)
-        self.assertIn(REFERENCES / "pdf-corpus-manifest.json", audit.CORPUS_FILES)
+        self.assertIn(reference_path('report_registry', root=REFERENCES.parent), audit.CORPUS_FILES)
         with tempfile.TemporaryDirectory() as directory:
             copies = []
             for source in audit.CORPUS_FILES:
@@ -47,6 +49,6 @@ class CorpusIntegrityTests(unittest.TestCase):
                 destination.write_bytes(source.read_bytes())
                 copies.append(destination)
             before = audit.hash_files(copies)
-            target = Path(directory) / "pdf-corpus-manifest.json"
+            target = Path(directory) / "report-registry.json"
             target.write_bytes(target.read_bytes() + b"\n")
             self.assertNotEqual(before, audit.hash_files(copies))

@@ -3,7 +3,7 @@
   "taxonomy": "NA",
   "categories": {
     "auth": {
-      "file": "references/attack-lenses/auth.md",
+      "file": "references/patterns/attack-lenses/auth.md",
       "ids": [
         "NA-AUTH-001",
         "NA-AUTH-002",
@@ -20,7 +20,7 @@
       ]
     },
     "async": {
-      "file": "references/attack-lenses/async.md",
+      "file": "references/patterns/attack-lenses/async.md",
       "ids": [
         "NA-ASYNC-001",
         "NA-ASYNC-002",
@@ -42,7 +42,7 @@
       ]
     },
     "account": {
-      "file": "references/attack-lenses/account.md",
+      "file": "references/patterns/attack-lenses/account.md",
       "ids": [
         "NA-ACCOUNT-001",
         "NA-ACCOUNT-002",
@@ -54,7 +54,7 @@
       ]
     },
     "state": {
-      "file": "references/attack-lenses/state.md",
+      "file": "references/patterns/attack-lenses/state.md",
       "ids": [
         "NA-STATE-001",
         "NA-STATE-002",
@@ -75,7 +75,7 @@
       ]
     },
     "econ": {
-      "file": "references/attack-lenses/econ.md",
+      "file": "references/patterns/attack-lenses/econ.md",
       "ids": [
         "NA-ECON-001",
         "NA-ECON-002",
@@ -84,7 +84,7 @@
       ]
     },
     "resource": {
-      "file": "references/attack-lenses/resource.md",
+      "file": "references/patterns/attack-lenses/resource.md",
       "ids": [
         "NA-RESOURCE-001",
         "NA-RESOURCE-002",
@@ -99,7 +99,7 @@
       ]
     },
     "integration": {
-      "file": "references/attack-lenses/integration.md",
+      "file": "references/patterns/attack-lenses/integration.md",
       "ids": [
         "NA-INTEGRATION-001",
         "NA-INTEGRATION-002",
@@ -112,7 +112,7 @@
       ]
     },
     "crypto": {
-      "file": "references/attack-lenses/crypto.md",
+      "file": "references/patterns/attack-lenses/crypto.md",
       "ids": [
         "NA-CRYPTO-001",
         "NA-CRYPTO-002",
@@ -125,14 +125,14 @@
       ]
     },
     "runtime": {
-      "file": "references/attack-lenses/runtime.md",
+      "file": "references/patterns/attack-lenses/runtime.md",
       "ids": [
         "NA-RUNTIME-001",
         "NA-RUNTIME-002"
       ]
     },
     "offchain": {
-      "file": "references/attack-lenses/offchain.md",
+      "file": "references/patterns/attack-lenses/offchain.md",
       "ids": [
         "NA-OFFCHAIN-001",
         "NA-OFFCHAIN-002",

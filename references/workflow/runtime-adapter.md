@@ -58,4 +58,4 @@ unverified rather than synthesizing measurements.
 All audit role packets begin with a supplied threat-model read-first instruction
 or an explicit missing-model override notice. The supplied model is the first
 allowed input. This is an instruction contract, not proof of reading. Model drift
-blocks packet access and run continuation. See [threat-model.md](threat-model.md).
+blocks packet access and run continuation. See [references/workflow/threat-model.md](threat-model.md).

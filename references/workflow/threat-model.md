@@ -12,7 +12,7 @@ attacker capabilities, trusted roles, and security properties increases the
 likelihood of false positives and the effort needed to validate findings. Offer:
 
 1. Generate a repository-specific model with the OpenAI Codex Security threat-model
-   skill linked in [the README](../README.md#threat-model), save it at the target
+   skill linked in [the README](../../README.md#threat-model), save it at the target
    root as `THREAT_MODEL.md`, and restart in a fresh run directory.
 2. Explicitly continue without it for this scan. Only this user choice permits
    `--allow-missing-threat-model`. Silence never authorizes continuation.

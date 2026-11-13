@@ -36,7 +36,7 @@ Treat decoding as part of the trust boundary. Security-sensitive bytes, messages
 
 Apply development best practices through security impact, not syntax preference. Validate untrusted context before durable effects and expensive attacker-controlled work, but `require!` versus an equivalent assertion is not itself a vulnerability. Compact AccountId encoding can reduce storage, but ordinary typed `AccountId` storage is valid; if a custom encoding is used, prove canonical injective round trips for every valid maximum-length ID. Likewise, `log!`, `near-sdk` crate re-exports, panic API choice, and a particular integration-test framework are not automatic findings. Escalate only when the target choice changes authorization, serialization, arithmetic, receipt settlement, material resource use, or another security invariant.
 
-Use `official-docs-registry.json` only as pinned, version-gated guidance. Route
+Use `references/standards/official-docs/docs-registry.json` only as pinned, version-gated guidance. Route
 the cards selected by deterministic surface evidence to their existing owner
 roles; do not load the entire guide into every agent. A page recommendation is
 not normative and cannot establish a finding without target evidence, a
@@ -88,7 +88,7 @@ For every claimed NEP method, turn each normative behavior into an adversarial r
 
 A standards deviation is a FINDING only when the target exposes a reachable authorization, asset, state, storage-solvency, or critical-integration failure. Otherwise retain it as an unscored standards-conformance deviation.
 
-For NEP status, applicability, activation, dependencies, supersession, ownership, and checklist routing, use `nep-registry.json`. Its automated signals only prioritize reads. Prove applicability or N/A from target interface, dependency, runtime/version, or node-subsystem evidence; never let a NEP number split or merge causal findings by itself.
+For NEP status, applicability, activation, dependencies, supersession, ownership, and checklist routing, use `references/standards/neps/nep-registry.json`. Its automated signals only prioritize reads. Prove applicability or N/A from target interface, dependency, runtime/version, or node-subsystem evidence; never let a NEP number split or merge causal findings by itself.
 
 ## Identity and access keys
 

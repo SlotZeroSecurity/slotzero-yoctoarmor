@@ -12,16 +12,19 @@ NEAR development and generic Rust review do not start a security audit.
 
 | Request | Read and follow |
 |---|---|
-| Target security or NEP-conformance audit | [Audit workflow](references/audit-workflow.md), then its phase-specific references. Deliver `slotzero-report.md` in the [Slot Zero report format](references/slotzero-report-format.md) and `technical-annex.md` as two clickable file links or attachments. Retain both reports and the full NEAR evidence ledgers. |
-| Edit or validate this skill; maintain packaging | [Skill edits](references/maintenance.md#skill-edits-and-validation). |
-| Ingest supplied audit PDFs or curate the source corpus | [PDF and corpus ingestion](references/maintenance.md#pdf-and-corpus-ingestion). Hash raw PDF bytes before extraction or review. |
-| Refresh reviewed NEAR documentation or standards | [Source refresh](references/maintenance.md#source-refresh). |
-| Explicit benchmark qualification | [Qualification](references/maintenance.md#qualification), then the capability model. |
+| Target security or NEP-conformance audit | [Audit workflow](references/workflow/audit-workflow.md), then its phase-specific references. Deliver `slotzero-report.md` in the [Slot Zero report format](references/reporting/slotzero-report-format.md) and `technical-annex.md` as two clickable file links or attachments. Retain both reports and the full NEAR evidence ledgers. |
+| Edit or validate this skill; maintain packaging | [Skill edits](references/maintenance/maintenance.md#skill-edits-and-validation). |
+| Ingest supplied audit PDFs or curate the source corpus | [PDF and corpus ingestion](references/maintenance/maintenance.md#pdf-and-corpus-ingestion). Hash raw PDF bytes before extraction or review. |
+| Refresh reviewed NEAR documentation or standards | [Source refresh](references/maintenance/maintenance.md#source-refresh). |
+| Explicit benchmark qualification | [Qualification](references/maintenance/maintenance.md#qualification), then the capability model. |
+
+The [reference catalog](references/README.md) explains file ownership and reading routes
+for maintainers. It is not a default worker input.
 
 Maintenance, ingestion, and qualification do not initialize a target audit.
 Read only the selected route and references needed for the requested work.
 
-Every scan follows the [comprehensive review contract](references/review-contract.md).
+Every scan follows the [comprehensive review contract](references/workflow/review-contract.md).
 File selection and discovery passes control scope and repetition, not review rigor.
 
 Target audits require `<target-root>/THREAT_MODEL.md` before discovery. If missing
@@ -30,7 +33,7 @@ and offer generation/restart via [README](README.md#threat-model), or explicit
 per-scan continuation with `--allow-missing-threat-model`. Silence never permits
 continuation. Every audit worker reads the model first. Validate trust assumptions
 and alternate attacker paths before excluding issues; retain exclusions in evidence
-accounting, not findings. Follow the [threat-model contract](references/threat-model.md).
+accounting, not findings. Follow the [threat-model contract](references/workflow/threat-model.md).
 
 ## Report delivery
 
@@ -55,8 +58,8 @@ and existing authorization; request additional authorization only when a necessa
 action exceeds it. Never invent human review, runtime metadata, metrics, or
 benchmark qualification. Report completed work and remaining limitations accurately.
 
-Corpus-informed phases use the [local attack-lens index](references/attack-lenses-index.json)
-and the [target-binding protocol](references/pattern-portability.md). Match causal
+Corpus-informed phases use the [local attack-lens index](references/patterns/attack-lenses-index.json)
+and the [target-binding protocol](references/patterns/target-binding.md). Match causal
 behavior and invariants, not project names or API spellings. Require the target's
 actual execution, identity, cost, and recovery semantics before applying a lesson.
 Route only selected category files to L1 and post-blind corpus echo. New findings

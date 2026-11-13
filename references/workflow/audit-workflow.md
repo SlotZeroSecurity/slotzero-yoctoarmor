@@ -3,8 +3,8 @@
 Use this reference only for a requested target audit. Resolve `<skill>` to the directory containing the invoked SKILL.md; resolve all other placeholders from the current request and runtime. Maintenance and qualification have separate routes in SKILL.md.
 
 For a target audit, retain the existing Slot Zero banner only in the full
-[technical annex](report-template.md). The reader-facing
-[Slot Zero report format](slotzero-report-format.md) begins with its compact
+[technical annex](../reporting/technical-annex-template.md). The reader-facing
+[Slot Zero report format](../reporting/slotzero-report-format.md) begins with its compact
 security-review heading and does not repeat that banner. Do not print a second
 report or preface during resumed phases.
 
@@ -40,14 +40,14 @@ If no NEAR surface is found, stop and explain. If multi-agent execution is unava
 Load only what the current phase needs:
 
 - **Capability pipeline and active tests:** [L0-L4 capability model](capability-model.md) and [semantic pipeline](semantic-pipeline.md).
-- **Scope/orchestration:** [security model](near-security-model.md), [agent catalog](agent-catalog.md), [finding schema](finding-schema.md), [NEP registry](nep-registry.json), and [official-docs registry](official-docs-registry.json).
-- **L1 pattern agent:** assigned source, L0 model, finding schema, the [attack-lens index](attack-lenses-index.json), only the category files selected in `surface.json`, and relevant official cards. Blind L3 agents receive role rules and target context, never the attack-lens corpus.
-- **L0 modeler / L2 intent agent:** target code/specifications/tests/manifests/dependency context, packet-permitted target-derived semantic IR, and [neutral schemas](neutral-schemas.md). L0 receives `neutral-surface.json`; L2 additionally receives the target-grounded L0 artifact. Neither receives the security model, capability-model, finding-schema examples, registries, attacker cards, corpus, peer findings, or benchmark answers. The orchestrator supplies only the selected neutral prompt, not the catalog.
+- **Scope/orchestration:** [security model](near-security-model.md), [agent catalog](agent-catalog.md), [finding schema](../schemas/finding-schema.md), [NEP registry](../standards/neps/nep-registry.json), and [official-docs registry](../standards/official-docs/docs-registry.json).
+- **L1 pattern agent:** assigned source, L0 model, finding schema, the [attack-lens index](../patterns/attack-lenses-index.json), only the category files selected in `surface.json`, and relevant official cards. Blind L3 agents receive role rules and target context, never the attack-lens corpus.
+- **L0 modeler / L2 intent agent:** target code/specifications/tests/manifests/dependency context, packet-permitted target-derived semantic IR, and [neutral schemas](../schemas/neutral-schemas.md). L0 receives `neutral-surface.json`; L2 additionally receives the target-grounded L0 artifact. Neither receives the security model, capability-model, finding-schema examples, registries, attacker cards, corpus, peer findings, or benchmark answers. The orchestrator supplies only the selected neutral prompt, not the catalog.
 - **NEP agent:** `surface.json`, registry, only its category checklist, finding schema, and target evidence.
 - **Corpus echo:** only after blind L2/L3 discovery is frozen, load the selected category files and any later-discovered categories justified by target evidence.
-- **Historical source review:** L1 and post-blind echo use the [binding protocol](pattern-portability.md) before consulting selected [historical examples](satoshi-issue-corpus.md) and [source dispositions](satoshi-issue-corpus.json). Do not load complete ledgers into workers. Training cases and answers are maintenance material, not target-audit inputs.
-- **Judging:** minimal candidate packet, cited target context, security model, and [verification rules](verification-reporting.md).
-- **Reporting:** [Slot Zero report format](slotzero-report-format.md) and [full technical annex template](report-template.md).
+- **Historical source review:** L1 and post-blind echo use the [binding protocol](../patterns/target-binding.md) before consulting selected [historical examples](../sources/issues/omnibridge-satoshi/findings.md) and [source dispositions](../sources/issues/omnibridge-satoshi/findings.json). Do not load complete ledgers into workers. Training cases and answers are maintenance material, not target-audit inputs.
+- **Judging:** minimal candidate packet, cited target context, security model, and [verification rules](../reporting/verification-reporting.md).
+- **Reporting:** [Slot Zero report format](../reporting/slotzero-report-format.md) and [full technical annex template](../reporting/technical-annex-template.md).
 
 ## Phase 0 — Freeze scope and build L0
 
@@ -144,7 +144,7 @@ Active testing follows the capability model:
 
 - model every async operation and record success, failure, low-gas, malformed, duplicate/late, concurrent, and pending-state schedules in `async-schedules.jsonl`;
 - write `invariant-ledger.jsonl` and execute high-value unit/property/stateful checks;
-- mutate isolated copies only and account for every operator family in `mutation-results.jsonl`, covering all operators and their identified sites under schema-2 records in `review-contract.md`;
+- mutate isolated copies only and account for every operator family in `mutation-results.jsonl`, covering all operators and their identified sites under schema-2 records in `references/workflow/review-contract.md`;
 - differentially test applicable NEP-141/145/171/178 behavior against a pinned oracle and record `nep-differential.jsonl`;
 - compare prior state/layout/source/deployed artifacts in `temporal-upgrade.jsonl` when upgrades or migrations exist.
 
@@ -194,13 +194,13 @@ Merge only one causal defect with the same phase/trust boundary, harm, and fix. 
 
 Stage 1 `evidence-triage` cheaply checks exact evidence, export/receipt reachability, attacker control, broken invariant, plausible harm, duplication/scope, standard classification, and counter-evidence. It rejects only with a concrete blocking fact.
 
-Stage 2 gives each survivor to a fresh verifier that assumes it is false. Apply the five gates in [verification rules](verification-reporting.md), reproduce the exact and one relaxed variant, and run a negative control. Every High/Critical also gets an independent skeptic. Compilation failure is a blocker, not refutation.
+Stage 2 gives each survivor to a fresh verifier that assumes it is false. Apply the five gates in [verification rules](../reporting/verification-reporting.md), reproduce the exact and one relaxed variant, and run a negative control. Every High/Critical also gets an independent skeptic. Compilation failure is a blocker, not refutation.
 
 Every candidate receives triage and retains its disposition in the ledger.
 Passed candidates continue to independent verification and embed both stages;
 rejected or blocked triage outcomes retain their concrete blocking fact or
 missing evidence without a fabricated verification stage. Use the
-[verdict schema](finding-schema.md#verifier-verdict). Medium+ requires executable
+[verdict schema](../schemas/finding-schema.md#verifier-verdict). Medium+ requires executable
 verification or an explicit blocker.
 
 ## Phase 6 — One counterexample-guided rescan
@@ -269,7 +269,7 @@ candidate dispositions remain in the validated internal ledgers.
 
 After the technical annex is finalized, create `slotzero-content.jsonl` with one
 concise presentation row for each verified finding and unscored lead. Follow
-[Slot Zero report format](slotzero-report-format.md) for the row contract and
+[Slot Zero report format](../reporting/slotzero-report-format.md) for the row contract and
 source-backed diff rules. Render the reader-facing report deterministically:
 
 ```text
@@ -296,7 +296,7 @@ human decisions. Do not reword or shorten the deterministic reader-facing
 report in the conversation. Presentation cannot promote a lead, alter a
 verdict, or replace the complete human-feedback gate. Explicit user requested
 confirmation or omission in the compact report must follow
-[presentation review edits](slotzero-report-format.md#presentation-rows), remain
+[presentation review edits](../reporting/slotzero-report-format.md#presentation-rows), remain
 counted, and leave the technical evidence intact. If the renderer rejects a row, fix the
 presentation input and rerun it; never weaken the technical ledger or bypass
 its recorded report hash.
@@ -308,7 +308,7 @@ Deliver the two approved files together. The filenames do not imply approval;
 headings and recorded stage must match the validated review status. Existing runs remain bound to the skill configuration
 that created them; use that preserved package for their controller operations.
 
-Follow [draft and approved finalization](verification-reporting.md#draft-and-approved-finalization)
+Follow [draft and approved finalization](../reporting/verification-reporting.md#draft-and-approved-finalization)
 for the command interface, report containment and headings, retained hashes,
 human approval, and evidence preservation. The default is a draft; approved
 completion requires explicit `--stage approved` after the human gates pass.

@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from support import reference_relative
+
 import json
 import re
 import tempfile
@@ -13,7 +15,7 @@ from support import run, write_jsonl, coverage_rows
 
 
 SKILL = Path(__file__).resolve().parent.parent
-REGISTRY = SKILL / "references" / "nep-registry.json"
+REGISTRY = SKILL / reference_relative('nep_registry')
 SCRIPTS = SKILL / "scripts"
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "nep-surface"
 

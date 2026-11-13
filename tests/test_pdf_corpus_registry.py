@@ -21,7 +21,7 @@ class PdfCorpusRegistryTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
-        self.manifest = self.root / "pdf-corpus-manifest.json"
+        self.manifest = self.root / "report-registry.json"
         self.ledger = self.root / "ledger.md"
         self.ledger.write_text(
             "# Ledger\n\n| Ledger ID | Report |\n|---|---|\n| TEST-01 | Test report |\n",

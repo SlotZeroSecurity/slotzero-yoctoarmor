@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import hashlib
 import json
@@ -45,7 +47,7 @@ def parse_ids(value: str | None) -> list[str]:
     return result
 
 
-def validate_registry(path: Path) -> dict[str, object]:
+def validate_registry(path: Path, *, package_root: Path | None = None) -> dict[str, object]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if data.get("schema_version") != 1:
         fail("registry: unsupported schema_version")
@@ -62,7 +64,7 @@ def validate_registry(path: Path) -> dict[str, object]:
         fail(f"registry: document_count={expected_count} but neps={len(neps)}")
 
     owned: list[str] = []
-    skill_root = path.parent.parent
+    skill_root = Path(__file__).resolve().parents[1] if package_root is None else package_root
     for category_id, category in categories.items():
         if not isinstance(category, dict):
             fail(f"category {category_id}: expected object")
@@ -191,7 +193,7 @@ def main() -> int:
         "registry",
         nargs="?",
         type=Path,
-        default=Path(__file__).resolve().parent.parent / "references" / "nep-registry.json",
+        default=Path(__file__).resolve().parent.parent / reference_relative('nep_registry'),
     )
     parser.add_argument(
         "--source-root",

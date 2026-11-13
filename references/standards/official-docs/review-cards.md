@@ -13,7 +13,7 @@ Each card records source and activation, attacker model and invariant, bounded
 attack trace, search and test strategy, false-positive gate, and routing. Card
 IDs are evidence provenance; canonical pattern IDs remain the deduplication
 taxonomy. Its matching machine-readable card record in
-`official-docs-registry.json` supplies the exact signal, canonical-pattern,
+`references/standards/official-docs/docs-registry.json` supplies the exact signal, canonical-pattern,
 role, NEP, invariant-family, and mutation-family mappings. An empty mutation
 list means no existing mutation operator faithfully models that card; it is not
 permission to invent an unrelated mutant.

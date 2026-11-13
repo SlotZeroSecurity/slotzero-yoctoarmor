@@ -1,4 +1,4 @@
-"""Shared inert fixtures and CLI helpers; no target audit or production imports."""
+"""Shared inert fixtures and CLI helpers; path imports do not execute an audit."""
 from __future__ import annotations
 
 import hashlib
@@ -14,13 +14,15 @@ import unittest
 
 SKILL = Path(__file__).resolve().parent.parent
 SCRIPTS = SKILL / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+from reference_paths import reference_path, reference_relative
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "nep-surface"
-NEP_PIN = json.loads((SKILL / "references" / "nep-registry.json").read_text(encoding="utf-8"))[
+NEP_PIN = json.loads((SKILL / reference_relative('nep_registry')).read_text(encoding="utf-8"))[
     "source"
 ]["commit"]
-OFFICIAL_REGISTRY = SKILL / "references" / "official-docs-registry.json"
+OFFICIAL_REGISTRY = SKILL / reference_relative('docs_registry')
 OFFICIAL_PIN = json.loads(OFFICIAL_REGISTRY.read_text(encoding="utf-8"))["source"]["commit"]
-REGISTRY = SKILL / "references/nep-registry.json"
+REGISTRY = SKILL / reference_relative('nep_registry')
 
 
 def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
@@ -124,7 +126,7 @@ def make_run_artifacts(root: Path) -> None:
             }
         ],
     )
-    inventory = json.loads((SKILL / "references/mutation-operators.json").read_text())["families"]
+    inventory = json.loads((SKILL / reference_relative('mutation_operators')).read_text())["families"]
     citation = {"path": "lib.rs", "start": 1, "end": 1, "quote": (FIXTURE / "lib.rs").read_text().splitlines()[0]}
     write_jsonl(root / "mutation-results.jsonl", [
         {"schema_version": 2, "operator_family": family, "applicability": "not_applicable",
@@ -326,7 +328,7 @@ class LifecycleFixture(unittest.TestCase):
             write_jsonl(self.run_dir / f"guidance/{role}.jsonl", [row for row in guidance if owners[row["card_id"]] == role])
 
     def rendered_report(self, stage="draft"):
-        banner = (SKILL / "references/report-template.md").read_text().split("```text\n", 1)[1].split("\n```", 1)[0]
+        banner = (SKILL / reference_relative('technical_annex_template')).read_text().split("```text\n", 1)[1].split("\n```", 1)[0]
         sections = ("Architecture and trust assumptions", "Findings index", "Findings",
                     "Unverified leads", "Standards and hardening notes",
                     "Testing and limitations", "Remediation priorities")

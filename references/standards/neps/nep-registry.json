@@ -17,7 +17,7 @@
   "categories": {
     "process-legacy": {
       "role_id": "nep-process-legacy",
-      "checklist": "references/nep-process-legacy.md",
+      "checklist": "references/standards/neps/nep-process-legacy.md",
       "ids": [
         "0001",
         "0021"
@@ -25,7 +25,7 @@
     },
     "token-assets": {
       "role_id": "nep-token-assets",
-      "checklist": "references/nep-token-assets.md",
+      "checklist": "references/standards/neps/nep-token-assets.md",
       "ids": [
         "0141",
         "0145",
@@ -44,7 +44,7 @@
     },
     "contract-interfaces": {
       "role_id": "nep-contract-interfaces",
-      "checklist": "references/nep-contract-interfaces.md",
+      "checklist": "references/standards/neps/nep-contract-interfaces.md",
       "ids": [
         "0297",
         "0330",
@@ -53,7 +53,7 @@
     },
     "wallet-auth": {
       "role_id": "nep-wallet-auth",
-      "checklist": "references/nep-wallet-auth.md",
+      "checklist": "references/standards/neps/nep-wallet-auth.md",
       "ids": [
         "0366",
         "0368",
@@ -68,7 +68,7 @@
     },
     "runtime-resources": {
       "role_id": "nep-runtime-resources",
-      "checklist": "references/nep-runtime-resources.md",
+      "checklist": "references/standards/neps/nep-runtime-resources.md",
       "ids": [
         "0264",
         "0399",
@@ -85,7 +85,7 @@
     },
     "crypto-host": {
       "role_id": "nep-crypto-host",
-      "checklist": "references/nep-crypto-host.md",
+      "checklist": "references/standards/neps/nep-crypto-host.md",
       "ids": [
         "0364",
         "0488",
@@ -96,7 +96,7 @@
     },
     "protocol-node": {
       "role_id": "nep-protocol-node",
-      "checklist": "references/nep-protocol-node.md",
+      "checklist": "references/standards/neps/nep-protocol-node.md",
       "ids": [
         "0508",
         "0509",

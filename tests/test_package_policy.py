@@ -1,4 +1,6 @@
 """Health-check URL boundaries and read-only behavior in disposable packages."""
+
+from support import reference_relative
 import hashlib
 import json
 import os
@@ -65,10 +67,10 @@ class PackagePolicyTests(unittest.TestCase):
                 self.check_commands()
 
     def test_urls_outside_top_level_readme_fail_without_writes(self):
-        for relative in ("SKILL.md", "references/maintenance.md", "scripts/package_policy.py",
+        for relative in ("SKILL.md", reference_relative('maintenance'), "scripts/package_policy.py",
                          "tests/url-fixture.py", "references/url-fixture.json",
                          "agents/url-fixture.yaml", "tests/url-fixture.rs",
-                         "references/README.md"):
+                         reference_relative('catalog')):
             path = self.skill / relative
             original = path.read_bytes() if path.exists() else None
             try:

@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import hashlib
 import json
@@ -39,9 +41,9 @@ MUTATION_FAMILIES = {
     "serializer-mismatch",
     "deployed-code-identity",
 }
-NEP_PIN_PATH = Path(__file__).resolve().parent.parent / "references" / "nep-registry.json"
+NEP_PIN_PATH = Path(__file__).resolve().parent.parent / reference_relative('nep_registry')
 OFFICIAL_DOCS_PIN_PATH = (
-    Path(__file__).resolve().parent.parent / "references" / "official-docs-registry.json"
+    Path(__file__).resolve().parent.parent / reference_relative('docs_registry')
 )
 
 

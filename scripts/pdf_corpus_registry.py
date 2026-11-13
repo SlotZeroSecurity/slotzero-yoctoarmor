@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_path, reference_relative
+
 import argparse
 import datetime as dt
 import fcntl
@@ -18,7 +20,7 @@ from typing import Any, Iterable
 
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MANIFEST = SKILL_ROOT / "references" / "pdf-corpus-manifest.json"
+DEFAULT_MANIFEST = SKILL_ROOT / reference_relative('report_registry')
 HASH_RE = re.compile(r"^[0-9a-f]{64}$")
 DATE_RE = re.compile(r"^\d{4}-(?:\d{2})(?:-\d{2})?$")
 TIMESTAMP_RE = re.compile(

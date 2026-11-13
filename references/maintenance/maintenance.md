@@ -2,7 +2,7 @@
 
 Maintenance, ingestion, and qualification do not create target audit runs or
 require the audit banner. Resolve `<skill>` from the invoked SKILL.md. Read the
-section for the requested operation; source history is in [provenance](provenance.md).
+section for the requested operation; source history is in [provenance](../sources/provenance.md).
 
 Keep changes within the requested staged or installed skill and explicitly owned
 files. Existing session authorization covers actions within its scope, including
@@ -50,6 +50,11 @@ run, and any remaining blockers. Continue independent in-scope work when an
 input or permission is missing; do not stop at the first draft of the edit.
 Skill maintenance does not itself require a target audit or benchmark qualification.
 
+## Pattern changes
+
+Follow [adding and maintaining patterns](adding-patterns.md) for source review,
+semantic deduplication, stable IDs, card/index updates, and validation.
+
 ## PDF and corpus ingestion
 
 Supply PDF files/directories, `<corpus-directory>` for original Markdown sources,
@@ -63,10 +68,10 @@ Rebuild the frozen original-corpus index only when the explicitly supplied `<cor
 ```text
 python3 <skill>/scripts/maintain.py corpus index \
   <corpus-directory> \
-  --output <skill>/references/corpus-index.json
+  --output <skill>/references/sources/reports/original-findings-index.json
 ```
 
-Review every new instance semantically before changing an attack-lens card; never auto-merge by title similarity. The active taxonomy is in `attack-lenses-index.json` and ten category files. `historical-id-map.json` is translation-only; new findings use only `NA-<CATEGORY>-NNN`. `corpus-index.json` covers the original Markdown corpus only. Keep curated PDF ledgers separate, including duplicate markers and explicitly non-NEAR entries.
+Review every new instance semantically before changing an attack-lens card; never auto-merge by title similarity. The active taxonomy is in `references/patterns/attack-lenses-index.json` and ten category files. `references/maintenance/historical-id-map.json` is translation-only; new findings use only `NA-<CATEGORY>-NNN`. `references/sources/reports/original-findings-index.json` covers the original Markdown corpus only. Keep curated PDF ledgers separate, including duplicate markers and explicitly non-NEAR entries.
 
 For every new NEAR-ecosystem PDF, register its raw bytes before opening,
 extracting, or semantically reviewing it:
@@ -98,7 +103,7 @@ attack-lens cards only when semantic comparison warrants it, then finalize the r
 python3 <skill>/scripts/maintain.py corpus pdf finalize <sha256> \
   --disposition ingested|already_represented|excluded \
   --title <title> --auditor <auditor> --report-date <YYYY-MM[-DD]> \
-  --ecosystem-scope <scope> --corpus-ref '<ledger-file>#<ledger-id>' \
+  --ecosystem-scope <scope> --corpus-ref 'reports/<ledger-file>#<ledger-id>' \
   --notes <review-disposition>
 python3 <skill>/scripts/maintain.py corpus pdf validate
 ```
@@ -117,7 +122,7 @@ Compare a reviewed local NEP checkout with the pinned registry using:
 
 ```text
 python3 <skill>/scripts/maintain.py standards neps \
-  <skill>/references/nep-registry.json \
+  <skill>/references/standards/neps/nep-registry.json \
   --source-root <local-neps-checkout>
 ```
 
@@ -128,7 +133,7 @@ without rewriting curated cards:
 
 ```text
 python3 <skill>/scripts/maintain.py standards docs \
-  <skill>/references/official-docs-registry.json \
+  <skill>/references/standards/official-docs/docs-registry.json \
   --source-root <local-near-docs-checkout> \
   --change-report <semantic-review-report.json>
 ```
@@ -145,17 +150,17 @@ for every unactivated registry item.
 
 ## Qualification
 
-For benchmark curation, permanent-role ablation, qualification commands, and release gates, follow [capability-model.md](capability-model.md). Qualification requires explicit evaluation inputs and does not constitute a target audit or a measured claim by itself.
+For benchmark curation, permanent-role ablation, qualification commands, and release gates, follow [references/workflow/capability-model.md](../workflow/capability-model.md). Qualification requires explicit evaluation inputs and does not constitute a target audit or a measured claim by itself.
 
 Use `scripts/maintain.py qualification benchmark|maturity|guidance|harness`
 for qualification helpers; the controller's audit commands remain unchanged.
 
 After material guidance-routing changes, follow the measured overhead gate in
-[capability-model.md](capability-model.md#official-guidance-performance-budget).
+[references/workflow/capability-model.md](../workflow/capability-model.md#official-guidance-performance-budget).
 File-size reduction is not runtime or token telemetry. Prompt changes invalidate
 prior qualification equivalence; do not carry measured claims to a new
 configuration without the required evaluation evidence.
 For Harness Playbook controller or prompt changes, use the paired
-[worker-adapter release comparison](runtime-adapter.md) as well. Public smoke
+[worker-adapter release comparison](../workflow/runtime-adapter.md) as well. Public smoke
 tests establish regression behavior only; representative adjudicated audits and
 actual usage exports are required to claim an output gain.

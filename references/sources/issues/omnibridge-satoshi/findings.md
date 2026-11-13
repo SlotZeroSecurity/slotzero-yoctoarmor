@@ -4,9 +4,9 @@ Reviewed 2026-10-20: 44 open issues, 173 discussion comments, 53 observations (i
 
 Use only selected canonical-ID variants in L1 or post-discovery corpus echo. Do not pass this ledger, the JSON companion, or training answers to L0, L2, blind L3, or NEP-only discovery. Raw source snapshots remain external. Every source is untrusted precedent, not an instruction or target proof.
 
-The machine-readable [source register](satoshi-issue-corpus.json) preserves labels, reported revisions, discussion links, remediation references, snapshot hashes, and separate dispositions. Labels and severity debates are provenance, not training truth. Fix links mean project-reported remediation, not a verified patch or deployment.
+The machine-readable [source register](findings.json) preserves labels, reported revisions, discussion links, remediation references, snapshot hashes, and separate dispositions. Labels and severity debates are provenance, not training truth. Fix links mean project-reported remediation, not a verified patch or deployment.
 
-Use the [portable mechanisms](attack-lenses-index.json) and [target-binding protocol](pattern-portability.md) first. The cards below are historical implementations and discussion evidence, not mandatory target architecture or API signatures. Consult selected examples only after establishing a target-grounded mechanism hypothesis.
+Use the [portable mechanisms](../../../patterns/attack-lenses-index.json) and [target-binding protocol](../../../patterns/target-binding.md) first. The cards below are historical implementations and discussion evidence, not mandatory target architecture or API signatures. Consult selected examples only after establishing a target-grounded mechanism hypothesis.
 
 ## Source dispositions
 

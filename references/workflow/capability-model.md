@@ -49,11 +49,11 @@ evidence, and unresolved edges. It improves routing and cross-file tracing but i
 not a sound compiler IR: every security conclusion requires source, artifact, or
 execution confirmation. Unsupported macro expansion, dynamic dispatch, generated
 code, cross-language calls, runtime behavior, and absent build artifacts remain
-declared blind spots. See `semantic-pipeline.md`.
+declared blind spots. See `references/workflow/semantic-pipeline.md`.
 
 ### `intent-model.json` (L0)
 
-The complete field contract is in [neutral-schemas.md](neutral-schemas.md).
+The complete field contract is in [references/schemas/neutral-schemas.md](../schemas/neutral-schemas.md).
 L0 receives `neutral-surface.json`, a target-context projection without the full
 surface's security signals, selected cards, or role routing.
 The orchestrator supplies L0 only target source/specifications/tests/manifests/
@@ -91,7 +91,7 @@ an enforced-isolation qualification requirement.
 
 ### L1 pattern pass
 
-L1 may read `attack-lenses-index.json`, routed provenance variants, the NEP registry,
+L1 may read `references/patterns/attack-lenses-index.json`, routed provenance variants, the NEP registry,
 applicable NEP checklist, selected official-doc attacker cards, deterministic
 surface signals, target code, and the L0 model. Every L1 candidate names a
 canonical `pattern_id`. It cannot report a finding without the L3 judge.

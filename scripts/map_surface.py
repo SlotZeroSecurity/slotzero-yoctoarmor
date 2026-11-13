@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import hashlib
 import json
@@ -32,9 +34,9 @@ ROLE_ORDER = [
 CAPABILITY_ROLES = ["protocol-modeler", "pattern-matcher", "intent-reasoner"]
 ACTIVE_ALWAYS = ["invariant-synthesis", "mutation-analysis"]
 
-NEP_REGISTRY = Path(__file__).resolve().parent.parent / "references" / "nep-registry.json"
+NEP_REGISTRY = Path(__file__).resolve().parent.parent / reference_relative('nep_registry')
 OFFICIAL_DOCS_REGISTRY = (
-    Path(__file__).resolve().parent.parent / "references" / "official-docs-registry.json"
+    Path(__file__).resolve().parent.parent / reference_relative('docs_registry')
 )
 
 SIGNALS: dict[str, re.Pattern[str]] = {

@@ -136,7 +136,7 @@ The reports show what was reviewed, what was found, and what remains uncertain.
 
 Additional specialists join when the project uses features such as bridges, price feeds, or upgradeable contracts.
 The host schedules agents within its available capacity; they do not all need to run at once.
-Explore the [full agent catalog](references/agent-catalog.md) for the individual roles.
+Explore the [full agent catalog](references/workflow/agent-catalog.md) for the individual roles.
 
 ## Pattern library
 
@@ -144,16 +144,16 @@ Explore the [full agent catalog](references/agent-catalog.md) for the individual
 
 | Category | Patterns | Example question |
 | --- | ---: | --- |
-| [Access control](references/attack-lenses/auth.md) | 12 | Can someone act with another account's authority? |
-| [Asynchronous execution](references/attack-lenses/async.md) | 17 | Can a delayed callback pay the same balance twice? |
-| [Accounting](references/attack-lenses/account.md) | 7 | Can newly issued shares dilute existing deposits? |
-| [State](references/attack-lenses/state.md) | 16 | Can two records disagree after an update? |
-| [Economics](references/attack-lenses/econ.md) | 4 | Can repeated rounding give someone extra value? |
-| [Resources](references/attack-lenses/resource.md) | 10 | Can a caller make the contract pay excessive storage costs? |
-| [Integrations](references/attack-lenses/integration.md) | 8 | Can an old price be used as if it were current? |
-| [Cryptography](references/attack-lenses/crypto.md) | 8 | Can a signature be accepted in the wrong context? |
-| [Runtime](references/attack-lenses/runtime.md) | 2 | Can work escape its intended execution limits? |
-| [Offchain services](references/attack-lenses/offchain.md) | 12 | Can a retry cause an external service to repeat an action? |
+| [Access control](references/patterns/attack-lenses/auth.md) | 12 | Can someone act with another account's authority? |
+| [Asynchronous execution](references/patterns/attack-lenses/async.md) | 17 | Can a delayed callback pay the same balance twice? |
+| [Accounting](references/patterns/attack-lenses/account.md) | 7 | Can newly issued shares dilute existing deposits? |
+| [State](references/patterns/attack-lenses/state.md) | 16 | Can two records disagree after an update? |
+| [Economics](references/patterns/attack-lenses/econ.md) | 4 | Can repeated rounding give someone extra value? |
+| [Resources](references/patterns/attack-lenses/resource.md) | 10 | Can a caller make the contract pay excessive storage costs? |
+| [Integrations](references/patterns/attack-lenses/integration.md) | 8 | Can an old price be used as if it were current? |
+| [Cryptography](references/patterns/attack-lenses/crypto.md) | 8 | Can a signature be accepted in the wrong context? |
+| [Runtime](references/patterns/attack-lenses/runtime.md) | 2 | Can work escape its intended execution limits? |
+| [Offchain services](references/patterns/attack-lenses/offchain.md) | 12 | Can a retry cause an external service to repeat an action? |
 | **Total** | **96** | |
 
 Relevant NEAR standards and reviewed documentation support these checks.
@@ -173,10 +173,10 @@ Reports remain **Draft** until the required human review is complete. No automat
 
 ## Resources
 
-[Detailed usage guide](references/usage-guide.md) · [Report format](references/slotzero-report-format.md) · [Source provenance](references/provenance.md)
+[Detailed usage guide](references/usage-guide.md) · [Report format](references/reporting/slotzero-report-format.md) · [Source provenance](references/sources/provenance.md)
 
 Host documentation: [Codex](https://learn.chatgpt.com/docs/build-skills) · [Claude Code](https://code.claude.com/docs/en/skills) · [OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode agents](https://opencode.ai/docs/agents/).
 
 Known V1 packaging issue: health checks flag this README's external links. See [troubleshooting](references/usage-guide.md#maintenance-and-troubleshooting).
 
-Licensed under [MIT](LICENSE). Existing third-party notices and [source attribution](references/provenance.md) remain applicable.
+Licensed under [MIT](LICENSE). Existing third-party notices and [source attribution](references/sources/provenance.md) remain applicable.

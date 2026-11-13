@@ -37,9 +37,9 @@ python3 scripts/near_audit.py doctor
 python3 scripts/maintain.py check
 ```
 
-The existing README URL-policy conflict makes these checks fail on the README's
-public links. Do not describe this as a passed preflight; inspect other errors
-separately. No dependencies need to be installed for this documentation check.
+Both checks allow web links in the package's top-level README and reject them
+elsewhere. They validate the local package without fetching upstream sources.
+Inspect any reported errors; no dependencies need to be installed for these checks.
 
 ## Guide contents
 
@@ -142,11 +142,11 @@ accounting section, but are absent from findings, leads, recommendations, and
 severity totals. Finalization and report rendering reject missing assessments,
 stale digests, invalid citations, and excluded findings presented as reportable.
 Citation validation establishes provenance; agents and human reviewers still
-validate the meaning of the evidence. See the [assessment contract](threat-model.md).
+validate the meaning of the evidence. See the [assessment contract](workflow/threat-model.md).
 
 ## Scope and discovery passes
 
-Every scan follows [the comprehensive review contract](review-contract.md): all
+Every scan follows [the comprehensive review contract](workflow/review-contract.md): all
 six specialist applicability reviews, all supported applicable mutation operators,
 fresh follow-up agents, verification of every surviving candidate, and one bounded
 rescan. Select files to focus scope; select passes to repeat independent discovery.
@@ -261,29 +261,29 @@ The controller maintains a hash-linked append-only journal in `run-events/`. `ru
 - **NEP roles:** process/legacy, token assets, contract interfaces, wallet/auth, runtime resources, crypto/host, and protocol/node.
 - **Verification and rescans:** evidence triage, fresh adversarial verifiers, an additional independent skeptic for High/Critical candidates, one counterexample-guided rescan, and one later human-informed verified-seed pass.
 
-Each callable needs two independent lenses. Value-bearing receipt chains require async, accounting, seam analysis, and applicable async state exploration. Role count is not the number of simultaneously running agents: the orchestrator schedules workers within observed host capacity. See the [agent catalog](agent-catalog.md) and [capability model](capability-model.md).
+Each callable needs two independent lenses. Value-bearing receipt chains require async, accounting, seam analysis, and applicable async state exploration. Role count is not the number of simultaneously running agents: the orchestrator schedules workers within observed host capacity. See the [agent catalog](workflow/agent-catalog.md) and [capability model](workflow/capability-model.md).
 
 ## Pattern library and coverage
 
-V1 includes **96 attack-lens patterns across 10 categories**. The [routing index](attack-lenses-index.json) selects relevant categories rather than loading the complete corpus into every worker.
+V1 includes **96 attack-lens patterns across 10 categories**. The [routing index](patterns/attack-lenses-index.json) selects relevant categories rather than loading the complete corpus into every worker.
 
 | Category | Patterns | Representative mechanisms |
 | --- | ---: | --- |
-| [Authorization](attack-lenses/auth.md) | 12 | Signer/predecessor confusion, exposed privileged methods, replay, access-key boundaries. |
-| [Async execution](attack-lenses/async.md) | 17 | Split-receipt double spends, missing compensation, stale callbacks, pending-state recovery. |
-| [Accounting](attack-lenses/account.md) | 7 | Liabilities and reserves, storage attribution, claim recovery, vault-share dilution. |
-| [State](attack-lenses/state.md) | 16 | Coupled-state divergence, migrations, lifecycle transitions, configuration combinations. |
-| [Economics](attack-lenses/econ.md) | 4 | Asset/unit confusion, rounding and overflow, ordering or reward manipulation. |
-| [Resources](attack-lenses/resource.md) | 10 | Underpriced storage, prefix collisions, unbounded work, sponsorship and refunds. |
-| [Integration](attack-lenses/integration.md) | 8 | Receiver identity, ABI drift, proof/finality races, oracle freshness. |
-| [Cryptography](attack-lenses/crypto.md) | 8 | Canonical decoding, threshold binding, nonce reuse, secrets, attestations. |
-| [Runtime](attack-lenses/runtime.md) | 2 | Unmetered host work and consensus agreement/liveness. |
-| [Offchain](attack-lenses/offchain.md) | 12 | Indexer trust, relayer retries, unsafe inputs, build/release integrity, recovery documentation. |
+| [Authorization](patterns/attack-lenses/auth.md) | 12 | Signer/predecessor confusion, exposed privileged methods, replay, access-key boundaries. |
+| [Async execution](patterns/attack-lenses/async.md) | 17 | Split-receipt double spends, missing compensation, stale callbacks, pending-state recovery. |
+| [Accounting](patterns/attack-lenses/account.md) | 7 | Liabilities and reserves, storage attribution, claim recovery, vault-share dilution. |
+| [State](patterns/attack-lenses/state.md) | 16 | Coupled-state divergence, migrations, lifecycle transitions, configuration combinations. |
+| [Economics](patterns/attack-lenses/econ.md) | 4 | Asset/unit confusion, rounding and overflow, ordering or reward manipulation. |
+| [Resources](patterns/attack-lenses/resource.md) | 10 | Underpriced storage, prefix collisions, unbounded work, sponsorship and refunds. |
+| [Integration](patterns/attack-lenses/integration.md) | 8 | Receiver identity, ABI drift, proof/finality races, oracle freshness. |
+| [Cryptography](patterns/attack-lenses/crypto.md) | 8 | Canonical decoding, threshold binding, nonce reuse, secrets, attestations. |
+| [Runtime](patterns/attack-lenses/runtime.md) | 2 | Unmetered host work and consensus agreement/liveness. |
+| [Offchain](patterns/attack-lenses/offchain.md) | 12 | Indexer trust, relayer retries, unsafe inputs, build/release integrity, recovery documentation. |
 | **Total** | **96** | |
 
-Cards use stable identifiers such as `NA-AUTH-001` and `NA-ASYNC-002`. Historical resemblance is a search aid: findings require a reachable target-specific attack, a broken invariant, and material harm. Quality-only cards stay advisories unless concrete security impact is established. See the [pattern-binding protocol](pattern-portability.md).
+Cards use stable identifiers such as `NA-AUTH-001` and `NA-ASYNC-002`. Historical resemblance is a search aid: findings require a reachable target-specific attack, a broken invariant, and material harm. Quality-only cards stay advisories unless concrete security impact is established. See the [pattern-binding protocol](patterns/target-binding.md).
 
-The bundled registries contain **51 NEP records** and **197 official-documentation records**, pinned to reviewed source revisions. These are inventory counts, not a promise that every item applies to every target or that upstream sources are current. Final/Approved NEPs are normative only when applicable and active; Draft/New material is advisory. Coverage records include evidence-backed exclusions. See the [NEP registry](nep-registry.json), [documentation registry](official-docs-registry.json), and [provenance](provenance.md).
+The bundled registries contain **51 NEP records** and **197 official-documentation records**, pinned to reviewed source revisions. These are inventory counts, not a promise that every item applies to every target or that upstream sources are current. Final/Approved NEPs are normative only when applicable and active; Draft/New material is advisory. Coverage records include evidence-backed exclusions. See the [NEP registry](standards/neps/nep-registry.json), [documentation registry](standards/official-docs/docs-registry.json), and [provenance](sources/provenance.md).
 
 ## Reports and evidence
 
@@ -313,7 +313,7 @@ present placeholder files or a partial run as completed.
 | Candidate and disposition JSONL ledgers | Raw discoveries, deduplication, verdicts, rejected/blocked candidates, and complete accounting. |
 | NEP, official-guidance, and active-test ledgers | Standards coverage, routed guidance, schedules, invariants, mutations, and applicable differential/upgrade evidence. |
 
-Severity and confidence are separate. Repeated discoveries do not prove correctness. Draft reports and benchmark smoke fixtures do not certify deployment safety or establish L4 qualification. See the [compact report format](slotzero-report-format.md) and [verification/reporting rules](verification-reporting.md).
+Severity and confidence are separate. Repeated discoveries do not prove correctness. Draft reports and benchmark smoke fixtures do not certify deployment safety or establish L4 qualification. See the [compact report format](reporting/slotzero-report-format.md) and [verification/reporting rules](reporting/verification-reporting.md).
 
 ## Controller reference
 
@@ -404,7 +404,7 @@ python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" resume "$NEARSHIELD_RUN"
 
 ### Feedback and report lifecycle
 
-Human labels use `TP`, `FP`, `DUPLICATE`, or `UNRESOLVED`, with reviewer, review time, and reason code. Follow the complete [feedback and verdict schemas](finding-schema.md). Feedback is metrics-only: it does not silently retrain or modify the corpus. Only manually labeled blind TPs seed the one bounded informed pass.
+Human labels use `TP`, `FP`, `DUPLICATE`, or `UNRESOLVED`, with reviewer, review time, and reason code. Follow the complete [feedback and verdict schemas](schemas/finding-schema.md). Feedback is metrics-only: it does not silently retrain or modify the corpus. Only manually labeled blind TPs seed the one bounded informed pass.
 
 ```bash
 python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" feedback "$NEARSHIELD_RUN" \
@@ -432,7 +432,7 @@ Keep report artifacts inside the run directory, outside audited source, and deli
 
 ## Maintenance and troubleshooting
 
-Maintenance, corpus ingestion, standards refresh, and benchmark qualification are separate request routes; they do not start a target audit. Use the [maintenance guide](maintenance.md) for helper interfaces and explicit input requirements.
+Maintenance, corpus ingestion, standards refresh, and benchmark qualification are separate request routes; they do not start a target audit. Use the [maintenance guide](maintenance/maintenance.md) for helper interfaces and explicit input requirements.
 
 | Symptom | Action |
 | --- | --- |
@@ -452,12 +452,12 @@ Qualification helpers live under `maintain.py qualification`; corpus and standar
 
 ## Further reading
 
-- [Skill entry point](../SKILL.md) and [complete audit workflow](audit-workflow.md)
-- [Agent catalog](agent-catalog.md), [capability model](capability-model.md), and [semantic pipeline](semantic-pipeline.md)
-- [Run journal and worker adapter](runtime-adapter.md)
-- [Attack-lens routing index](attack-lenses-index.json) and [NEAR security model](near-security-model.md)
-- [Finding schema](finding-schema.md), [technical annex template](report-template.md), and [compact report format](slotzero-report-format.md)
-- [Threat-model contract](threat-model.md)
-- [Maintenance](maintenance.md) and [source provenance](provenance.md)
+- [Skill entry point](../SKILL.md) and [complete audit workflow](workflow/audit-workflow.md)
+- [Agent catalog](workflow/agent-catalog.md), [capability model](workflow/capability-model.md), and [semantic pipeline](workflow/semantic-pipeline.md)
+- [Run journal and worker adapter](workflow/runtime-adapter.md)
+- [Attack-lens routing index](patterns/attack-lenses-index.json) and [NEAR security model](workflow/near-security-model.md)
+- [Finding schema](schemas/finding-schema.md), [technical annex template](reporting/technical-annex-template.md), and [compact report format](reporting/slotzero-report-format.md)
+- [Threat-model contract](workflow/threat-model.md)
+- [Maintenance](maintenance/maintenance.md) and [source provenance](sources/provenance.md)
 
 For professional review, [request an audit from Slot Zero Security](../README.md). Explore [public audit reports](../README.md) and follow [Slot Zero Security on X](../README.md).

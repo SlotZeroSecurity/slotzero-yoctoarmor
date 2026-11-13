@@ -102,7 +102,7 @@ prompt rewrite, threshold tuning, or automatic corpus update.
 
 ## Draft and approved finalization
 
-Follow [draft and approved finalization](verification-reporting.md#draft-and-approved-finalization)
+Follow [draft and approved finalization](../reporting/verification-reporting.md#draft-and-approved-finalization)
 for the stage default, command interface, report hash/containment, human gates,
 and retained evidence. Draft delivery leaves pending human feedback and the
 informed pass resumable; never turn missing feedback into a skipped pass or
@@ -112,7 +112,7 @@ create human labels to advance it.
 
 Qualification is a separate task. See the complete thresholds, isolation rules,
 benchmark schema 2, telemetry requirements, and three equivalent repetitions in
-[capability-model.md](capability-model.md#l4-benchmark-isolation-and-scoring).
+[references/workflow/capability-model.md](capability-model.md#l4-benchmark-isolation-and-scoring).
 Changes to configuration, dataset, target manifest, scorer, or gate profile
 invalidate equivalence. Contracts, bridges, wallets, MPC, runtime, consensus, and
 node tracks require their own evidence and attestations.
