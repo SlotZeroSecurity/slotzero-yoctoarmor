@@ -178,3 +178,5 @@ Reports remain **Draft** until the required human review is complete. No automat
 Host documentation: [Codex](https://learn.chatgpt.com/docs/build-skills) · [Claude Code](https://code.claude.com/docs/en/skills) · [OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode agents](https://opencode.ai/docs/agents/).
 
 Known V1 packaging issue: health checks flag this README's external links. See [troubleshooting](references/usage-guide.md#maintenance-and-troubleshooting).
+
+Licensed under [MIT](LICENSE). Existing third-party notices and [source attribution](references/provenance.md) remain applicable.
