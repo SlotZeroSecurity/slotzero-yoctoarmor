@@ -38,6 +38,14 @@ def _unique_keys(pairs: list[tuple[str, object]]) -> dict:
     return result
 
 
+def load_json_object(path: Path) -> dict[str, object]:
+    """Load a JSON object with standard decoder behavior, including duplicate keys."""
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError(f"{path}: expected object")
+    return value
+
+
 def read_json(path: Path) -> dict:
     value = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_keys)
     if not isinstance(value, dict):
@@ -57,13 +65,25 @@ def read_registry(path: Path) -> dict:
 
 
 def read_jsonl(path: Path) -> list[dict]:
+    return load_jsonl_objects(path, strict=True, contextual_errors=False)
+
+
+def load_jsonl_objects(path: Path, *, strict: bool = False,
+                       contextual_errors: bool = True) -> list[dict]:
+    """Read object rows, preserving strict-reader labels and optional decode context."""
     rows = []
+    label = path.name if strict else str(path)
     for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if not line.strip():
             continue
-        value = json.loads(line, object_pairs_hook=_unique_keys)
+        try:
+            value = json.loads(line, object_pairs_hook=_unique_keys if strict else None)
+        except json.JSONDecodeError as exc:
+            if not contextual_errors:
+                raise
+            raise ValueError(f"{label}:{number}: invalid JSON: {exc}") from exc
         if not isinstance(value, dict):
-            raise ValueError(f"{path.name}:{number}: expected JSON object")
+            raise ValueError(f"{label}:{number}: expected {'JSON object' if strict else 'object'}")
         rows.append(value)
     return rows
 

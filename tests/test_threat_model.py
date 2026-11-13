@@ -11,12 +11,12 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from threat_model import BOUNDARIES, inspect_model, validate_verdict_assessments
+from threat_model import BOUNDARIES, inspect_model
 from source_inventory import snapshot_inputs
 from check_ledger import validate_ledgers
-from test_feedback_integrity import candidate, verdict
-import test_run_lifecycle as lifecycle
-from test_run_lifecycle import write_jsonl, write_json
+from support import candidate, verdict
+from support import LifecycleFixture
+from support import write_jsonl, write_json
 
 MODEL = """# Threat model
 ## Assets
@@ -227,7 +227,7 @@ class ThreatModelTests(unittest.TestCase):
 
 class ThreatModelReportingTests(unittest.TestCase):
     def setUp(self):
-        self.fixture = lifecycle.RunLifecycleTests()
+        self.fixture = LifecycleFixture()
         self.fixture.setUp()
         self.addCleanup(self.fixture.doCleanups)
         self.target, self.run = self.fixture.target, self.fixture.run_dir
@@ -306,7 +306,7 @@ class ThreatModelReportingTests(unittest.TestCase):
 
     def test_override_limitation_reaches_both_reports(self):
         from render_slotzero_report import render
-        fixture = lifecycle.RunLifecycleTests()
+        fixture = LifecycleFixture()
         fixture.setUp()
         self.addCleanup(fixture.doCleanups)
         (fixture.target / "THREAT_MODEL.md").unlink()

@@ -11,16 +11,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from support import run
+
 
 SKILL = Path(__file__).resolve().parent.parent
 REGISTRY = SKILL / "references" / "official-docs-registry.json"
-GUIDE = SKILL / "references" / "official-docs-attacker-guide.md"
 SCRIPTS = SKILL / "scripts"
 FIXTURE = SKILL / "benchmarks" / "public" / "official-guidance-smoke"
-
-
-def run(*args: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(args, check=True, text=True, capture_output=True)
 
 
 class OfficialDocsToolsTest(unittest.TestCase):
@@ -121,7 +118,6 @@ class OfficialDocsToolsTest(unittest.TestCase):
             )
             self.assertNotEqual(failed.returncode, 0)
             self.assertFalse(json.loads(failed.stdout)["complete"])
-
 
 
 if __name__ == "__main__":

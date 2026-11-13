@@ -12,7 +12,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from run_integrity import read_registry
+from run_integrity import read_registry, load_jsonl_objects as load_jsonl
 from pattern_routing import validate_index
 
 
@@ -71,21 +71,6 @@ NEP_REGISTRY_PATH = Path(__file__).resolve().parent.parent / "references" / "nep
 OFFICIAL_DOCS_REGISTRY_PATH = (
     Path(__file__).resolve().parent.parent / "references" / "official-docs-registry.json"
 )
-
-
-def load_jsonl(path: Path) -> list[dict[str, object]]:
-    rows: list[dict[str, object]] = []
-    for line_no, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        if not line.strip():
-            continue
-        try:
-            value = json.loads(line)
-        except json.JSONDecodeError as exc:
-            raise ValueError(f"{path}:{line_no}: invalid JSON: {exc}") from exc
-        if not isinstance(value, dict):
-            raise ValueError(f"{path}:{line_no}: expected object")
-        rows.append(value)
-    return rows
 
 
 def unique(rows: list[dict[str, object]], field: str, label: str) -> dict[str, dict[str, object]]:

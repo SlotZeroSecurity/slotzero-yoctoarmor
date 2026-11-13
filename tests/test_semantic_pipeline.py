@@ -4,23 +4,16 @@
 from __future__ import annotations
 
 import json
-import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+
+from support import run
 
 
 SKILL = Path(__file__).resolve().parent.parent
 SCRIPTS = SKILL / "scripts"
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "semantic-near"
-
-
-def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(args, check=check, text=True, capture_output=True)
-
-
-def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
-    path.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
 
 
 def candidate(candidate_id: str = "cand-1") -> dict[str, object]:
@@ -123,9 +116,6 @@ class SemanticPipelineTest(unittest.TestCase):
             self.assertTrue(surface["selected_pattern_categories"])
             for pattern in case["patterns"]:
                 self.assertIn(index[pattern]["category"], surface["selected_pattern_categories"], case["name"])
-
-
-
 
 
 if __name__ == "__main__":

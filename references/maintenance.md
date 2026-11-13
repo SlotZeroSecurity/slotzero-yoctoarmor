@@ -24,6 +24,11 @@ python3 <skill>/scripts/near_audit.py doctor
 python3 <skill>/scripts/maintain.py check
 ```
 
+Both health checks use the same external-URL policy: only the package's top-level
+`README.md` may contain web links for installation and documentation. Instructions,
+references, helpers, tests, and nested README files retain the URL restriction.
+Health checks inspect the package without fetching links or writing bytecode caches.
+
 PyYAML is optional for metadata validation only. If the optional validator is
 unavailable, record that limitation rather than claiming it passed or installing
 a dependency solely for a documentation edit.

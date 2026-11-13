@@ -11,6 +11,7 @@ from pathlib import Path
 
 from run_integrity import (
     atomic_write_json, atomic_write_jsonl, require_current_run, run_lock, validate_bindings,
+    load_json_object as load_json, load_jsonl_objects,
 )
 
 LABELS = {"TP", "FP", "DUPLICATE", "UNRESOLVED"}
@@ -20,13 +21,6 @@ def canonical_hash(value: object) -> str:
     """Hash normalized JSON content, independent of formatting and object key order."""
     raw = json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()
     return "sha256:" + hashlib.sha256(raw).hexdigest()
-
-
-def load_json(path: Path) -> dict[str, object]:
-    value = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(value, dict):
-        raise ValueError(f"{path}: expected object")
-    return value
 
 
 def require_mutable_run(run_dir: Path) -> None:
@@ -49,20 +43,7 @@ def require_mutable_run(run_dir: Path) -> None:
 
 
 def load_jsonl(path: Path, *, missing_ok: bool = False) -> list[dict[str, object]]:
-    if not path.exists() and missing_ok:
-        return []
-    rows: list[dict[str, object]] = []
-    for line_no, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        if not line.strip():
-            continue
-        try:
-            value = json.loads(line)
-        except json.JSONDecodeError as exc:
-            raise ValueError(f"{path}:{line_no}: invalid JSON: {exc}") from exc
-        if not isinstance(value, dict):
-            raise ValueError(f"{path}:{line_no}: expected object")
-        rows.append(value)
-    return rows
+    return [] if missing_ok and not path.exists() else load_jsonl_objects(path)
 
 
 def candidate_index(run_dir: Path, *, required: bool = True) -> dict[str, dict[str, object]]:

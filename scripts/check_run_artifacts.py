@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from run_integrity import (
     artifact_path, read_jsonl as strict_jsonl, reconcile_candidates,
     validate_bindings, validate_state,
-    read_registry,
+    read_registry, canonical_hash, load_jsonl_objects,
 )
 
 
@@ -64,29 +64,13 @@ def load_jsonl(path: Path, *, required: bool = True) -> list[dict[str, object]]:
         if required:
             raise ValueError(f"missing required artifact: {path.name}")
         return []
-    rows: list[dict[str, object]] = []
-    for line_no, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        if not line.strip():
-            continue
-        try:
-            value = json.loads(line)
-        except json.JSONDecodeError as exc:
-            raise ValueError(f"{path}:{line_no}: invalid JSON: {exc}") from exc
-        if not isinstance(value, dict):
-            raise ValueError(f"{path}:{line_no}: expected object")
-        rows.append(value)
-    return rows
+    return load_jsonl_objects(path)
 
 
 def require_fields(row: dict[str, object], fields: tuple[str, ...], label: str) -> None:
     missing = [field for field in fields if row.get(field) is None or row.get(field) == ""]
     if missing:
         raise ValueError(f"{label}: missing fields {missing}")
-
-
-def canonical_hash(value: object) -> str:
-    raw = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return "sha256:" + hashlib.sha256(raw).hexdigest()
 
 
 def validate_manifest(run_dir: Path) -> dict[str, object]:

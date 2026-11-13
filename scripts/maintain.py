@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import subprocess
 import sys
 from pathlib import Path
+
+sys.dont_write_bytecode = True
+from package_policy import external_url_paths
 
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS = ROOT / "scripts"
@@ -25,11 +27,7 @@ def package_check() -> dict[str, object]:
     for row in (*history["canonical"].values(), *history["portable"].values()):
         if not set(row["new_ids"]) <= set(index["cards"]):
             raise ValueError("historical translation points outside active lens index")
-    contaminated = []
-    for file in ROOT.rglob("*"):
-        if file.is_file() and file.suffix in {".md", ".json", ".py", ".rs", ".yaml"}:
-            if re.search(r"https?://", file.read_text(encoding="utf-8", errors="replace")):
-                contaminated.append(file.relative_to(ROOT).as_posix())
+    contaminated = external_url_paths(ROOT)
     if contaminated:
         raise ValueError(f"external URL in package: {contaminated}")
     return {"ok": True, "categories": len(index["categories"]), "cards": len(index["cards"]),

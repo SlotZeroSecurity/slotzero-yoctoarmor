@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REF = ROOT / "references"
 sys.path.insert(0, str(ROOT / "scripts"))
 from pattern_routing import ORDER, reference_paths, select_categories, validate_index
+from package_policy import external_url_paths
 
 
 class PatternPortabilityTests(unittest.TestCase):
@@ -46,15 +47,13 @@ class PatternPortabilityTests(unittest.TestCase):
                 content = path.read_text(errors="replace")
                 self.assertFalse(any(re.search(rf"(?<![A-Z0-9-]){re.escape(old)}(?![A-Z0-9-])", content) for old in old_ids), path)
 
-    def test_category_routing_limits_input_and_package_has_no_urls(self):
+    def test_category_routing_limits_input_and_package_url_policy(self):
         selected = select_categories({"promises": 1, "storage": 1})
         self.assertIn("async", selected)
         self.assertIn("resource", selected)
         self.assertNotIn("crypto", selected)
         self.assertEqual(len(selected), len(reference_paths(selected)))
-        for path in ROOT.rglob("*"):
-            if path.is_file() and path.suffix in {".md", ".json", ".py", ".rs", ".yaml"}:
-                self.assertIsNone(re.search(r"https?://", path.read_text(errors="replace")), path)
+        self.assertEqual(external_url_paths(ROOT), [])
 
     def test_consolidated_maintenance_check(self):
         result = subprocess.run([sys.executable, str(ROOT / "scripts/maintain.py"), "check"],

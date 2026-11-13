@@ -28,9 +28,11 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from package_policy import external_url_paths
 from run_integrity import (
     RUN_SCHEMA, STATE_SCHEMA, artifact_path, atomic_write_json, atomic_write_jsonl,
     configuration_snapshot, file_hash, read_jsonl, reconcile_candidates,
+    canonical_hash, load_json_object as read_json,
     require_current_run, run_lock, validate_bindings, validate_state,
 )
 from run_journal import append as append_run_event, load as load_run_state
@@ -90,18 +92,6 @@ def utc_now() -> str:
 
 def sha256_bytes(value: bytes) -> str:
     return "sha256:" + hashlib.sha256(value).hexdigest()
-
-
-def canonical_hash(value: object) -> str:
-    raw = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
-    return sha256_bytes(raw)
-
-
-def read_json(path: Path) -> dict[str, object]:
-    value = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(value, dict):
-        raise ValueError(f"{path}: expected object")
-    return value
 
 
 def run_checked(command: list[str], *, cwd: Path | None = None) -> str:
@@ -885,10 +875,7 @@ def doctor(args: argparse.Namespace) -> dict[str, object]:
             relative = destination.split("#", 1)[0]
             if relative and not (path.parent / relative).is_file():
                 errors.append(f"broken link in {path.relative_to(SKILL)}: {relative}")
-    for path in SKILL.rglob("*"):
-        if path.is_file() and path.suffix in {".md", ".json", ".py", ".yaml", ".rs"}:
-            if re.search(r"https?://", path.read_text(encoding="utf-8", errors="replace")):
-                errors.append(f"external URL in {path.relative_to(SKILL)}")
+    errors.extend(f"external URL in {path}" for path in external_url_paths(SKILL))
     counts = {}
     for label, check in (
         ("attack_lenses", validate_index),

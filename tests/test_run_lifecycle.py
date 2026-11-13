@@ -3,97 +3,13 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
-from pathlib import Path
 import shutil
-import subprocess
-import sys
-import tempfile
 import unittest
 
-from test_capability_tools import make_run_artifacts, write_json, write_jsonl
-from test_nep_tools import coverage_rows
-from test_feedback_integrity import candidate, verdict
-
-SKILL = Path(__file__).resolve().parents[1]
-FIXTURE = SKILL / "tests/fixtures/nep-surface"
+from support import LifecycleFixture, SKILL
 
 
-class RunLifecycleTests(unittest.TestCase):
-    def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
-        self.addCleanup(self.tmp.cleanup)
-        self.root = Path(self.tmp.name).resolve()
-        self.target = self.root / "target source"
-        shutil.copytree(FIXTURE, self.target)
-        self.run_dir = self.root / "review evidence"
-        self.skill = SKILL
-
-    def cli(self, *args, ok=True):
-        result = subprocess.run(
-            [sys.executable, str(self.skill / "scripts/near_audit.py"), *map(str, args)],
-            cwd=self.root, env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
-            text=True, capture_output=True, timeout=45,
-        )
-        if ok:
-            self.assertEqual(result.returncode, 0, result.stderr)
-        else:
-            self.assertNotEqual(result.returncode, 0, result.stdout)
-        return result
-
-    def initialize(self, passes=1):
-        self.cli("run", self.target, "--loop", str(passes), "--run-dir", self.run_dir)
-
-    def complete_automated_fixture(self, passes=1):
-        self.initialize(passes)
-        # Reuse the original schema fixtures, retaining the new run's attestation.
-        preserved = {name: (self.run_dir / name).read_bytes() for name in ("run-manifest.json", "surface.json")}
-        make_run_artifacts(self.run_dir)
-        for name, data in preserved.items():
-            (self.run_dir / name).write_bytes(data)
-        packets = [json.loads(line) for line in (self.run_dir / "work-packets.jsonl").read_text().splitlines()]
-        for packet in packets:
-            if packet["phase"] == "informed-rescan":
-                continue
-            for name in packet["candidate_outputs"]:
-                write_jsonl(self.run_dir / name, [])
-        for name in ("raw-candidates.jsonl", "deduplicated.jsonl", "dispositions.jsonl", "verdicts.jsonl", "triage.jsonl"):
-            write_jsonl(self.run_dir / name, [])
-        citation = {"path": "lib.rs", "start": 1, "end": 1, "quote": (self.target / "lib.rs").read_text().splitlines()[0]}
-        for packet in packets:
-            for name in packet.get("additional_outputs", []):
-                if name.endswith("-applicability.json"):
-                    write_json(self.run_dir / name, {
-                        "schema_version": 1, "role_id": packet["role_id"],
-                        "discovery_pass": packet.get("discovery_pass", 1), "applicability": "not_applicable",
-                        "rationale": "Inert fixture disposition, not a semantic audit.", "target_evidence": [citation]})
-        rows = coverage_rows()
-        write_jsonl(self.run_dir / "nep-coverage.jsonl", rows)
-        surface = json.loads((self.run_dir / "surface.json").read_text())
-        for role in surface["nep_roles"]:
-            write_jsonl(self.run_dir / f"nep/{role}.jsonl", [row for row in rows if row["role_id"] == role])
-        guidance = [json.loads(line) for line in (self.run_dir / "official-guidance-coverage.jsonl").read_text().splitlines()]
-        owners = {row["card_id"]: row["owner_role"] for row in surface["official_guidance_review_queue"]}
-        for role in set(owners.values()):
-            write_jsonl(self.run_dir / f"guidance/{role}.jsonl", [row for row in guidance if owners[row["card_id"]] == role])
-
-    def rendered_report(self, stage="draft"):
-        banner = (SKILL / "references/report-template.md").read_text().split("```text\n", 1)[1].split("\n```", 1)[0]
-        sections = ("Architecture and trust assumptions", "Findings index", "Findings",
-                    "Unverified leads", "Standards and hardening notes",
-                    "Testing and limitations", "Remediation priorities")
-        verdicts = [json.loads(line) for line in (self.run_dir / "verdicts.jsonl").read_text().splitlines() if line.strip()]
-        detail = "\n".join("### " + row["candidate_id"] + "\n\nConfidence " + str(row["confidence"]["total"]) +
-                           "/13\n\n#### Recommendation\n\nApply the synthetic fixture fix."
-                           for row in verdicts if row["verdict"] in {"valid", "valid_downgraded"})
-        body = self.run_dir / f"{stage}-body.md"
-        body.write_text("```text\n" + banner + "\n```\n\n# 🔐 NEARShield v1 Security Review — sample\n\nSynthetic inert fixture.\n\n" +
-                        "\n\n".join("## " + section + "\n\nSynthetic inert fixture." + ("\n\n" + detail if section == "Findings" and detail else "") for section in sections) + "\n")
-        output = self.run_dir / f"{stage}.md"
-        rendered = self.cli("render-report", self.run_dir, "--body", body, "--output", output, "--stage", stage)
-        self.assertEqual(rendered.stdout, output.read_text())
-        return output
-
+class RunLifecycleTests(LifecycleFixture):
     def test_draft_to_approved_and_retained_hash(self):
         self.complete_automated_fixture()
         result = json.loads(self.cli("resume", self.run_dir).stdout)
@@ -159,14 +75,6 @@ class RunLifecycleTests(unittest.TestCase):
         self.assertEqual(json.loads(self.cli("finalize", self.run_dir, "--report", report).stdout)["status"], "draft_ready")
 
 
-
-
-
-
-
-
-
-
     def test_source_drift_preserves_state(self):
         self.initialize()
         state = (self.run_dir / "run-state.json").read_bytes()
@@ -186,10 +94,6 @@ class RunLifecycleTests(unittest.TestCase):
         helper = self.skill / "scripts/source_inventory.py"
         helper.write_text(helper.read_text() + "\n# configuration drift fixture\n")
         self.assertIn("configuration drift", self.cli("resume", self.run_dir, ok=False).stderr)
-
-
-
-
 
 
 if __name__ == "__main__":

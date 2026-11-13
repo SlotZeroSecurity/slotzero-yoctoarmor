@@ -11,8 +11,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import review_policy as policy
 import near_audit
 from check_run_artifacts import validate_rescan
-from test_capability_tools import make_run_artifacts, write_json, write_jsonl
-import test_run_lifecycle as lifecycle
+from support import make_run_artifacts, write_json, write_jsonl
+from support import LifecycleFixture
 
 
 class ReviewPolicyTests(unittest.TestCase):
@@ -133,7 +133,7 @@ class ReviewPolicyTests(unittest.TestCase):
 
 class ComprehensiveLifecycleTests(unittest.TestCase):
     def fixture(self, complete=True):
-        fixture = lifecycle.RunLifecycleTests()
+        fixture = LifecycleFixture()
         fixture.setUp()
         self.addCleanup(fixture.doCleanups)
         if complete: fixture.complete_automated_fixture()
