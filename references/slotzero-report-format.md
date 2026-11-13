@@ -50,7 +50,12 @@ standards-only cases remain in the technical annex and never appear as leads.
 
 The technical report must already be finalized in `run-state.json`. The renderer
 checks its SHA-256 and source fingerprint before writing `slotzero-report.md`.
-The compact file stays in the run directory. The renderer prints that exact file
+The compact file and finalized `technical-annex.md` stay in the run directory.
+Always deliver both as clickable file links or attachments when the automated
+audit finishes; output is mandatory and requires no request option. The annex
+keeps its Draft heading until human approval. Preserve drafts when producing an
+approved pair under `<run-dir>/approved/`. Existing recorded filenames remain
+valid for old runs using their original package. The renderer prints that exact file
 for at most 20 findings. At 21 or more, it prints a counted top-three list and
 the full file path; the retained report still has every finding. Use `--project`
 when a frozen target copy has a generated directory name.

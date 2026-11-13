@@ -12,7 +12,7 @@ NEAR development and generic Rust review do not start a security audit.
 
 | Request | Read and follow |
 |---|---|
-| Target security or NEP-conformance audit | [Audit workflow](references/audit-workflow.md), then its phase-specific references. Deliver findings in the [Slot Zero report format](references/slotzero-report-format.md) and retain the full NEAR evidence annex. |
+| Target security or NEP-conformance audit | [Audit workflow](references/audit-workflow.md), then its phase-specific references. Deliver `slotzero-report.md` in the [Slot Zero report format](references/slotzero-report-format.md) and `technical-annex.md` as two clickable file links or attachments. Retain both reports and the full NEAR evidence ledgers. |
 | Edit or validate this skill; maintain packaging | [Skill edits](references/maintenance.md#skill-edits-and-validation). |
 | Ingest supplied audit PDFs or curate the source corpus | [PDF and corpus ingestion](references/maintenance.md#pdf-and-corpus-ingestion). Hash raw PDF bytes before extraction or review. |
 | Refresh reviewed NEAR documentation or standards | [Source refresh](references/maintenance.md#source-refresh). |
@@ -28,6 +28,16 @@ per-scan continuation with `--allow-missing-threat-model`. Silence never permits
 continuation. Every audit worker reads the model first. Validate trust assumptions
 and alternate attacker paths before excluding issues; retain exclusions in evidence
 accounting, not findings. Follow the [threat-model contract](references/threat-model.md).
+
+## Report delivery
+
+Every completed automated audit must provide both `slotzero-report.md` and
+`technical-annex.md` to the user, without an output flag or extra request. Validate
+and retain both files outside audited source, then include a clickable file link
+or attachment for each in the final response. Chat previews do not replace the
+files. Default report headings remain Draft until human review is complete.
+If report validation is blocked, disclose the blocker instead of claiming completion.
+Existing runs keep their recorded filenames and use their original package.
 
 ## Shared contract
 

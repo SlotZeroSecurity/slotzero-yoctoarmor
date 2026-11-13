@@ -1,6 +1,19 @@
-# NEARShield V1
+<div align="center">
 
-**An AI-powered, multi-agent security audit framework for NEAR smart contracts and protocol integrations.**
+```text
+  +--------------------------------------------------+
+  |                                                  |
+  |                 SLOT ZERO SECURITY               |
+  |                                                  |
+  |                  NEARShield v1                    |
+  |           Look closer. Follow the evidence.       |
+  |                                                  |
+  +--------------------------------------------------+
+```
+
+# NEARShield v1
+
+**Slot Zero Security Framework for NEAR Code Review**
 
 <p>
   <a href="https://slotzerosecurity.com/"><img src="https://img.shields.io/badge/Website-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Website"></a>
@@ -9,537 +22,159 @@
   <a href="https://x.com/Slot_Zero_Sec"><img src="https://img.shields.io/badge/Twitter-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Twitter"></a>
 </p>
 
-NEARShield combines target modeling, NEAR-specific attack patterns, independent discovery agents, active testing, NEP conformance review, and adversarial verification. It produces a concise security report backed by a full technical evidence annex.
+[Install](#install) · [Run a review](#run-a-review) · [How it works](#how-it-works) · [Patterns](#pattern-library) · [Reports](#what-you-receive)
 
-**Version:** V1 · **Skill name:** `nearshield-v1` · **Controller:** `scripts/near_audit.py`
+</div>
 
-The AI host orchestrates the audit and dispatches workers. The Python controller prepares work packets, tracks evidence, and validates phase gates; running it alone does not perform an AI audit.
+NEARShield reviews NEAR contracts and the services that interact with them for security problems.
+Independent specialist agents examine different parts of the system, then challenge suspected issues against the code and evidence.
 
-## Contents
+**96 patterns · 10 categories · independent review · 2 Markdown reports**
 
-- [Quick start](#quick-start)
-- [Installation](#installation)
-- [Threat model](#threat-model)
-- [Modes and discovery passes](#modes-and-discovery-passes)
-- [Usage examples](#usage-examples)
-- [Architecture](#architecture)
-- [Pattern library and coverage](#pattern-library-and-coverage)
-- [Reports and evidence](#reports-and-evidence)
-- [Controller reference](#controller-reference)
-- [Maintenance and troubleshooting](#maintenance-and-troubleshooting)
-- [Further reading](#further-reading)
+## Install
 
-## Quick start
+Use the same setup flow in Codex, Claude Code, or OpenCode.
+You need Git, Python 3.10+, macOS or Linux, and access to this repository.
 
-1. Install the complete skill using the instructions for your host below.
-2. Place a repository-specific `THREAT_MODEL.md` at the audited repository root (see [Threat model](#threat-model)).
-3. Start a new host session in the NEAR repository you want reviewed.
-4. Invoke `nearshield-v1` with an explicit target, mode, and discovery-pass count.
+**1. Clone the complete skill.**
 
-For Codex, paste this into the conversation after installation:
+```bash
+git clone --branch v1 --single-branch \
+  https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
+  nearshield-v1
+```
+
+**2. Open your AI tool in the folder containing the clone and ask:**
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3.
-Keep audit artifacts outside the target repository and deliver the draft report
-with its technical annex. Use the available subagents for the required roles.
+Install the complete ./nearshield-v1 folder as a personal skill for this AI tool.
+Use this tool's supported skills directory and keep all supporting files.
+If nearshield-v1 is already installed, keep the existing copy and tell me its path.
 ```
 
-Replace example paths with your own paths. The skill preserves audited source and uses a separate run directory. A complete multi-agent audit requires a host with worker execution; a serial review must be identified as incomplete coverage.
+Start a new session after installation. Copy the whole package, not just `SKILL.md`.
+The destination depends on your AI tool; the setup request stays the same.
+Codex is the intended host. Full execution on Claude Code and OpenCode remains unverified.
+See the [usage guide](references/usage-guide.md#installation-alternatives) for manual paths and prerequisites.
 
-## Installation
+## Run a review
 
-### Requirements
+Paste these into your AI conversation after preparing the [threat model](#threat-model).
+They are prompts, not terminal commands. The host needs tools for running the required specialist agents.
 
-- macOS or Linux and Python **3.10+**. Runtime helpers use the Python standard library.
-- Git and access to this repository. The repository is currently private; authenticate with an account that has access before cloning.
-- An installed and authenticated AI host with shell/file tools and subagent capabilities for complete audits.
-- Target-specific toolchains, such as Rust/Cargo, where compilation or executable verification requires them. Missing tools are reported as blockers.
-- PyYAML is optional for skill metadata validation, not a runtime requirement.
-
-Install the whole repository, including `scripts/`, `references/`, `agents/`, `tests/`, and `benchmarks/`. Copying only `SKILL.md` leaves required resources missing. Use a fresh destination; do not overwrite another installation that existing runs depend on.
-
-### Codex
-
-Personal installation, available across projects:
-
-```bash
-mkdir -p "$HOME/.agents/skills"
-git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  "$HOME/.agents/skills/nearshield-v1"
-```
-
-For a project installation, run from the project root instead:
-
-```bash
-mkdir -p .agents/skills
-git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  .agents/skills/nearshield-v1
-```
-
-Start a new Codex session and select or invoke **`$nearshield-v1`**. These examples use the currently documented skill locations; existing installations may use a different configured path. See [Codex skill documentation](https://learn.chatgpt.com/docs/build-skills).
-
-### Claude Code
-
-Personal installation:
-
-```bash
-mkdir -p "$HOME/.claude/skills"
-git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  "$HOME/.claude/skills/nearshield-v1"
-```
-
-For a project installation, run from the project root instead:
-
-```bash
-mkdir -p .claude/skills
-git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  .claude/skills/nearshield-v1
-```
-
-Invoke the skill in a local Claude Code session:
-
-```text
-/nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3.
-Use the available subagents and report any unsupported orchestration requirement.
-```
-
-See [Claude Code skills](https://code.claude.com/docs/en/skills) for skill loading and slash-command behavior. Personal local skills are not automatically available in every cloud session.
-
-### OpenCode
-
-Personal installation:
-
-```bash
-mkdir -p "$HOME/.config/opencode/skills"
-git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  "$HOME/.config/opencode/skills/nearshield-v1"
-```
-
-For a project installation, run from the project root instead:
-
-```bash
-mkdir -p .opencode/skills
-git clone https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  .opencode/skills/nearshield-v1
-```
-
-Ask OpenCode to load the skill explicitly:
-
-```text
-Load the nearshield-v1 skill and audit /absolute/path/to/near-project in standard
-mode with 3 discovery passes. Use available subagents for the required roles
-and report any unsupported orchestration requirement.
-```
-
-See [OpenCode skills](https://opencode.ai/docs/skills/) and [OpenCode agents](https://opencode.ai/docs/agents/). A custom `/nearshield-v1` command is not required by these instructions.
-
-### Host compatibility and preflight
-
-V1's orchestration instructions and worker adapter target **Codex**. Claude Code and OpenCode can discover the skill through their documented skill directories, but full NEARShield multi-agent execution on those hosts has **not been validated here**. Loading a skill does not prove worker isolation, role coverage, cancellation, or end-to-end compatibility. `agents/openai.yaml` supplies Codex metadata, not Claude/OpenCode agent configuration.
-
-From the installed skill directory, inspect the package before starting an audit:
-
-```bash
-python3 scripts/near_audit.py doctor
-python3 scripts/maintain.py check
-```
-
-**Known V1 documentation packaging issue:** both checks currently scan all Markdown for external URLs, including this README. With this README present, they report its badge and reference URLs as a package error. This documentation change does not modify those validators. See [troubleshooting](#maintenance-and-troubleshooting); do not treat a reported failure as a passed preflight.
-
-## Threat model
-
-Every scan starts with **`<target-root>/THREAT_MODEL.md`**. Describe the assets,
-attacker capabilities, trusted roles, and security properties for the actual
-repository. Every audit agent reads this file first, including independent
-verification and rescan workers. NEARShield records its digest and checks it
-throughout the run. Changing, removing, or later adding it requires a fresh scan.
-
-If the file is missing or empty, NEARShield stops and displays:
-
-> Auditing without explicit assets, attacker capabilities, trusted roles, and
-> security properties increases the likelihood of false positives and the effort
-> needed to validate findings. Generate the threat model and restart the scan,
-> or explicitly choose to continue without it.
-
-Use the [OpenAI Codex Security threat-model skill](https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/threat-model)
-to generate a repository-specific model. Use the complete skill/plugin with its
-supporting references, not an isolated copy of its entry file. Explicitly request
-this destination because the upstream skill may otherwise save a differently
-named artifact:
-
-```text
-Use the threat-model skill to generate a threat model for /absolute/path/to/near-project.
-Save it as /absolute/path/to/near-project/THREAT_MODEL.md. Identify assets,
-attacker capabilities, trusted roles, and security properties from the actual
-repository, and distinguish assumptions from established facts.
-```
-
-Review the result, then restart the NEARShield audit in a fresh run directory.
-If that skill is unavailable, report that limitation; do not claim it ran or
-substitute a generic model as if it were repository-specific.
-
-### Explicit continuation without a model
-
-You can explicitly tell the host to continue without the model for one scan.
-The controller equivalent is `run ... --allow-missing-threat-model`. The host must
-not supply this flag without your explicit choice; silence is not permission.
-A valid existing model is always used, even with the flag. Unreadable files,
-symlinks, and invalid UTF-8 are errors that the flag cannot bypass.
-
-Overridden runs disclose inferred assumptions and the increased validation burden
-in worker packets and reports. They cannot invent trusted-role assumptions to
-exclude issues. The flag does not permanently disable the prerequisite.
-
-### Example model
-
-This is an **illustrative Vault model**, not a default set of assumptions for
-NEAR. Adapt owner authority, oracle dependencies, transaction ordering, and flash
-liquidity capabilities to the repository and execution environment.
-
-```markdown
-# Threat model
-
-## Assets
-- User deposits held by the Vault
-
-## Trusted roles
-- Owner (multisig): can pause and upgrade, assumed honest
-- Chainlink price feeds: assumed honest but can be stale
-
-## Attacker
-- Any unprivileged address, can use flash loans and front-run
-
-## Security properties
-- A user can only withdraw what their shares are worth
-- Nobody but the owner can pause or upgrade the protocol
-```
-
-### How findings are filtered
-
-Triage and independent verification record a `threat_model_assessment` with the
-model digest, exact model citations, attacker capabilities, trust assumptions,
-and target-code evidence. Excluding a trusted-role attack requires checking
-privilege escalation, authorization bypass, manipulation of the trusted actor,
-and harm during honest operation.
-
-| Candidate | Treatment under the example model |
-| --- | --- |
-| Honest owner deliberately upgrades to malicious code | Exclude when the attack depends entirely on violating the explicit honest-owner assumption and no alternate unprivileged path exists. |
-| Unprivileged user bypasses the upgrade or pause guard | Retain for verification; owner trust does not cover unauthorized callers. |
-| An attacker exploits a stale honest price feed | Retain for verification; staleness is explicitly allowed. |
-| An honest admin action causes users to withdraw more than their share value | Retain for verification against the explicit property. |
-| A trust boundary is ambiguous or absent from the model | Keep scope unresolved; do not silently exclude. |
-
-Excluded issues are recorded as `out_of_scope`, not experimentally refuted or
-false-positive exploits. They stay in the evidence ledger and a separate annex
-accounting section, but are absent from findings, leads, recommendations, and
-severity totals. Finalization and report rendering reject missing assessments,
-stale digests, invalid citations, and excluded findings presented as reportable.
-Citation validation establishes provenance; agents and human reviewers still
-validate the meaning of the evidence. See the [assessment contract](references/threat-model.md).
-
-## Modes and discovery passes
-
-Mode determines scope and testing effort. Discovery passes determine how many fresh blind L2/L3 searches are scheduled; these are independent settings.
-
-| Option | Behavior |
-| --- | --- |
-| Standard | Default mode. Review relevant source, preserve required roles and coverage, and sample each applicable mutation family. |
-| Explicit files | Named files are primary scope; inspect surrounding code and dependencies needed to validate them. |
-| Deep | Include uncertain conditional roles, all applicable mutations, fresh corpus/chain agents, verification across all severities, and a final exclusion-list rescan with no new Medium+ findings. |
-| `--loop 1` | One blind discovery pass, without prior-pass context. |
-| `--loop` | Three blind discovery passes. |
-| `--loop N` | An explicit integer from **1 to 10**; natural-language counts are also accepted by the workflow. |
-| No pass count | Ask for a count before expensive audit work. The CLI prompts interactively; noninteractive use without a count fails. |
-| Request-level `--file-output` | Request an additional compact-report copy at an explicitly named destination outside audited source. The normal reports are already retained in the run directory. |
-
-Loops repeat **blind L2 intent reasoning and blind L3 specialist discovery**, with fresh contexts and no prior findings disclosed. They do not repeat L0, the L1 baseline, active testing, NEP review, the counterexample rescan, or the human-informed rescan. Repeated sightings do not raise confidence automatically.
-
-**Prompt syntax and Python syntax differ:** `--deep` and `--file-output` are AI request options. The controller accepts `--mode deep`; it has no `--deep` or `--file-output` flag. `--loop` exists in both interfaces. L0–L4 describe demonstrated capabilities, not scan modes.
-
-## Usage examples
-
-These examples are **messages to the AI host**, not shell commands. For Claude Code replace `$nearshield-v1` with `/nearshield-v1`; for OpenCode start with “Load the nearshield-v1 skill.”
-
-### Standard audit with one pass
+**Start with a standard review**
 
 ```text
 $nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 1.
-Deliver the compact draft report and full technical annex.
+Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
-### Standard audit with three passes
-
-```text
-$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3.
-Keep the discovery contexts independent and account for all required coverage.
-```
-
-### Deep audit with five passes
+**Take a deeper look**
 
 ```text
 $nearshield-v1 Audit /absolute/path/to/near-project --deep --loop 5.
-Run the applicable deep-mode gates and report any verification blockers.
+Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
-### Audit selected files
+**Focus on selected files**
 
 ```text
 $nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
-Use explicit-file scope: contracts/vault/src/lib.rs and contracts/vault/src/fees.rs.
-Read the surrounding context needed to establish reachability and impact.
+Focus on contracts/vault/src/lib.rs and contracts/vault/src/fees.rs.
+Read THREAT_MODEL.md first and inspect surrounding code where needed.
+Keep audit files outside the project.
 ```
 
-### Copy the compact report to another location
+In Claude Code, replace `$nearshield-v1` with `/nearshield-v1`.
+In OpenCode, begin with **“Load the nearshield-v1 skill”** and give the same request.
 
-```text
-$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3
-and --file-output. Copy the compact report to /absolute/path/to/reviews/nearshield.md,
-outside the audited repository. Retain the complete run artifacts and annex.
-```
+`--loop 1` asks for one independent discovery pass; `--loop` means three.
+Choose `--loop N` for **1–10 passes**. Extra passes repeat the independent search, not the whole review.
+Standard is the default; deep mode adds more testing and review effort.
+See [all options](references/usage-guide.md#modes-and-discovery-passes) when you need more control.
 
-Generated build output, vendored dependencies, and unrelated crates are excluded from primary scope. Tests and examples provide verification context. Adjacent TypeScript, JavaScript, or Solidity is included when it affects signing, relaying, bridging, indexing, settlement, or user security. The workflow stops if no NEAR surface is found.
+## Threat model
 
-## Architecture
+Put `THREAT_MODEL.md` in the root of the project being reviewed.
+Describe **what needs protecting, what an attacker can do, who is trusted, and which rules must always hold**.
+Every agent reads it first. An explicitly trusted owner's intended powers are not automatically bugs; unauthorized access still matters.
+
+If the file is missing, generate it with the [Codex Security threat-model skill](https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/threat-model), review it, and restart the scan.
+Continuing without one requires your explicit choice. See the [example and details](references/usage-guide.md#threat-model).
+
+## How it works
 
 ```mermaid
 flowchart TD
-    TM[Read threat model or record explicit override] --> A[Freeze scope and build semantic inventory]
-    A --> B[L0: target intent model]
-    B --> C[L1: routed pattern baseline]
-    B --> D[L2: fresh blind intent passes]
-    C --> E[L3: blind specialist passes and active testing]
-    D --> E
-    E --> F[Seven NEP review roles]
-    F --> G[Post-blind corpus echo and chain construction]
-    G --> H[Lossless candidate deduplication]
-    H --> I[Evidence triage and adversarial verification]
-    I --> J[One counterexample-guided rescan]
-    J --> K[Judge new candidates and finalize draft evidence]
-    K --> L[Compact draft report and technical annex]
-    L --> M{Human review supplied}
-    M -->|Pending| N[Retain draft and unresolved decisions]
-    M -->|Reviewed blind TPs| O[One bounded verified-seed informed pass]
-    O --> P[Deduplicate, judge, and review new candidates]
-    P --> Q[Approved reporting after all human gates]
-    M -->|Complete review with no TP seeds| Q
+    A[Read the threat model and understand the project]
+    A --> B[Check relevant attack patterns]
+    A --> C[Independent specialist searches]
+    B --> D[Test suspected issues and check NEAR standards]
+    C --> D
+    D --> E[Challenge the evidence and check for missed paths]
+    E --> F[Deliver two draft reports]
+    F --> G[Human review before approval]
 ```
 
-### Components
+One coordinating agent organizes the review. Specialists search independently without seeing each other's findings during discovery.
+Testing and verification separate supported findings from ideas that still need evidence.
+The reports show what was reviewed, what was found, and what remains uncertain.
 
-| Component | Responsibility |
+## Meet the specialists
+
+| Team | What they look for |
 | --- | --- |
-| AI orchestrator | Load the workflow, resolve target/scope, dispatch independent workers, collect outputs, enforce phase order, and deliver reports. |
-| Python controller | Freeze source/configuration bindings, create work packets, validate run state and evidence, and record worker events. It does not spawn workers. |
-| Specialist agents | Execute assigned role packets and write their candidate/coverage artifacts; discovery workers do not judge or deduplicate peer results. |
-| Reference library | Supply routed NEAR attack lenses, pinned NEP checklists, official guidance, schemas, and historical provenance. |
-| Validators and renderers | Check candidate accounting and coverage, preserve evidence, and render technical and reader-facing reports. |
+| Access control | Can the wrong person call a protected action or gain extra powers? |
+| Asynchronous calls | What happens when a later call fails, arrives late, or runs twice? |
+| Accounting | Do deposits, balances, shares, and refunds add up? |
+| State and upgrades | Do stored records stay consistent as actions and upgrades happen? |
+| Economics and math | Can rounding, prices, or incentives give someone an unfair advantage? |
+| Resource limits | Can expensive work or storage costs block other users? |
+| Integrations | Are prices, bridges, signatures, and services trusted correctly? |
+| NEAR standards | Do token, wallet, and contract behaviors follow the relevant rules? |
+| Independent verification | Does the suspected attack really work, and what evidence is missing? |
 
-### Capability levels and isolation
+Additional specialists join when the project uses features such as bridges, price feeds, or upgradeable contracts.
+The host schedules agents within its available capacity; they do not all need to run at once.
+Explore the [full agent catalog](references/agent-catalog.md) for the individual roles.
 
-| Level | Meaning |
-| --- | --- |
-| L0 | Recover target intent, actors, assets, invariants, and receipt state machines. Emits a model, not findings. |
-| L1 | Match target behavior to known NEAR mechanisms using only routed pattern categories. |
-| L2 | Independently reason about intended versus actual behavior without the attack corpus or peer findings. |
-| L3 | Coordinate specialist discovery, active testing, and adversarial judging. |
-| L4 | Demonstrate performance on an isolated, adjudicated benchmark track; V1 architecture alone does not establish this level. |
+## Pattern library
 
-L0/L2 receive neutral target context. Blind workers cannot read peer or prior-pass findings; corpus echo happens only after blind discovery is frozen. Packet restrictions are **prompt-only** unless the host supplies evidence of enforced isolation.
+**96 patterns across 10 categories.** Each is a way to ask better questions about the code—not proof that a bug exists.
 
-The controller maintains a hash-linked append-only journal in `run-events/`. `run-state.json` is its recoverable projection. V1 uses manifest schema 6 and state schema 4; `status` is read-only, while `resume` can repair the projection and advance validated phases. Configuration or source drift blocks continuation under the original bindings.
-
-### Roles and active methods
-
-- **12 core discovery roles:** `entrypoints-auth`, `async-promises`, `state-storage`, `token-accounting`, `math-economics`, `gas-dos`, `invariant-flow`, `periphery-build`, `coverage-sweep`, `numerical-gap`, `trust-gap`, and `flow-gap`.
-- **Conditional roles:** `upgrade-keys`, `intents-auth`, `bridge-relayer`, `chain-signatures-yield`, `runtime-consensus`, and `oracle-freshness`, selected from the target surface; deep mode also includes uncertain applicability.
-- **Active testing:** invariant synthesis, mutation analysis, and applicable async schedule exploration, NEP differential tests, and temporal/upgrade analysis.
-- **NEP roles:** process/legacy, token assets, contract interfaces, wallet/auth, runtime resources, crypto/host, and protocol/node.
-- **Verification and rescans:** evidence triage, fresh adversarial verifiers, an additional independent skeptic for High/Critical candidates, one counterexample-guided rescan, and one later human-informed verified-seed pass.
-
-Each callable needs two independent lenses. Value-bearing receipt chains require async, accounting, seam analysis, and applicable async state exploration. Role count is not the number of simultaneously running agents: the orchestrator schedules workers within observed host capacity. See the [agent catalog](references/agent-catalog.md) and [capability model](references/capability-model.md).
-
-## Pattern library and coverage
-
-V1 includes **96 attack-lens patterns across 10 categories**. The [routing index](references/attack-lenses-index.json) selects relevant categories rather than loading the complete corpus into every worker.
-
-| Category | Patterns | Representative mechanisms |
+| Category | Patterns | Example question |
 | --- | ---: | --- |
-| [Authorization](references/attack-lenses/auth.md) | 12 | Signer/predecessor confusion, exposed privileged methods, replay, access-key boundaries. |
-| [Async execution](references/attack-lenses/async.md) | 17 | Split-receipt double spends, missing compensation, stale callbacks, pending-state recovery. |
-| [Accounting](references/attack-lenses/account.md) | 7 | Liabilities and reserves, storage attribution, claim recovery, vault-share dilution. |
-| [State](references/attack-lenses/state.md) | 16 | Coupled-state divergence, migrations, lifecycle transitions, configuration combinations. |
-| [Economics](references/attack-lenses/econ.md) | 4 | Asset/unit confusion, rounding and overflow, ordering or reward manipulation. |
-| [Resources](references/attack-lenses/resource.md) | 10 | Underpriced storage, prefix collisions, unbounded work, sponsorship and refunds. |
-| [Integration](references/attack-lenses/integration.md) | 8 | Receiver identity, ABI drift, proof/finality races, oracle freshness. |
-| [Cryptography](references/attack-lenses/crypto.md) | 8 | Canonical decoding, threshold binding, nonce reuse, secrets, attestations. |
-| [Runtime](references/attack-lenses/runtime.md) | 2 | Unmetered host work and consensus agreement/liveness. |
-| [Offchain](references/attack-lenses/offchain.md) | 12 | Indexer trust, relayer retries, unsafe inputs, build/release integrity, recovery documentation. |
+| [Access control](references/attack-lenses/auth.md) | 12 | Can someone act with another account's authority? |
+| [Asynchronous execution](references/attack-lenses/async.md) | 17 | Can a delayed callback pay the same balance twice? |
+| [Accounting](references/attack-lenses/account.md) | 7 | Can newly issued shares dilute existing deposits? |
+| [State](references/attack-lenses/state.md) | 16 | Can two records disagree after an update? |
+| [Economics](references/attack-lenses/econ.md) | 4 | Can repeated rounding give someone extra value? |
+| [Resources](references/attack-lenses/resource.md) | 10 | Can a caller make the contract pay excessive storage costs? |
+| [Integrations](references/attack-lenses/integration.md) | 8 | Can an old price be used as if it were current? |
+| [Cryptography](references/attack-lenses/crypto.md) | 8 | Can a signature be accepted in the wrong context? |
+| [Runtime](references/attack-lenses/runtime.md) | 2 | Can work escape its intended execution limits? |
+| [Offchain services](references/attack-lenses/offchain.md) | 12 | Can a retry cause an external service to repeat an action? |
 | **Total** | **96** | |
 
-Cards use stable identifiers such as `NA-AUTH-001` and `NA-ASYNC-002`. Historical resemblance is a search aid: findings require a reachable target-specific attack, a broken invariant, and material harm. Quality-only cards stay advisories unless concrete security impact is established. See the [pattern-binding protocol](references/pattern-portability.md).
+Relevant NEAR standards and reviewed documentation support these checks.
+A finding still needs evidence from the actual project.
 
-The bundled registries contain **51 NEP records** and **197 official-documentation records**, pinned to reviewed source revisions. These are inventory counts, not a promise that every item applies to every target or that upstream sources are current. Final/Approved NEPs are normative only when applicable and active; Draft/New material is advisory. Coverage records include evidence-backed exclusions. See the [NEP registry](references/nep-registry.json), [documentation registry](references/official-docs-registry.json), and [provenance](references/provenance.md).
+## What you receive
 
-## Reports and evidence
+Every completed scan provides two downloadable Markdown files automatically:
 
-The default deliverable is a **draft**. Human review is required before findings and conformance deviations enter an approved report. Pending human feedback does not prevent delivery of the completed automated draft.
-
-| Artifact | Purpose |
+| File | What's inside |
 | --- | --- |
-| `slotzero-report.md` | Compact reader-facing security review, retained in the run directory and delivered in the conversation according to renderer output rules. |
-| `draft-report.md` | Full technical annex: finalized evidence, receipt traces, scope, proof, limitations, and dispositions. |
-| `run-manifest.json`, `run-events/`, `run-state.json` | Frozen inputs/configuration, event history, worker observations, and phase progress. |
-| `surface.json`, `semantic-ir.json`, `intent-model.json` | Target inventory, navigation graph, and grounded intent model. |
-| Candidate and disposition JSONL ledgers | Raw discoveries, deduplication, verdicts, rejected/blocked candidates, and complete accounting. |
-| NEP, official-guidance, and active-test ledgers | Standards coverage, routed guidance, schedules, invariants, mutations, and applicable differential/upgrade evidence. |
+| `slotzero-report.md` | The compact review: findings, evidence confidence, suggested fixes where supported, and unverified leads. |
+| `technical-annex.md` | The full evidence: affected code, attack paths, tests, coverage, limitations, and review status. |
 
-Severity and confidence are separate. Repeated discoveries do not prove correctness. Draft reports and benchmark smoke fixtures do not certify deployment safety or establish L4 qualification. See the [compact report format](references/slotzero-report-format.md) and [verification/reporting rules](references/verification-reporting.md).
+Confidence describes the strength of the evidence; severity describes the impact.
+Reports remain **Draft** until the required human review is complete. No automated review proves a project has no vulnerabilities.
 
-## Controller reference
+## Resources
 
-The recommended entry point is the **AI-host prompt**. The commands below support an orchestrator or a maintainer inspecting a run. They do not replace worker execution or automatically produce the evidence required to finalize a report.
+[Detailed usage guide](references/usage-guide.md) · [Report format](references/slotzero-report-format.md) · [Source provenance](references/provenance.md)
 
-<details>
-<summary><strong>Expand all controller commands, flags, and examples</strong></summary>
+Host documentation: [Codex](https://learn.chatgpt.com/docs/build-skills) · [Claude Code](https://code.claude.com/docs/en/skills) · [OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode agents](https://opencode.ai/docs/agents/).
 
-### Paths and initialization
-
-Set these paths in your shell before using the examples. Use a fresh, empty run directory outside the target. The installed skill path depends on your host.
-
-```bash
-NEARSHIELD_SKILL="/absolute/path/to/nearshield-v1"
-NEARSHIELD_TARGET="/absolute/path/to/near-project"
-NEARSHIELD_RUN="/absolute/path/to/audit-runs/near-project-v1"
-
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" doctor
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --mode standard --loop 3 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
-```
-
-| `run` argument | Meaning and default |
-| --- | --- |
-| `target` | Required target directory. |
-| `--mode standard\|explicit-files\|deep` | Default `standard`. Use `--mode deep` for deep initialization. |
-| `--files PATH [PATH ...]` | Explicit scope paths, resolved against the target; default empty. Required for `--mode explicit-files`. |
-| `--loop [N]` | Integer 1–10; bare flag selects 3. Omission prompts interactively or fails without an interactive terminal. |
-| `--run-dir PATH` | Fresh directory outside source; omission creates a temporary `near-audit-*` directory. |
-| `--worker-capacity N` | Requested positive spawned-worker count, excluding the orchestrator; parser default 8. The example uses 1 without assuming host capacity. |
-| `--runtime-capacity N` | Observed positive host worker capacity; unknown by default. Requested capacity cannot exceed it. Unknown runtime capacity permits only one recorded active worker. |
-| `--orchestrator-model NAME` | Record an observed orchestrator model identifier; unknown by default. Does not select or launch a model. |
-| `--allow-missing-threat-model` | Explicit per-scan continuation if the model is missing/empty; absent by default. Cannot bypass invalid files or discard a supplied model. |
-| `--worker-model NAME` | Record an observed worker model identifier; unknown by default. Does not configure host workers. |
-
-Alternative initializations, **choose one for a fresh run directory**:
-
-```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --mode deep --loop 5 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
-
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --mode explicit-files --files contracts/vault/src/lib.rs contracts/vault/src/fees.rs \
-  --loop 1 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
-```
-
-### Command inventory
-
-All commands support `-h` / `--help`. Paths shown below are positional unless prefixed with `--`.
-
-| Command | Arguments and behavior |
-| --- | --- |
-| `doctor` | No additional arguments. Read-only package and prerequisite inspection. |
-| `run` | `target` plus the flags above. Initialize a frozen run and work packets. |
-| `status` | `run_dir`. Read-only journal-derived progress. |
-| `resume` | `run_dir`. Validate bindings, repair a stale/missing state projection, and advance when phase gates pass. Does not dispatch workers. |
-| `packet` | `run_dir packet_id`. Inspect one minimal role packet; take its ID from the run's work packets. |
-| `worker` | `run_dir start\|finish\|fail\|cancel packet_id` plus worker flags below. Record observed host events. |
-| `feedback` | `run_dir labels`. Import actual human labels from a JSONL file. |
-| `informed-rescan` | `run_dir [--complete]`. Prepare the single human-informed pass or validate its completion. |
-| `render-report` | `run_dir --body PATH --output PATH [--stage draft\|approved]`. Render the technical annex; stage defaults to `draft`. |
-| `finalize` | `run_dir --report PATH [--stage draft\|approved]`. Validate evidence and finalize the technical report; stage defaults to `draft`. |
-
-### Worker event flags
-
-| Flag | Meaning |
-| --- | --- |
-| `--worker-id ID` | Actual host worker ID; required for `start`, checked against the recorded identity when supplied later. |
-| `--isolation prompt_only\|host_enforced` | Default `prompt_only`; enforced isolation requires host evidence. |
-| `--isolation-evidence TEXT` | Observed evidence required for `host_enforced` at start. |
-| `--termination-evidence TEXT` | Host-confirmed termination evidence for cancellation; a cancellation request alone is not proof of termination. |
-| `--reason TEXT` | Failure or cancellation explanation. |
-| `--wall-seconds NUMBER` | Observed elapsed wall time; unknown when omitted. |
-| `--input-tokens INTEGER` | Observed input-token count; unknown when omitted. |
-| `--output-tokens INTEGER` | Observed output-token count; unknown when omitted. |
-
-Only record events that actually happened. `finish` checks assigned output existence, containment, size, and JSON/JSONL syntax; phase gates still decide full schema and coverage acceptance. The adapter neither spawns nor terminates host workers.
-
-```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" status "$NEARSHIELD_RUN"
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" packet "$NEARSHIELD_RUN" 'packet-id-from-work-packets'
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" worker "$NEARSHIELD_RUN" start \
-  'packet-id-from-work-packets' --worker-id 'actual-host-worker-id'
-# After the real worker completes and its assigned artifacts have been collected:
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" worker "$NEARSHIELD_RUN" finish \
-  'packet-id-from-work-packets' --worker-id 'actual-host-worker-id'
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" resume "$NEARSHIELD_RUN"
-```
-
-### Feedback and report lifecycle
-
-Human labels use `TP`, `FP`, `DUPLICATE`, or `UNRESOLVED`, with reviewer, review time, and reason code. Follow the complete [feedback and verdict schemas](references/finding-schema.md). Feedback is metrics-only: it does not silently retrain or modify the corpus. Only manually labeled blind TPs seed the one bounded informed pass.
-
-```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" feedback "$NEARSHIELD_RUN" \
-  /absolute/path/to/human-labels.jsonl
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" informed-rescan "$NEARSHIELD_RUN"
-# After the orchestrator completes the assigned informed work and review:
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" informed-rescan "$NEARSHIELD_RUN" --complete
-```
-
-The orchestrator must first produce the validated ledgers and technical body. Reporting then uses:
-
-```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" render-report "$NEARSHIELD_RUN" \
-  --body "$NEARSHIELD_RUN/report-body.md" --output "$NEARSHIELD_RUN/draft-report.md" --stage draft
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" finalize "$NEARSHIELD_RUN" \
-  --report "$NEARSHIELD_RUN/draft-report.md" --stage draft
-# Prepare source-backed presentation rows using the compact report schema first:
-python3 "$NEARSHIELD_SKILL/scripts/render_slotzero_report.py" "$NEARSHIELD_RUN" \
-  --content "$NEARSHIELD_RUN/slotzero-content.jsonl" --output "$NEARSHIELD_RUN/slotzero-report.md"
-```
-
-Keep report artifacts inside the run directory. An AI-requested `--file-output` copy is a separate delivery action outside audited source. For approved delivery, use separate approved report outputs and `--stage approved` only after the human gates pass; do not relabel a draft as approved.
-
-</details>
-
-## Maintenance and troubleshooting
-
-Maintenance, corpus ingestion, standards refresh, and benchmark qualification are separate request routes; they do not start a target audit. Use the [maintenance guide](references/maintenance.md) for helper interfaces and explicit input requirements.
-
-| Symptom | Action |
-| --- | --- |
-| Missing or empty `THREAT_MODEL.md` | Generate and review the target model, save it at the target root, then restart; alternatively explicitly authorize the per-scan override. |
-| Skill is not discovered | Confirm the directory is named `nearshield-v1`, contains `SKILL.md` and supporting folders, and sits in a documented host skill location. Start a new session and check host permissions. |
-| Clone returns “not found” | Confirm the authenticated account has access to this private repository. |
-| Preflight reports an external URL in `README.md` | Known V1 packaging conflict: both `doctor` and `maintain.py check` scan every Markdown file, including public-facing badge/reference links. This README is intentionally retained; the validator policy needs a separate code change before whole-checkout checks can pass. Other errors require independent investigation. |
-| Worker execution is unavailable | Report incomplete multi-agent coverage; do not describe serial review as a complete run. Claude Code/OpenCode end-to-end compatibility remains unverified. |
-| Discovery-pass count is unspecified | Supply `--loop 1`, bare `--loop`, or `--loop N` with N between 1 and 10. |
-| Run directory is rejected | Choose a fresh empty directory outside the target source tree. |
-| Configuration/source bindings changed | Preserve the original configuration for existing runs or restart in a fresh run directory; do not rewrite saved hashes. |
-| Older run schema cannot resume | Inspect read-only and restart under the current schema. |
-| Worker is marked submitted but phase cannot advance | Check full candidate schemas, required empty result files, coverage ledgers, and unresolved worker failures. Syntax success alone is insufficient. |
-| PyYAML is unavailable | Optional metadata validation is unavailable; record that limitation. Standard-library runtime helpers do not require installing it. |
-
-Qualification helpers live under `maintain.py qualification`; corpus and standards operations use `maintain.py corpus` and `maintain.py standards`. Each operation forwards to a dedicated helper with its own `--help`. Public fixtures are regression examples, not evidence of production detection rates or a benchmark qualification claim.
-
-## Further reading
-
-- [Skill entry point](SKILL.md) and [complete audit workflow](references/audit-workflow.md)
-- [Agent catalog](references/agent-catalog.md), [capability model](references/capability-model.md), and [semantic pipeline](references/semantic-pipeline.md)
-- [Run journal and worker adapter](references/runtime-adapter.md)
-- [Attack-lens routing index](references/attack-lenses-index.json) and [NEAR security model](references/near-security-model.md)
-- [Finding schema](references/finding-schema.md), [technical annex template](references/report-template.md), and [compact report format](references/slotzero-report-format.md)
-- [Threat-model contract](references/threat-model.md)
-- [Maintenance](references/maintenance.md) and [source provenance](references/provenance.md)
-
-For professional review, [request an audit from Slot Zero Security](https://slotzerosecurity.com/contact). Explore [public audit reports](https://github.com/SlotZeroSecurity/audits) and follow [Slot Zero Security on X](https://x.com/Slot_Zero_Sec).
+Known V1 packaging issue: health checks flag this README's external links. See [troubleshooting](references/usage-guide.md#maintenance-and-troubleshooting).

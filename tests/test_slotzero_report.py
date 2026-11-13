@@ -22,7 +22,7 @@ class SlotZeroReportTests(unittest.TestCase):
         source = self.target / "sample-contract/src/lib.rs"
         source.parent.mkdir(parents=True)
         source.write_text("fn vulnerable() {\n    allow_anyone();\n}\n")
-        technical = self.run / "draft-report.md"
+        technical = self.run / "technical-annex.md"
         technical.write_text("# Draft technical annex\n")
         fingerprint = "sha256:source"
         self.write_json("run-manifest.json", {
@@ -32,7 +32,7 @@ class SlotZeroReportTests(unittest.TestCase):
         })
         self.write_json("run-state.json", {
             "status": "draft_ready", "report": {
-                "path": "draft-report.md", "stage": "draft", "input_fingerprint": fingerprint,
+                "path": "technical-annex.md", "stage": "draft", "input_fingerprint": fingerprint,
                 "configuration_hash": "sha256:skill",
                 "sha256": "sha256:" + hashlib.sha256(technical.read_bytes()).hexdigest(),
             },
@@ -77,7 +77,7 @@ class SlotZeroReportTests(unittest.TestCase):
 
 
     def test_tampered_final_report_fails_closed(self):
-        (self.run / "draft-report.md").write_text("altered")
+        (self.run / "technical-annex.md").write_text("altered")
         with self.assertRaisesRegex(ValueError, "finalized hash"):
             formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
 

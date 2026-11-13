@@ -27,7 +27,7 @@ and the complete registry-derived NEP coverage ledger. Deep mode retains its add
 - **Standard**: audit all relevant source; sample each applicable mutation family.
 - **Explicit files**: treat named files as primary scope, but read all context needed to validate them.
 - **Deep** (`--deep`): run uncertain conditional roles, all applicable mutations, fresh corpus/chain agents, verify every severity, and finish an exclusion-list rescan.
-- **File output** (request-level `--file-output`): retain the compact report in the Slot Zero report format and full technical annex in the run directory on every scan. The flag requests an additional copy of the compact report to an explicitly requested destination outside audited source. Return the compact report in the conversation regardless of the flag.
+- **Report delivery** (always enabled): deliver `slotzero-report.md` and `technical-annex.md` as clickable file links or attachments after every completed automated audit. Retain both in the run directory outside audited source. No output option is required. Internal evidence ledgers are supporting artifacts, not additional default deliverables.
 - **Discovery passes** (`--loop [N]`): bare `--loop` selects 3; an explicit integer 1–10 selects that many without another question. Also honor a count stated in ordinary language. Otherwise ask before scope discovery or any expensive audit work: 1, **3 recommended**, 5, or a custom integer 1–10. One pass has no prior-pass context. This repeats fresh L2 and blind L3 discovery, not L0, L1, active testing, NEP review, counterexample rescan, or the human-informed rescan. It is not a claim of greater confidence.
 
 Exclude generated `target/`, `node_modules/`, `dist/`, `build/`, vendored dependencies, and unrelated crates. Tests/examples are verification context. Include adjacent TypeScript/JavaScript/Solidity only when it affects signing, indexing, relaying, bridging, settlement, or user security.
@@ -244,7 +244,7 @@ Each candidate ends as verified finding, standards-only deviation, advisory, dup
 Validate technical coverage and ledger accounting for the selected stage. The controller performs stage-aware checks; approved completion additionally requires the human gates:
 
 ```text
-python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage draft --report <run-dir>/draft-report.md
+python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage draft --report <run-dir>/technical-annex.md
 python3 <skill>/scripts/check_ledger.py \
   <run-dir>/raw-candidates.jsonl <run-dir>/deduplicated.jsonl \
   <run-dir>/verdicts.jsonl <run-dir>/dispositions.jsonl --stage draft
@@ -263,7 +263,7 @@ In deep mode, require an exclusion-list pass with no new Medium+.
 
 Write the full technical body in the run directory using the report template,
 but leave out `Scope at a glance` and `Top findings`; the controller generates
-those from validated records. The controller-rendered `draft-report.md` is the
+those from validated records. The controller-rendered `technical-annex.md` is the
 **technical annex** and remains the finalized, hashed source of truth for all
 registry-selected NEPs, proof, limitations, and dispositions.
 
@@ -274,17 +274,23 @@ source-backed diff rules. Render the reader-facing report deterministically:
 
 ```text
 python3 <skill>/scripts/near_audit.py render-report <run-dir> \
-  --body <run-dir>/report-body.md --output <run-dir>/draft-report.md --stage draft
+  --body <run-dir>/report-body.md --output <run-dir>/technical-annex.md --stage draft
 python3 <skill>/scripts/near_audit.py finalize <run-dir> \
-  --report <run-dir>/draft-report.md --stage draft
+  --report <run-dir>/technical-annex.md --stage draft
 python3 <skill>/scripts/render_slotzero_report.py <run-dir> \
   --content <run-dir>/slotzero-content.jsonl \
   --output <run-dir>/slotzero-report.md
 ```
 
-Deliver the renderer's stdout as the conversation report. It prints the whole
+Deliver both `slotzero-report.md` and `technical-annex.md` as clickable file links
+or attachments in the final response. Verify that both exist and that the annex
+is the finalized report referenced by the compact report. Never claim completed
+delivery with only a chat preview or one file. If a reporting gate fails, report
+the blocker rather than fabricate a completed report.
+
+The renderer's stdout provides the conversation preview. It prints the whole
 reader-facing report for at most 20 findings, and a counted top-three slice plus
-the full report path above that size. Link the technical annex separately so
+the full report path above that size. Always include both file links regardless of preview size so
 readers can inspect receipt traces, source excerpts, NEP rows, and unresolved
 human decisions. Do not reword or shorten the deterministic reader-facing
 report in the conversation. Presentation cannot promote a lead, alter a
@@ -295,9 +301,11 @@ counted, and leave the technical evidence intact. If the renderer rejects a row,
 presentation input and rerun it; never weaken the technical ledger or bypass
 its recorded report hash.
 
-For approval, render a separate approved technical body/output with `--stage approved`
-after human gates, then render a separate report in the Slot Zero report format bound to that
-approved technical report. Existing runs remain bound to the skill configuration
+For approval, preserve the draft pair. After human gates, render and finalize
+`<run-dir>/approved/technical-annex.md` with `--stage approved`, then render
+`<run-dir>/approved/slotzero-report.md` bound to that approved technical report.
+Deliver the two approved files together. The filenames do not imply approval;
+headings and recorded stage must match the validated review status. Existing runs remain bound to the skill configuration
 that created them; use that preserved package for their controller operations.
 
 Follow [draft and approved finalization](verification-reporting.md#draft-and-approved-finalization)

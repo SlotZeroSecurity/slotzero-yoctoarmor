@@ -230,10 +230,13 @@ In deep mode, finish an exclusion-list rescan and require no new Medium+ in one 
 ## Draft and approved finalization
 
 Default delivery is a draft review after the technical and accounting gates
-above pass. Do not wait for human feedback to deliver that draft.
+above pass. Do not wait for human feedback to deliver that draft. Final user
+delivery requires both `slotzero-report.md` and `technical-annex.md`, provided
+as clickable file links or attachments. Both remain in the run directory.
+Renaming the annex does not remove its Draft label or human-review gates.
 
 ```text
-python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage draft --report <run-dir>/draft-report.md
+python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage draft --report <run-dir>/technical-annex.md
 ```
 
 The CLI defaults to `draft`. Explicit `--stage draft` remains supported; callers
@@ -254,7 +257,7 @@ does not approve a finding. Preserve pending items separately in the draft and
 use a separate approved report path when the human gates pass:
 
 ```text
-python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage approved --report <run-dir>/approved-report.md
+python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage approved --report <run-dir>/approved/technical-annex.md
 ```
 
 The `--report` path must identify an existing Markdown file contained in the run
