@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from functools import lru_cache
 from pathlib import Path
 
-RUN_SCHEMA = 6
+RUN_SCHEMA = 7
 STATE_SCHEMA = 4
 
 

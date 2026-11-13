@@ -1,8 +1,8 @@
 # Slot Zero report format
 
 The Slot Zero report format uses this sequence and compact finding shape:
-`# 🔐 Draft Security Review`, Scope table, Findings sorted by confidence, Findings
-List, unscored Leads, disclaimer. A finding has `[score] **number. Title**`, a
+`# 🔐 NEARShield v1 Security Review — {project}`, Scope table, Findings sorted
+by confidence, Findings List, unscored Leads. A finding has `[score] **number. Title**`, a
 `Contract.function` meta line, one short `**Description**` stating actor, mechanism,
 and harm, and a source-backed `**Fix**` diff when confidence is at least 75/100.
 Below-threshold findings retain their description but no Fix block. A counted
@@ -11,10 +11,11 @@ Below-threshold findings retain their description but no Fix block. A counted
 NEAR severity remains separate from confidence and appears on each meta line.
 The 0–13 evidence score converts to 1–100 by rounding `total * 100 / 13` to the
 nearest integer. Repeat sightings appear as `seen in k/N runs`; they never add
-confidence. The Scope table records revision and draft/human-review status. The
-full technical report is linked as the annex because NEAR receipt proofs, the
-NEP ledger, guidance cards, and all case dispositions do not fit the compact
-Slot Zero report format. The compact report is a presentation of the finalized technical
+confidence. The Scope table records revision. Review stage and pending human decisions
+remain in the technical annex, not a compact Review status row. The
+full technical report is linked as the annex for receipt proofs, detailed
+findings, technical limitations, and scope exclusions. Complete NEP coverage
+and all case dispositions remain in internal evidence ledgers. The compact report is a presentation of the finalized technical
 verdicts, never another judging stage.
 
 ## Presentation rows
@@ -45,20 +46,25 @@ and Findings List; omitted findings are excluded and the Scope table counts
 them. The full technical annex and verdict ledgers remain unchanged. These
 partial presentation edits do not complete the controller's all-case human
 feedback gate or approve the audit. Severity, confidence, pass sightings, and inclusion come from
-validated run ledgers, not the presentation rows. Refuted, duplicate, and
-standards-only cases remain in the technical annex and never appear as leads.
+validated run ledgers, not the presentation rows. Refuted and duplicate cases
+remain in the internal ledgers; meaningful standards-only deviations appear in
+the annex's Standards and hardening notes. None of these become unverified leads.
 
 The technical report must already be finalized in `run-state.json`. The renderer
 checks its SHA-256 and source fingerprint before writing `slotzero-report.md`.
 The compact file and finalized `technical-annex.md` stay in the run directory.
 Always deliver both as clickable file links or attachments when the automated
 audit finishes; output is mandatory and requires no request option. The annex
-keeps its Draft heading until human approval. Preserve drafts when producing an
+uses the same branded heading at both stages and retains a short scope-stage
+note and pending human-review information. Preserve drafts when producing an
 approved pair under `<run-dir>/approved/`. Existing recorded filenames remain
 valid for old runs using their original package. The renderer prints that exact file
 for at most 20 findings. At 21 or more, it prints a counted top-three list and
 the full file path; the retained report still has every finding. Use `--project`
 when a frozen target copy has a generated directory name.
+
+Do not append an AI-assistance disclaimer or a branding/version-source line
+beneath either report title. Preserve navigation links independently.
 
 The Slot Zero report format keeps NEAR-specific evidence and terse finding
 descriptions. Keep the NEAR audit's proof and human-approval limits explicit.

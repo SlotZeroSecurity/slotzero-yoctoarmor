@@ -44,7 +44,7 @@ separately. No dependencies need to be installed for this documentation check.
 ## Guide contents
 
 - [Threat model](#threat-model)
-- [Modes and discovery passes](#modes-and-discovery-passes)
+- [Scope and discovery passes](#scope-and-discovery-passes)
 - [Usage examples](#usage-examples)
 - [Architecture](#architecture)
 - [Pattern library and coverage](#pattern-library-and-coverage)
@@ -144,47 +144,48 @@ stale digests, invalid citations, and excluded findings presented as reportable.
 Citation validation establishes provenance; agents and human reviewers still
 validate the meaning of the evidence. See the [assessment contract](threat-model.md).
 
-## Modes and discovery passes
+## Scope and discovery passes
 
-Mode determines scope and testing effort. Discovery passes determine how many fresh blind L2/L3 searches are scheduled; these are independent settings.
+Every scan follows [the comprehensive review contract](review-contract.md): all
+six specialist applicability reviews, all supported applicable mutation operators,
+fresh follow-up agents, verification of every surviving candidate, and one bounded
+rescan. Select files to focus scope; select passes to repeat independent discovery.
 
 | Option | Behavior |
 | --- | --- |
-| Standard | Default mode. Review relevant source, preserve required roles and coverage, and sample each applicable mutation family. |
-| Explicit files | Named files are primary scope; inspect surrounding code and dependencies needed to validate them. |
-| Deep | Include uncertain conditional roles, all applicable mutations, fresh corpus/chain agents, verification across all severities, and a final exclusion-list rescan with no new Medium+ findings. |
-| `--loop 1` | One blind discovery pass, without prior-pass context. |
-| `--loop` | Three blind discovery passes. |
-| `--loop N` | An explicit integer from **1 to 10**; natural-language counts are also accepted by the workflow. |
-| No pass count | Ask for a count before expensive audit work. The CLI prompts interactively; noninteractive use without a count fails. |
+| Selected files | Named files are primary scope; inspect surrounding code needed to validate them. |
+| `--loop 1` | One blind discovery pass without prior-pass context. |
+| `--loop` | Three independent discovery passes. |
+| `--loop N` | An explicit integer from 1 to 10. |
+| No pass count | Ask before expensive work; the controller prompts interactively or fails noninteractively. |
 
-Loops repeat **blind L2 intent reasoning and blind L3 specialist discovery**, with fresh contexts and no prior findings disclosed. They do not repeat L0, the L1 baseline, active testing, NEP review, the counterexample rescan, or the human-informed rescan. Repeated sightings do not raise confidence automatically.
-
-**Prompt syntax and Python syntax differ:** `--deep` is an AI request option. The controller accepts `--mode deep`; it has no `--deep` flag. `--loop` exists in both interfaces. L0–L4 describe demonstrated capabilities, not scan modes.
+Loops repeat blind intent reasoning and specialist discovery, not the entire
+pipeline. They do not repeat modeling, the pattern baseline, active testing,
+standards review, or the bounded rescans. Repeat sightings do not raise confidence.
 
 ## Usage examples
 
 These examples are **messages to the AI host**, not shell commands. For Claude Code replace `$nearshield-v1` with `/nearshield-v1`; for OpenCode start with “Load the nearshield-v1 skill.”
 
-### Standard audit with one pass
+### Audit with one pass
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 1.
+$nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
 Deliver the compact draft report and full technical annex.
 ```
 
-### Standard audit with three passes
+### Audit with three passes
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 3.
+$nearshield-v1 Audit /absolute/path/to/near-project with --loop 3.
 Keep the discovery contexts independent and account for all required coverage.
 ```
 
-### Deep audit with five passes
+### Audit with five passes
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project --deep --loop 5.
-Run the applicable deep-mode gates and report any verification blockers.
+$nearshield-v1 Audit /absolute/path/to/near-project --loop 5.
+Run all required checks and report any verification blockers.
 ```
 
 ### Audit selected files
@@ -250,12 +251,12 @@ flowchart TD
 
 L0/L2 receive neutral target context. Blind workers cannot read peer or prior-pass findings; corpus echo happens only after blind discovery is frozen. Packet restrictions are **prompt-only** unless the host supplies evidence of enforced isolation.
 
-The controller maintains a hash-linked append-only journal in `run-events/`. `run-state.json` is its recoverable projection. V1 uses manifest schema 6 and state schema 4; `status` is read-only, while `resume` can repair the projection and advance validated phases. Configuration or source drift blocks continuation under the original bindings.
+The controller maintains a hash-linked append-only journal in `run-events/`. `run-state.json` is its recoverable projection. V1 uses manifest schema 7 and state schema 4; `status` is read-only, while `resume` can repair the projection and advance validated phases. Configuration or source drift blocks continuation under the original bindings.
 
 ### Roles and active methods
 
 - **12 core discovery roles:** `entrypoints-auth`, `async-promises`, `state-storage`, `token-accounting`, `math-economics`, `gas-dos`, `invariant-flow`, `periphery-build`, `coverage-sweep`, `numerical-gap`, `trust-gap`, and `flow-gap`.
-- **Conditional roles:** `upgrade-keys`, `intents-auth`, `bridge-relayer`, `chain-signatures-yield`, `runtime-consensus`, and `oracle-freshness`, selected from the target surface; deep mode also includes uncertain applicability.
+- **Conditional roles:** `upgrade-keys`, `intents-auth`, `bridge-relayer`, `chain-signatures-yield`, `runtime-consensus`, and `oracle-freshness`, scheduled in every discovery pass; each records evidence-backed applicability and investigates uncertain surfaces.
 - **Active testing:** invariant synthesis, mutation analysis, and applicable async schedule exploration, NEP differential tests, and temporal/upgrade analysis.
 - **NEP roles:** process/legacy, token assets, contract interfaces, wallet/auth, runtime resources, crypto/host, and protocol/node.
 - **Verification and rescans:** evidence triage, fresh adversarial verifiers, an additional independent skeptic for High/Critical candidates, one counterexample-guided rescan, and one later human-informed verified-seed pass.
@@ -293,7 +294,11 @@ preview or a plain-text path does not replace either file. Internal JSON/JSONL
 ledgers remain in the run directory as supporting evidence.
 
 The default deliverables are **drafts**. The annex filename does not change its
-review status: its heading remains `Draft Security Review` until human approval.
+review status: both headings use `# 🔐 NEARShield v1 Security Review — {project}`,
+while the annex records the actual stage in its scope note and lists pending
+human decisions when needed. The annex focuses on architecture, detailed
+findings, unverified leads, standards and hardening notes, tests and limitations,
+and remediation priorities. Complete audit bookkeeping stays in internal ledgers.
 Human review is required before findings and conformance deviations enter an
 approved report. Pending human feedback does not prevent delivery of the
 completed automated draft. If reporting gates fail, explain the blocker; do not
@@ -328,14 +333,13 @@ NEARSHIELD_RUN="/absolute/path/to/audit-runs/near-project-v1"
 
 python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" doctor
 python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --mode standard --loop 3 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
+  --loop 3 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
 ```
 
 | `run` argument | Meaning and default |
 | --- | --- |
 | `target` | Required target directory. |
-| `--mode standard\|explicit-files\|deep` | Default `standard`. Use `--mode deep` for deep initialization. |
-| `--files PATH [PATH ...]` | Explicit scope paths, resolved against the target; default empty. Required for `--mode explicit-files`. |
+| `--files PATH [PATH ...]` | Explicit scope paths, resolved against the target; default empty. Surrounding validation context remains required. |
 | `--loop [N]` | Integer 1–10; bare flag selects 3. Omission prompts interactively or fails without an interactive terminal. |
 | `--run-dir PATH` | Fresh directory outside source; omission creates a temporary `near-audit-*` directory. |
 | `--worker-capacity N` | Requested positive spawned-worker count, excluding the orchestrator; parser default 8. The example uses 1 without assuming host capacity. |
@@ -348,10 +352,10 @@ Alternative initializations, **choose one for a fresh run directory**:
 
 ```bash
 python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --mode deep --loop 5 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
+  --loop 5 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
 
 python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --mode explicit-files --files contracts/vault/src/lib.rs contracts/vault/src/fees.rs \
+  --files contracts/vault/src/lib.rs contracts/vault/src/fees.rs \
   --loop 1 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
 ```
 

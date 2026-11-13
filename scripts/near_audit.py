@@ -204,6 +204,8 @@ def write_json(path: Path, value: object) -> None:
     atomic_write_json(path, value)
 
 
+from review_policy import SPECIALIST_ROLES
+
 ACTIVE_ROLES = {"invariant-synthesis", "mutation-analysis", "async-state-explorer", "nep-differential", "temporal-upgrade"}
 
 
@@ -226,6 +228,10 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
             allowed = [str(Path(surface["root"]) / "THREAT_MODEL.md"), *allowed]
         if role in {"evidence-triage", "adversarial-verifier"}:
             allowed = [*allowed, "references/threat-model.md"]
+        if role in SPECIALIST_ROLES or role in {"mutation-analysis", "counterexample-rescan"}:
+            allowed = [*allowed, "references/review-contract.md"]
+        if role == "mutation-analysis":
+            allowed = [*allowed, "references/mutation-operators.json"]
         packet: dict[str, object] = {
             "schema_version": 1,
             "packet_id": f"{phase}:{role}" + (f":pass-{discovery_pass:02d}" if discovery_pass is not None else ""),
@@ -240,6 +246,8 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
             "additional_outputs": additional_outputs or [],
             "isolation": "instruction_only_unless_runtime_enforced",
         }
+        if role in {"corpus-echo", "chain-constructor"}:
+            packet["fresh_context"] = True
         if discovery_pass is not None:
             packet["discovery_pass"] = discovery_pass
         packet["packet_hash"] = canonical_hash(packet)
@@ -290,7 +298,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
                 "async-state-explorer": ["async-schedules.jsonl"],
                 "nep-differential": ["nep-differential.jsonl"],
                 "temporal-upgrade": ["temporal-upgrade.jsonl"],
-            }.get(str(role), []) + ([f"guidance/{role}.jsonl"] if number == 1 and any(
+            }.get(str(role), []) + ([str(Path(output).with_suffix("")) + "-applicability.json"] if role in SPECIALIST_ROLES else []) + ([f"guidance/{role}.jsonl"] if number == 1 and any(
                 item.get("owner_role") == role for item in surface.get("official_guidance_review_queue", [])
             ) else [])),
             discovery_pass=number if passes > 1 and role not in ACTIVE_ROLES else None,
@@ -347,6 +355,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
         "counterexample-rescan-candidates.jsonl",
         ["two-stage-judge:adversarial-verifier"],
         candidate_outputs=["counterexample-rescan-candidates.jsonl"],
+        additional_outputs=["unresolved-assumptions.jsonl", "rescan-summary.json"],
     )
     append(
         "informed-rescan",
@@ -409,8 +418,6 @@ def initialize(args: argparse.Namespace) -> dict[str, object]:
     passes = choose_discovery_passes(args.loop)
     if not target.is_dir():
         raise ValueError(f"target is not a directory: {target}")
-    if args.mode == "explicit-files" and not args.files:
-        raise ValueError("explicit-files mode requires at least one --files entry")
     discover(target, args.files)  # Validate every explicit input before creating output.
     if isinstance(args.worker_capacity, bool) or args.worker_capacity < 1:
         raise ValueError("worker capacity is the positive number of spawned workers, excluding the primary")
@@ -484,7 +491,6 @@ def initialize(args: argparse.Namespace) -> dict[str, object]:
         "dirty_tree": dirty,
         "scope": [row["path"] for row in surface.get("files", [])],
         "exclusions": ["target", "node_modules", "dist", "build", "vendor", "unrelated crates"],
-        "mode": args.mode,
         "discovery_passes_planned": passes,
         "toolchain": versions,
         "sdk_versions": {"near-sdk": {"version": None, "status": "unknown", "evidence": "resolve from the frozen lockfile"}},
@@ -738,6 +744,8 @@ def worker_action(args: argparse.Namespace) -> dict[str, object]:
                 raise ValueError("worker packet is not in the current phase")
             if not args.worker_id:
                 raise ValueError("start requires an observed --worker-id")
+            if packet.get("fresh_context") and any(item.get("worker_id") == args.worker_id for item in state["workers"].values()):
+                raise ValueError("fresh-context packet requires a new host worker identity")
             if args.isolation == "host_enforced" and not args.isolation_evidence:
                 raise ValueError("host-enforced isolation requires --isolation-evidence")
             if current and current["status"] not in {"failed", "cancelled"}:
@@ -809,11 +817,11 @@ def finalize(args: argparse.Namespace) -> dict[str, object]:
             raise ValueError("--report must identify an existing Markdown report")
         text = report.read_text(encoding="utf-8")
         heading = next((line for line in text.splitlines() if line.startswith("# ")), "")
-        if args.stage not in heading.lower():
-            raise ValueError(f"report heading must explicitly identify stage {args.stage}")
+        if not re.fullmatch(r"# 🔐 NEARShield v1 Security Review — \S(?:.*\S)?", heading):
+            raise ValueError("report heading must be '# 🔐 NEARShield v1 Security Review — {project}' with a nonempty project")
         result = validate_run(run_dir, final=True, stage=args.stage)
         from report_assembly import validate_assembled
-        validate_assembled(run_dir, manifest, text)
+        validate_assembled(run_dir, manifest, text, stage=args.stage)
         record = {"path": report.relative_to(run_dir).as_posix(), "sha256": file_hash(report), "stage": args.stage,
                   "input_fingerprint": manifest["input_fingerprint"], "configuration_hash": manifest["configuration_hash"]}
         if state.get("report") == record and state["status"] == ("draft_ready" if args.stage == "draft" else "complete"):
@@ -849,8 +857,8 @@ def render_report(args: argparse.Namespace) -> dict[str, object]:
         output = artifact_path(run_dir, args.output.relative_to(run_dir).as_posix() if args.output.is_absolute() else args.output.as_posix())
         if body.suffix != ".md" or output.suffix != ".md" or not body.is_file() or body == output:
             raise ValueError("body and output must be distinct run-directory Markdown files")
-        text = assemble(run_dir, manifest, body.read_text(encoding="utf-8"))
-        validate_assembled(run_dir, manifest, text)
+        text = assemble(run_dir, manifest, body.read_text(encoding="utf-8"), stage=args.stage)
+        validate_assembled(run_dir, manifest, text, stage=args.stage)
         from run_integrity import atomic_write
         atomic_write(output, text.encode("utf-8"))
         return {"report_markdown": text, "report_path": str(output)}
@@ -893,6 +901,11 @@ def doctor(args: argparse.Namespace) -> dict[str, object]:
         except (ValueError, OSError, KeyError, TypeError) as exc:
             errors.append(f"{label}: {exc}")
     try:
+        from review_policy import operator_inventory
+        counts["mutation_operators"] = sum(len(ops) for ops in operator_inventory().values())
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        errors.append(f"mutation_operators: {exc}")
+    try:
         from check_official_docs import validate_registry as validate_docs
         docs = read_json(REFERENCES / "official-docs-registry.json")
         # Internal consistency only; upstream freshness requires an explicit checkout.
@@ -914,7 +927,6 @@ def parser() -> argparse.ArgumentParser:
     commands = root.add_subparsers(dest="command", required=True)
     run = commands.add_parser("run")
     run.add_argument("target", type=Path)
-    run.add_argument("--mode", choices=("standard", "explicit-files", "deep"), default="standard")
     run.add_argument("--files", nargs="+", type=Path, default=[])
     run.add_argument("--loop", nargs="?", const=3, type=int, default=None,
                      help="Repeat blind L2/L3 discovery 1-10 times; bare flag selects 3")

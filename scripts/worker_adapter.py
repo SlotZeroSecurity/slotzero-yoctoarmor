@@ -69,6 +69,11 @@ def view(run_dir: Path, packet_id: str, catalog: Path) -> dict:
         surface_path = "surface.json"
     if role in {"evidence-triage", "adversarial-verifier"}:
         references.extend(["references/threat-model.md", "references/finding-schema.md", "references/verification-reporting.md"])
+    from review_policy import SPECIALIST_ROLES
+    if role in {"mutation-analysis", "counterexample-rescan"} or role in SPECIALIST_ROLES:
+        references.append("references/review-contract.md")
+    if role == "mutation-analysis":
+        references.append("references/mutation-operators.json")
     owned_cards = [] if role in {"protocol-modeler", "intent-reasoner"} else sorted(
         item["card_id"] for item in surface.get("official_guidance_review_queue", [])
         if item.get("owner_role") == role
@@ -115,6 +120,14 @@ def view(run_dir: Path, packet_id: str, catalog: Path) -> dict:
         f"Forbidden: {', '.join(packet['forbidden_inputs'])}.\n"
         f"Outputs: {', '.join(dict.fromkeys([packet['output_path'], *packet.get('candidate_outputs', []), *packet.get('additional_outputs', [])]))}.\n"
     )
+    if packet.get("fresh_context"):
+        instruction += "Start in a fresh host context with a new worker identity; never reuse a discovery worker's conversation.\n"
+    if role in SPECIALIST_ROLES and phase == "blind-l3-active":
+        instruction += "Assess applicability even without surface signals. Investigate applicable or uncertain paths; emit the assigned -applicability.json with exact target citations, rationale, and any limitation under references/review-contract.md.\n"
+    if role == "mutation-analysis":
+        instruction += "Account for every operator in references/mutation-operators.json using schema-2 mutation-results.jsonl; record all identified sites, outcome evidence, and blocked/not-applicable rationales. Never modify audited source.\n"
+    if role == "chain-constructor":
+        instruction += "Construct and deduplicate target-supported attack chains from the frozen candidates in this new context; preserve all raw evidence and dispositions.\n"
     unresolved = sorted(set(re.findall(r"\{[a-z][a-z_]*\}", body)))
     return {"packet_id": packet_id, "packet_hash": packet["packet_hash"], "run_id": manifest["run_id"],
             "role_id": role, "phase": phase, "surface": surface_path,

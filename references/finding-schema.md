@@ -222,7 +222,7 @@ Allowed verdicts: `valid`, `valid_downgraded`, `lead`, `false_positive`, `out_of
 
 ## Unresolved-assumption row
 
-Rejected, blocked, or contested candidates emit questions rather than rejected
+Rejected, excluded, blocked, or contested candidates emit questions rather than rejected
 conclusions:
 
 ```json
@@ -348,3 +348,7 @@ Allowed dispositions are `survives`, `merged`, `chain_absorbed`, `quality`, and 
 - `[BUILD-BLOCKED]` executable verification unavailable
 - `[EXTERNAL-ASSUMPTION: ...]` dependency outside scope
 - `[CORPUS-PRECEDENT]` historical analogue; contributes no target proof
+
+For completion, each rescan input receives `status: complete` or `blocked` and
+exact `review_evidence` target citations. See [the review contract](review-contract.md)
+for schema-2 rescan summaries and the derived stopping criterion.

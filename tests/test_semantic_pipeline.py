@@ -57,7 +57,7 @@ class SemanticPipelineTest(unittest.TestCase):
         self.assertTrue({"predecessor", "signer", "private_macro"} <= authorities)
         self.assertGreaterEqual(payload["coverage"]["symbols"], 3)
 
-    def test_driver_initializes_hash_bound_schema_v6_run(self) -> None:
+    def test_driver_initializes_hash_bound_schema_v7_run(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             run_dir = Path(directory) / "run"
             result = run(
@@ -68,7 +68,7 @@ class SemanticPipelineTest(unittest.TestCase):
             self.assertIn("NEAR MULTI-AGENT SECURITY SCANNER", result.stderr)
             self.assertNotIn("Traceback", result.stderr)
             manifest = json.loads((run_dir / "run-manifest.json").read_text())
-            self.assertEqual(manifest["schema_version"], 6)
+            self.assertEqual(manifest["schema_version"], 7)
             self.assertEqual(manifest["feedback_policy"], "metrics_only")
             self.assertEqual(manifest["second_pass_mode"], "targeted_verified_seed")
             self.assertEqual(manifest["worker_capacity"], 4)
@@ -97,7 +97,7 @@ class SemanticPipelineTest(unittest.TestCase):
             self.assertEqual(persisted["schema_version"], 4)
             self.assertEqual(persisted["current_phase"], "isolated-l1-l2")
 
-    def test_schema_v6_validator_rejects_semantic_ir_tampering(self) -> None:
+    def test_schema_v7_validator_rejects_semantic_ir_tampering(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             run_dir = Path(directory) / "run"
             run("python3", str(SCRIPTS / "near_audit.py"), "run", str(FIXTURE), "--loop", "1", "--run-dir", str(run_dir))

@@ -179,7 +179,7 @@ used/refunded polarity; low callback gas; wrong refund principal or missing cap;
 storage prefix/charge/cleanup defects; weakened route/finality/emitter checks;
 missing terminal Promise; arithmetic/rounding faults; serializer mismatch;
 migration/layout incompatibility; and deployed/global-code identity mismatch.
-Standard mode samples each applicable family; deep mode runs them all. Record the
+Every scan covers all supported applicable operators and their identified sites; use `review-contract.md` and `mutation-operators.json`. Record the
 operator, changed copy, expected mechanism, detector/test outcome, and kill or
 survival. A mutant is killed only by a human-adjudicated matching verified
 candidate. Never report a mutant as a defect in the unchanged target.
@@ -214,7 +214,8 @@ a structured triage object for every candidate. Do not expand the mechanism.
 
 Read only unresolved-assumption rows and assigned target source. Search for the
 missing preconditions, unexamined callers/transitions, uncertain dependency
-behavior, coverage gaps, and alternate paths without seeing rejected conclusions.
+behavior, coverage gaps, and alternate paths, including bypasses of exclusions,
+without seeing rejected conclusions. Record target-cited review outcomes for every input.
 Emit only genuinely new candidates. Run once and stop; never trigger another
 rescan.
 
@@ -264,7 +265,7 @@ Own NEP-508/509/514/539/568/584/639 using `references/nep-protocol-node.md`. On 
 
 ## Conditional roles
 
-Run a conditional role whenever the manifest selects it. In deep mode, also run any role whose applicability is uncertain.
+Run all six conditional specialists in every discovery pass. Each records evidence-backed applicability and investigates uncertain surfaces; no signal alone justifies skipping it.
 
 ### `upgrade-keys`
 
@@ -300,7 +301,7 @@ Before discovery is complete:
 - Every L0-L3 level has one coverage row, and L1/L2 isolation is recorded.
 - Every value-bearing async chain has success, failure, and pending-interleaving coverage or an explicit blocker.
 - Every applicable high-value accounting domain has an executable invariant or an execution blocker.
-- Every applicable mutation family is sampled in standard mode and complete in deep mode; mutants never become target findings.
+- Every supported applicable mutation operator and identified site is accounted for; mutants never become target findings.
 - Every selected role finishes or is explicitly marked failed; partial runs are not complete audits.
 - Every raw candidate has immutable role, file, function, evidence, and root-cause provenance.
 - All registry-selected NEPs have one status-aware coverage row owned by the correct NEP role; Draft/New rows are advisory and every N/A row has concrete target evidence.
@@ -438,7 +439,7 @@ findings. Stop after both artifacts.
 
 ## Corpus echo prompt
 
-Run only after blind discovery. Route applicable canonical IDs from `references/attack-lenses-index.json`; do not expose unrelated patterns. Consult `references/pdf-corpus-manifest.json` for exact source identity and disposition, then use `references/pdf-corpus-2022-2023.md` and `references/pdf-corpus-2024-2026.md` only to retrieve variants for already selected IDs. Ignore `pending_review`, `extraction_failed`, and `excluded` records. Treat the latter ledger's Soroban section as cross-runtime hypothesis material, never NEAR runtime evidence.
+Start in a fresh host context after blind discovery. Route applicable canonical IDs from `references/attack-lenses-index.json`; do not expose unrelated patterns. Consult `references/pdf-corpus-manifest.json` for exact source identity and disposition, then use `references/pdf-corpus-2022-2023.md` and `references/pdf-corpus-2024-2026.md` only to retrieve variants for already selected IDs. Ignore `pending_review`, `extraction_failed`, and `excluded` records. Treat the latter ledger's Soroban section as cross-runtime hypothesis material, never NEAR runtime evidence.
 
 Use the [portable mechanisms](attack-lenses-index.json) and
 [binding protocol](pattern-portability.md) for the selected canonical IDs first.
@@ -529,8 +530,10 @@ peer findings.
 
 Search once for missing preconditions, alternate callers/transitions, dependency
 behavior, and uncovered paths. Emit only genuinely new schema-valid L3 candidates
-to {rescan_output}. Do not re-emit the rejected conclusion and do not start a
-second feedback loop. Stop.
+to {rescan_output}. Revisit the neutral questions for excluded and unresolved
+paths. Append completed/blocked status and exact review_evidence citations to
+unresolved-assumptions.jsonl, and write schema-2 rescan-summary.json following
+review-contract.md. Do not re-emit rejected conclusions or start another loop.
 ```
 
 ## Verified-seed informed-rescan prompt

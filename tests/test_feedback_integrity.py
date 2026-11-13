@@ -156,7 +156,7 @@ class FeedbackIntegrityTest(unittest.TestCase):
 
 
     def test_current_mutations_validate_state_and_input_bindings(self) -> None:
-        write_json(self.root / "run-manifest.json", {"schema_version": 6, "run_id": "fixture"})
+        write_json(self.root / "run-manifest.json", {"schema_version": 7, "run_id": "fixture"})
         write_json(self.root / "run-state.json", {"schema_version": 1, "run_id": "fixture"})
         with self.assertRaisesRegex(ValueError, "run-state v4"):
             require_mutable_run(self.root)

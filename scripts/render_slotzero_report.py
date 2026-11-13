@@ -16,11 +16,6 @@ import tempfile
 
 THRESHOLD = 75
 VALID = {"valid", "valid_downgraded"}
-DISCLAIMER = (
-    "> ⚠️ This draft was prepared with AI assistance. It does not establish the absence "
-    "of vulnerabilities or approve deployment. Fix diffs are design sketches, not "
-    "tested patches. Independent review, a bug bounty, and on-chain monitoring remain necessary."
-)
 
 
 def read_json(path: Path):
@@ -173,25 +168,25 @@ def render(run: Path, content_path: Path, project: str | None = None) -> str:
     sightings = pass_sightings(run, manifest, candidates)
     passes = manifest["discovery_passes_planned"]
     title = single_line(project, "project") if project is not None else Path(manifest["target"]).name
-    stage = record["stage"].title()
     files = [f"`{path}`" for path in manifest["scope"]]
     chunks = [" · ".join(files[i:i + 3]) for i in range(0, len(files), 3)]
     files_cell = "<br>".join(chunks).replace("|", "\\|")
-    lines = [f"# 🔐 {stage} Security Review — {title}", "", "---", "", "## Scope", "",
-             "|  |  |", "| --- | --- |", f"| **Mode** | {manifest['mode']} |",
+    lines = [f"# 🔐 NEARShield v1 Security Review — {title}", "", "---", "", "## Scope", "",
+             "|  |  |", "| --- | --- |",
              f"| **Files reviewed** | {files_cell} |",
              f"| **Confidence threshold (1-100)** | {THRESHOLD} |"]
     if passes > 1:
         lines.append(f"| **Passes** | {passes} |")
-    review_text = f"{stage}; human decisions {'pending' if stage == 'Draft' else 'recorded'}"
-    if confirmed:
-        review_text += f"; {len(confirmed)} user-confirmed in this presentation"
     lines += [f"| **Revision** | `{manifest['target_revision']}` |",
-              f"| **Review status** | {review_text} |",
               f"| **NEAR evidence and NEP ledger** | [Technical annex]({technical}) |"]
     if manifest.get("schema_version", 0) >= 6:
         from threat_model import report_context
         lines.append(f"| **Threat model** | {report_context(manifest)} |")
+    if manifest.get("schema_version", 0) >= 7:
+        from review_policy import review_limitations
+        limitations = review_limitations(run)
+        if limitations:
+            lines.append(f"| **Review limitations** | {limitations} |")
     if omitted:
         lines.append(f"| **Presentation exclusions** | {len(omitted)} audited finding{'s' if len(omitted) != 1 else ''} omitted at the user's request; retained in the annex |")
     lines += ["", "---", "", "## Findings", ""]
@@ -234,7 +229,7 @@ def render(run: Path, content_path: Path, project: str | None = None) -> str:
         lines.append(f"- **{entry['title']}** — `{entry['location']}`{seen} — Code smells: {smells} — {entry['description']}")
     if not leads:
         lines.append("_None._")
-    lines += ["", "---", "", DISCLAIMER, ""]
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -267,7 +262,7 @@ def main() -> None:
         index = [line for line in report.split("Findings List\n", 1)[1].split("\n---\n", 1)[0].splitlines() if line.strip()]
         top = index[:2] + [row for row in index[2:] if re.match(r"\| [0-9]+ \|", row)][:3]
         print(head + f"## Findings List — top 3 of {count}\n\n" + "\n".join(top)
-              + f"\n\nFull report: {output}\n\n{DISCLAIMER}")
+              + f"\n\nFull report: {output}")
 
 
 if __name__ == "__main__":

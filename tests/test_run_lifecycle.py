@@ -59,6 +59,14 @@ class RunLifecycleTests(unittest.TestCase):
                 write_jsonl(self.run_dir / name, [])
         for name in ("raw-candidates.jsonl", "deduplicated.jsonl", "dispositions.jsonl", "verdicts.jsonl", "triage.jsonl"):
             write_jsonl(self.run_dir / name, [])
+        citation = {"path": "lib.rs", "start": 1, "end": 1, "quote": (self.target / "lib.rs").read_text().splitlines()[0]}
+        for packet in packets:
+            for name in packet.get("additional_outputs", []):
+                if name.endswith("-applicability.json"):
+                    write_json(self.run_dir / name, {
+                        "schema_version": 1, "role_id": packet["role_id"],
+                        "discovery_pass": packet.get("discovery_pass", 1), "applicability": "not_applicable",
+                        "rationale": "Inert fixture disposition, not a semantic audit.", "target_evidence": [citation]})
         rows = coverage_rows()
         write_jsonl(self.run_dir / "nep-coverage.jsonl", rows)
         surface = json.loads((self.run_dir / "surface.json").read_text())
@@ -71,15 +79,15 @@ class RunLifecycleTests(unittest.TestCase):
 
     def rendered_report(self, stage="draft"):
         banner = (SKILL / "references/report-template.md").read_text().split("```text\n", 1)[1].split("\n```", 1)[0]
-        sections = ("Audit metadata", "Executive summary", "Findings index", "Findings",
-                    "Leads and contested items", "NEP standards conformance",
-                    "Active-testing coverage", "Verification and coverage ledger")
+        sections = ("Architecture and trust assumptions", "Findings index", "Findings",
+                    "Unverified leads", "Standards and hardening notes",
+                    "Testing and limitations", "Remediation priorities")
         verdicts = [json.loads(line) for line in (self.run_dir / "verdicts.jsonl").read_text().splitlines() if line.strip()]
         detail = "\n".join("### " + row["candidate_id"] + "\n\nConfidence " + str(row["confidence"]["total"]) +
                            "/13\n\n#### Recommendation\n\nApply the synthetic fixture fix."
                            for row in verdicts if row["verdict"] in {"valid", "valid_downgraded"})
         body = self.run_dir / f"{stage}-body.md"
-        body.write_text("```text\n" + banner + "\n```\n\n# " + stage.title() + " security review\n\nSynthetic inert fixture.\n\n" +
+        body.write_text("```text\n" + banner + "\n```\n\n# 🔐 NEARShield v1 Security Review — sample\n\nSynthetic inert fixture.\n\n" +
                         "\n\n".join("## " + section + "\n\nSynthetic inert fixture." + ("\n\n" + detail if section == "Findings" and detail else "") for section in sections) + "\n")
         output = self.run_dir / f"{stage}.md"
         rendered = self.cli("render-report", self.run_dir, "--body", body, "--output", output, "--stage", stage)
@@ -91,13 +99,30 @@ class RunLifecycleTests(unittest.TestCase):
         result = json.loads(self.cli("resume", self.run_dir).stdout)
         self.assertEqual(result["current_phase"], "human-feedback")
         report = self.rendered_report()
+        original = report.read_text()
+        before = (self.run_dir / "run-state.json").read_bytes()
+        for heading in ("# Draft Security Review — sample", "# 🔐 NEARShield v1 Security Review — "):
+            with self.subTest(heading=heading):
+                report.write_text(original.replace("# 🔐 NEARShield v1 Security Review — sample", heading))
+                error = self.cli("finalize", self.run_dir, "--report", report, ok=False)
+                self.assertIn("report heading must be", error.stderr)
+                self.assertEqual(before, (self.run_dir / "run-state.json").read_bytes())
+        report.write_text(original)
+        self.assertIn("**Review stage:** Draft — pending human review.", original)
+        report.write_text(original.replace("**Review stage:** Draft — pending human review.",
+                                          "**Review stage:** Approved — human review recorded."))
+        error = self.cli("finalize", self.run_dir, "--report", report, ok=False)
+        self.assertIn("front section differs", error.stderr)
+        self.assertEqual(before, (self.run_dir / "run-state.json").read_bytes())
+        report.write_text(original)
         result = json.loads(self.cli("finalize", self.run_dir, "--report", report).stdout)
         self.assertEqual(result["status"], "draft_ready")
         self.assertEqual(result["report"]["sha256"], "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest())
         before = (self.run_dir / "run-state.json").read_bytes()
         self.assertTrue(json.loads(self.cli("finalize", self.run_dir, "--stage", "draft", "--report", report).stdout)["unchanged"])
         self.assertEqual(before, (self.run_dir / "run-state.json").read_bytes())
-        self.cli("finalize", self.run_dir, "--stage", "approved", "--report", report, ok=False)
+        error = self.cli("finalize", self.run_dir, "--stage", "approved", "--report", report, ok=False)
+        self.assertIn("requires completed human review/informed phases", error.stderr)
         self.assertEqual(before, (self.run_dir / "run-state.json").read_bytes())
         labels = self.root / "labels.jsonl"
         labels.write_text("")
@@ -105,6 +130,8 @@ class RunLifecycleTests(unittest.TestCase):
         self.assertEqual(json.loads(self.cli("informed-rescan", self.run_dir).stdout)["status"], "skipped")
         self.assertEqual(json.loads(self.cli("resume", self.run_dir).stdout)["current_phase"], "final")
         approved = self.rendered_report("approved")
+        self.assertIn("**Review stage:** Approved — human review recorded.", approved.read_text())
+        self.assertNotIn("**Review stage:** Approved", report.read_text())
         self.assertEqual(json.loads(self.cli("finalize", self.run_dir, "--stage", "approved", "--report", approved).stdout)["status"], "complete")
         self.assertTrue((self.run_dir / "raw-candidates.jsonl").is_file())
         completed = (self.run_dir / "run-state.json").read_bytes()

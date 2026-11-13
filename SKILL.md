@@ -21,6 +21,9 @@ NEAR development and generic Rust review do not start a security audit.
 Maintenance, ingestion, and qualification do not initialize a target audit.
 Read only the selected route and references needed for the requested work.
 
+Every scan follows the [comprehensive review contract](references/review-contract.md).
+File selection and discovery passes control scope and repetition, not review rigor.
+
 Target audits require `<target-root>/THREAT_MODEL.md` before discovery. If missing
 or empty, stop, explain increased false-positive likelihood and validation effort,
 and offer generation/restart via [README](README.md#threat-model), or explicit
@@ -35,7 +38,9 @@ Every completed automated audit must provide both `slotzero-report.md` and
 `technical-annex.md` to the user, without an output flag or extra request. Validate
 and retain both files outside audited source, then include a clickable file link
 or attachment for each in the final response. Chat previews do not replace the
-files. Default report headings remain Draft until human review is complete.
+files. Both headings use `# 🔐 NEARShield v1 Security Review — {project}`.
+The technical annex records the audit stage in its scope note; human approval remains required
+for approved delivery.
 If report validation is blocked, disclose the blocker instead of claiming completion.
 Existing runs keep their recorded filenames and use their original package.
 

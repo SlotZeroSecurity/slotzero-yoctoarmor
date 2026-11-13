@@ -215,17 +215,39 @@ For both stages:
 - every Medium+ has executable verification or an explicit blocker;
 - every High/Critical has a fresh skeptical challenge and negative control where executable;
 - all registry-selected NEP rows pass `check_nep_coverage.py`, with security candidates linked into ordinary verification and harmless deviations left unscored;
-- report counts, cross-references, locations, severity matrix, and PoC commands reconcile;
+- report counts, cross-references, locations, finding severities, and PoC commands reconcile;
 - security-relevant monitoring, pause/upgrade authority, reproducible artifact/hash status, and incident-response assumptions are recorded as findings, quality observations, blockers, or trust assumptions as appropriate;
 - no quality-only item inflates vulnerability counts;
 - one and only one counterexample-guided rescan is accounted for, including zero-result runs;
 - metrics-only human feedback and the informed-pass state are accounted for; pending human review may defer the pass in a draft, while approved completion requires exactly one complete/skipped/blocked pass;
 - informed candidates name a valid blind-TP seed, new location, variant evidence, both judge stages, and human disposition;
 - for approved completion, every included finding and conformance deviation has actual human approval; rejected or other non-pending statuses do not themselves approve a finding, and pending decisions remain separate in the draft;
-- the report states only demonstrated L0-L3 coverage unless a valid track-specific maturity attestation is supplied;
+- internal capability records state only demonstrated coverage; the report summarizes material testing limitations without capability-level tables;
 - no claim says the audit proves safety.
 
-In deep mode, finish an exclusion-list rescan and require no new Medium+ in one complete pass; otherwise disclose that stopping criterion was not met.
+Every scan includes one bounded rescan of excluded and unresolved paths. Derive
+new Medium+ findings from verified dispositions and disclose any new findings
+or blocked checks as an unmet stopping criterion; do not run an unlimited loop.
+
+## Technical-annex presentation
+
+Use the streamlined section order in `report-template.md`. The assembler inserts
+scope, the actual requested review stage, the top findings, and any threat-model
+exclusions. Omit those generated sections from the authored body. The annex banner
+subtitle is `NEARShield v1  - SLOT ZERO SECURITY`; the console banner is unchanged.
+Do not include a link back to the compact report, audit metadata tables, executive
+or severity summaries, capability levels, human-feedback statistics, raw-candidate
+appendices, or full NEP-registry appendices. Keep internal records intact.
+
+Preserve detailed evidence, receipt paths, fixes, unresolved leads, meaningful NEP
+deviations, and build/test limitations. Merge intent with architecture and trust
+assumptions. List unresolved human decisions under Pending review only in drafts;
+omit that section when no decisions remain. The generated scope note retains the
+stage even when Pending review is absent. Exclusions retain IDs, model citations,
+and reasons in their generated section; full boundary checks stay in the ledgers.
+Stage selection, finalization, hash validation, and all human-approval gates still
+apply. Existing configuration-bound runs use their original package or restart;
+never rewrite saved hashes to adopt the new layout.
 
 ## Draft and approved finalization
 
@@ -233,7 +255,9 @@ Default delivery is a draft review after the technical and accounting gates
 above pass. Do not wait for human feedback to deliver that draft. Final user
 delivery requires both `slotzero-report.md` and `technical-annex.md`, provided
 as clickable file links or attachments. Both remain in the run directory.
-Renaming the annex does not remove its Draft label or human-review gates.
+Both reports use `# 🔐 NEARShield v1 Security Review — {project}`.
+The annex retains the generated audit-stage scope note and pending-review information;
+the title does not change the human-review gates.
 
 ```text
 python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage draft --report <run-dir>/technical-annex.md
@@ -261,8 +285,9 @@ python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage approved --repo
 ```
 
 The `--report` path must identify an existing Markdown file contained in the run
-directory. Its first heading must contain `Draft` or `Approved` for the selected
-stage; finalization records the report hash. An approved run cannot be downgraded
+directory. Its first heading must be `# 🔐 NEARShield v1 Security Review — {project}`
+with a nonempty project name. The selected stage remains enforced through run
+state and evidence/human-review validation; finalization records the report hash. An approved run cannot be downgraded
 to draft. Keep delivery copies outside audited source so exporting a report does
 not invalidate the frozen input snapshot. Never overwrite an unrelated report.
 

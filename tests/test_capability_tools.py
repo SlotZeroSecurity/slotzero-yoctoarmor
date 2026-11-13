@@ -70,7 +70,7 @@ def make_run_artifacts(root: Path) -> None:
             "dirty_tree": False,
             "scope": ["lib.rs"],
             "exclusions": [],
-            "mode": "standard",
+
             "toolchain": {"rust": "fixture"},
             "sdk_versions": {"near-sdk": "fixture"},
             "nep_source_commit": NEP_PIN,
@@ -146,24 +146,16 @@ def make_run_artifacts(root: Path) -> None:
             }
         ],
     )
-    write_jsonl(
-        root / "mutation-results.jsonl",
-        [
-            {
-                "schema_version": 1,
-                "operator_family": family,
-                "applicability": "applicable",
-                "mode": "standard",
-                "mutations_total": 1,
-                "killed": 1,
-                "survived": 0,
-                "blocked": 0,
-                "candidate_ids": [f"mut-{index}"],
-                "rationale": "fixture mutation killed",
-            }
-            for index, family in enumerate(MUTATION_FAMILIES)
-        ],
-    )
+    inventory = json.loads((SKILL / "references/mutation-operators.json").read_text())["families"]
+    citation = {"path": "lib.rs", "start": 1, "end": 1, "quote": (FIXTURE / "lib.rs").read_text().splitlines()[0]}
+    write_jsonl(root / "mutation-results.jsonl", [
+        {"schema_version": 2, "operator_family": family, "applicability": "not_applicable",
+         "mutations_total": 0, "killed": 0, "survived": 0, "blocked": 0, "candidate_ids": [],
+         "rationale": "Inert validation fixture; no mutations executed.", "operators": [
+             {"operator_id": op["operator_id"], "applicability": "not_applicable",
+              "rationale": "Synthetic coverage disposition, not a target audit.",
+              "target_evidence": [citation], "locations": [], "outcomes": []} for op in operators]}
+        for family, operators in inventory.items()])
     write_jsonl(
         root / "async-schedules.jsonl",
         [
@@ -214,7 +206,7 @@ def make_run_artifacts(root: Path) -> None:
     write_json(
         root / "rescan-summary.json",
         {
-            "schema_version": 1,
+            "schema_version": 2,
             "iteration": 1,
             "status": "complete",
             "input_count": 0,

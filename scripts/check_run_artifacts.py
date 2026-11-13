@@ -100,7 +100,6 @@ def validate_manifest(run_dir: Path) -> dict[str, object]:
             "dirty_tree",
             "scope",
             "exclusions",
-            "mode",
             "toolchain",
             "sdk_versions",
             "nep_source_commit",
@@ -113,10 +112,10 @@ def validate_manifest(run_dir: Path) -> dict[str, object]:
         ),
         "run-manifest",
     )
-    if row["schema_version"] not in {1, 2, 3, 4, 5, 6}:
+    if row["schema_version"] not in {1, 2, 3, 4, 5, 6, 7}:
         raise ValueError("run-manifest: unsupported schema version")
-    if row["mode"] not in {"standard", "explicit-files", "deep"}:
-        raise ValueError("run-manifest: invalid mode")
+    if "mode" in row:
+        raise ValueError("run-manifest: obsolete scan selector; use the original package or restart")
     if not isinstance(row["worker_capacity"], int) or row["worker_capacity"] < 1:
         raise ValueError("run-manifest: worker_capacity must be a positive integer")
     expected_pin = json.loads(NEP_PIN_PATH.read_text(encoding="utf-8"))["source"]["commit"]
@@ -158,7 +157,7 @@ def validate_manifest(run_dir: Path) -> dict[str, object]:
     if row["schema_version"] >= 5 and (type(row.get("discovery_passes_planned")) is not int or
                                        not 1 <= row["discovery_passes_planned"] <= 10):
         raise ValueError("run-manifest: invalid discovery pass count")
-    if row["schema_version"] == 6:
+    if row["schema_version"] >= 6:
         capabilities = row.get("runtime_capabilities")
         if not isinstance(capabilities, dict) or set(capabilities) != {
             "worker_isolation", "worker_termination", "usage_export", "stream_output_limit"
@@ -224,7 +223,7 @@ def validate_controller_artifacts(run_dir: Path, manifest: dict[str, object]) ->
             raise ValueError(f"work-packets: invalid packet hash for {packet_id}")
     if manifest["work_packets_hash"] != canonical_hash(packets):
         raise ValueError("work-packets: aggregate hash differs from run-manifest")
-    if manifest["schema_version"] == 6:
+    if manifest["schema_version"] >= 6:
         from run_journal import load as load_run_state
         state = load_run_state(run_dir)
     else:
@@ -234,7 +233,7 @@ def validate_controller_artifacts(run_dir: Path, manifest: dict[str, object]) ->
         ("schema_version", "run_id", "target", "run_dir", "phase_order", "current_phase", "status", "phase_status", "retry_counts", "history"),
         "run-state",
     )
-    expected_schema = 4 if manifest["schema_version"] == 6 else (3 if manifest["schema_version"] == 5 else (2 if manifest["schema_version"] == 4 else 1))
+    expected_schema = 4 if manifest["schema_version"] >= 6 else (3 if manifest["schema_version"] == 5 else (2 if manifest["schema_version"] == 4 else 1))
     if state["schema_version"] != expected_schema or state["run_id"] != manifest["run_id"]:
         raise ValueError("run-state: schema or run ID differs from manifest")
     if manifest["schema_version"] >= 5:
@@ -270,13 +269,21 @@ def validate_controller_artifacts(run_dir: Path, manifest: dict[str, object]) ->
         nep = [packet["role_id"] for packet in packets if packet["phase"] == "nep-coverage"]
         if len(nep) != len(surface["nep_roles"]) or set(nep) != set(surface["nep_roles"]):
             raise ValueError("work-packets: NEP roles must run exactly once")
+    if manifest["schema_version"] >= 7:
+        from review_policy import SPECIALIST_ROLES
+        if not set(SPECIALIST_ROLES) <= set(load_json(run_dir / "surface.json")["selected_roles"]):
+            raise ValueError("surface omits mandatory specialists")
+        for role in ("corpus-echo", "chain-constructor"):
+            matching = [packet for packet in packets if packet["role_id"] == role]
+            if len(matching) != 1 or matching[0].get("fresh_context") is not True:
+                raise ValueError("post-discovery review requires fresh contexts")
     if manifest["schema_version"] >= 5:
         from near_audit import PHASES
         validate_state(run_dir, manifest, PHASES)
 
 
 def validate_feedback_and_informed_rescan(run_dir: Path, final: bool, stage: str = "approved") -> None:
-    controlled = load_json(run_dir / "run-manifest.json").get("schema_version") in {4, 5, 6}
+    controlled = load_json(run_dir / "run-manifest.json").get("schema_version") in {4, 5, 6, 7}
     if controlled:
         from record_feedback import validate_feedback
         validate_feedback(run_dir, require_complete=final and stage == "approved")
@@ -519,43 +526,9 @@ def validate_invariants(run_dir: Path) -> None:
             raise ValueError(f"invariant {invariant_id}: invalid execution_status")
 
 
-def validate_mutations(run_dir: Path, mode: str) -> None:
-    rows = load_jsonl(run_dir / "mutation-results.jsonl")
-    indexed: dict[str, dict[str, object]] = {}
-    for row in rows:
-        family = row.get("operator_family")
-        if family not in MUTATION_FAMILIES or family in indexed:
-            raise ValueError(f"mutation-results: invalid or duplicate family {family!r}")
-        require_fields(
-            row,
-            (
-                "schema_version",
-                "operator_family",
-                "applicability",
-                "mode",
-                "mutations_total",
-                "killed",
-                "survived",
-                "blocked",
-                "candidate_ids",
-                "rationale",
-            ),
-            f"mutation family {family}",
-        )
-        if row["mode"] != mode:
-            raise ValueError(f"mutation family {family}: mode differs from run manifest")
-        if row["applicability"] not in {"applicable", "not_applicable", "blocked"}:
-            raise ValueError(f"mutation family {family}: invalid applicability")
-        values = [row[name] for name in ("mutations_total", "killed", "survived", "blocked")]
-        if not all(isinstance(value, int) and value >= 0 for value in values):
-            raise ValueError(f"mutation family {family}: counts must be non-negative integers")
-        if row["killed"] + row["survived"] + row["blocked"] != row["mutations_total"]:
-            raise ValueError(f"mutation family {family}: outcome counts do not sum to total")
-        if row["applicability"] == "applicable" and row["mutations_total"] < 1:
-            raise ValueError(f"mutation family {family}: applicable family was not sampled")
-        indexed[str(family)] = row
-    if set(indexed) != MUTATION_FAMILIES:
-        raise ValueError("mutation-results: every operator family requires one disposition row")
+def validate_mutations(run_dir: Path) -> None:
+    from review_policy import validate_mutation_inventory
+    validate_mutation_inventory(run_dir)
 
 
 def validate_async(run_dir: Path, required: bool) -> None:
@@ -625,10 +598,30 @@ def validate_rescan(run_dir: Path, final: bool) -> None:
             ("schema_version", "iteration", "status", "input_count", "new_candidate_ids"),
             "rescan-summary",
         )
+        if summary.get("schema_version") != 2:
+            raise ValueError("rescan-summary: schema 2 required")
         if summary["iteration"] != 1 or summary["status"] not in {"complete", "blocked"}:
             raise ValueError("rescan-summary: exactly one complete or blocked iteration is required")
         if summary["input_count"] != len(assumptions):
             raise ValueError("rescan-summary: input_count differs from unresolved assumptions")
+        manifest = load_json(run_dir / "run-manifest.json")
+        if manifest["schema_version"] >= 7:
+            from review_policy import citations, rescan_result
+            raw_new = {r["candidate_id"] for r in load_jsonl(run_dir / "counterexample-rescan-candidates.jsonl")}
+            informed_ids = {r["candidate_id"] for r in load_jsonl(run_dir / "informed-rescan-candidates.jsonl", required=False)}
+            original_targets = {r.get("target_id") for r in load_jsonl(run_dir / "dispositions.jsonl")
+                                if r["candidate_id"] not in raw_new | informed_ids}
+            required = {r["candidate_id"] for r in load_jsonl(run_dir / "verdicts.jsonl")
+                        if r["verdict"] in {"out_of_scope", "lead", "false_positive"} and r["candidate_id"] in original_targets}
+            reviewed = {r["candidate_id"] for r in assumptions}
+            if not required <= reviewed:
+                raise ValueError("rescan must revisit excluded, rejected, and unresolved candidates")
+            for assumption in assumptions:
+                if assumption.get("status") not in {"complete", "blocked"}:
+                    raise ValueError("rescan input lacks a completed review or explicit blocker")
+                citations(assumption.get("review_evidence"), manifest, "rescan review")
+            rescan_result(run_dir)
+
 
 
 def validate_official_guidance(run_dir: Path, surface: dict[str, object]) -> None:
@@ -765,7 +758,10 @@ def validate_phase(run_dir: Path, phase: str, *, manifest: dict | None = None) -
         validate_candidate_artifacts(paths)
         validate_discovery_pass_candidates(run_dir, paths, manifest)
         validate_invariants(run_dir)
-        validate_mutations(run_dir, str(manifest["mode"]))
+        validate_mutations(run_dir)
+        if manifest["schema_version"] >= 7:
+            from review_policy import validate_specialists
+            validate_specialists(run_dir, manifest)
         validate_async(run_dir, "async-state-explorer" in selected)
         validate_optional_active(run_dir, "nep-differential.jsonl", "nep-differential" in selected, "NEP differential")
         validate_optional_active(run_dir, "temporal-upgrade.jsonl", "temporal-upgrade" in selected, "temporal upgrade")
@@ -780,7 +776,7 @@ def validate_phase(run_dir: Path, phase: str, *, manifest: dict | None = None) -
     elif phase == "dedup-chains":
         validate_candidate_artifacts([run_dir / "corpus-echo-candidates.jsonl", run_dir / "raw-candidates.jsonl", run_dir / "deduplicated.jsonl"])
         # Once rescans have run, the raw ledger intentionally includes those outputs.
-        if manifest["schema_version"] == 6:
+        if manifest["schema_version"] >= 6:
             from run_journal import load as load_run_state
             state = load_run_state(run_dir)
         else:
@@ -836,6 +832,10 @@ def validate_run(run_dir: Path, *, final: bool = False, stage: str = "approved")
         if surface.get("official_docs_registry_hash") != expected_hash:
             raise ValueError("surface.json: official-docs registry hash differs")
     selected = set(surface.get("selected_roles", []))
+    if manifest["schema_version"] >= 7:
+        from review_policy import SPECIALIST_ROLES, validate_specialists
+        if not set(SPECIALIST_ROLES) <= selected:
+            raise ValueError("surface omits mandatory specialist applicability review")
     if manifest["schema_version"] >= 3:
         validate_semantic_ir(run_dir, manifest)
         validate_controller_artifacts(run_dir, manifest)
@@ -843,7 +843,9 @@ def validate_run(run_dir: Path, *, final: bool = False, stage: str = "approved")
     validate_intent_model(run_dir, int(manifest["schema_version"]))
     validate_levels(run_dir, final)
     validate_invariants(run_dir)
-    validate_mutations(run_dir, str(manifest["mode"]))
+    validate_mutations(run_dir)
+    if manifest["schema_version"] >= 7:
+        validate_specialists(run_dir, manifest)
     validate_async(run_dir, "async-state-explorer" in selected)
     validate_optional_active(run_dir, "nep-differential.jsonl", "nep-differential" in selected, "NEP differential")
     validate_optional_active(run_dir, "temporal-upgrade.jsonl", "temporal-upgrade" in selected, "temporal upgrade")

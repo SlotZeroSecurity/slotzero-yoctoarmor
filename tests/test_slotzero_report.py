@@ -1,5 +1,8 @@
 """Presentation must follow validated verdicts and preserve finalized evidence."""
 import hashlib
+import contextlib
+import copy
+import io
 import json
 from pathlib import Path
 import sys
@@ -23,10 +26,10 @@ class SlotZeroReportTests(unittest.TestCase):
         source.parent.mkdir(parents=True)
         source.write_text("fn vulnerable() {\n    allow_anyone();\n}\n")
         technical = self.run / "technical-annex.md"
-        technical.write_text("# Draft technical annex\n")
+        technical.write_text("# 🔐 NEARShield v1 Security Review — sample\n")
         fingerprint = "sha256:source"
         self.write_json("run-manifest.json", {
-            "target": str(self.target), "target_revision": "abc123", "mode": "standard",
+            "target": str(self.target), "target_revision": "abc123",
             "scope": ["sample-contract/src/lib.rs"], "discovery_passes_planned": 1,
             "input_fingerprint": fingerprint, "configuration_hash": "sha256:skill",
         })
@@ -66,13 +69,70 @@ class SlotZeroReportTests(unittest.TestCase):
     def test_renders_all_supported_verdicts_and_excludes_refuted(self):
         with patch.object(formatter, "pass_sightings", return_value={"D-001": 1, "D-002": 0, "D-003": 0}):
             text = formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
-        self.assertIn("# 🔐 Draft Security Review — sample", text)
+        self.assertIn("# 🔐 NEARShield v1 Security Review — sample", text)
+        self.assertNotIn("**Review status**", text)
+        self.assertNotIn("This draft was prepared", text)
         self.assertIn("[85] **1. Anyone can act**", text)
         self.assertIn("+ require_role();", text)
         self.assertIn("**Potential repeated call**", text)
         self.assertNotIn("D-003", text)
         self.assertIn("[Technical annex]", text)
 
+    def test_approved_title_and_individual_review_edits(self):
+        state = json.loads((self.run / "run-state.json").read_text())
+        state.update(status="complete")
+        state["report"]["stage"] = "approved"
+        self.write_json("run-state.json", state)
+        self.rows[0].update(review_status="CONFIRMED", reviewer="fixture reviewer",
+                            reviewed_at="2026-11-13T00:00:00Z")
+        self.write_jsonl("slotzero-content.jsonl", self.rows)
+        with patch.object(formatter, "pass_sightings", return_value={}):
+            text = formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
+        self.assertTrue(text.startswith("# 🔐 NEARShield v1 Security Review — sample\n"))
+        self.assertEqual(text.count("Anyone can act — CONFIRMED"), 2)
+        self.assertNotIn("**Review status**", text)
+        self.rows[0].pop("review_status")
+        self.rows[0].update(omit=True, omission_reason="Fixture presentation choice")
+        self.write_jsonl("slotzero-content.jsonl", self.rows)
+        with patch.object(formatter, "pass_sightings", return_value={}):
+            text = formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
+        self.assertNotIn("Anyone can act", text)
+        self.assertIn("1 audited finding omitted", text)
+        self.assertIn("**Potential repeated call**", text)
+
+    def test_small_and_large_console_output_has_no_removed_presentation(self):
+        for count in (1, 21):
+            with self.subTest(count=count):
+                verdicts, candidates, rows = [], [], []
+                for i in range(count):
+                    cid = f"D-{i:03d}"
+                    verdicts.append({"candidate_id": cid, "verdict": "valid", "severity": "high",
+                                     "confidence": {"total": 11}})
+                    candidates.append({"candidate_id": cid, "locations": [
+                        {"path": "sample-contract/src/lib.rs", "function": "vulnerable"}]})
+                    row = copy.deepcopy(self.rows[0])
+                    row.update(candidate_id=cid, title=f"Example finding {i}")
+                    rows.append(row)
+                self.write_jsonl("verdicts.jsonl", verdicts)
+                self.write_jsonl("deduplicated.jsonl", candidates)
+                self.write_jsonl("slotzero-content.jsonl", rows)
+                stdout = io.StringIO()
+                with patch.object(sys, "argv", ["renderer", str(self.run), "--project", "sample"]), \
+                        patch.object(formatter, "pass_sightings", return_value={}), contextlib.redirect_stdout(stdout):
+                    formatter.main()
+                report = (self.run / "slotzero-report.md").read_text()
+                console = stdout.getvalue()
+                self.assertEqual(report.count("**Description**"), count)
+                for text in (report, console):
+                    self.assertTrue(text.startswith("# 🔐 NEARShield v1 Security Review — sample\n"))
+                    for removed in ("**Review status**", "This draft was prepared", "Format source:",
+                                    "Slot Zero Security ·", "Independent review, a bug bounty"):
+                        self.assertNotIn(removed, text)
+                if count == 1:
+                    self.assertEqual(console, report)
+                else:
+                    self.assertIn("top 3 of 21", console)
+                    self.assertIn(f"Full report: {self.run.resolve() / 'slotzero-report.md'}", console)
 
 
 

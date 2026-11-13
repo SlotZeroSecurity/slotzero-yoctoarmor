@@ -1,6 +1,6 @@
 # Run journal and Codex worker adapter
 
-Current runs use manifest schema 6 and state schema 4. `run-events/` is the
+Current runs use manifest schema 7 and state schema 4. `run-events/` is the
 authoritative, hash-linked, append-only run journal. `run-state.json` is a
 replaceable projection. Read-only `status` replays the journal without writing;
 `resume` repairs a missing or stale projection under the run lock. An invalid,

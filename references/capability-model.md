@@ -2,9 +2,8 @@
 
 ## Purpose
 
-L0-L4 are evidence-backed capability levels, not audit modes. `standard`,
-`explicit-files`, and `deep` control scope and effort; the level labels describe
-what the pipeline demonstrated. Never claim L4 from architecture, agent count,
+L0-L4 are evidence-backed capability levels describing what the pipeline
+demonstrated. Every scan uses the same comprehensive review requirements. Never claim L4 from architecture, agent count,
 or a self-authored checklist alone.
 
 | Level | Capability | Boundary |
@@ -18,13 +17,13 @@ or a self-authored checklist alone.
 ## Capability artifacts
 
 All JSON and JSONL files use `schema_version: 1` unless their existing schema
-specifies otherwise. New controlled runs use run-manifest schema 6, run-state
+specifies otherwise. New controlled runs use run-manifest schema 7, run-state
 schema 4, and surface schema 3. Older runs are read-only inspection inputs;
 restart with a fresh directory instead of migrating or resuming an older schema.
 
 ### `run-manifest.json`
 
-Record the target root and revision, dirty-tree state, scope, exclusions, mode,
+Record the target root and revision, dirty-tree state, scope, exclusions,
 toolchain, NEAR SDK and standards versions, NEP source pin, corpus hash, model
 identifiers, prompt hashes, tool versions, run-directory identifier, start time,
 and configured worker capacity. Schema 2 additionally records
@@ -75,7 +74,7 @@ Active methods also emit `invariant-ledger.jsonl`, `async-schedules.jsonl`,
 `temporal-upgrade.jsonl` when applicable. One `rescan-summary.json` accounts for
 the single counterexample-guided pass, including a zero-input or zero-result run.
 Surface-schema-3 runs also emit `official-guidance-coverage.jsonl`, with exactly
-one disposition row for every selected attacker card. Current run-manifest-schema-6 runs also
+one disposition row for every selected attacker card. Current run-manifest-schema-7 runs also
 emit `work-packets.jsonl`, `run-state.json`, `finding-feedback.jsonl`,
 `feedback-summary.json`, and `informed-rescan-summary.json`.
 
@@ -175,8 +174,9 @@ Applicable operator families are:
 - serializer/schema mismatch at a receipt, relayer, or external-chain boundary;
 - unverified deployed/global-contract code identity or version change.
 
-Standard mode samples at least one mutation per applicable family. Deep mode
-uses every applicable operator. A mutant is killed only when the audit pipeline
+Every scan covers every applicable operator in [the supported inventory](mutation-operators.json)
+and all identified sites. The [review contract](review-contract.md) defines schema-2
+operator dispositions, target citations, outcomes, and aggregate validation. A mutant is killed only when the audit pipeline
 produces a human-adjudicated verified candidate matching the introduced
 mechanism and affected path. Surviving mutants expose pipeline blind spots; they
 are not findings against the original target.
@@ -257,7 +257,7 @@ triage budget.
 
 Keep official guidance out of L2 and route only selected card bodies to their
 existing L1/L3 owners. After a material registry, card, signal, or routing
-change, record at least three configuration-equivalent standard-mode runs over a
+change, record at least three configuration-equivalent review runs over a
 representative contract/token/cross-chain suite. Each telemetry row contains a
 unique run ID, fixture-suite ID, wall-clock seconds, and actual model input-token
 count. `scripts/check_guidance_overhead.py` compares medians with the pinned
@@ -374,7 +374,7 @@ equivalence and requires fresh qualification. New release claims use benchmark
 schema 2; schema 1 is retained only for the frozen v2 baseline.
 
 After any material official-guidance routing change, compare at least three
-equivalent standard-mode runs over representative contract, token, and
+equivalent review runs over representative contract, token, and
 cross-chain fixtures. Validate measured wall-clock and actual model input-token
 telemetry—not byte estimates—with:
 

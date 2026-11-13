@@ -62,17 +62,17 @@ See the [usage guide](references/usage-guide.md#installation-alternatives) for m
 Paste these into your AI conversation after preparing the [threat model](#threat-model).
 They are prompts, not terminal commands. The host needs tools for running the required specialist agents.
 
-**Start with a standard review**
+**Run one discovery pass**
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project in standard mode with --loop 1.
+$nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
 Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
-**Take a deeper look**
+**Run five independent discovery passes**
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project --deep --loop 5.
+$nearshield-v1 Audit /absolute/path/to/near-project --loop 5.
 Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
@@ -90,8 +90,8 @@ In OpenCode, begin with **“Load the nearshield-v1 skill”** and give the same
 
 `--loop 1` asks for one independent discovery pass; `--loop` means three.
 Choose `--loop N` for **1–10 passes**. Extra passes repeat the independent search, not the whole review.
-Standard is the default; deep mode adds more testing and review effort.
-See [all options](references/usage-guide.md#modes-and-discovery-passes) when you need more control.
+Every review includes specialist applicability checks, all applicable mutation operators, independent verification, and a final rescan.
+See [all options](references/usage-guide.md#scope-and-discovery-passes) when you need more control.
 
 ## Threat model
 

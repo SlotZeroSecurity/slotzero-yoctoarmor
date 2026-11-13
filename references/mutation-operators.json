@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "families": {
+    "identity-substitution": [
+      {
+        "operator_id": "identity-substitution/predecessor-signer",
+        "description": "Substitute signer identity for the immediate predecessor at an authorization boundary."
+      },
+      {
+        "operator_id": "identity-substitution/mpc-participant",
+        "description": "Change the participant identity in an MPC session view."
+      },
+      {
+        "operator_id": "identity-substitution/mpc-subset",
+        "description": "Change the participant subset in an MPC session view."
+      },
+      {
+        "operator_id": "identity-substitution/mpc-message",
+        "description": "Change the message bound to an MPC session view."
+      },
+      {
+        "operator_id": "identity-substitution/mpc-tweak",
+        "description": "Change the tweak bound to an MPC session view."
+      }
+    ],
+    "access-macro-removal": [
+      {
+        "operator_id": "access-macro-removal/private",
+        "description": "Remove private callback enforcement."
+      },
+      {
+        "operator_id": "access-macro-removal/init",
+        "description": "Remove initialization or reinitialization enforcement."
+      },
+      {
+        "operator_id": "access-macro-removal/payable",
+        "description": "Remove attached-deposit or payability enforcement."
+      },
+      {
+        "operator_id": "access-macro-removal/one-yocto",
+        "description": "Remove the exact one-yocto deposit guard."
+      }
+    ],
+    "late-reservation": [
+      {
+        "operator_id": "late-reservation/reserve-after-dispatch",
+        "description": "Move the debit or reservation after asynchronous promise dispatch."
+      },
+      {
+        "operator_id": "late-reservation/presignature-consumption",
+        "description": "Remove globally atomic presignature consumption."
+      },
+      {
+        "operator_id": "late-reservation/resume-beneficiary",
+        "description": "Remove or change the beneficiary binding in a mutating resume record."
+      },
+      {
+        "operator_id": "late-reservation/resume-operation-mode",
+        "description": "Remove or change the operation-mode binding in a mutating resume record."
+      },
+      {
+        "operator_id": "late-reservation/resume-filter",
+        "description": "Remove or change the filter binding in a mutating resume record."
+      }
+    ],
+    "promise-result-semantics": [
+      {
+        "operator_id": "promise-result-semantics/ignore-result",
+        "description": "Ignore the promise result before settlement."
+      },
+      {
+        "operator_id": "promise-result-semantics/invert-result",
+        "description": "Invert the success/failure interpretation of a promise result."
+      },
+      {
+        "operator_id": "promise-result-semantics/decode-result",
+        "description": "Decode a promise result using an incompatible value or representation."
+      }
+    ],
+    "callback-gas": [
+      {
+        "operator_id": "callback-gas/under-reserve-gas",
+        "description": "Reduce reserved callback gas below the amount needed by the tested path."
+      }
+    ],
+    "refund-cap": [
+      {
+        "operator_id": "refund-cap/remove-cap",
+        "description": "Remove the resolver or refund cap."
+      }
+    ],
+    "storage-accounting": [
+      {
+        "operator_id": "storage-accounting/reuse-prefix",
+        "description": "Reuse a persistent collection prefix for a different collection."
+      },
+      {
+        "operator_id": "storage-accounting/remove-charge",
+        "description": "Remove a storage charge for newly occupied state."
+      },
+      {
+        "operator_id": "storage-accounting/remove-cleanup",
+        "description": "Remove storage cleanup or its associated accounting."
+      }
+    ],
+    "terminal-promise": [
+      {
+        "operator_id": "terminal-promise/remove-return",
+        "description": "Remove the returned terminal Promise from an asynchronous chain."
+      }
+    ],
+    "arithmetic-rounding": [
+      {
+        "operator_id": "arithmetic-rounding/unchecked-arithmetic",
+        "description": "Replace checked arithmetic with an unchecked operation."
+      },
+      {
+        "operator_id": "arithmetic-rounding/rounding-direction",
+        "description": "Change the rounding direction at a value conversion or distribution boundary."
+      }
+    ],
+    "migration-layout": [
+      {
+        "operator_id": "migration-layout/serialization-change",
+        "description": "Change persisted serialization incompatibly."
+      },
+      {
+        "operator_id": "migration-layout/layout-change",
+        "description": "Change persisted state layout incompatibly."
+      },
+      {
+        "operator_id": "migration-layout/migration-change",
+        "description": "Change migration logic so it no longer preserves the old-state interpretation."
+      }
+    ],
+    "key-capability": [
+      {
+        "operator_id": "key-capability/wrong-key",
+        "description": "Substitute a key with different capabilities."
+      },
+      {
+        "operator_id": "key-capability/receiver-restriction",
+        "description": "Weaken the key receiver restriction."
+      },
+      {
+        "operator_id": "key-capability/method-restriction",
+        "description": "Weaken the key method restriction."
+      },
+      {
+        "operator_id": "key-capability/allowance",
+        "description": "Change the assumed access-key allowance."
+      },
+      {
+        "operator_id": "key-capability/balance",
+        "description": "Change the assumed key or account balance backing an operation."
+      },
+      {
+        "operator_id": "key-capability/nonce-lane",
+        "description": "Change the nonce-lane assumption used for authorization or replay protection."
+      }
+    ],
+    "yield-resume-binding": [
+      {
+        "operator_id": "yield-resume-binding/requester",
+        "description": "Remove the yield requester binding."
+      },
+      {
+        "operator_id": "yield-resume-binding/responder",
+        "description": "Remove the permitted responder binding."
+      },
+      {
+        "operator_id": "yield-resume-binding/payload",
+        "description": "Remove the resumed payload binding."
+      },
+      {
+        "operator_id": "yield-resume-binding/expiry",
+        "description": "Remove expiry enforcement on a resumed operation."
+      },
+      {
+        "operator_id": "yield-resume-binding/terminal-state",
+        "description": "Remove the terminal-state or one-time-resume binding."
+      }
+    ],
+    "refund-principal": [
+      {
+        "operator_id": "refund-principal/beneficiary-as-payer",
+        "description": "Send the refund to the beneficiary instead of the actual payer or operation owner."
+      },
+      {
+        "operator_id": "refund-principal/relayer-as-payer",
+        "description": "Send the refund to the relayer instead of the actual payer or operation owner."
+      }
+    ],
+    "transfer-call-polarity": [
+      {
+        "operator_id": "transfer-call-polarity/unused-versus-spent",
+        "description": "Invert receiver unused-amount and caller spent-amount interpretations."
+      }
+    ],
+    "route-finality": [
+      {
+        "operator_id": "route-finality/backend",
+        "description": "Weaken route backend selection."
+      },
+      {
+        "operator_id": "route-finality/finality",
+        "description": "Weaken the route finality requirement."
+      },
+      {
+        "operator_id": "route-finality/emitter",
+        "description": "Weaken the permitted event emitter check."
+      },
+      {
+        "operator_id": "route-finality/chain",
+        "description": "Weaken the source or destination chain binding."
+      },
+      {
+        "operator_id": "route-finality/domain",
+        "description": "Weaken the route domain binding."
+      }
+    ],
+    "serializer-mismatch": [
+      {
+        "operator_id": "serializer-mismatch/receipt",
+        "description": "Mismatch the schema or serializer across a receipt boundary."
+      },
+      {
+        "operator_id": "serializer-mismatch/relayer",
+        "description": "Mismatch the schema or serializer across a relayer boundary."
+      },
+      {
+        "operator_id": "serializer-mismatch/external-chain",
+        "description": "Mismatch the schema or serializer across an external-chain boundary."
+      }
+    ],
+    "deployed-code-identity": [
+      {
+        "operator_id": "deployed-code-identity/unverified-code",
+        "description": "Accept a deployed or global-contract code identity without verification."
+      },
+      {
+        "operator_id": "deployed-code-identity/unverified-version",
+        "description": "Accept a deployed or global-contract version change without verification."
+      }
+    ]
+  }
+}

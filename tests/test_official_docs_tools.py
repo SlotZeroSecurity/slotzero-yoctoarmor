@@ -87,8 +87,8 @@ class OfficialDocsToolsTest(unittest.TestCase):
     def test_three_run_overhead_gate(self) -> None:
         def metrics(multiplier: float) -> dict[str, object]:
             return {
-                "schema_version": 1,
-                "mode": "standard",
+                "schema_version": 2,
+
                 "audit_config_id": "official-guidance-smoke-v1",
                 "runs": [
                     {

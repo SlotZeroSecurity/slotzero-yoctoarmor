@@ -8,7 +8,7 @@ For a target audit, retain the existing Slot Zero banner only in the full
 security-review heading and does not repeat that banner. Do not print a second
 report or preface during resumed phases.
 
-## Inputs and modes
+## Inputs and scope
 
 First enforce the [threat-model prerequisite](threat-model.md). Require the target
 root's `THREAT_MODEL.md`, or stop for generation/restart or explicit per-scan
@@ -18,15 +18,16 @@ Every worker reads the supplied model first, including judges and rescans.
 Apply evidence-backed threat-model assessments to every triage and every passed
 survivor's verification. Exclusions remain in accounting, never findings.
 
-Resolve the target root before acting. Never mutate audited source. Default to
-standard mode unless explicit files or deep mode are requested. L0–L4 describe
-demonstrated capabilities, not audit modes. Preserve all 12 core roles, applicable
-conditional/active roles, seven NEP roles, two independent lenses per callable,
-and the complete registry-derived NEP coverage ledger. Deep mode retains its additional gates.
+Resolve the target root before acting. Never mutate audited source. Every scan
+reviews all relevant source, or named primary files plus context needed to validate
+them. Preserve all 12 core roles, all six conditional specialists for applicability
+review, applicable active roles, seven NEP roles, two independent lenses per callable,
+and the complete registry-derived NEP coverage ledger.
 
-- **Standard**: audit all relevant source; sample each applicable mutation family.
-- **Explicit files**: treat named files as primary scope, but read all context needed to validate them.
-- **Deep** (`--deep`): run uncertain conditional roles, all applicable mutations, fresh corpus/chain agents, verify every severity, and finish an exclusion-list rescan.
+Every scan covers all supported applicable mutation operators, fresh post-discovery
+pattern and chain agents, independent verification across every severity, and one
+bounded rescan of excluded and unresolved paths. Follow [the review contract](review-contract.md).
+
 - **Report delivery** (always enabled): deliver `slotzero-report.md` and `technical-annex.md` as clickable file links or attachments after every completed automated audit. Retain both in the run directory outside audited source. No output option is required. Internal evidence ledgers are supporting artifacts, not additional default deliverables.
 - **Discovery passes** (`--loop [N]`): bare `--loop` selects 3; an explicit integer 1–10 selects that many without another question. Also honor a count stated in ordinary language. Otherwise ask before scope discovery or any expensive audit work: 1, **3 recommended**, 5, or a custom integer 1–10. One pass has no prior-pass context. This repeats fresh L2 and blind L3 discovery, not L0, L1, active testing, NEP review, counterexample rescan, or the human-informed rescan. It is not a claim of greater confidence.
 
@@ -51,8 +52,8 @@ Load only what the current phase needs:
 ## Phase 0 — Freeze scope and build L0
 
 Create an isolated temporary run directory outside source. Prefer the local
-controller, which records run-manifest schema 6 and run-state schema 4, the exact revision, dirty state, source
-fingerprint, scope, exclusions, mode, toolchain, SDK/standards versions, NEP and
+controller, which records run-manifest schema 7 and run-state schema 4, the exact revision, dirty state, source
+fingerprint, scope, exclusions, toolchain, SDK/standards versions, NEP and
 official-docs pins, corpus/model/prompt/tool hashes, semantic extractor/driver/
 work-packet hashes, runtime capacity, feedback policy, and trust assumptions.
 
@@ -62,12 +63,12 @@ Run:
 
 ```text
 python3 <skill>/scripts/near_audit.py run <target-root> \
-  [--files explicit/path ...] [--mode standard|explicit-files|deep] \
+  [--files explicit/path ...] \
   --loop <selected-pass-count> --run-dir <run-dir> --worker-capacity <capacity>
 ```
 
 If constructing artifacts manually, run `map_surface.py`,
-`build_semantic_ir.py`, and `select_official_cards.py` and reproduce all schema-6
+`build_semantic_ir.py`, and `select_official_cards.py` and reproduce all schema-7
 manifest bindings, including the planned discovery pass count. Use `near_audit.py status <run-dir>` to inspect a run read-only and
 `near_audit.py resume <run-dir>` only to advance a current-schema initialized run; the controller prepares hash-bound work packets but the
 orchestrator still dispatches isolated workers.
@@ -130,7 +131,7 @@ python3 <skill>/scripts/check_candidates.py \
 
 ## Phase 2 — Blind L3 discovery and active testing
 
-Select all 12 core roles plus every conditional role selected by `surface.json`. Repeat their blind discovery in fresh independent contexts for every planned pass; never disclose earlier candidates to later agents. Add `invariant-synthesis` and `mutation-analysis`; add `async-state-explorer`, `nep-differential`, and `temporal-upgrade` when their surfaces apply. Run these active roles only once against the frozen scope. Dispatch independent agents up to runtime capacity, refilling deterministic dependency-aware waves. Worker capacity counts spawned workers, excluding the parent orchestrator; do not subtract the parent again. Use available Codex subagents with the runtime's default model and role-specific prompts, without depending on global agent configuration. Record observed model/capacity values; leave unavailable runtime metadata explicitly unknown, never invented. If no worker limit is exposed, use sequential worker waves and record that scheduling choice separately from the unknown runtime limit. Close completed agents after collecting and validating their outputs. Do not delegate orchestration or omit a role because capacity is full.
+Select all 12 core roles plus all six conditional specialists; each must record applicability with target evidence. Repeat their blind discovery in fresh independent contexts for every planned pass; never disclose earlier candidates to later agents. Add `invariant-synthesis` and `mutation-analysis`; add `async-state-explorer`, `nep-differential`, and `temporal-upgrade` when their surfaces apply. Run these active roles only once against the frozen scope. Dispatch independent agents up to runtime capacity, refilling deterministic dependency-aware waves. Worker capacity counts spawned workers, excluding the parent orchestrator; do not subtract the parent again. Use available Codex subagents with the runtime's default model and role-specific prompts, without depending on global agent configuration. Record observed model/capacity values; leave unavailable runtime metadata explicitly unknown, never invented. If no worker limit is exposed, use sequential worker waves and record that scheduling choice separately from the unknown runtime limit. Close completed agents after collecting and validating their outputs. Do not delegate orchestration or omit a role because capacity is full.
 
 Agents read only their role, complete assigned cluster, shared NEAR rules, schema, and assigned output paths. They cannot read peers, deduplicate, judge, or report. For large repositories, partition complete components rather than line ranges. Every callable needs two independent lenses; every value-bearing receipt chain needs `async-promises`, `token-accounting`, a seam hunter, and async state exploration.
 
@@ -143,7 +144,7 @@ Active testing follows the capability model:
 
 - model every async operation and record success, failure, low-gas, malformed, duplicate/late, concurrent, and pending-state schedules in `async-schedules.jsonl`;
 - write `invariant-ledger.jsonl` and execute high-value unit/property/stateful checks;
-- mutate isolated copies only and account for every operator family in `mutation-results.jsonl`, sampling applicable families in standard mode and running all applicable operators in deep mode;
+- mutate isolated copies only and account for every operator family in `mutation-results.jsonl`, covering all operators and their identified sites under schema-2 records in `review-contract.md`;
 - differentially test applicable NEP-141/145/171/178 behavior against a pinned oracle and record `nep-differential.jsonl`;
 - compare prior state/layout/source/deployed artifacts in `temporal-upgrade.jsonl` when upgrades or migrations exist.
 
@@ -179,7 +180,7 @@ Material mechanisms enter raw candidates with exact `nep_ids` and requirements. 
 
 Record any newly derived candidates in `chain-candidates.jsonl` (an explicit empty file when none); include them unchanged in the raw ledger before deduplication. This is separate from the constructor's `deduplicated.jsonl` output.
 
-After L2/L3 blind artifacts are frozen, run a post-blind corpus echo using the L1-routed pattern set plus any target features discovered later. This deliberately cross-checks the isolated L1 baseline without exposing patterns to blind agents. Historical frequency changes priority, never proof. In deep mode use fresh corpus and chain agents.
+After L2/L3 blind artifacts are frozen, run a post-blind corpus echo using the L1-routed pattern set plus any target features discovered later. This deliberately cross-checks the isolated L1 baseline without exposing patterns to blind agents. Historical frequency changes priority, never proof. Always use fresh host contexts for corpus and chain agents.
 
 Compose feasible cross-function, cross-receipt, cross-contract, and cross-version chains. Normalize and group by:
 
@@ -204,7 +205,7 @@ verification or an explicit blocker.
 
 ## Phase 6 — One counterexample-guided rescan
 
-For rejected, blocked, or contested candidates, write `unresolved-assumptions.jsonl` containing only missing preconditions, unexamined callers/transitions, uncertain dependencies, coverage gaps, and alternate-path questions. A fresh `counterexample-rescan` reads those questions but not rejected conclusions.
+For rejected, excluded, blocked, or contested candidates, write `unresolved-assumptions.jsonl` containing only missing preconditions, unexamined callers/transitions, uncertain dependencies, coverage gaps, and alternate-path questions. A fresh `counterexample-rescan` reads those questions but not rejected conclusions.
 
 Run exactly once and record `rescan-summary.json`, including zero-input or zero-result runs. New candidates re-enter deduplication and both judge stages. Do not loop again.
 
@@ -254,18 +255,17 @@ Score severity from Impact x Likelihood and confidence separately. Keep the
 existing five-axis, 13-point confidence score; repeat sightings never add points.
 Use short specific titles and an actor–cause–harm opening sentence for each
 finding; preserve all identifiers, excerpts, code, receipt traces, and proof.
-Report exact scope/revision, L0 model, receipt paths, proof, remediation,
-standards deviations, official-guidance advisories and card coverage,
-rejected/blocked accounting, L1/L2/L3 attribution, active-test coverage, all registry-selected
-NEPs, and any valid track-specific maturity attestation. Existing qualification
+Report scope/revision, architecture, receipt paths, proof, remediation, meaningful
+standards deviations, guidance observations, and testing limitations. Keep complete
+coverage, raw dispositions, attribution, and qualification evidence in internal ledgers. Existing qualification
 claims are configuration-bound and require fresh evidence after this change.
-In deep mode, require an exclusion-list pass with no new Medium+.
+The final bounded rescan must disclose new Medium+ findings or blockers; never claim the zero-new-finding criterion was met when it was not.
 
 Write the full technical body in the run directory using the report template,
 but leave out `Scope at a glance` and `Top findings`; the controller generates
 those from validated records. The controller-rendered `technical-annex.md` is the
-**technical annex** and remains the finalized, hashed source of truth for all
-registry-selected NEPs, proof, limitations, and dispositions.
+**technical annex** and remains finalized and hash-bound. Full selected-NEP and
+candidate dispositions remain in the validated internal ledgers.
 
 After the technical annex is finalized, create `slotzero-content.jsonl` with one
 concise presentation row for each verified finding and unscored lead. Follow

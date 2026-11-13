@@ -16,7 +16,7 @@ from source_inventory import snapshot_inputs
 from check_ledger import validate_ledgers
 from test_feedback_integrity import candidate, verdict
 import test_run_lifecycle as lifecycle
-from test_run_lifecycle import write_jsonl
+from test_run_lifecycle import write_jsonl, write_json
 
 MODEL = """# Threat model
 ## Assets
@@ -145,22 +145,23 @@ class ThreatModelTests(unittest.TestCase):
         self.cli("run", self.target, "--loop", "1", "--run-dir", self.run, "--allow-missing-threat-model")
         self.assertEqual(json.loads((self.run / "run-manifest.json").read_text())["threat_model"]["status"], "provided")
 
-    def test_all_modes_pass_counts_and_workers_read_first(self):
+    def test_scopes_pass_counts_and_workers_read_first(self):
         from worker_adapter import view as worker_view
-        for mode, passes in (("standard", 1), ("explicit-files", 3), ("deep", 10)):
-            run = self.root / mode
-            flags = ["--files", "lib.rs"] if mode == "explicit-files" else []
-            self.cli("run", self.target, "--mode", mode, "--loop", passes, "--run-dir", run, *flags)
-            manifest = json.loads((run / "run-manifest.json").read_text())
-            packets = [json.loads(line) for line in (run / "work-packets.jsonl").read_text().splitlines()]
-            for packet in packets:
-                self.assertEqual(packet["allowed_inputs"][0], str(self.target / "THREAT_MODEL.md"))
-                view = worker_view(run, packet["packet_id"], ROOT / "references/agent-catalog.md")
-                self.assertTrue(view["prompt"].startswith("FIRST,"))
-                self.assertIn(manifest["threat_model"]["sha256"], view["prompt"])
-                if packet["role_id"] in {"protocol-modeler", "intent-reasoner"}:
-                    self.assertEqual(view["references"], ["references/neutral-schemas.md"])
-                    self.assertEqual(view["owned_official_cards"], [])
+        for scoped in (False, True):
+            for passes in (1, 3, 10):
+                run = self.root / f"scope-{scoped}-passes-{passes}"
+                flags = ["--files", "lib.rs"] if scoped else []
+                self.cli("run", self.target, "--loop", passes, "--run-dir", run, *flags)
+                manifest = json.loads((run / "run-manifest.json").read_text())
+                packets = [json.loads(line) for line in (run / "work-packets.jsonl").read_text().splitlines()]
+                for packet in packets:
+                    self.assertEqual(packet["allowed_inputs"][0], str(self.target / "THREAT_MODEL.md"))
+                    view = worker_view(run, packet["packet_id"], ROOT / "references/agent-catalog.md")
+                    self.assertTrue(view["prompt"].startswith("FIRST,"))
+                    self.assertIn(manifest["threat_model"]["sha256"], view["prompt"])
+                    if packet["role_id"] in {"protocol-modeler", "intent-reasoner"}:
+                        self.assertEqual(view["references"], ["references/neutral-schemas.md"])
+                        self.assertEqual(view["owned_official_cards"], [])
 
     def test_modification_and_deletion_preserve_run_state(self):
         self.cli("run", self.target, "--loop", "1", "--run-dir", self.run)
@@ -252,6 +253,15 @@ class ThreatModelReportingTests(unittest.TestCase):
             write_jsonl(self.run / name, [raw])
         write_jsonl(self.run / "dispositions.jsonl", [{"candidate_id": "blind-1", "target_id": "blind-1",
             "disposition": "survives", "rationale": "Preserve exclusion evidence"}])
+        write_jsonl(self.run / "unresolved-assumptions.jsonl", [{
+            "schema_version": 1, "assumption_id": "check-1", "candidate_id": "blind-1",
+            "category": "alternate_path", "question": "Can an unprivileged caller gain upgrade authority?",
+            "target_context": ["security.rs"], "evidence_needed": ["caller checks"],
+            "rescan_iteration": 1, "status": "complete", "review_evidence": [
+                {"path": "security.rs", "start": 1, "end": 1, "quote": (self.fixture.target / "security.rs").read_text().splitlines()[0]}]}])
+        summary = json.loads((self.run / "rescan-summary.json").read_text())
+        summary["input_count"] = 1
+        write_json(self.run / "rescan-summary.json", summary)
         self.row = judged(self.manifest, "excluded", source_line=1, model_line=5)
         self.save_verdict()
 
