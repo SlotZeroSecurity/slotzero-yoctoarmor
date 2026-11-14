@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import hashlib
 import json
@@ -13,6 +15,8 @@ from pathlib import Path
 
 from source_inventory import SKIP_DIRS, SOURCE_SUFFIXES, discover, is_test_or_example, validate_root
 from pattern_routing import select_categories, reference_paths
+from review_policy import SPECIALIST_ROLES
+
 ROLE_ORDER = [
     "entrypoints-auth",
     "async-promises",
@@ -30,9 +34,9 @@ ROLE_ORDER = [
 CAPABILITY_ROLES = ["protocol-modeler", "pattern-matcher", "intent-reasoner"]
 ACTIVE_ALWAYS = ["invariant-synthesis", "mutation-analysis"]
 
-NEP_REGISTRY = Path(__file__).resolve().parent.parent / "references" / "nep-registry.json"
+NEP_REGISTRY = Path(__file__).resolve().parent.parent / reference_relative('nep_registry')
 OFFICIAL_DOCS_REGISTRY = (
-    Path(__file__).resolve().parent.parent / "references" / "official-docs-registry.json"
+    Path(__file__).resolve().parent.parent / reference_relative('docs_registry')
 )
 
 SIGNALS: dict[str, re.Pattern[str]] = {
@@ -227,18 +231,7 @@ def main() -> int:
         )
 
     selected_roles = list(ROLE_ORDER)
-    if counts["upgrade"] or counts["access_keys"]:
-        selected_roles.append("upgrade-keys")
-    if counts["intents"]:
-        selected_roles.append("intents-auth")
-    if counts["bridge"]:
-        selected_roles.append("bridge-relayer")
-    if counts["chain_signatures"]:
-        selected_roles.append("chain-signatures-yield")
-    if counts["runtime_consensus"]:
-        selected_roles.append("runtime-consensus")
-    if counts["oracle"]:
-        selected_roles.append("oracle-freshness")
+    selected_roles.extend(SPECIALIST_ROLES)
     selected_roles.extend(ACTIVE_ALWAYS)
     if counts["promises"] or counts["callback_entrypoints"] or counts["chain_signatures"]:
         selected_roles.append("async-state-explorer")

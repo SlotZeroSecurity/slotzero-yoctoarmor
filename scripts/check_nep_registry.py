@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import hashlib
 import json
@@ -45,7 +47,7 @@ def parse_ids(value: str | None) -> list[str]:
     return result
 
 
-def validate_registry(path: Path) -> dict[str, object]:
+def validate_registry(path: Path, *, package_root: Path | None = None) -> dict[str, object]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if data.get("schema_version") != 1:
         fail("registry: unsupported schema_version")
@@ -62,7 +64,14 @@ def validate_registry(path: Path) -> dict[str, object]:
         fail(f"registry: document_count={expected_count} but neps={len(neps)}")
 
     owned: list[str] = []
-    skill_root = path.parent.parent
+    if package_root is None:
+        relative = Path(reference_relative('nep_registry'))
+        resolved = path.resolve()
+        if resolved.parts[-len(relative.parts):] != relative.parts:
+            fail("registry outside package layout: supply --package-root explicitly")
+        skill_root = resolved.parents[len(relative.parts) - 1]
+    else:
+        skill_root = package_root.resolve()
     for category_id, category in categories.items():
         if not isinstance(category, dict):
             fail(f"category {category_id}: expected object")
@@ -191,7 +200,12 @@ def main() -> int:
         "registry",
         nargs="?",
         type=Path,
-        default=Path(__file__).resolve().parent.parent / "references" / "nep-registry.json",
+        default=Path(__file__).resolve().parent.parent / reference_relative('nep_registry'),
+    )
+    parser.add_argument(
+        "--package-root",
+        type=Path,
+        help="Package containing the checklists, required for a registry outside its normal package layout.",
     )
     parser.add_argument(
         "--source-root",
@@ -199,7 +213,7 @@ def main() -> int:
         help="Optional local checkout of near/NEPs to compare without network access.",
     )
     args = parser.parse_args()
-    data = validate_registry(args.registry.resolve())
+    data = validate_registry(args.registry.resolve(), package_root=args.package_root)
     result: dict[str, object] = {
         "registry_documents": len(data["neps"]),
         "source_commit": data["source"]["commit"],

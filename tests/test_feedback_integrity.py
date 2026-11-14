@@ -3,53 +3,23 @@
 
 from __future__ import annotations
 
-import copy
 import json
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+from support import candidate, verdict, write_compact_json as write_json, write_jsonl as write_rows
 from unittest.mock import patch
 
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 
-from check_ledger import validate_dedup, validate_ledgers
+from check_ledger import validate_ledgers
 from record_feedback import record_feedback, require_mutable_run, validate_feedback
 from run_integrity import run_lock
-
-
-def write_json(path: Path, value: object) -> None:
-    path.write_text(json.dumps(value), encoding="utf-8")
-
-
-def write_rows(path: Path, rows: list[dict]) -> None:
-    path.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
-
-
-def candidate(identifier: str = "blind-1", *, informed: bool = False) -> dict:
-    return {
-        "schema_version": 2,
-        "candidate_id": identifier,
-        "role_id": "metadata-fixture",
-        "origin_role": "metadata-fixture",
-        "origin_level": "L3",
-        "discovery_technique": "verified_seed_variant" if informed else "specialist_trace",
-        "root_cause_fingerprint": "sha256:" + "a" * 64,
-        "model_and_prompt_hash": "sha256:" + "b" * 64,
-        "judge_stage": "unjudged",
-        "verification_status": "unverified",
-        "human_disposition": "pending",
-        "kind": "lead",
-        "bug_class": "synthetic-metadata",
-        "root_cause": "Synthetic metadata condition",
-        "intent_invariant_ids": [],
-        "evidence": ["synthetic evidence"],
-        "locations": [{"path": "fixture.txt", "function": identifier}],
-        **({"seed_source_candidate_id": "blind-1", "variant_evidence": ["synthetic distinct metadata"]} if informed else {}),
-    }
 
 
 def label(identifier: str = "blind-1", value: str = "TP", **extra) -> dict:
@@ -57,18 +27,6 @@ def label(identifier: str = "blind-1", value: str = "TP", **extra) -> dict:
         "schema_version": 1, "candidate_id": identifier, "label": value,
         "reason_code": "synthetic_review", "reviewer": "test-reviewer",
         "reviewed_at": "2026-09-08T00:00:00Z", **extra,
-    }
-
-
-def verdict() -> dict:
-    return {
-        "candidate_id": "blind-1", "triage": {"status": "passed", "packet_hash": "fixture", "evidence": []},
-        "judge_stage": "adversarial_verification", "verification_status": "verified",
-        "human_disposition": "pending", "verdict": "valid", "proof_status": "CODE_CONFIRMED",
-        "severity": "low", "impact": "Minor", "likelihood": "Rare", "external_assumptions": [],
-        "rationale": "synthetic", "evidence": ["synthetic"], "poc_status": "not_required",
-        "confidence": {"source_anchoring": 1, "reachability": 1, "material_harm": 1,
-                       "execution": 0, "counter_evidence": 1, "total": 4},
     }
 
 
@@ -86,10 +44,6 @@ class LedgerStageTest(unittest.TestCase):
             validate_ledgers(self.raw, self.raw, [row], self.dispositions)
         row["human_disposition"] = "approved"
         self.assertTrue(validate_ledgers(self.raw, self.raw, [row], self.dispositions)["complete"])
-
-
-
-
 
 
 class FeedbackIntegrityTest(unittest.TestCase):
@@ -136,11 +90,6 @@ class FeedbackIntegrityTest(unittest.TestCase):
                     validate_feedback(self.root, require_complete=True)
 
 
-
-
-
-
-
     def test_interrupted_feedback_commit_fails_closed(self) -> None:
         self.record()
         write_rows(self.labels, [label(value="FP")])
@@ -151,12 +100,8 @@ class FeedbackIntegrityTest(unittest.TestCase):
             validate_feedback(self.root, require_complete=True)
 
 
-
-
-
-
     def test_current_mutations_validate_state_and_input_bindings(self) -> None:
-        write_json(self.root / "run-manifest.json", {"schema_version": 6, "run_id": "fixture"})
+        write_json(self.root / "run-manifest.json", {"schema_version": 7, "run_id": "fixture"})
         write_json(self.root / "run-state.json", {"schema_version": 1, "run_id": "fixture"})
         with self.assertRaisesRegex(ValueError, "run-state v4"):
             require_mutable_run(self.root)

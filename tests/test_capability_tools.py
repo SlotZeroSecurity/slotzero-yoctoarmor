@@ -5,222 +5,20 @@ from __future__ import annotations
 
 import json
 import hashlib
-import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
+from support import run, write_json, write_jsonl, make_run_artifacts
+
 
 SKILL = Path(__file__).resolve().parent.parent
 SCRIPTS = SKILL / "scripts"
-FIXTURE = Path(__file__).resolve().parent / "fixtures" / "nep-surface"
-NEP_PIN = json.loads((SKILL / "references" / "nep-registry.json").read_text(encoding="utf-8"))[
-    "source"
-]["commit"]
-OFFICIAL_REGISTRY = SKILL / "references" / "official-docs-registry.json"
-OFFICIAL_PIN = json.loads(OFFICIAL_REGISTRY.read_text(encoding="utf-8"))["source"]["commit"]
-MUTATION_FAMILIES = (
-    "identity-substitution",
-    "access-macro-removal",
-    "late-reservation",
-    "promise-result-semantics",
-    "callback-gas",
-    "refund-cap",
-    "storage-accounting",
-    "terminal-promise",
-    "arithmetic-rounding",
-    "migration-layout",
-    "key-capability",
-    "yield-resume-binding",
-    "refund-principal",
-    "transfer-call-polarity",
-    "route-finality",
-    "serializer-mismatch",
-    "deployed-code-identity",
-)
-
-
-def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(args, check=check, text=True, capture_output=True)
-
-
-def write_json(path: Path, value: object) -> None:
-    path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
-
-
-def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
-    path.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
 
 
 def canonical_hash(value: object) -> str:
     raw = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
     return "sha256:" + hashlib.sha256(raw).hexdigest()
-
-
-def make_run_artifacts(root: Path) -> None:
-    surface_result = run("python3", str(SCRIPTS / "map_surface.py"), str(FIXTURE))
-    (root / "surface.json").write_text(surface_result.stdout, encoding="utf-8")
-    surface = json.loads(surface_result.stdout)
-    write_json(
-        root / "run-manifest.json",
-        {
-            "schema_version": 2,
-            "target": str(FIXTURE),
-            "target_revision": "fixture",
-            "dirty_tree": False,
-            "scope": ["lib.rs"],
-            "exclusions": [],
-            "mode": "standard",
-            "toolchain": {"rust": "fixture"},
-            "sdk_versions": {"near-sdk": "fixture"},
-            "nep_source_commit": NEP_PIN,
-            "official_docs_source_commit": OFFICIAL_PIN,
-            "official_docs_registry_hash": hashlib.sha256(OFFICIAL_REGISTRY.read_bytes()).hexdigest(),
-            "corpus_hash": "sha256:" + "a" * 64,
-            "models": {"orchestrator": "fixture"},
-            "prompt_hashes": {"L0": "sha256:" + "b" * 64},
-            "tool_versions": {"python": "3"},
-            "worker_capacity": 8,
-            "started_at": "2026-08-27T00:00:00Z",
-        },
-    )
-    write_json(
-        root / "intent-model.json",
-        {
-            "schema_version": 1,
-            "actors": [],
-            "assets": [],
-            "entrypoints": [],
-            "receipt_state_machines": [],
-            "standards": [],
-            "trust_boundaries": [],
-            "invariants": [{"invariant_id": "INV-SETTLE-ONCE-1", "statement": "settle once"}],
-            "unresolved_intent": [],
-            "upgrade_dependencies": [],
-            "account_key_capabilities": [],
-            "yield_resume_flows": [],
-            "global_contract_dependencies": [],
-            "cross_chain_routes": [],
-            "version_claims": [],
-        },
-    )
-    write_jsonl(
-        root / "level-coverage.jsonl",
-        [
-            {
-                "schema_version": 1,
-                "level": level,
-                "status": "complete",
-                "roles": [role],
-                "inputs": ["fixture"],
-                "artifacts": ["fixture"],
-                "model_and_prompt_hashes": ["sha256:" + "c" * 64],
-                "started_at": "2026-08-27T00:00:00Z",
-                "completed_at": "2026-08-27T00:01:00Z",
-                "cost": {"tokens": 1},
-                "blockers": [],
-            }
-            for level, role in (
-                ("L0", "protocol-modeler"),
-                ("L1", "pattern-matcher"),
-                ("L2", "intent-reasoner"),
-                ("L3", "specialists"),
-            )
-        ],
-    )
-    write_jsonl(
-        root / "invariant-ledger.jsonl",
-        [
-            {
-                "schema_version": 1,
-                "invariant_id": "INV-SETTLE-ONCE-1",
-                "statement": "settle once",
-                "scope": ["fixture"],
-                "assets": ["token"],
-                "writers": ["withdraw"],
-                "readers": ["resolve"],
-                "receipt_boundaries": ["R1", "R2"],
-                "test_class": "structural",
-                "execution_status": "structural",
-                "candidate_ids": [],
-            }
-        ],
-    )
-    write_jsonl(
-        root / "mutation-results.jsonl",
-        [
-            {
-                "schema_version": 1,
-                "operator_family": family,
-                "applicability": "applicable",
-                "mode": "standard",
-                "mutations_total": 1,
-                "killed": 1,
-                "survived": 0,
-                "blocked": 0,
-                "candidate_ids": [f"mut-{index}"],
-                "rationale": "fixture mutation killed",
-            }
-            for index, family in enumerate(MUTATION_FAMILIES)
-        ],
-    )
-    write_jsonl(
-        root / "async-schedules.jsonl",
-        [
-            {
-                "schema_version": 1,
-                "operation_id": "withdraw-1",
-                "state_machine_id": "withdraw",
-                "initiating_export": "withdraw",
-                "receipts": ["R1", "R2"],
-                "reserved_state": ["balance"],
-                "terminal_states": ["succeeded", "compensated"],
-                "coverage": {"success": True, "failure": True, "pending_interleaving": True},
-                "candidate_ids": [],
-            }
-        ],
-    )
-    write_jsonl(
-        root / "nep-differential.jsonl",
-        [
-            {
-                "schema_version": 1,
-                "status": "complete",
-                "evidence": ["fixture oracle"],
-                "candidate_ids": [],
-            }
-        ],
-    )
-    write_jsonl(
-        root / "official-guidance-coverage.jsonl",
-        [
-            {
-                "schema_version": 1,
-                "card_id": card_id,
-                "applicability": "applicable",
-                "version_evidence": ["fixture version"],
-                "target_evidence": ["fixture signal"],
-                "checks_performed": ["safe structural check"],
-                "test_status": "structural",
-                "candidate_ids": [],
-                "advisory_observations": [],
-                "disposition": "conformant",
-                "rationale": "Fixture supplies a complete safe disposition.",
-            }
-            for card_id in surface["selected_attacker_cards"]
-        ],
-    )
-    (root / "unresolved-assumptions.jsonl").write_text("", encoding="utf-8")
-    write_json(
-        root / "rescan-summary.json",
-        {
-            "schema_version": 1,
-            "iteration": 1,
-            "status": "complete",
-            "input_count": 0,
-            "new_candidate_ids": [],
-        },
-    )
 
 
 def benchmark_rows() -> tuple[list[dict[str, object]], list[dict[str, object]]]:
@@ -450,7 +248,6 @@ class CapabilityToolsTest(unittest.TestCase):
             self.assertFalse(payload["gates"]["critical_recall"])
 
 
-
     def test_benchmark_v2_rejects_configuration_hash_drift(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -461,8 +258,6 @@ class CapabilityToolsTest(unittest.TestCase):
             result = run("python3", str(SCRIPTS / "score_benchmark.py"), str(ground), str(predictions), str(review), check=False)
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("configuration_hash", result.stderr)
-
-
 
 
     def test_benchmark_v2_rejects_telemetry_aggregate_drift(self) -> None:

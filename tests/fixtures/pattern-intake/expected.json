@@ -1,0 +1,13 @@
+{
+  "claim": "Maintainer evaluation rubric, not an executed model evaluation or exploit proof.",
+  "cases": [
+    {"id": "covered-report", "action": "unchanged", "category": "async", "pattern_ids": ["NA-ASYNC-001"], "reason": "Late reservation is already covered. No new ID, metadata record, or duplicate card."},
+    {"id": "useful-variant", "action": "enrich", "category": "async", "pattern_ids": ["NA-ASYNC-014"], "reason": "Preserve the original operation generation when correlating delayed acknowledgements and retry accounting; no new mechanism is needed."},
+    {"id": "distinct-mechanism", "action": "new_or_enrich", "category": "offchain", "pattern_ids": ["NA-OFFCHAIN-003"], "reason": "Inspect the current backend card for parser-differential coverage. If absent, a distinct request-framing card is warranted in offchain; a precise extension is acceptable if it fully captures this causal mechanism. Never put HTTP framing into the NEAR runtime category just because the application is a relayer."},
+    {"id": "category-overlap", "action": "unchanged", "category": "async", "pattern_ids": ["NA-ASYNC-010"], "reason": "The principal repair is reservation before a deferred effect. Bounded overbooking does not establish unbounded denial of service."},
+    {"id": "repeat-after-update", "action": "unchanged", "category": "async", "pattern_ids": ["NA-ASYNC-014"], "reason": "Compare current content again; do not consult or create a consumed-file record."},
+    {"id": "unsupported-claim", "action": "no_security_addition", "category": "crypto", "pattern_ids": ["NA-CRYPTO-001"], "reason": "A hash-named object does not establish a feasible collision; do not promote the report assertion."},
+    {"id": "partial-extraction", "action": "report_limit", "category": "async", "pattern_ids": ["NA-ASYNC-003"], "reason": "Disclose two unreadable pages and no established vulnerability on the readable page. Never claim full review."},
+    {"id": "quality-heuristic", "action": "unchanged", "category": "offchain", "pattern_ids": ["NA-OFFCHAIN-005"], "reason": "Production-inaccurate tests are already a quality-only card, not an independently proven security vulnerability."}
+  ]
+}

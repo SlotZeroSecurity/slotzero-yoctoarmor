@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from support import reference_relative
+
 import importlib.util
 import json
 import subprocess
@@ -11,16 +13,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from support import run
+
 
 SKILL = Path(__file__).resolve().parent.parent
-REGISTRY = SKILL / "references" / "official-docs-registry.json"
-GUIDE = SKILL / "references" / "official-docs-attacker-guide.md"
+REGISTRY = SKILL / reference_relative('docs_registry')
 SCRIPTS = SKILL / "scripts"
 FIXTURE = SKILL / "benchmarks" / "public" / "official-guidance-smoke"
-
-
-def run(*args: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(args, check=True, text=True, capture_output=True)
 
 
 class OfficialDocsToolsTest(unittest.TestCase):
@@ -87,8 +86,8 @@ class OfficialDocsToolsTest(unittest.TestCase):
     def test_three_run_overhead_gate(self) -> None:
         def metrics(multiplier: float) -> dict[str, object]:
             return {
-                "schema_version": 1,
-                "mode": "standard",
+                "schema_version": 2,
+
                 "audit_config_id": "official-guidance-smoke-v1",
                 "runs": [
                     {
@@ -121,7 +120,6 @@ class OfficialDocsToolsTest(unittest.TestCase):
             )
             self.assertNotEqual(failed.returncode, 0)
             self.assertFalse(json.loads(failed.stdout)["complete"])
-
 
 
 if __name__ == "__main__":

@@ -3,60 +3,21 @@
 
 from __future__ import annotations
 
+from support import reference_relative
+
 import json
 import re
-import subprocess
 import tempfile
 import unittest
 from pathlib import Path
 
+from support import run, write_jsonl, coverage_rows
+
 
 SKILL = Path(__file__).resolve().parent.parent
-REGISTRY = SKILL / "references" / "nep-registry.json"
+REGISTRY = SKILL / reference_relative('nep_registry')
 SCRIPTS = SKILL / "scripts"
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "nep-surface"
-
-
-def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(args, check=check, text=True, capture_output=True)
-
-
-def coverage_rows() -> list[dict[str, object]]:
-    registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    rows: list[dict[str, object]] = []
-    for nep_id, spec in registry["neps"].items():
-        role_id = registry["categories"][spec["category"]]["role_id"]
-        if nep_id == "0001":
-            applicability, disposition = "process_only", "process_only"
-        elif nep_id == "0021":
-            applicability, disposition = "superseded", "superseded"
-        elif spec["status"] in {"Draft", "New"}:
-            applicability, disposition = "advisory", "advisory"
-        else:
-            applicability, disposition = "not_applicable", "not_applicable"
-        rows.append(
-            {
-                "nep_id": nep_id,
-                "role_id": role_id,
-                "source_commit": registry["source"]["commit"],
-                "source_status": spec["status"],
-                "applicability": applicability,
-                "version_evidence": [],
-                "target_evidence": ["Fixture scope has no matching implemented or claimed surface."],
-                "requirements_checked": ["status-aware advisory hypothesis"]
-                if disposition == "advisory"
-                else [],
-                "deviations": [],
-                "candidate_ids": [],
-                "disposition": disposition,
-                "rationale": "Status and target applicability were reviewed explicitly.",
-            }
-        )
-    return rows
-
-
-def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
-    path.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
 
 
 class NepToolsTest(unittest.TestCase):
@@ -159,8 +120,6 @@ class NepToolsTest(unittest.TestCase):
             )
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("version_evidence", result.stderr)
-
-
 
 
 if __name__ == "__main__":

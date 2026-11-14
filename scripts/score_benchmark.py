@@ -15,6 +15,7 @@ import math
 from pathlib import Path
 from typing import Any
 
+from run_integrity import canonical_hash, load_jsonl_objects as load_jsonl
 
 WEIGHTS = {"critical": 8, "high": 4, "medium": 2, "low": 1}
 SEVERITIES = {*WEIGHTS, "informational"}
@@ -47,21 +48,6 @@ def load_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def load_jsonl(path: Path) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
-    for line_no, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        if not line.strip():
-            continue
-        try:
-            value = json.loads(line)
-        except json.JSONDecodeError as exc:
-            raise ValueError(f"{path}:{line_no}: invalid JSON: {exc}") from exc
-        if not isinstance(value, dict):
-            raise ValueError(f"{path}:{line_no}: expected object")
-        rows.append(value)
-    return rows
-
-
 def require(row: dict[str, Any], fields: tuple[str, ...], label: str) -> None:
     missing = [field for field in fields if row.get(field) is None or row.get(field) == ""]
     if missing:
@@ -70,11 +56,6 @@ def require(row: dict[str, Any], fields: tuple[str, ...], label: str) -> None:
 
 def ratio(numerator: int | float, denominator: int | float) -> float:
     return 0.0 if denominator == 0 else float(numerator) / float(denominator)
-
-
-def canonical_hash(value: object) -> str:
-    encoded = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
-    return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def file_hash(path: Path) -> str:

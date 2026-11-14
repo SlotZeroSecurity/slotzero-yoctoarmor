@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from functools import lru_cache
 from pathlib import Path
 
-RUN_SCHEMA = 6
+RUN_SCHEMA = 7
 STATE_SCHEMA = 4
 
 
@@ -38,6 +38,14 @@ def _unique_keys(pairs: list[tuple[str, object]]) -> dict:
     return result
 
 
+def load_json_object(path: Path) -> dict[str, object]:
+    """Load a JSON object with standard decoder behavior, including duplicate keys."""
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError(f"{path}: expected object")
+    return value
+
+
 def read_json(path: Path) -> dict:
     value = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_keys)
     if not isinstance(value, dict):
@@ -57,13 +65,25 @@ def read_registry(path: Path) -> dict:
 
 
 def read_jsonl(path: Path) -> list[dict]:
+    return load_jsonl_objects(path, strict=True, contextual_errors=False)
+
+
+def load_jsonl_objects(path: Path, *, strict: bool = False,
+                       contextual_errors: bool = True) -> list[dict]:
+    """Read object rows, preserving strict-reader labels and optional decode context."""
     rows = []
+    label = path.name if strict else str(path)
     for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if not line.strip():
             continue
-        value = json.loads(line, object_pairs_hook=_unique_keys)
+        try:
+            value = json.loads(line, object_pairs_hook=_unique_keys if strict else None)
+        except json.JSONDecodeError as exc:
+            if not contextual_errors:
+                raise
+            raise ValueError(f"{label}:{number}: invalid JSON: {exc}") from exc
         if not isinstance(value, dict):
-            raise ValueError(f"{path.name}:{number}: expected JSON object")
+            raise ValueError(f"{label}:{number}: expected {'JSON object' if strict else 'object'}")
         rows.append(value)
     return rows
 
@@ -109,7 +129,8 @@ def run_lock(run_dir: Path):
 def configuration_snapshot(skill: Path) -> list[dict]:
     """Bind shipped instructions, data and all helper imports; exclude test/cache data."""
     files = [skill / "SKILL.md", skill / "agents" / "openai.yaml"]
-    for folder, suffixes in (("scripts", {".py"}), ("references", {".md", ".json"})):
+    for folder, suffixes in (("scripts", {".py"}), ("references", {".md", ".json"}),
+                             ("runtime", {".md", ".json"}), ("docs", {".md"})):
         for directory, children, names in os.walk(skill / folder, followlinks=False):
             children[:] = sorted(name for name in children if name != "__pycache__" and not (Path(directory) / name).is_symlink())
             files.extend(Path(directory) / name for name in names if Path(name).suffix in suffixes)
@@ -142,6 +163,8 @@ def validate_bindings(run_dir: Path, skill: Path | None = None) -> dict:
     current = snapshot_inputs(target, [Path(item) for item in manifest.get("explicit_files", [])])
     if manifest.get("input_snapshot") != current or manifest.get("input_fingerprint") != canonical_hash(current):
         raise ValueError("source/context drift: input files changed, appeared or disappeared; start a new run")
+    from threat_model import validate_model_binding
+    validate_model_binding(manifest)
     if manifest.get("surface_hash") != canonical_hash(read_json(run_dir / "surface.json")):
         raise ValueError("surface manifest differs from its frozen hash")
     if manifest.get("neutral_surface_hash") != canonical_hash(read_json(run_dir / "neutral-surface.json")):

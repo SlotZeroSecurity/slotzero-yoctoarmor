@@ -3,24 +3,19 @@
 
 from __future__ import annotations
 
+from support import reference_relative
+
 import json
-import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+
+from support import run
 
 
 SKILL = Path(__file__).resolve().parent.parent
 SCRIPTS = SKILL / "scripts"
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "semantic-near"
-
-
-def run(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(args, check=check, text=True, capture_output=True)
-
-
-def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
-    path.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
 
 
 def candidate(candidate_id: str = "cand-1") -> dict[str, object]:
@@ -57,7 +52,7 @@ class SemanticPipelineTest(unittest.TestCase):
         self.assertTrue({"predecessor", "signer", "private_macro"} <= authorities)
         self.assertGreaterEqual(payload["coverage"]["symbols"], 3)
 
-    def test_driver_initializes_hash_bound_schema_v6_run(self) -> None:
+    def test_driver_initializes_hash_bound_schema_v7_run(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             run_dir = Path(directory) / "run"
             result = run(
@@ -68,7 +63,7 @@ class SemanticPipelineTest(unittest.TestCase):
             self.assertIn("NEAR MULTI-AGENT SECURITY SCANNER", result.stderr)
             self.assertNotIn("Traceback", result.stderr)
             manifest = json.loads((run_dir / "run-manifest.json").read_text())
-            self.assertEqual(manifest["schema_version"], 6)
+            self.assertEqual(manifest["schema_version"], 7)
             self.assertEqual(manifest["feedback_policy"], "metrics_only")
             self.assertEqual(manifest["second_pass_mode"], "targeted_verified_seed")
             self.assertEqual(manifest["worker_capacity"], 4)
@@ -97,7 +92,7 @@ class SemanticPipelineTest(unittest.TestCase):
             self.assertEqual(persisted["schema_version"], 4)
             self.assertEqual(persisted["current_phase"], "isolated-l1-l2")
 
-    def test_schema_v6_validator_rejects_semantic_ir_tampering(self) -> None:
+    def test_schema_v7_validator_rejects_semantic_ir_tampering(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             run_dir = Path(directory) / "run"
             run("python3", str(SCRIPTS / "near_audit.py"), "run", str(FIXTURE), "--loop", "1", "--run-dir", str(run_dir))
@@ -111,7 +106,7 @@ class SemanticPipelineTest(unittest.TestCase):
     def test_offline_near_scenarios_route_to_relevant_lenses(self) -> None:
         root = SKILL / "tests/fixtures/near-scenarios"
         cases = json.loads((root / "manifest.json").read_text())["cases"]
-        index = json.loads((SKILL / "references/attack-lenses-index.json").read_text())["cards"]
+        index = json.loads((SKILL / reference_relative('attack_index')).read_text())["cards"]
         self.assertEqual(4, len(cases))
         for case in cases:
             folder = root / case["name"]
@@ -123,9 +118,6 @@ class SemanticPipelineTest(unittest.TestCase):
             self.assertTrue(surface["selected_pattern_categories"])
             for pattern in case["patterns"]:
                 self.assertIn(index[pattern]["category"], surface["selected_pattern_categories"], case["name"])
-
-
-
 
 
 if __name__ == "__main__":

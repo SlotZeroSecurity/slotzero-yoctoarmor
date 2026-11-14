@@ -9,6 +9,8 @@ normal validation never rewrites the registry or attacker guide.
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import hashlib
 import json
@@ -52,10 +54,10 @@ INVARIANT_PREFIXES = {
 }
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-CARD_GUIDE = SKILL_ROOT / "references" / "official-docs-attacker-guide.md"
-PATTERN_INDEX = SKILL_ROOT / "references" / "attack-lenses-index.json"
-AGENT_CATALOG = SKILL_ROOT / "references" / "agent-catalog.md"
-NEP_REGISTRY = SKILL_ROOT / "references" / "nep-registry.json"
+CARD_GUIDE = SKILL_ROOT / reference_relative('docs_cards')
+PATTERN_INDEX = SKILL_ROOT / reference_relative('attack_index')
+AGENT_CATALOG = SKILL_ROOT / reference_relative('agent_catalog')
+NEP_REGISTRY = SKILL_ROOT / reference_relative('nep_registry')
 
 
 CARD_META: dict[str, dict[str, list[str]]] = {
@@ -468,7 +470,7 @@ def initial_registry(root: Path, index_path: Path | None) -> dict[str, Any]:
             "page_count": len(rows),
             "reviewed_at": "2026-10-20",
         },
-        "cards_reference": "official-docs-attacker-guide.md",
+        "cards_reference": CARD_GUIDE.name,
         "cards": CARD_META,
         "pages": rows,
     }

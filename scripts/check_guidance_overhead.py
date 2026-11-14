@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate three-run standard-mode runtime and input-token overhead."""
+"""Validate three-run runtime and input-token overhead."""
 
 from __future__ import annotations
 
@@ -11,10 +11,10 @@ from pathlib import Path
 
 def load(path: Path) -> dict[str, object]:
     value = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(value, dict) or value.get("schema_version") != 1:
-        raise ValueError(f"{path}: expected schema-version-1 object")
-    if value.get("mode") != "standard":
-        raise ValueError(f"{path}: overhead measurement must use standard mode")
+    if not isinstance(value, dict) or value.get("schema_version") != 2:
+        raise ValueError(f"{path}: expected schema-version-2 object; older measurements need their original package")
+    if "mode" in value:
+        raise ValueError(f"{path}: obsolete scan selector")
     rows = value.get("runs")
     if not isinstance(rows, list) or len(rows) < 3:
         raise ValueError(f"{path}: at least three equivalent runs are required")
@@ -73,7 +73,7 @@ def main() -> int:
     token_overhead = candidate_tokens / base_tokens - 1
     complete = runtime_overhead <= args.max_overhead and token_overhead <= args.max_overhead
     result = {
-        "schema_version": 1,
+        "schema_version": 2,
         "audit_config_id": baseline.get("audit_config_id"),
         "fixtures": sorted(baseline["_fixture_ids"]),
         "run_count": min(len(baseline["runs"]), len(candidate["runs"])),
