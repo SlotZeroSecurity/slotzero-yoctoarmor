@@ -18,7 +18,7 @@ NEAR development and generic Rust review do not start a security audit.
 | Refresh reviewed NEAR documentation or standards | [Source refresh](docs/maintenance.md#source-refresh). |
 | Explicit benchmark qualification | [Qualification](docs/maintenance.md#qualification), then the capability model. |
 
-The [package guide](README.md#package-layout) separates the pattern library, runtime instructions, and contributor documentation. It is not a default worker input.
+The [package guide](docs/usage.md#package-layout) separates the pattern library, runtime instructions, and contributor documentation. It is not a default worker input.
 
 Maintenance, ingestion, and qualification do not initialize a target audit.
 Read only the selected route and references needed for the requested work.

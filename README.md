@@ -1,19 +1,8 @@
 <div align="center">
 
-```text
-  +--------------------------------------------------+
-  |                                                  |
-  |                SLOT ZERO SECURITY                |
-  |                                                  |
-  |                NEAR YoctoArmor v1                |
-  |         Look closer. Follow the evidence.        |
-  |                                                  |
-  +--------------------------------------------------+
-```
-
 # NEAR YoctoArmor v1
 
-**Slot Zero Security Framework for NEAR Code Review**
+**A Slot Zero Security framework for finding vulnerabilities in NEAR contracts.**
 
 <p>
   <a href="https://slotzerosecurity.com/"><img src="https://img.shields.io/badge/Website-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Website"></a>
@@ -22,182 +11,122 @@
   <a href="https://x.com/Slot_Zero_Sec"><img src="https://img.shields.io/badge/Twitter-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Twitter"></a>
 </p>
 
-[Install](#install) · [Run a review](#run-a-review) · [How it works](#how-it-works) · [Patterns](#pattern-library) · [Reports](#what-you-receive)
+[Install](#install) · [Run](#run-a-review) · [Threat model](#threat-model) · [How it works](#how-it-works) · [Specialists](#meet-the-specialists) · [Reports](#what-you-receive) · [Usage guide](docs/usage.md)
 
 </div>
 
-NEAR YoctoArmor reviews NEAR contracts and the services that interact with them for security problems.
-Independent specialist agents examine different parts of the system, then challenge suspected issues against the code and evidence.
+<a id="install"></a>
 
-**96 patterns · 10 categories · independent review · 2 Markdown reports**
+## 📦 Install
 
-## Install
-
-Use the same setup flow in Codex, Claude Code, or OpenCode.
-You need Git, Python 3.10+, macOS or Linux, and access to this repository.
-
-**1. Clone the complete skill.**
-
-```bash
-git clone --branch v1 --single-branch \
-  https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  near-yoctoarmor-v1
-```
-
-**2. Open your AI tool in the folder containing the clone and ask:**
+Open [Codex](https://learn.chatgpt.com/docs/build-skills) or [Claude Code](https://code.claude.com/docs/en/skills/) and paste:
 
 ```text
-Install the complete ./near-yoctoarmor-v1 folder as a personal skill for this AI tool.
-Use this tool's supported skills directory and keep all supporting files.
-If near-yoctoarmor-v1 is already installed, keep the existing copy and tell me its path.
+Install NEAR YoctoArmor v1 locally as a personal skill for this AI tool.
+Clone branch v1 from https://github.com/SlotZeroSecurity/slotzero-nearshield.git
+Install the complete package as near-yoctoarmor-v1 in this tool's supported
+skills directory. Preserve any existing installation outside skill-discovery
+directories and avoid duplicate copies.
+Run scripts/near_audit.py doctor and scripts/maintain.py check with Python.
+Show the installed path and how to invoke the skill.
 ```
 
-Start a new session after installation. Copy the whole package, not just `SKILL.md`.
-The destination depends on your AI tool; the setup request stays the same.
-Codex is the intended host. Full execution on Claude Code and OpenCode remains unverified.
-See the [usage guide](docs/usage.md#installation-alternatives) for manual paths and prerequisites.
+You need Git, Python 3.10+, macOS or Linux, and repository access. Start a new chat after installation.
+Designed for Codex; full Claude Code audit execution remains unverified. See [manual setup and other hosts](docs/usage.md#installation-alternatives).
 
-## Run a review
+<a id="run-a-review"></a>
 
-Paste these into your AI conversation after preparing the [threat model](#threat-model).
-They are prompts, not terminal commands. The host needs tools for running the required specialist agents.
+## 🚀 Run a review
 
-**Run one discovery pass**
+<a id="threat-model"></a>
+
+### 🧭 First, the threat model
+
+Put `THREAT_MODEL.md` in your project's root. Explain what needs protecting, what an attacker can do, who is trusted, and which rules must hold.
+Use the [threat-model skill](https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/threat-model) to generate it, then review it yourself. See the [example and instructions](docs/usage.md#threat-model).
+The audit stops if it is missing unless you explicitly choose to continue without it.
+
+Then paste into Codex:
 
 ```text
 $near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 1.
 Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
-**Run five independent discovery passes**
+In Claude Code, use `/near-yoctoarmor-v1` instead. Replace the example path with your project.
+`--loop 1` runs one discovery pass with all required review checks. The host needs tools for independent agents.
+For more passes, selected files, and troubleshooting, open the [usage guide](docs/usage.md).
 
-```text
-$near-yoctoarmor-v1 Audit /absolute/path/to/near-project --loop 5.
-Read THREAT_MODEL.md first and keep audit files outside the project.
-```
+<a id="how-it-works"></a>
 
-**Focus on selected files**
+## 🔎 How it works
 
-```text
-$near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 1.
-Focus on contracts/vault/src/lib.rs and contracts/vault/src/fees.rs.
-Read THREAT_MODEL.md first and inspect surrounding code where needed.
-Keep audit files outside the project.
-```
-
-In Claude Code, replace `$near-yoctoarmor-v1` with `/near-yoctoarmor-v1`.
-In OpenCode, begin with **“Load the near-yoctoarmor-v1 skill”** and give the same request.
-
-`--loop 1` asks for one independent discovery pass; `--loop` means three.
-Choose `--loop N` for **1–10 passes**. Extra passes repeat the independent search, not the whole review.
-Every review includes specialist applicability checks, all applicable mutation operators, independent verification, and a final rescan.
-See [all options](docs/usage.md#scope-and-discovery-passes) when you need more control.
-
-## Threat model
-
-Put `THREAT_MODEL.md` in the root of the project being reviewed.
-Describe **what needs protecting, what an attacker can do, who is trusted, and which rules must always hold**.
-Every agent reads it first. An explicitly trusted owner's intended powers are not automatically bugs; unauthorized access still matters.
-
-If the file is missing, generate it with the [Codex Security threat-model skill](https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/threat-model), review it, and restart the scan.
-Continuing without one requires your explicit choice. See the [example and details](docs/usage.md#threat-model).
-
-## How it works
+One coordinator organizes the review. Separate agents look for weaknesses, then independent reviewers challenge the evidence.
 
 ```mermaid
-flowchart TD
-    A[Read the threat model and understand the project]
-    A --> B[Check relevant attack patterns]
-    A --> C[Independent specialist searches]
-    B --> D[Test suspected issues and check NEAR standards]
-    C --> D
-    D --> E[Challenge the evidence and check for missed paths]
-    E --> F[Deliver two draft reports]
-    F --> G[Human review before approval]
+flowchart TB
+    A["Code + threat model"] --> B["L0 · Understand intent"]
+    B --> C["L1 · Known bug patterns"]
+    B --> D["L2 · Fresh logic review"]
+    B --> E["L3 · Specialist searches"]
+    C --> F["Test · challenge · recheck"]
+    D --> F
+    E --> F
+    F --> G["Two draft reports"]
+    G --> H["Human review"]
+
+    subgraph Q["Separate evaluation"]
+        K["L4 · Benchmark results"]
+    end
+
+    classDef discovery fill:#eaf2ff,stroke:#3b82f6,color:#102a43
+    classDef review fill:#e7f5ef,stroke:#2f855a,color:#113b2b
+    classDef qualification fill:#f5f3ff,stroke:#8b5cf6,color:#39246a,stroke-dasharray:4 3
+    class A,B,C,D,E discovery
+    class F,G,H review
+    class K qualification
+    style Q fill:transparent,stroke:#8b5cf6,stroke-dasharray:4 3
 ```
 
-One coordinating agent organizes the review. Specialists search independently without seeing each other's findings during discovery.
-Testing and verification separate supported findings from ideas that still need evidence.
-The reports show what was reviewed, what was found, and what remains uncertain.
-
-## Meet the specialists
-
-| Team | What they look for |
+| Level | What it means |
 | --- | --- |
-| Access control | Can the wrong person call a protected action or gain extra powers? |
-| Asynchronous calls | What happens when a later call fails, arrives late, or runs twice? |
-| Accounting | Do deposits, balances, shares, and refunds add up? |
-| State and upgrades | Do stored records stay consistent as actions and upgrades happen? |
-| Economics and math | Can rounding, prices, or incentives give someone an unfair advantage? |
-| Resource limits | Can expensive work or storage costs block other users? |
-| Integrations | Are prices, bridges, signatures, and services trusted correctly? |
-| NEAR standards | Do token, wallet, and contract behaviors follow the relevant rules? |
-| Independent verification | Does the suspected attack really work, and what evidence is missing? |
+| **L0 — Understand** | Map what the contract should do, who uses it, and where funds move. |
+| **L1 — Recognize** | Check relevant known bug patterns against the actual code. |
+| **L2 — Reason** | Find gaps between intended and actual behavior without reading the pattern library. |
+| **L3 — Challenge** | Combine specialist searches, testing, independent verification, and a check for missed paths. |
+| **L4 — Measure** | Measure performance on separate, independently reviewed benchmarks. Requires recorded qualification evidence. |
 
-Additional specialists join when the project uses features such as bridges, price feeds, or upgradeable contracts.
-The host schedules agents within its available capacity; they do not all need to run at once.
-Explore the [full agent catalog](runtime/workflow/agent-catalog.md) for the individual roles.
+The branches show separate viewpoints. L2 and discovery specialists do not see peer findings; pattern matches still need proof.
+L4 is separate from a normal audit and is not claimed automatically.
 
-## Pattern library
+<a id="meet-the-specialists"></a>
 
-**96 patterns across 10 categories.** Each is a way to ask better questions about the code—not proof that a bug exists.
+## 🧑‍🔬 Meet the specialists
 
-| Category | Patterns | Example question |
-| --- | ---: | --- |
-| [Access control](references/auth.md) | 12 | Can someone act with another account's authority? |
-| [Asynchronous execution](references/async.md) | 17 | Can a delayed callback pay the same balance twice? |
-| [Accounting](references/account.md) | 7 | Can newly issued shares dilute existing deposits? |
-| [State](references/state.md) | 16 | Can two records disagree after an update? |
-| [Economics](references/econ.md) | 4 | Can repeated rounding give someone extra value? |
-| [Resources](references/resource.md) | 10 | Can a caller make the contract pay excessive storage costs? |
-| [Integrations](references/integration.md) | 8 | Can an old price be used as if it were current? |
-| [Cryptography](references/crypto.md) | 8 | Can a signature be accepted in the wrong context? |
-| [Runtime](references/runtime.md) | 2 | Can work escape its intended execution limits? |
-| [Offchain services](references/offchain.md) | 12 | Can a retry cause an external service to repeat an action? |
-| **Total** | **96** | |
+The framework combines **96 patterns across 10 categories** with independent review. Each group asks different questions:
 
-Relevant NEAR standards and reviewed documentation support these checks.
-A finding still needs evidence from the actual project.
-
-## What you receive
-
-Every completed scan provides two downloadable Markdown files automatically:
-
-| File | What's inside |
+| Focus | The question |
 | --- | --- |
-| `slotzero-report.md` | The compact review: findings, evidence confidence, suggested fixes where supported, and unverified leads. |
-| `technical-annex.md` | The full evidence: affected code, attack paths, tests, coverage, limitations, and review status. |
+| Permissions and keys | Can the wrong person gain control? |
+| Callbacks | What happens when a later call fails, repeats, or arrives late? |
+| Balances and math | Do deposits, refunds, fees, and rounding add up? |
+| State and upgrades | Do records stay consistent as the contract changes? |
+| Gas and integrations | Can heavy work or an external service break the system? |
+| Standards and verification | Does behavior follow NEAR's rules, and does the suspected attack hold up? |
 
-Confidence describes the strength of the evidence; severity describes the impact.
-Reports remain **Draft** until the required human review is complete. No automated review proves a project has no vulnerabilities.
+Explore the [full agent catalog](runtime/workflow/agent-catalog.md). Agents run within the host's available capacity.
 
-## Resources
+<a id="what-you-receive"></a>
 
-[Detailed usage guide](docs/usage.md) · [Report format](runtime/reporting/slotzero-report-format.md) · [Add patterns](docs/adding-patterns.md) · [Maintenance](docs/maintenance.md)
+## 📄 What you receive
 
-Host documentation: [Codex](https://learn.chatgpt.com/docs/build-skills) · [Claude Code](https://code.claude.com/docs/en/skills) · [OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode agents](https://opencode.ai/docs/agents/).
+Every completed audit automatically delivers two downloadable files:
 
-Health checks allow installation links in this README and remain offline and read-only. See [troubleshooting](docs/usage.md#maintenance-and-troubleshooting).
+- **`slotzero-report.md`** — findings, confidence, suggested fixes, and unverified leads.
+- **`technical-annex.md`** — affected code, attack paths, tests, coverage, and limitations.
 
-Licensed under [MIT](LICENSE). Existing third-party notices remain applicable. The focused-lens organization was informed by [0xsimao/0xsimao-ai](https://github.com/0xsimao/0xsimao-ai); the public layout also draws architectural inspiration from [sanbir/solana-auditor-skills](https://github.com/sanbir/solana-auditor-skills). NEAR guidance is maintained locally; official standards and documentation pins remain in the runtime registries.
+Reports stay **Draft** until human review. Confidence measures evidence; severity measures impact. An automated review cannot guarantee bug-free code.
 
-## Package layout
+---
 
-- `references/`: ten category files, the routing index, and target-binding guidance.
-- `runtime/`: workflow instructions, schemas, reviewed standards, and report templates.
-- `docs/`: usage, package maintenance, and pattern intake.
-- `scripts/`, `agents/`, `tests/`, `benchmarks/`: controller/helpers, host metadata, regression coverage, and qualification inputs.
-
-To add knowledge, supply a PDF, report, or findings and ask the skill to compare
-its mechanisms with the existing patterns. Covered mechanisms need no edit;
-useful variants improve an existing card; distinct mechanisms get a permanent ID
-in the best-fitting category. No report archive or consumed-file registry is kept.
-See [adding patterns](docs/adding-patterns.md).
-
-The installation command selects the published `v1` release branch.
-For local installation, use the complete package or extracted release archive.
-The skill identifier is `near-yoctoarmor-v1`. Reports retain the filenames
-`slotzero-report.md` and `technical-annex.md`.
-Before replacing an installation, preserve its original package outside skill
-discovery directories. Existing runs require that original package; new runs use
-the renamed skill.
+[MIT license](LICENSE). Existing third-party notices apply. Pattern organization informed by [0xsimao/0xsimao-ai](https://github.com/0xsimao/0xsimao-ai); layout inspired by [sanbir/solana-auditor-skills](https://github.com/sanbir/solana-auditor-skills).

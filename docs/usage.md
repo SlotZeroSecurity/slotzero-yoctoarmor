@@ -7,11 +7,12 @@ Detailed setup, options, reporting rules, and maintenance reference. Start with
 
 ## Installation alternatives
 
-Install the complete package, not just `SKILL.md`. Use the shared clone command
-in the README, then copy the complete folder to the appropriate path below
-if installing manually.
-Use branch `v1`, or the complete extracted release archive,
-and a fresh destination; do not overwrite an installation needed
+Install the complete package, not just `SKILL.md`. For AI-assisted setup, use the
+[README installation prompt](../README.md#install). For manual setup, clone the
+repository linked there, selecting branch `v1`, then copy the complete folder
+to the appropriate path below.
+A complete extracted release archive also works. Use a fresh destination;
+do not overwrite an installation needed
 by an existing run. Restart your AI host after installing.
 
 | Host | Personal destination | Project destination (from project root) |
@@ -22,8 +23,8 @@ by an existing run. Restart your AI host after installing.
 
 Existing Codex installations can also use their configured skills directory,
 including `~/.codex/skills/near-yoctoarmor-v1`. Do not install duplicate copies in
-multiple discovery locations. Host documentation is linked in the
-[README resources](../README.md#resources).
+multiple discovery locations. Start with the
+[README installation instructions](../README.md#install) for Codex or Claude Code.
 
 Use macOS or Linux, Python 3.10+, Git, and an authenticated AI host with shell,
 file, and worker tools. Target testing may need Rust/Cargo or other toolchains.
@@ -52,6 +53,7 @@ Inspect any reported errors; no dependencies need to be installed for these chec
 - [Reports and evidence](usage.md#reports-and-evidence)
 - [Controller reference](usage.md#controller-reference)
 - [Maintenance and troubleshooting](usage.md#maintenance-and-troubleshooting)
+- [Package layout](usage.md#package-layout)
 
 ## Threat model
 
@@ -440,7 +442,6 @@ Maintenance, pattern intake, standards refresh, and benchmark qualification are 
 | Missing or empty `THREAT_MODEL.md` | Generate and review the target model, save it at the target root, then restart; alternatively explicitly authorize the per-scan override. |
 | Skill is not discovered | Confirm the directory is named `near-yoctoarmor-v1`, contains `SKILL.md` and supporting folders, and sits in a documented host skill location. Start a new session and check host permissions. |
 | Clone returns “not found” | Confirm the authenticated account has access to this private repository. |
-| Preflight reports an external URL in `README.md` | Known V1 packaging conflict: both `doctor` and `maintain.py check` scan every Markdown file, including public-facing badge/reference links. This README is intentionally retained; the validator policy needs a separate code change before whole-checkout checks can pass. Other errors require independent investigation. |
 | Worker execution is unavailable | Report incomplete multi-agent coverage; do not describe serial review as a complete run. Claude Code/OpenCode end-to-end compatibility remains unverified. |
 | Discovery-pass count is unspecified | Supply `--loop 1`, bare `--loop`, or `--loop N` with N between 1 and 10. |
 | Run directory is rejected | Choose a fresh empty directory outside the target source tree. |
@@ -450,6 +451,25 @@ Maintenance, pattern intake, standards refresh, and benchmark qualification are 
 | PyYAML is unavailable | Optional metadata validation is unavailable; record that limitation. Standard-library runtime helpers do not require installing it. |
 
 Qualification helpers live under `maintain.py qualification`; evidence and standards operations use `maintain.py evidence` and `maintain.py standards`. Each operation forwards to a dedicated helper with its own `--help`. Public fixtures are regression examples, not evidence of production detection rates or a benchmark qualification claim.
+
+## Package layout
+
+- `references/`: ten pattern-category files, the routing index, and target-binding guidance.
+- `runtime/`: workflow instructions, schemas, reviewed NEAR standards, and report templates.
+- `docs/`: usage, package maintenance, and pattern intake.
+- `scripts/`, `agents/`, `tests/`, `benchmarks/`: controller/helpers, host metadata, regression coverage, and qualification inputs.
+
+To add knowledge, supply a PDF, report, or findings and ask the skill to compare
+its mechanisms with the current patterns. Covered mechanisms need no edit;
+useful variants improve existing cards; distinct mechanisms get permanent IDs.
+No report archive or consumed-file registry is kept. Follow [adding patterns](adding-patterns.md)
+and the [maintenance guide](maintenance.md) for validation and packaging.
+
+Install the complete `v1` package or extracted release archive as
+`near-yoctoarmor-v1`. Preserve the original package outside skill-discovery
+directories before replacing it. Existing runs require that original package;
+start new runs with the updated installation instead of changing saved hashes.
+Official standards and documentation pins remain in the runtime registries.
 
 ## Further reading
 
