@@ -46,6 +46,8 @@ REFERENCE_PATHS = {
     'usage_guide': 'docs/usage.md',
     'verification_reporting': 'runtime/reporting/verification-reporting.md',
     'adding_patterns': 'docs/adding-patterns.md',
+    'sample_slotzero_report': 'docs/sample-slotzero-report.md',
+    'sample_technical_annex': 'docs/sample-technical-annex.md',
 }
 
 
