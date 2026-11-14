@@ -1,7 +1,7 @@
 # Slot Zero report format
 
 The Slot Zero report format uses this sequence and compact finding shape:
-`# 🔐 NEARShield v1 Security Review — {project}`, Scope table, Findings sorted
+`# 🔐 NEAR YoctoArmor v1 Security Review — {project}`, Scope table, Findings sorted
 by confidence, Findings List, unscored Leads. A finding has `[score] **number. Title**`, a
 `Contract.function` meta line, one short `**Description**` stating actor, mechanism,
 and harm, and a source-backed `**Fix**` diff when confidence is at least 75/100.

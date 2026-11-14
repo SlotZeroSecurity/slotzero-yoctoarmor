@@ -234,7 +234,7 @@ or blocked checks as an unmet stopping criterion; do not run an unlimited loop.
 Use the streamlined section order in `runtime/reporting/technical-annex-template.md`. The assembler inserts
 scope, the actual requested review stage, the top findings, and any threat-model
 exclusions. Omit those generated sections from the authored body. The annex banner
-subtitle is `NEARShield v1  - SLOT ZERO SECURITY`; the console banner is unchanged.
+subtitle is `NEAR YoctoArmor v1  - SLOT ZERO SECURITY`; the console banner is unchanged.
 Do not include a link back to the compact report, audit metadata tables, executive
 or severity summaries, capability levels, human-feedback statistics, raw-candidate
 appendices, or full NEP-registry appendices. Keep internal records intact.
@@ -255,7 +255,7 @@ Default delivery is a draft review after the technical and accounting gates
 above pass. Do not wait for human feedback to deliver that draft. Final user
 delivery requires both `slotzero-report.md` and `technical-annex.md`, provided
 as clickable file links or attachments. Both remain in the run directory.
-Both reports use `# 🔐 NEARShield v1 Security Review — {project}`.
+Both reports use `# 🔐 NEAR YoctoArmor v1 Security Review — {project}`.
 The annex retains the generated audit-stage scope note and pending-review information;
 the title does not change the human-review gates.
 
@@ -285,7 +285,7 @@ python3 <skill>/scripts/near_audit.py finalize <run-dir> --stage approved --repo
 ```
 
 The `--report` path must identify an existing Markdown file contained in the run
-directory. Its first heading must be `# 🔐 NEARShield v1 Security Review — {project}`
+directory. Its first heading must be `# 🔐 NEAR YoctoArmor v1 Security Review — {project}`
 with a nonempty project name. The selected stage remains enforced through run
 state and evidence/human-review validation; finalization records the report hash. An approved run cannot be downgraded
 to draft. Keep delivery copies outside audited source so exporting a report does

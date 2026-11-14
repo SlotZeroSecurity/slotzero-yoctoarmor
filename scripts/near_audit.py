@@ -802,8 +802,8 @@ def finalize(args: argparse.Namespace) -> dict[str, object]:
             raise ValueError("--report must identify an existing Markdown report")
         text = report.read_text(encoding="utf-8")
         heading = next((line for line in text.splitlines() if line.startswith("# ")), "")
-        if not re.fullmatch(r"# 🔐 NEARShield v1 Security Review — \S(?:.*\S)?", heading):
-            raise ValueError("report heading must be '# 🔐 NEARShield v1 Security Review — {project}' with a nonempty project")
+        if not re.fullmatch(r"# 🔐 NEAR YoctoArmor v1 Security Review — \S(?:.*\S)?", heading):
+            raise ValueError("report heading must be '# 🔐 NEAR YoctoArmor v1 Security Review — {project}' with a nonempty project")
         result = validate_run(run_dir, final=True, stage=args.stage)
         from report_assembly import validate_assembled
         validate_assembled(run_dir, manifest, text, stage=args.stage)

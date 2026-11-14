@@ -48,7 +48,7 @@ class AnnexLayoutTests(unittest.TestCase):
             for row in self.rows if row["verdict"] == "valid") or "No verified findings."
         contents["Unverified leads"] = "LEAD: unverified; missing receiver implementation blocks validation."
         contents["Testing and limitations"] = "Execution blocked by the missing receiver; no successful test is claimed."
-        return self.banner + "\n# 🔐 NEARShield v1 Security Review — fixture\n\n" + "\n\n".join(
+        return self.banner + "\n# 🔐 NEAR YoctoArmor v1 Security Review — fixture\n\n" + "\n\n".join(
             f"## {name}\n\n{contents[name]}" for name in BODY_SECTIONS) + "\n"
 
     def test_zero_and_multiple_findings_with_unscored_blocked_lead(self):
@@ -75,7 +75,7 @@ class AnnexLayoutTests(unittest.TestCase):
             good + "\n## Raw candidate disposition appendix\nPrivate bookkeeping\n",
             good.replace("## Findings index", "## Unverified leads"),
             good.replace("Draft — pending human review.", "Approved — human review recorded."),
-            good.replace("NEARShield v1  - SLOT ZERO SECURITY", "NEAR MULTI-AGENT SECURITY SCANNER"),
+            good.replace("NEAR YoctoArmor v1  - SLOT ZERO SECURITY", "NEAR MULTI-AGENT SECURITY SCANNER"),
         ]
         for text in invalid:
             with self.subTest(text=text[-80:]), self.assertRaises(ValueError):

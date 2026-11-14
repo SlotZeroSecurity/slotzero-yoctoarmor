@@ -17,9 +17,9 @@ class RunLifecycleTests(LifecycleFixture):
         report = self.rendered_report()
         original = report.read_text()
         before = (self.run_dir / "run-state.json").read_bytes()
-        for heading in ("# Draft Security Review — sample", "# 🔐 NEARShield v1 Security Review — "):
+        for heading in ("# Draft Security Review — sample", "# 🔐 NEAR YoctoArmor v1 Security Review — "):
             with self.subTest(heading=heading):
-                report.write_text(original.replace("# 🔐 NEARShield v1 Security Review — sample", heading))
+                report.write_text(original.replace("# 🔐 NEAR YoctoArmor v1 Security Review — sample", heading))
                 error = self.cli("finalize", self.run_dir, "--report", report, ok=False)
                 self.assertIn("report heading must be", error.stderr)
                 self.assertEqual(before, (self.run_dir / "run-state.json").read_bytes())

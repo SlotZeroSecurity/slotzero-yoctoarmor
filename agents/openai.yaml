@@ -1,4 +1,4 @@
 interface:
-  display_name: "NEARShield v1"
+  display_name: "NEAR YoctoArmor v1"
   short_description: "Slot Zero Security Framework for NEAR Code Review"
-  default_prompt: "Use $nearshield-v1 to audit this NEAR repository and prepare a draft for human review."
+  default_prompt: "Use $near-yoctoarmor-v1 to audit this NEAR repository and prepare a draft for human review."

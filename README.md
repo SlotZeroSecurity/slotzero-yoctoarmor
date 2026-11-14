@@ -3,15 +3,15 @@
 ```text
   +--------------------------------------------------+
   |                                                  |
-  |                 SLOT ZERO SECURITY               |
+  |                SLOT ZERO SECURITY                |
   |                                                  |
-  |                  NEARShield v1                    |
-  |           Look closer. Follow the evidence.       |
+  |                NEAR YoctoArmor v1                |
+  |         Look closer. Follow the evidence.        |
   |                                                  |
   +--------------------------------------------------+
 ```
 
-# NEARShield v1
+# NEAR YoctoArmor v1
 
 **Slot Zero Security Framework for NEAR Code Review**
 
@@ -26,7 +26,7 @@
 
 </div>
 
-NEARShield reviews NEAR contracts and the services that interact with them for security problems.
+NEAR YoctoArmor reviews NEAR contracts and the services that interact with them for security problems.
 Independent specialist agents examine different parts of the system, then challenge suspected issues against the code and evidence.
 
 **96 patterns · 10 categories · independent review · 2 Markdown reports**
@@ -41,15 +41,15 @@ You need Git, Python 3.10+, macOS or Linux, and access to this repository.
 ```bash
 git clone --branch v1 --single-branch \
   https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
-  nearshield-v1
+  near-yoctoarmor-v1
 ```
 
 **2. Open your AI tool in the folder containing the clone and ask:**
 
 ```text
-Install the complete ./nearshield-v1 folder as a personal skill for this AI tool.
+Install the complete ./near-yoctoarmor-v1 folder as a personal skill for this AI tool.
 Use this tool's supported skills directory and keep all supporting files.
-If nearshield-v1 is already installed, keep the existing copy and tell me its path.
+If near-yoctoarmor-v1 is already installed, keep the existing copy and tell me its path.
 ```
 
 Start a new session after installation. Copy the whole package, not just `SKILL.md`.
@@ -65,28 +65,28 @@ They are prompts, not terminal commands. The host needs tools for running the re
 **Run one discovery pass**
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
+$near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 1.
 Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
 **Run five independent discovery passes**
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project --loop 5.
+$near-yoctoarmor-v1 Audit /absolute/path/to/near-project --loop 5.
 Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
 **Focus on selected files**
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
+$near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 1.
 Focus on contracts/vault/src/lib.rs and contracts/vault/src/fees.rs.
 Read THREAT_MODEL.md first and inspect surrounding code where needed.
 Keep audit files outside the project.
 ```
 
-In Claude Code, replace `$nearshield-v1` with `/nearshield-v1`.
-In OpenCode, begin with **“Load the nearshield-v1 skill”** and give the same request.
+In Claude Code, replace `$near-yoctoarmor-v1` with `/near-yoctoarmor-v1`.
+In OpenCode, begin with **“Load the near-yoctoarmor-v1 skill”** and give the same request.
 
 `--loop 1` asks for one independent discovery pass; `--loop` means three.
 Choose `--loop N` for **1–10 passes**. Extra passes repeat the independent search, not the whole review.
@@ -196,5 +196,8 @@ See [adding patterns](docs/adding-patterns.md).
 
 The installation command selects the published `v1` release branch.
 For local installation, use the complete package or extracted release archive.
-Existing runs require the package that created them. The skill name and report
-formats remain `nearshield-v1`.
+The skill identifier is `near-yoctoarmor-v1`. Reports retain the filenames
+`slotzero-report.md` and `technical-annex.md`.
+Before replacing an installation, preserve its original package outside skill
+discovery directories. Existing runs require that original package; new runs use
+the renamed skill.

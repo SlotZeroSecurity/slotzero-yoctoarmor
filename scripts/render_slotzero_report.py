@@ -171,7 +171,7 @@ def render(run: Path, content_path: Path, project: str | None = None) -> str:
     files = [f"`{path}`" for path in manifest["scope"]]
     chunks = [" · ".join(files[i:i + 3]) for i in range(0, len(files), 3)]
     files_cell = "<br>".join(chunks).replace("|", "\\|")
-    lines = [f"# 🔐 NEARShield v1 Security Review — {title}", "", "---", "", "## Scope", "",
+    lines = [f"# 🔐 NEAR YoctoArmor v1 Security Review — {title}", "", "---", "", "## Scope", "",
              "|  |  |", "| --- | --- |",
              f"| **Files reviewed** | {files_cell} |",
              f"| **Confidence threshold (1-100)** | {THRESHOLD} |"]

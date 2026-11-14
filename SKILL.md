@@ -1,9 +1,9 @@
 ---
-name: nearshield-v1
+name: near-yoctoarmor-v1
 description: Slot Zero Security Framework for NEAR Code Review
 ---
 
-# NEARShield v1
+# NEAR YoctoArmor v1
 
 Choose the request route before resolving a target or creating a run. Ordinary
 NEAR development and generic Rust review do not start a security audit.
@@ -40,7 +40,7 @@ Every completed automated audit must provide both `slotzero-report.md` and
 `technical-annex.md` to the user, without an output flag or extra request. Validate
 and retain both files outside audited source, then include a clickable file link
 or attachment for each in the final response. Chat previews do not replace the
-files. Both headings use `# 🔐 NEARShield v1 Security Review — {project}`.
+files. Both headings use `# 🔐 NEAR YoctoArmor v1 Security Review — {project}`.
 The technical annex records the audit stage in its scope note; human approval remains required
 for approved delivery.
 If report validation is blocked, disclose the blocker instead of claiming completion.

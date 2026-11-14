@@ -1,4 +1,4 @@
-# NEARShield v1 usage guide
+# NEAR YoctoArmor v1 usage guide
 
 [Back to the overview](../README.md)
 
@@ -16,12 +16,12 @@ by an existing run. Restart your AI host after installing.
 
 | Host | Personal destination | Project destination (from project root) |
 | --- | --- | --- |
-| Codex | `~/.agents/skills/nearshield-v1` | `.agents/skills/nearshield-v1` |
-| Claude Code | `~/.claude/skills/nearshield-v1` | `.claude/skills/nearshield-v1` |
-| OpenCode | `~/.config/opencode/skills/nearshield-v1` | `.opencode/skills/nearshield-v1` |
+| Codex | `~/.agents/skills/near-yoctoarmor-v1` | `.agents/skills/near-yoctoarmor-v1` |
+| Claude Code | `~/.claude/skills/near-yoctoarmor-v1` | `.claude/skills/near-yoctoarmor-v1` |
+| OpenCode | `~/.config/opencode/skills/near-yoctoarmor-v1` | `.opencode/skills/near-yoctoarmor-v1` |
 
 Existing Codex installations can also use their configured skills directory,
-including `~/.codex/skills/nearshield-v1`. Do not install duplicate copies in
+including `~/.codex/skills/near-yoctoarmor-v1`. Do not install duplicate copies in
 multiple discovery locations. Host documentation is linked in the
 [README resources](../README.md#resources).
 
@@ -58,10 +58,10 @@ Inspect any reported errors; no dependencies need to be installed for these chec
 Every scan starts with **`<target-root>/THREAT_MODEL.md`**. Describe the assets,
 attacker capabilities, trusted roles, and security properties for the actual
 repository. Every audit agent reads this file first, including independent
-verification and rescan workers. NEARShield records its digest and checks it
+verification and rescan workers. NEAR YoctoArmor records its digest and checks it
 throughout the run. Changing, removing, or later adding it requires a fresh scan.
 
-If the file is missing or empty, NEARShield stops and displays:
+If the file is missing or empty, NEAR YoctoArmor stops and displays:
 
 > Auditing without explicit assets, attacker capabilities, trusted roles, and
 > security properties increases the likelihood of false positives and the effort
@@ -81,7 +81,7 @@ attacker capabilities, trusted roles, and security properties from the actual
 repository, and distinguish assumptions from established facts.
 ```
 
-Review the result, then restart the NEARShield audit in a fresh run directory.
+Review the result, then restart the NEAR YoctoArmor audit in a fresh run directory.
 If that skill is unavailable, report that limitation; do not claim it ran or
 substitute a generic model as if it were repository-specific.
 
@@ -166,33 +166,33 @@ standards review, or the bounded rescans. Repeat sightings do not raise confiden
 
 ## Usage examples
 
-These examples are **messages to the AI host**, not shell commands. For Claude Code replace `$nearshield-v1` with `/nearshield-v1`; for OpenCode start with “Load the nearshield-v1 skill.”
+These examples are **messages to the AI host**, not shell commands. For Claude Code replace `$near-yoctoarmor-v1` with `/near-yoctoarmor-v1`; for OpenCode start with “Load the near-yoctoarmor-v1 skill.”
 
 ### Audit with one pass
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
+$near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 1.
 Deliver the compact draft report and full technical annex.
 ```
 
 ### Audit with three passes
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project with --loop 3.
+$near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 3.
 Keep the discovery contexts independent and account for all required coverage.
 ```
 
 ### Audit with five passes
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project --loop 5.
+$near-yoctoarmor-v1 Audit /absolute/path/to/near-project --loop 5.
 Run all required checks and report any verification blockers.
 ```
 
 ### Audit selected files
 
 ```text
-$nearshield-v1 Audit /absolute/path/to/near-project with --loop 1.
+$near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 1.
 Use explicit-file scope: contracts/vault/src/lib.rs and contracts/vault/src/fees.rs.
 Read the surrounding context needed to establish reachability and impact.
 ```
@@ -295,7 +295,7 @@ preview or a plain-text path does not replace either file. Internal JSON/JSONL
 ledgers remain in the run directory as supporting evidence.
 
 The default deliverables are **drafts**. The annex filename does not change its
-review status: both headings use `# 🔐 NEARShield v1 Security Review — {project}`,
+review status: both headings use `# 🔐 NEAR YoctoArmor v1 Security Review — {project}`,
 while the annex records the actual stage in its scope note and lists pending
 human decisions when needed. The annex focuses on architecture, detailed
 findings, unverified leads, standards and hardening notes, tests and limitations,
@@ -328,13 +328,13 @@ The recommended entry point is the **AI-host prompt**. The commands below suppor
 Set these paths in your shell before using the examples. Use a fresh, empty run directory outside the target. The installed skill path depends on your host.
 
 ```bash
-NEARSHIELD_SKILL="/absolute/path/to/nearshield-v1"
-NEARSHIELD_TARGET="/absolute/path/to/near-project"
-NEARSHIELD_RUN="/absolute/path/to/audit-runs/near-project-v1"
+NEAR_YOCTOARMOR_SKILL="/absolute/path/to/near-yoctoarmor-v1"
+NEAR_YOCTOARMOR_TARGET="/absolute/path/to/near-project"
+NEAR_YOCTOARMOR_RUN="/absolute/path/to/audit-runs/near-project-v1"
 
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" doctor
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --loop 3 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" doctor
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" run "$NEAR_YOCTOARMOR_TARGET" \
+  --loop 3 --run-dir "$NEAR_YOCTOARMOR_RUN" --worker-capacity 1
 ```
 
 | `run` argument | Meaning and default |
@@ -352,12 +352,12 @@ python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
 Alternative initializations, **choose one for a fresh run directory**:
 
 ```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
-  --loop 5 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" run "$NEAR_YOCTOARMOR_TARGET" \
+  --loop 5 --run-dir "$NEAR_YOCTOARMOR_RUN" --worker-capacity 1
 
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" run "$NEARSHIELD_TARGET" \
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" run "$NEAR_YOCTOARMOR_TARGET" \
   --files contracts/vault/src/lib.rs contracts/vault/src/fees.rs \
-  --loop 1 --run-dir "$NEARSHIELD_RUN" --worker-capacity 1
+  --loop 1 --run-dir "$NEAR_YOCTOARMOR_RUN" --worker-capacity 1
 ```
 
 ### Command inventory
@@ -393,14 +393,14 @@ All commands support `-h` / `--help`. Paths shown below are positional unless pr
 Only record events that actually happened. `finish` checks assigned output existence, containment, size, and JSON/JSONL syntax; phase gates still decide full schema and coverage acceptance. The adapter neither spawns nor terminates host workers.
 
 ```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" status "$NEARSHIELD_RUN"
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" packet "$NEARSHIELD_RUN" 'packet-id-from-work-packets'
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" worker "$NEARSHIELD_RUN" start \
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" status "$NEAR_YOCTOARMOR_RUN"
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" packet "$NEAR_YOCTOARMOR_RUN" 'packet-id-from-work-packets'
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" worker "$NEAR_YOCTOARMOR_RUN" start \
   'packet-id-from-work-packets' --worker-id 'actual-host-worker-id'
 # After the real worker completes and its assigned artifacts have been collected:
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" worker "$NEARSHIELD_RUN" finish \
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" worker "$NEAR_YOCTOARMOR_RUN" finish \
   'packet-id-from-work-packets' --worker-id 'actual-host-worker-id'
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" resume "$NEARSHIELD_RUN"
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" resume "$NEAR_YOCTOARMOR_RUN"
 ```
 
 ### Feedback and report lifecycle
@@ -408,23 +408,23 @@ python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" resume "$NEARSHIELD_RUN"
 Human labels use `TP`, `FP`, `DUPLICATE`, or `UNRESOLVED`, with reviewer, review time, and reason code. Follow the complete [feedback and verdict schemas](../runtime/schemas/finding-schema.md). Feedback is metrics-only: it does not silently retrain or modify the corpus. Only manually labeled blind TPs seed the one bounded informed pass.
 
 ```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" feedback "$NEARSHIELD_RUN" \
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" feedback "$NEAR_YOCTOARMOR_RUN" \
   /absolute/path/to/human-labels.jsonl
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" informed-rescan "$NEARSHIELD_RUN"
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" informed-rescan "$NEAR_YOCTOARMOR_RUN"
 # After the orchestrator completes the assigned informed work and review:
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" informed-rescan "$NEARSHIELD_RUN" --complete
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" informed-rescan "$NEAR_YOCTOARMOR_RUN" --complete
 ```
 
 The orchestrator must first produce the validated ledgers and technical body. Reporting then uses:
 
 ```bash
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" render-report "$NEARSHIELD_RUN" \
-  --body "$NEARSHIELD_RUN/report-body.md" --output "$NEARSHIELD_RUN/technical-annex.md" --stage draft
-python3 "$NEARSHIELD_SKILL/scripts/near_audit.py" finalize "$NEARSHIELD_RUN" \
-  --report "$NEARSHIELD_RUN/technical-annex.md" --stage draft
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" render-report "$NEAR_YOCTOARMOR_RUN" \
+  --body "$NEAR_YOCTOARMOR_RUN/report-body.md" --output "$NEAR_YOCTOARMOR_RUN/technical-annex.md" --stage draft
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/near_audit.py" finalize "$NEAR_YOCTOARMOR_RUN" \
+  --report "$NEAR_YOCTOARMOR_RUN/technical-annex.md" --stage draft
 # Prepare source-backed presentation rows using the compact report schema first:
-python3 "$NEARSHIELD_SKILL/scripts/render_slotzero_report.py" "$NEARSHIELD_RUN" \
-  --content "$NEARSHIELD_RUN/slotzero-content.jsonl" --output "$NEARSHIELD_RUN/slotzero-report.md"
+python3 "$NEAR_YOCTOARMOR_SKILL/scripts/render_slotzero_report.py" "$NEAR_YOCTOARMOR_RUN" \
+  --content "$NEAR_YOCTOARMOR_RUN/slotzero-content.jsonl" --output "$NEAR_YOCTOARMOR_RUN/slotzero-report.md"
 ```
 
 Keep report artifacts inside the run directory, outside audited source, and deliver both files automatically. For approved delivery, preserve the draft pair and write the approved pair under `<run-dir>/approved/`, using the same filenames and `--stage approved` only after the human gates pass. Do not relabel a draft as approved. Existing runs retain their recorded artifact paths and configuration hashes; use their original package rather than renaming saved reports.
@@ -438,7 +438,7 @@ Maintenance, pattern intake, standards refresh, and benchmark qualification are 
 | Symptom | Action |
 | --- | --- |
 | Missing or empty `THREAT_MODEL.md` | Generate and review the target model, save it at the target root, then restart; alternatively explicitly authorize the per-scan override. |
-| Skill is not discovered | Confirm the directory is named `nearshield-v1`, contains `SKILL.md` and supporting folders, and sits in a documented host skill location. Start a new session and check host permissions. |
+| Skill is not discovered | Confirm the directory is named `near-yoctoarmor-v1`, contains `SKILL.md` and supporting folders, and sits in a documented host skill location. Start a new session and check host permissions. |
 | Clone returns “not found” | Confirm the authenticated account has access to this private repository. |
 | Preflight reports an external URL in `README.md` | Known V1 packaging conflict: both `doctor` and `maintain.py check` scan every Markdown file, including public-facing badge/reference links. This README is intentionally retained; the validator policy needs a separate code change before whole-checkout checks can pass. Other errors require independent investigation. |
 | Worker execution is unavailable | Report incomplete multi-agent coverage; do not describe serial review as a complete run. Claude Code/OpenCode end-to-end compatibility remains unverified. |

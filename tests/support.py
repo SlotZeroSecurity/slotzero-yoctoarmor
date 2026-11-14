@@ -337,7 +337,7 @@ class LifecycleFixture(unittest.TestCase):
                            "/13\n\n#### Recommendation\n\nApply the synthetic fixture fix."
                            for row in verdicts if row["verdict"] in {"valid", "valid_downgraded"})
         body = self.run_dir / f"{stage}-body.md"
-        body.write_text("```text\n" + banner + "\n```\n\n# 🔐 NEARShield v1 Security Review — sample\n\nSynthetic inert fixture.\n\n" +
+        body.write_text("```text\n" + banner + "\n```\n\n# 🔐 NEAR YoctoArmor v1 Security Review — sample\n\nSynthetic inert fixture.\n\n" +
                         "\n\n".join("## " + section + "\n\nSynthetic inert fixture." + ("\n\n" + detail if section == "Findings" and detail else "") for section in sections) + "\n")
         output = self.run_dir / f"{stage}.md"
         rendered = self.cli("render-report", self.run_dir, "--body", body, "--output", output, "--stage", stage)

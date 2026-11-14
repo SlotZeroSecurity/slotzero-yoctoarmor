@@ -8,7 +8,7 @@ from html import escape
 from run_integrity import artifact_path, read_json, read_jsonl
 
 SEVERITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3, "informational": 4}
-ANNEX_SUBTITLE = "NEARShield v1  - SLOT ZERO SECURITY"
+ANNEX_SUBTITLE = "NEAR YoctoArmor v1  - SLOT ZERO SECURITY"
 BODY_SECTIONS = (
     "Architecture and trust assumptions", "Findings index", "Findings",
     "Unverified leads", "Standards and hardening notes", "Testing and limitations",
@@ -161,7 +161,7 @@ def validate_assembled(run_dir: Path, manifest: dict, report: str, stage: str | 
         raise ValueError("Slot Zero NEAR banner missing from report start")
     banner = report.split("\n```", 1)[0]
     if ANNEX_SUBTITLE not in [line.strip() for line in banner.splitlines()]:
-        raise ValueError("NEARShield annex banner subtitle missing")
+        raise ValueError("NEAR YoctoArmor annex banner subtitle missing")
     front = canonical_front(run_dir, manifest, stage)
     if report.count(front) != 1:
         raise ValueError("report front section differs from validated records")

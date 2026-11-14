@@ -13,11 +13,11 @@
 ███████║███████╗╚██████╗╚██████╔╝██║  ██║██║   ██║      ██║
 ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝   ╚═╝      ╚═╝
 
-               NEARShield v1  - SLOT ZERO SECURITY
+                NEAR YoctoArmor v1  - SLOT ZERO SECURITY
 
 ```
 
-# 🔐 NEARShield v1 Security Review — <project>
+# 🔐 NEAR YoctoArmor v1 Security Review — <project>
 
 ## Scope at a glance
 

@@ -26,7 +26,7 @@ class SlotZeroReportTests(unittest.TestCase):
         source.parent.mkdir(parents=True)
         source.write_text("fn vulnerable() {\n    allow_anyone();\n}\n")
         technical = self.run / "technical-annex.md"
-        technical.write_text("# 🔐 NEARShield v1 Security Review — sample\n")
+        technical.write_text("# 🔐 NEAR YoctoArmor v1 Security Review — sample\n")
         fingerprint = "sha256:source"
         self.write_json("run-manifest.json", {
             "target": str(self.target), "target_revision": "abc123",
@@ -69,7 +69,7 @@ class SlotZeroReportTests(unittest.TestCase):
     def test_renders_all_supported_verdicts_and_excludes_refuted(self):
         with patch.object(formatter, "pass_sightings", return_value={"D-001": 1, "D-002": 0, "D-003": 0}):
             text = formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
-        self.assertIn("# 🔐 NEARShield v1 Security Review — sample", text)
+        self.assertIn("# 🔐 NEAR YoctoArmor v1 Security Review — sample", text)
         self.assertNotIn("**Review status**", text)
         self.assertNotIn("This draft was prepared", text)
         self.assertIn("[85] **1. Anyone can act**", text)
@@ -88,7 +88,7 @@ class SlotZeroReportTests(unittest.TestCase):
         self.write_jsonl("slotzero-content.jsonl", self.rows)
         with patch.object(formatter, "pass_sightings", return_value={}):
             text = formatter.render(self.run, self.run / "slotzero-content.jsonl", "sample")
-        self.assertTrue(text.startswith("# 🔐 NEARShield v1 Security Review — sample\n"))
+        self.assertTrue(text.startswith("# 🔐 NEAR YoctoArmor v1 Security Review — sample\n"))
         self.assertEqual(text.count("Anyone can act — CONFIRMED"), 2)
         self.assertNotIn("**Review status**", text)
         self.rows[0].pop("review_status")
@@ -124,7 +124,7 @@ class SlotZeroReportTests(unittest.TestCase):
                 console = stdout.getvalue()
                 self.assertEqual(report.count("**Description**"), count)
                 for text in (report, console):
-                    self.assertTrue(text.startswith("# 🔐 NEARShield v1 Security Review — sample\n"))
+                    self.assertTrue(text.startswith("# 🔐 NEAR YoctoArmor v1 Security Review — sample\n"))
                     for removed in ("**Review status**", "This draft was prepared", "Format source:",
                                     "Slot Zero Security ·", "Independent review, a bug bounty"):
                         self.assertNotIn(removed, text)
