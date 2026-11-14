@@ -28,6 +28,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from reference_paths import reference_path, reference_relative, missing_resource_paths
 from package_policy import external_url_paths
 from run_integrity import (
     RUN_SCHEMA, STATE_SCHEMA, artifact_path, atomic_write_json, atomic_write_jsonl,
@@ -70,19 +71,12 @@ PHASES = (
     "informed-rescan",
     "final",
 )
+# Compatibility field name: corpus_hash binds only the reusable pattern library.
 CORPUS_FILES = (
-    REFERENCES / "attack-lenses-index.json",
-    *sorted((REFERENCES / "attack-lenses").glob("*.md")),
-    REFERENCES / "historical-id-map.json",
-    REFERENCES / "corpus-index.json",
-    REFERENCES / "pdf-corpus-2022-2023.md",
-    REFERENCES / "pdf-corpus-2024-2026.md",
-    REFERENCES / "pdf-corpus-manifest.json",
-    REFERENCES / "satoshi-issue-corpus.md",
-    REFERENCES / "satoshi-issue-corpus.json",
-    REFERENCES / "source-review.json",
-    REFERENCES / "legacy-design-review.json",
-    REFERENCES / "pattern-portability.md",
+    reference_path('attack_index'),
+    *[reference_path('lens_' + category) for category in
+      ('auth', 'async', 'account', 'state', 'econ', 'resource', 'integration', 'crypto', 'runtime', 'offchain')],
+    reference_path('target_binding'),
 )
 
 
@@ -186,7 +180,8 @@ def tool_versions() -> dict[str, object]:
 
 
 def prompt_hashes() -> dict[str, str]:
-    paths = [SKILL / "SKILL.md", *sorted(REFERENCES.rglob("*.md"))]
+    paths = [SKILL / "SKILL.md", *[path for folder in ("references", "runtime", "docs")
+                                       for path in sorted((SKILL / folder).rglob("*.md"))]]
     return {path.relative_to(SKILL).as_posix(): sha256_bytes(path.read_bytes()) for path in paths}
 
 
@@ -217,11 +212,11 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
         if threat_model is not None and threat_model["status"] == "provided":
             allowed = [str(Path(surface["root"]) / "THREAT_MODEL.md"), *allowed]
         if role in {"evidence-triage", "adversarial-verifier"}:
-            allowed = [*allowed, "references/threat-model.md"]
+            allowed = [*allowed, reference_relative('threat_model')]
         if role in SPECIALIST_ROLES or role in {"mutation-analysis", "counterexample-rescan"}:
-            allowed = [*allowed, "references/review-contract.md"]
+            allowed = [*allowed, reference_relative('review_contract')]
         if role == "mutation-analysis":
-            allowed = [*allowed, "references/mutation-operators.json"]
+            allowed = [*allowed, reference_relative('mutation_operators')]
         packet: dict[str, object] = {
             "schema_version": 1,
             "packet_id": f"{phase}:{role}" + (f":pass-{discovery_pass:02d}" if discovery_pass is not None else ""),
@@ -247,14 +242,14 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
         "l0-model",
         "protocol-modeler",
         ["neutral-surface.json", "semantic-ir.json", "target source", "manifests", "tests", "target docs", "neutral schemas"],
-        ["security model", "attack lenses", "official cards and registry", "historical findings", "satoshi-issue-corpus.md", "satoshi-issue-corpus.json", "pattern-portability.md", "training answers", "benchmark answers"],
+        ["security model", "attack lenses", "official cards and registry", "pattern guidance", reference_relative('target_binding'), "training answers", "benchmark answers"],
         "intent-model.json",
         [],
     )
     append(
         "isolated-l1-l2",
         "pattern-matcher",
-        ["target source", "surface.json", "semantic-ir.json", "intent-model.json", "attack-lenses-index.json", *routed_lenses, "target-binding protocol", "optional selected historical examples after target binding"],
+        ["target source", "surface.json", "semantic-ir.json", "intent-model.json", reference_relative('attack_index'), *routed_lenses, reference_relative('target_binding'), "selected card variants after target binding"],
         ["l2/candidates.jsonl", "peer candidates", "training answers", "benchmark answers"],
         "l1/candidates.jsonl",
         ["l0-model:protocol-modeler"],
@@ -266,7 +261,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
         append(
             "isolated-l1-l2", "intent-reasoner",
             ["target source", "target docs/tests", "manifests", "semantic-ir.json", "intent-model.json", "neutral schemas"],
-            ["security model", "corpus", "attack lenses", "satoshi-issue-corpus.md", "satoshi-issue-corpus.json", "pattern-portability.md", "training answers", "official attacker cards and registry", "l1/candidates.jsonl", "peer candidates", "prior-pass candidates", "benchmark answers"],
+            ["security model", "corpus", "attack lenses", reference_relative('target_binding'), "training answers", "official attacker cards and registry", "l1/candidates.jsonl", "peer candidates", "prior-pass candidates", "benchmark answers"],
             output, ["l0-model:protocol-modeler"], candidate_outputs=[output],
             discovery_pass=number if passes > 1 else None,
         )
@@ -278,7 +273,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
             "blind-l3-active",
             str(role),
             ["assigned target cluster", "surface.json", "semantic-ir role packet", "intent-model.json", "role rules"],
-            ["peer candidates", "prior-pass candidates", "deduplicated findings", "historical corpus", "attack lenses", "satoshi-issue-corpus.md", "satoshi-issue-corpus.json", "pattern-portability.md", "training answers", "benchmark answers"],
+            ["peer candidates", "prior-pass candidates", "deduplicated findings", "pattern library", "attack lenses", reference_relative('target_binding'), "training answers", "benchmark answers"],
             output,
             ["isolated-l1-l2:pattern-matcher", *l2_ids],
             candidate_outputs=[output],
@@ -298,7 +293,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
             "nep-coverage",
             str(role),
             ["surface.json", "semantic-ir.json", "NEP registry", "owned checklist", "target evidence"],
-            ["other NEP checklists", "peer candidates", "historical corpus", "attack lenses", "satoshi-issue-corpus.md", "satoshi-issue-corpus.json", "pattern-portability.md", "training answers", "benchmark answers"],
+            ["other NEP checklists", "peer candidates", "pattern library", "attack lenses", reference_relative('target_binding'), "training answers", "benchmark answers"],
             f"nep/{role}.jsonl",
             ["blind-l3-active"],
             candidate_outputs=[f"nep/{role}-candidates.jsonl"],
@@ -307,7 +302,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
     # Account for the already-required post-blind corpus review; no model dispatch.
     append(
         "dedup-chains", "corpus-echo",
-        ["frozen blind artifacts", "attack-lenses-index.json", *routed_lenses, "target-binding protocol", "optional selected historical examples after target binding", "target evidence"],
+        ["frozen blind artifacts", reference_relative('attack_index'), *routed_lenses, reference_relative('target_binding'), "selected card variants after target binding", "target evidence"],
         ["training answers", "benchmark answers"], "corpus-echo-candidates.jsonl", ["nep-coverage"],
         candidate_outputs=["corpus-echo-candidates.jsonl"],
     )
@@ -461,8 +456,8 @@ def initialize(args: argparse.Namespace) -> dict[str, object]:
     if configuration_snapshot(SKILL) != configuration:
         raise ValueError("skill configuration changed during initialization; use a new run directory")
     revision, dirty = git_state(target)
-    nep = read_json(REFERENCES / "nep-registry.json")
-    docs = read_json(REFERENCES / "official-docs-registry.json")
+    nep = read_json(reference_path('nep_registry', root=REFERENCES.parent))
+    docs = read_json(reference_path('docs_registry', root=REFERENCES.parent))
     if inspect_model(target, args.allow_missing_threat_model) != threat_model:
         raise ValueError("threat-model changed during initialization; start a new run")
     packets = make_work_packets(run_dir, surface, passes, threat_model)
@@ -487,7 +482,7 @@ def initialize(args: argparse.Namespace) -> dict[str, object]:
         "nep_source_commit": nep["source"]["commit"],
         "official_docs_source_commit": docs["source"]["commit"],
         "official_docs_registry_hash": hashlib.sha256(
-            (REFERENCES / "official-docs-registry.json").read_bytes()
+            (reference_path('docs_registry', root=REFERENCES.parent)).read_bytes()
         ).hexdigest(),
         "corpus_hash": hash_files(list(CORPUS_FILES)),
         "models": {"orchestrator": args.orchestrator_model, "workers": args.worker_model},
@@ -715,7 +710,7 @@ def informed(args: argparse.Namespace) -> dict[str, object]:
 def packet_view(args: argparse.Namespace) -> dict[str, object]:
     run_dir = args.run_dir.resolve()
     validate_bindings(run_dir, SKILL)
-    return worker_view(run_dir, args.packet_id, REFERENCES / "agent-catalog.md")
+    return worker_view(run_dir, args.packet_id, reference_path('agent_catalog', root=REFERENCES.parent))
 
 
 def worker_action(args: argparse.Namespace) -> dict[str, object]:
@@ -856,7 +851,6 @@ def render_report(args: argparse.Namespace) -> dict[str, object]:
 
 def doctor(args: argparse.Namespace) -> dict[str, object]:
     """Inspect the installed package without starting a run or creating caches."""
-    from pdf_corpus_registry import load_manifest
     from check_nep_registry import validate_registry
     from pattern_routing import validate_index
     errors = []
@@ -864,23 +858,14 @@ def doctor(args: argparse.Namespace) -> dict[str, object]:
         errors.append("Python 3.10 or newer is required")
     if sys.platform not in {"darwin", "linux"}:
         errors.append("supported platforms are macOS and Linux")
-    required = ("audit-workflow.md", "neutral-schemas.md", "capability-model.md", "agent-catalog.md", "report-template.md")
-    for name in required:
-        if not (REFERENCES / name).is_file():
-            errors.append(f"missing reference: {name}")
-    for path in [SKILL / "SKILL.md", *sorted(REFERENCES.rglob("*.md"))]:
-        for destination in re.findall(r"\]\(([^)]+)\)", path.read_text(encoding="utf-8")):
-            if "://" in destination or destination.startswith("#"):
-                continue
-            relative = destination.split("#", 1)[0]
-            if relative and not (path.parent / relative).is_file():
-                errors.append(f"broken link in {path.relative_to(SKILL)}: {relative}")
+    errors.extend(f"missing package resource: {name}" for name in missing_resource_paths(SKILL))
+    from reference_links import reference_link_errors
+    errors.extend(reference_link_errors(SKILL))
     errors.extend(f"external URL in {path}" for path in external_url_paths(SKILL))
     counts = {}
     for label, check in (
         ("attack_lenses", validate_index),
-        ("pdf_registry", lambda: load_manifest(REFERENCES / "pdf-corpus-manifest.json")),
-        ("nep_registry", lambda: validate_registry(REFERENCES / "nep-registry.json")),
+        ("nep_registry", lambda: validate_registry(reference_path('nep_registry', root=REFERENCES.parent))),
     ):
         try:
             payload = check()
@@ -894,7 +879,7 @@ def doctor(args: argparse.Namespace) -> dict[str, object]:
         errors.append(f"mutation_operators: {exc}")
     try:
         from check_official_docs import validate_registry as validate_docs
-        docs = read_json(REFERENCES / "official-docs-registry.json")
+        docs = read_json(reference_path('docs_registry', root=REFERENCES.parent))
         # Internal consistency only; upstream freshness requires an explicit checkout.
         result = validate_docs(docs, docs["pages"], docs["source"]["commit"])
         errors.extend(f"official_docs_registry: {error}" for error in result["errors"])

@@ -129,7 +129,8 @@ def run_lock(run_dir: Path):
 def configuration_snapshot(skill: Path) -> list[dict]:
     """Bind shipped instructions, data and all helper imports; exclude test/cache data."""
     files = [skill / "SKILL.md", skill / "agents" / "openai.yaml"]
-    for folder, suffixes in (("scripts", {".py"}), ("references", {".md", ".json"})):
+    for folder, suffixes in (("scripts", {".py"}), ("references", {".md", ".json"}),
+                             ("runtime", {".md", ".json"}), ("docs", {".md"})):
         for directory, children, names in os.walk(skill / folder, followlinks=False):
             children[:] = sorted(name for name in children if name != "__pycache__" and not (Path(directory) / name).is_symlink())
             files.extend(Path(directory) / name for name in names if Path(name).suffix in suffixes)

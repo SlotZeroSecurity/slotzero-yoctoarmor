@@ -39,7 +39,7 @@ You need Git, Python 3.10+, macOS or Linux, and access to this repository.
 **1. Clone the complete skill.**
 
 ```bash
-git clone --branch v1 --single-branch \
+git clone --branch v1_1 --single-branch \
   https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
   nearshield-v1
 ```
@@ -55,7 +55,7 @@ If nearshield-v1 is already installed, keep the existing copy and tell me its pa
 Start a new session after installation. Copy the whole package, not just `SKILL.md`.
 The destination depends on your AI tool; the setup request stays the same.
 Codex is the intended host. Full execution on Claude Code and OpenCode remains unverified.
-See the [usage guide](references/usage-guide.md#installation-alternatives) for manual paths and prerequisites.
+See the [usage guide](docs/usage.md#installation-alternatives) for manual paths and prerequisites.
 
 ## Run a review
 
@@ -91,7 +91,7 @@ In OpenCode, begin with **“Load the nearshield-v1 skill”** and give the same
 `--loop 1` asks for one independent discovery pass; `--loop` means three.
 Choose `--loop N` for **1–10 passes**. Extra passes repeat the independent search, not the whole review.
 Every review includes specialist applicability checks, all applicable mutation operators, independent verification, and a final rescan.
-See [all options](references/usage-guide.md#scope-and-discovery-passes) when you need more control.
+See [all options](docs/usage.md#scope-and-discovery-passes) when you need more control.
 
 ## Threat model
 
@@ -100,7 +100,7 @@ Describe **what needs protecting, what an attacker can do, who is trusted, and w
 Every agent reads it first. An explicitly trusted owner's intended powers are not automatically bugs; unauthorized access still matters.
 
 If the file is missing, generate it with the [Codex Security threat-model skill](https://github.com/openai/codex-security/tree/main/plugins/codex-security/skills/threat-model), review it, and restart the scan.
-Continuing without one requires your explicit choice. See the [example and details](references/usage-guide.md#threat-model).
+Continuing without one requires your explicit choice. See the [example and details](docs/usage.md#threat-model).
 
 ## How it works
 
@@ -136,7 +136,7 @@ The reports show what was reviewed, what was found, and what remains uncertain.
 
 Additional specialists join when the project uses features such as bridges, price feeds, or upgradeable contracts.
 The host schedules agents within its available capacity; they do not all need to run at once.
-Explore the [full agent catalog](references/agent-catalog.md) for the individual roles.
+Explore the [full agent catalog](runtime/workflow/agent-catalog.md) for the individual roles.
 
 ## Pattern library
 
@@ -144,16 +144,16 @@ Explore the [full agent catalog](references/agent-catalog.md) for the individual
 
 | Category | Patterns | Example question |
 | --- | ---: | --- |
-| [Access control](references/attack-lenses/auth.md) | 12 | Can someone act with another account's authority? |
-| [Asynchronous execution](references/attack-lenses/async.md) | 17 | Can a delayed callback pay the same balance twice? |
-| [Accounting](references/attack-lenses/account.md) | 7 | Can newly issued shares dilute existing deposits? |
-| [State](references/attack-lenses/state.md) | 16 | Can two records disagree after an update? |
-| [Economics](references/attack-lenses/econ.md) | 4 | Can repeated rounding give someone extra value? |
-| [Resources](references/attack-lenses/resource.md) | 10 | Can a caller make the contract pay excessive storage costs? |
-| [Integrations](references/attack-lenses/integration.md) | 8 | Can an old price be used as if it were current? |
-| [Cryptography](references/attack-lenses/crypto.md) | 8 | Can a signature be accepted in the wrong context? |
-| [Runtime](references/attack-lenses/runtime.md) | 2 | Can work escape its intended execution limits? |
-| [Offchain services](references/attack-lenses/offchain.md) | 12 | Can a retry cause an external service to repeat an action? |
+| [Access control](references/auth.md) | 12 | Can someone act with another account's authority? |
+| [Asynchronous execution](references/async.md) | 17 | Can a delayed callback pay the same balance twice? |
+| [Accounting](references/account.md) | 7 | Can newly issued shares dilute existing deposits? |
+| [State](references/state.md) | 16 | Can two records disagree after an update? |
+| [Economics](references/econ.md) | 4 | Can repeated rounding give someone extra value? |
+| [Resources](references/resource.md) | 10 | Can a caller make the contract pay excessive storage costs? |
+| [Integrations](references/integration.md) | 8 | Can an old price be used as if it were current? |
+| [Cryptography](references/crypto.md) | 8 | Can a signature be accepted in the wrong context? |
+| [Runtime](references/runtime.md) | 2 | Can work escape its intended execution limits? |
+| [Offchain services](references/offchain.md) | 12 | Can a retry cause an external service to repeat an action? |
 | **Total** | **96** | |
 
 Relevant NEAR standards and reviewed documentation support these checks.
@@ -173,10 +173,28 @@ Reports remain **Draft** until the required human review is complete. No automat
 
 ## Resources
 
-[Detailed usage guide](references/usage-guide.md) · [Report format](references/slotzero-report-format.md) · [Source provenance](references/provenance.md)
+[Detailed usage guide](docs/usage.md) · [Report format](runtime/reporting/slotzero-report-format.md) · [Add patterns](docs/adding-patterns.md) · [Maintenance](docs/maintenance.md)
 
 Host documentation: [Codex](https://learn.chatgpt.com/docs/build-skills) · [Claude Code](https://code.claude.com/docs/en/skills) · [OpenCode skills](https://opencode.ai/docs/skills/) · [OpenCode agents](https://opencode.ai/docs/agents/).
 
-Known V1 packaging issue: health checks flag this README's external links. See [troubleshooting](references/usage-guide.md#maintenance-and-troubleshooting).
+Health checks allow installation links in this README and remain offline and read-only. See [troubleshooting](docs/usage.md#maintenance-and-troubleshooting).
 
-Licensed under [MIT](LICENSE). Existing third-party notices and [source attribution](references/provenance.md) remain applicable.
+Licensed under [MIT](LICENSE). Existing third-party notices remain applicable. The focused-lens organization was informed by [0xsimao/0xsimao-ai](https://github.com/0xsimao/0xsimao-ai); the public layout also draws architectural inspiration from [sanbir/solana-auditor-skills](https://github.com/sanbir/solana-auditor-skills). NEAR guidance is maintained locally; official standards and documentation pins remain in the runtime registries.
+
+## Package layout
+
+- `references/`: ten category files, the routing index, and target-binding guidance.
+- `runtime/`: workflow instructions, schemas, reviewed standards, and report templates.
+- `docs/`: usage, package maintenance, and pattern intake.
+- `scripts/`, `agents/`, `tests/`, `benchmarks/`: controller/helpers, host metadata, regression coverage, and qualification inputs.
+
+To add knowledge, supply a PDF, report, or findings and ask the skill to compare
+its mechanisms with the existing patterns. Covered mechanisms need no edit;
+useful variants improve an existing card; distinct mechanisms get a permanent ID
+in the best-fitting category. No report archive or consumed-file registry is kept.
+See [adding patterns](docs/adding-patterns.md).
+
+The installation command selects `v1_1` and requires that branch to be published.
+Before publication, use the complete local package or extracted release archive.
+Existing runs require the package that created them. The skill name and report
+formats remain `nearshield-v1`.

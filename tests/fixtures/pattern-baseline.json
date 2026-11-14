@@ -1,0 +1,5104 @@
+{
+  "cards": {
+    "NA-AUTH-001": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-002": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-003": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-004": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-005": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-006": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-007": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-008": {
+      "category": "auth",
+      "kind": "security"
+    },
+    "NA-AUTH-009": {
+      "category": "auth",
+      "kind": "conditional"
+    },
+    "NA-AUTH-010": {
+      "category": "auth",
+      "kind": "conditional"
+    },
+    "NA-AUTH-011": {
+      "category": "auth",
+      "kind": "conditional"
+    },
+    "NA-ASYNC-001": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-002": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-003": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-004": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-005": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-006": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-007": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-008": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-009": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-010": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-011": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-012": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-013": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-014": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-015": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-016": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ASYNC-017": {
+      "category": "async",
+      "kind": "security"
+    },
+    "NA-ACCOUNT-001": {
+      "category": "account",
+      "kind": "security"
+    },
+    "NA-ACCOUNT-002": {
+      "category": "account",
+      "kind": "security"
+    },
+    "NA-ACCOUNT-003": {
+      "category": "account",
+      "kind": "security"
+    },
+    "NA-ACCOUNT-004": {
+      "category": "account",
+      "kind": "security"
+    },
+    "NA-ACCOUNT-005": {
+      "category": "account",
+      "kind": "security"
+    },
+    "NA-ACCOUNT-006": {
+      "category": "account",
+      "kind": "security"
+    },
+    "NA-ACCOUNT-007": {
+      "category": "account",
+      "kind": "quality"
+    },
+    "NA-STATE-001": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-002": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-003": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-004": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-005": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-006": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-007": {
+      "category": "state",
+      "kind": "applicability"
+    },
+    "NA-STATE-008": {
+      "category": "state",
+      "kind": "applicability"
+    },
+    "NA-STATE-009": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-010": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-011": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-012": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-013": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-014": {
+      "category": "state",
+      "kind": "applicability"
+    },
+    "NA-STATE-015": {
+      "category": "state",
+      "kind": "security"
+    },
+    "NA-STATE-016": {
+      "category": "state",
+      "kind": "quality"
+    },
+    "NA-ECON-001": {
+      "category": "econ",
+      "kind": "security"
+    },
+    "NA-ECON-002": {
+      "category": "econ",
+      "kind": "security"
+    },
+    "NA-ECON-003": {
+      "category": "econ",
+      "kind": "security"
+    },
+    "NA-ECON-004": {
+      "category": "econ",
+      "kind": "security"
+    },
+    "NA-RESOURCE-001": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-002": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-003": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-004": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-005": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-006": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-007": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-008": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-009": {
+      "category": "resource",
+      "kind": "security"
+    },
+    "NA-RESOURCE-010": {
+      "category": "resource",
+      "kind": "policy"
+    },
+    "NA-INTEGRATION-001": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-INTEGRATION-002": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-INTEGRATION-003": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-INTEGRATION-004": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-INTEGRATION-005": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-INTEGRATION-006": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-INTEGRATION-007": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-INTEGRATION-008": {
+      "category": "integration",
+      "kind": "security"
+    },
+    "NA-CRYPTO-001": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-CRYPTO-002": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-CRYPTO-003": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-CRYPTO-004": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-CRYPTO-005": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-CRYPTO-006": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-CRYPTO-007": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-CRYPTO-008": {
+      "category": "crypto",
+      "kind": "security"
+    },
+    "NA-RUNTIME-001": {
+      "category": "runtime",
+      "kind": "security"
+    },
+    "NA-RUNTIME-002": {
+      "category": "runtime",
+      "kind": "security"
+    },
+    "NA-OFFCHAIN-001": {
+      "category": "offchain",
+      "kind": "security"
+    },
+    "NA-OFFCHAIN-002": {
+      "category": "offchain",
+      "kind": "security"
+    },
+    "NA-OFFCHAIN-003": {
+      "category": "offchain",
+      "kind": "security"
+    },
+    "NA-OFFCHAIN-004": {
+      "category": "offchain",
+      "kind": "security"
+    },
+    "NA-OFFCHAIN-005": {
+      "category": "offchain",
+      "kind": "quality_only"
+    },
+    "NA-OFFCHAIN-006": {
+      "category": "offchain",
+      "kind": "quality_only"
+    },
+    "NA-OFFCHAIN-007": {
+      "category": "offchain",
+      "kind": "quality_only"
+    },
+    "NA-OFFCHAIN-008": {
+      "category": "offchain",
+      "kind": "quality_only"
+    },
+    "NA-OFFCHAIN-009": {
+      "category": "offchain",
+      "kind": "quality"
+    },
+    "NA-OFFCHAIN-010": {
+      "category": "offchain",
+      "kind": "quality"
+    },
+    "NA-OFFCHAIN-011": {
+      "category": "offchain",
+      "kind": "quality"
+    },
+    "NA-OFFCHAIN-012": {
+      "category": "offchain",
+      "kind": "quality"
+    },
+    "NA-AUTH-012": {
+      "category": "auth",
+      "kind": "security"
+    }
+  },
+  "category_order": {
+    "auth": [
+      "NA-AUTH-001",
+      "NA-AUTH-002",
+      "NA-AUTH-003",
+      "NA-AUTH-004",
+      "NA-AUTH-005",
+      "NA-AUTH-006",
+      "NA-AUTH-007",
+      "NA-AUTH-008",
+      "NA-AUTH-009",
+      "NA-AUTH-010",
+      "NA-AUTH-011",
+      "NA-AUTH-012"
+    ],
+    "async": [
+      "NA-ASYNC-001",
+      "NA-ASYNC-002",
+      "NA-ASYNC-003",
+      "NA-ASYNC-004",
+      "NA-ASYNC-005",
+      "NA-ASYNC-006",
+      "NA-ASYNC-007",
+      "NA-ASYNC-008",
+      "NA-ASYNC-009",
+      "NA-ASYNC-010",
+      "NA-ASYNC-011",
+      "NA-ASYNC-012",
+      "NA-ASYNC-013",
+      "NA-ASYNC-014",
+      "NA-ASYNC-015",
+      "NA-ASYNC-016",
+      "NA-ASYNC-017"
+    ],
+    "account": [
+      "NA-ACCOUNT-001",
+      "NA-ACCOUNT-002",
+      "NA-ACCOUNT-003",
+      "NA-ACCOUNT-004",
+      "NA-ACCOUNT-005",
+      "NA-ACCOUNT-006",
+      "NA-ACCOUNT-007"
+    ],
+    "state": [
+      "NA-STATE-001",
+      "NA-STATE-002",
+      "NA-STATE-003",
+      "NA-STATE-004",
+      "NA-STATE-005",
+      "NA-STATE-006",
+      "NA-STATE-007",
+      "NA-STATE-008",
+      "NA-STATE-009",
+      "NA-STATE-010",
+      "NA-STATE-011",
+      "NA-STATE-012",
+      "NA-STATE-013",
+      "NA-STATE-014",
+      "NA-STATE-015",
+      "NA-STATE-016"
+    ],
+    "econ": [
+      "NA-ECON-001",
+      "NA-ECON-002",
+      "NA-ECON-003",
+      "NA-ECON-004"
+    ],
+    "resource": [
+      "NA-RESOURCE-001",
+      "NA-RESOURCE-002",
+      "NA-RESOURCE-003",
+      "NA-RESOURCE-004",
+      "NA-RESOURCE-005",
+      "NA-RESOURCE-006",
+      "NA-RESOURCE-007",
+      "NA-RESOURCE-008",
+      "NA-RESOURCE-009",
+      "NA-RESOURCE-010"
+    ],
+    "integration": [
+      "NA-INTEGRATION-001",
+      "NA-INTEGRATION-002",
+      "NA-INTEGRATION-003",
+      "NA-INTEGRATION-004",
+      "NA-INTEGRATION-005",
+      "NA-INTEGRATION-006",
+      "NA-INTEGRATION-007",
+      "NA-INTEGRATION-008"
+    ],
+    "crypto": [
+      "NA-CRYPTO-001",
+      "NA-CRYPTO-002",
+      "NA-CRYPTO-003",
+      "NA-CRYPTO-004",
+      "NA-CRYPTO-005",
+      "NA-CRYPTO-006",
+      "NA-CRYPTO-007",
+      "NA-CRYPTO-008"
+    ],
+    "runtime": [
+      "NA-RUNTIME-001",
+      "NA-RUNTIME-002"
+    ],
+    "offchain": [
+      "NA-OFFCHAIN-001",
+      "NA-OFFCHAIN-002",
+      "NA-OFFCHAIN-003",
+      "NA-OFFCHAIN-004",
+      "NA-OFFCHAIN-005",
+      "NA-OFFCHAIN-006",
+      "NA-OFFCHAIN-007",
+      "NA-OFFCHAIN-008",
+      "NA-OFFCHAIN-009",
+      "NA-OFFCHAIN-010",
+      "NA-OFFCHAIN-011",
+      "NA-OFFCHAIN-012"
+    ]
+  },
+  "routing": {
+    "nep-surface": {
+      "surface": {
+        "schema_version": 3,
+        "files": [
+          {
+            "path": "lib.rs",
+            "language": "rs",
+            "lines": 19,
+            "signals": [
+              "near_sdk",
+              "promises",
+              "runtime_consensus",
+              "storage",
+              "tokens",
+              "yield_resume"
+            ],
+            "nep_signals": [
+              "0141",
+              "0145",
+              "0300",
+              "0393",
+              "0399",
+              "0488",
+              "0509",
+              "0519",
+              "0584",
+              "0635",
+              "0641",
+              "0646"
+            ]
+          }
+        ],
+        "file_count": 1,
+        "signal_counts": {
+          "near_sdk": 1,
+          "promises": 1,
+          "runtime_consensus": 1,
+          "storage": 1,
+          "tokens": 1,
+          "yield_resume": 1
+        },
+        "selected_roles": [
+          "entrypoints-auth",
+          "async-promises",
+          "state-storage",
+          "token-accounting",
+          "math-economics",
+          "gas-dos",
+          "invariant-flow",
+          "periphery-build",
+          "coverage-sweep",
+          "numerical-gap",
+          "trust-gap",
+          "flow-gap",
+          "upgrade-keys",
+          "intents-auth",
+          "bridge-relayer",
+          "chain-signatures-yield",
+          "runtime-consensus",
+          "oracle-freshness",
+          "invariant-synthesis",
+          "mutation-analysis",
+          "async-state-explorer",
+          "nep-differential"
+        ],
+        "selected_pattern_categories": [
+          "auth",
+          "async",
+          "account",
+          "state",
+          "econ",
+          "resource",
+          "integration",
+          "runtime"
+        ],
+        "selected_pattern_references": [
+          "references/auth.md",
+          "references/async.md",
+          "references/account.md",
+          "references/state.md",
+          "references/econ.md",
+          "references/resource.md",
+          "references/integration.md",
+          "references/runtime.md"
+        ],
+        "capability_roles": [
+          "protocol-modeler",
+          "pattern-matcher",
+          "intent-reasoner"
+        ],
+        "active_test_requirements": {
+          "invariant_ledger": true,
+          "mutation_analysis": true,
+          "async_schedules": true,
+          "nep_differential": true,
+          "temporal_upgrade": false
+        },
+        "nep_source_commit": "91562ccd72f6d30f4e37e4b53f7f193cc808b5d8",
+        "nep_signal_counts": {
+          "0141": 1,
+          "0145": 1,
+          "0300": 1,
+          "0393": 1,
+          "0399": 1,
+          "0488": 1,
+          "0509": 1,
+          "0519": 1,
+          "0584": 1,
+          "0635": 1,
+          "0641": 1,
+          "0646": 1
+        },
+        "nep_roles": [
+          "nep-process-legacy",
+          "nep-token-assets",
+          "nep-contract-interfaces",
+          "nep-wallet-auth",
+          "nep-runtime-resources",
+          "nep-crypto-host",
+          "nep-protocol-node"
+        ],
+        "nep_review_queue": [
+          {
+            "nep_id": "0001",
+            "title": "NEP Purpose and Guidelines",
+            "source_status": "Approved",
+            "category": "process-legacy",
+            "role_id": "nep-process-legacy",
+            "activation": "process_only",
+            "version_gate": "not executable",
+            "signal_hits": 0,
+            "screening": "process_only"
+          },
+          {
+            "nep_id": "0021",
+            "title": "Fungible Token Standard",
+            "source_status": "Final",
+            "category": "process-legacy",
+            "role_id": "nep-process-legacy",
+            "activation": "superseded",
+            "version_gate": "legacy exported interface",
+            "signal_hits": 0,
+            "screening": "legacy_if_target_uses"
+          },
+          {
+            "nep_id": "0141",
+            "title": "Fungible Token Standard",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported FT interface/version",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0145",
+            "title": "Storage Management",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported storage-management interface",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0148",
+            "title": "Fungible Token Metadata",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported metadata interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0171",
+            "title": "Non Fungible Token Standard",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT core interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0177",
+            "title": "Non Fungible Token Metadata",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT metadata interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0178",
+            "title": "Non Fungible Token Approval Management",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT approval interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0181",
+            "title": "Non Fungible Token Enumeration",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT enumeration interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0199",
+            "title": "Non Fungible Token Royalties and Payouts",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported payout interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0245",
+            "title": "Multi Token Standard",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported multi-token interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0256",
+            "title": "Non-Fungible Token Events",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "NFT events claim or consumer",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0264",
+            "title": "Utilization of unspent gas for promise function calls",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active promise gas-weight semantics",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0297",
+            "title": "Events",
+            "source_status": "Final",
+            "category": "contract-interfaces",
+            "role_id": "nep-contract-interfaces",
+            "activation": "claimed_interface",
+            "version_gate": "event claim or material consumer",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0300",
+            "title": "Fungible Token Events",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "FT events claim or consumer",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0330",
+            "title": "Source Metadata",
+            "source_status": "Final",
+            "category": "contract-interfaces",
+            "role_id": "nep-contract-interfaces",
+            "activation": "claimed_interface",
+            "version_gate": "metadata export or source-verification claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0364",
+            "title": "Efficient signature verification and hashing precompile functions",
+            "source_status": "Final",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "runtime_feature",
+            "version_gate": "active host-function ABI",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0366",
+            "title": "Meta Transactions",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "active DelegateAction semantics",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0368",
+            "title": "Bridge Wallets",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "wallet_integration",
+            "version_gate": "bridge-wallet API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0393",
+            "title": "Soulbound Token",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "SBT issuer/registry claim",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0399",
+            "title": "Flat Storage",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "node_feature",
+            "version_gate": "active flat-storage implementation",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0408",
+            "title": "Injected Wallet API",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "wallet_integration",
+            "version_gate": "injected-wallet API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0413",
+            "title": "Near Wallet API - support for signMessage method",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "wallet_integration",
+            "version_gate": "signMessage implementation/verification",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0418",
+            "title": "Remove attached_deposit view panic",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "target view-call runtime behavior",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0448",
+            "title": "Zero-balance Accounts",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "active account-creation rules",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0452",
+            "title": "Linkdrop Standard",
+            "source_status": "Final",
+            "category": "contract-interfaces",
+            "role_id": "nep-contract-interfaces",
+            "activation": "claimed_interface",
+            "version_gate": "linkdrop API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0455",
+            "title": "Parameter Compute Costs",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "node_feature",
+            "version_gate": "active compute-cost parameter set",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0488",
+            "title": "Host Functions for BLS12-381 Curve Operations",
+            "source_status": "Final",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "runtime_feature",
+            "version_gate": "active BLS12-381 host ABI",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0491",
+            "title": "Non-Refundable Storage Staking",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active account storage-balance model",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0492",
+            "title": "Restrict creation of Ethereum Addresses",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "active account-ID creation validation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0508",
+            "title": "Resharding v2",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "V2 layout transition version/network",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0509",
+            "title": "Stateless validation Stage 0",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "stateless-validation activation",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0514",
+            "title": "Reducing the number of Block Producer Seats in `testnet`",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "testnet genesis/epoch configuration",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0518",
+            "title": "Web3-Compatible Wallets Support",
+            "source_status": "New",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "advisory_feature",
+            "version_gate": "proposal or experimental feature only",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0519",
+            "title": "Yield Execution",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active yield/resume host ABI",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0536",
+            "title": "Reduce the number of gas refunds",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active gas-refund model",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0539",
+            "title": "Cross-Shard Congestion Control",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "congestion-control activation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0568",
+            "title": "Resharding V3",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "V3 layout transition version/network",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0584",
+            "title": "Cross-shard bandwidth scheduler",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "bandwidth-scheduler activation",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0591",
+            "title": "Global Contracts",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "global-contract protocol feature",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0611",
+            "title": "Pending Transaction Queue and Gas Keys",
+            "source_status": "Draft",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental feature only",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0616",
+            "title": "Deterministic AccountIds",
+            "source_status": "Approved",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "deterministic-account feature activation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0621",
+            "title": "Vault NEP",
+            "source_status": "Approved",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "vault API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0635",
+            "title": "P-256 ECDSA Signature Verification Host Function",
+            "source_status": "Draft",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental host feature",
+            "signal_hits": 1,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0638",
+            "title": "`chain_id()` host function",
+            "source_status": "Draft",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental host feature",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0639",
+            "title": "Dynamic Resharding",
+            "source_status": "Draft",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental node feature",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0641",
+            "title": "Offchain Authorizations for Smart Contracts",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "claimed_interface",
+            "version_gate": "w_resolve_auth or verifier claim",
+            "signal_hits": 1,
+            "screening": "check_applicability_and_version"
+          },
+          {
+            "nep_id": "0642",
+            "title": "Account cost increase",
+            "source_status": "New",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "advisory_feature",
+            "version_gate": "proposal or experimental feature only",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0645",
+            "title": "ML-DSA-65 Post-Quantum Transaction Signatures",
+            "source_status": "Draft",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "advisory_feature",
+            "version_gate": "draft protocol feature; confirm implementation version",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0646",
+            "title": "FIPS 202 SHA-3 Host Functions",
+            "source_status": "Draft",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental host feature",
+            "signal_hits": 1,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0652",
+            "title": "Early Chunk Producer Reassignment",
+            "source_status": "Draft",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "target_runtime_feature",
+            "version_gate": "only when target runtime explicitly implements EarlyKickout at a pinned protocol version",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          }
+        ],
+        "official_docs_source_commit": "117e74217efdf921cf55da6b5e0b0e3f622bc4db",
+        "official_guidance_signal_counts": {
+          "DOC-ASYNC-001": 0,
+          "DOC-ASYNC-002": 1,
+          "DOC-ASYNC-003": 0,
+          "DOC-ASYNC-004": 0,
+          "DOC-ASYNC-005": 1,
+          "DOC-ASYNC-006": 1,
+          "DOC-AUTH-001": 1,
+          "DOC-BRIDGE-001": 0,
+          "DOC-BRIDGE-002": 0,
+          "DOC-BUILD-001": 0,
+          "DOC-DUP-001": 0,
+          "DOC-ECON-001": 0,
+          "DOC-FT-001": 1,
+          "DOC-FT-002": 1,
+          "DOC-GAS-001": 0,
+          "DOC-GLOBAL-001": 0,
+          "DOC-INIT-001": 0,
+          "DOC-INTENT-001": 0,
+          "DOC-KEY-001": 0,
+          "DOC-KEY-002": 0,
+          "DOC-META-001": 0,
+          "DOC-MEV-001": 0,
+          "DOC-MEV-002": 0,
+          "DOC-MPC-001": 0,
+          "DOC-MPC-002": 0,
+          "DOC-NFT-001": 1,
+          "DOC-ORACLE-001": 0,
+          "DOC-RELAYER-001": 0,
+          "DOC-RPC-001": 0,
+          "DOC-SERIAL-001": 0,
+          "DOC-STORAGE-001": 1,
+          "DOC-STORAGE-002": 1,
+          "DOC-STORAGE-003": 1,
+          "DOC-TEE-001": 0,
+          "DOC-UPGRADE-001": 0,
+          "DOC-VAULT-001": 0,
+          "DOC-WALLET-001": 0,
+          "DOC-YIELD-001": 1
+        },
+        "selected_attacker_cards": [
+          "DOC-ASYNC-002",
+          "DOC-ASYNC-005",
+          "DOC-ASYNC-006",
+          "DOC-AUTH-001",
+          "DOC-FT-001",
+          "DOC-FT-002",
+          "DOC-NFT-001",
+          "DOC-STORAGE-001",
+          "DOC-STORAGE-002",
+          "DOC-STORAGE-003",
+          "DOC-YIELD-001"
+        ],
+        "official_guidance_review_queue": [
+          {
+            "card_id": "DOC-AUTH-001",
+            "signal_hits": 1,
+            "signals": [
+              "near_sdk",
+              "callback_entrypoints"
+            ],
+            "activation_signals": [
+              "near_sdk",
+              "callback_entrypoints"
+            ],
+            "owner_role": "entrypoints-auth",
+            "agent_roles": [
+              "entrypoints-auth",
+              "async-promises"
+            ],
+            "canonical_pattern_ids": [
+              "NA-AUTH-001",
+              "NA-ASYNC-003"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-AUTH-*",
+              "INV-CALLBACK-*"
+            ],
+            "mutation_families": [
+              "identity-substitution"
+            ],
+            "source_pages": [
+              "protocol/accounts-contracts/account-model.md",
+              "protocol/data-flow/near-data-flow.md",
+              "protocol/network/runtime.md",
+              "protocol/transactions/meta-tx.md",
+              "smart-contracts/anatomy/environment.md",
+              "smart-contracts/anatomy/functions.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/one_yocto.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-002",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "serialization"
+            ],
+            "activation_signals": [
+              "promises"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "token-accounting"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-004",
+              "NA-ASYNC-009"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-CALLBACK-*",
+              "INV-SETTLE-ONCE-*"
+            ],
+            "mutation_families": [
+              "promise-result-semantics",
+              "serializer-mismatch"
+            ],
+            "source_pages": [
+              "integrations/deposits.md",
+              "integrations/errors/introduction.md",
+              "protocol/data-flow/near-data-flow.md",
+              "protocol/data-flow/token-transfer-flow.md",
+              "protocol/network/runtime.md",
+              "protocol/transactions/transaction-execution.md",
+              "smart-contracts/anatomy/crosscontract.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/callback-failures.md",
+              "smart-contracts/security/cross-contract-calls/callbacks.md",
+              "smart-contracts/security/cross-contract-calls/ft-transfer-call.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-005",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "tokens"
+            ],
+            "activation_signals": [
+              "promises"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "async-state-explorer",
+              "invariant-synthesis"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-001",
+              "NA-ASYNC-002"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-PENDING-*",
+              "INV-SETTLE-ONCE-*"
+            ],
+            "mutation_families": [
+              "late-reservation"
+            ],
+            "source_pages": [
+              "primitives/liquid-staking/deploy-your-own-contract.md",
+              "primitives/liquid-staking/liquid-staking.md",
+              "primitives/lockup/introduction.md",
+              "primitives/lockup/lockup.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/reentrancy.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-006",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "gas"
+            ],
+            "activation_signals": [
+              "promises",
+              "gas"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "gas-dos",
+              "periphery-build"
+            ],
+            "canonical_pattern_ids": [
+              "NA-RESOURCE-005",
+              "NA-ASYNC-004"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-CALLBACK-*"
+            ],
+            "mutation_families": [
+              "callback-gas",
+              "terminal-promise"
+            ],
+            "source_pages": [
+              "protocol/transactions/transaction-execution.md",
+              "smart-contracts/anatomy/actions.md",
+              "smart-contracts/anatomy/best-practices.md",
+              "smart-contracts/anatomy/crosscontract.md",
+              "smart-contracts/anatomy/yield-resume.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/callback-failures.md",
+              "smart-contracts/security/cross-contract-calls/callback-panics.md"
+            ]
+          },
+          {
+            "card_id": "DOC-YIELD-001",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "chain_signatures",
+              "yield_resume"
+            ],
+            "activation_signals": [
+              "yield_resume"
+            ],
+            "owner_role": "chain-signatures-yield",
+            "agent_roles": [
+              "chain-signatures-yield",
+              "async-state-explorer"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-008",
+              "NA-ASYNC-005",
+              "NA-STATE-004"
+            ],
+            "nep_ids": [
+              "0519"
+            ],
+            "invariant_families": [
+              "INV-PENDING-*",
+              "INV-SETTLE-ONCE-*"
+            ],
+            "mutation_families": [
+              "yield-resume-binding"
+            ],
+            "source_pages": [
+              "smart-contracts/anatomy/yield-resume.md",
+              "smart-contracts/security/checklist.md"
+            ]
+          },
+          {
+            "card_id": "DOC-STORAGE-001",
+            "signal_hits": 1,
+            "signals": [
+              "storage"
+            ],
+            "activation_signals": [
+              "storage"
+            ],
+            "owner_role": "state-storage",
+            "agent_roles": [
+              "state-storage",
+              "gas-dos"
+            ],
+            "canonical_pattern_ids": [
+              "NA-RESOURCE-001",
+              "NA-RESOURCE-005"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-STORAGE-*",
+              "INV-CONSERVATION-*"
+            ],
+            "mutation_families": [
+              "storage-accounting"
+            ],
+            "source_pages": [
+              "protocol/storage/storage-staking.md",
+              "smart-contracts/anatomy/collections.md",
+              "smart-contracts/anatomy/storage.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/storage.md"
+            ]
+          },
+          {
+            "card_id": "DOC-STORAGE-002",
+            "signal_hits": 1,
+            "signals": [
+              "storage",
+              "tokens"
+            ],
+            "activation_signals": [
+              "storage"
+            ],
+            "owner_role": "state-storage",
+            "agent_roles": [
+              "state-storage",
+              "token-accounting"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ACCOUNT-001",
+              "NA-INTEGRATION-002",
+              "NA-ACCOUNT-003"
+            ],
+            "nep_ids": [
+              "0145"
+            ],
+            "invariant_families": [
+              "INV-STORAGE-*",
+              "INV-CONSERVATION-*"
+            ],
+            "mutation_families": [
+              "storage-accounting",
+              "refund-principal"
+            ],
+            "source_pages": [
+              "primitives/ft/ft.md",
+              "primitives/ft/standard.md",
+              "primitives/nft/nft.md",
+              "primitives/nft/standard.md",
+              "protocol/storage/storage-staking.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/storage.md"
+            ]
+          },
+          {
+            "card_id": "DOC-STORAGE-003",
+            "signal_hits": 1,
+            "signals": [
+              "storage"
+            ],
+            "activation_signals": [
+              "storage"
+            ],
+            "owner_role": "state-storage",
+            "agent_roles": [
+              "state-storage"
+            ],
+            "canonical_pattern_ids": [
+              "NA-RESOURCE-002",
+              "NA-RESOURCE-003",
+              "NA-RESOURCE-004",
+              "NA-STATE-001"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-STORAGE-*",
+              "INV-MIGRATION-*"
+            ],
+            "mutation_families": [
+              "storage-accounting",
+              "migration-layout"
+            ],
+            "source_pages": [
+              "smart-contracts/anatomy/collections.md",
+              "smart-contracts/anatomy/storage.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/storage.md"
+            ]
+          },
+          {
+            "card_id": "DOC-FT-001",
+            "signal_hits": 1,
+            "signals": [
+              "tokens"
+            ],
+            "activation_signals": [
+              "tokens"
+            ],
+            "owner_role": "token-accounting",
+            "agent_roles": [
+              "token-accounting",
+              "async-promises"
+            ],
+            "canonical_pattern_ids": [
+              "NA-INTEGRATION-001",
+              "NA-ECON-001"
+            ],
+            "nep_ids": [
+              "0141"
+            ],
+            "invariant_families": [
+              "INV-CONSERVATION-*",
+              "INV-AUTH-*"
+            ],
+            "mutation_families": [
+              "transfer-call-polarity",
+              "identity-substitution"
+            ],
+            "source_pages": [
+              "integrations/fungible-tokens.md",
+              "primitives/ft/ft.md",
+              "primitives/ft/standard.md",
+              "primitives/tokenized-vaults.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/ft-transfer-call.md"
+            ]
+          },
+          {
+            "card_id": "DOC-FT-002",
+            "signal_hits": 1,
+            "signals": [
+              "tokens",
+              "callback_entrypoints"
+            ],
+            "activation_signals": [
+              "tokens"
+            ],
+            "owner_role": "token-accounting",
+            "agent_roles": [
+              "token-accounting",
+              "nep-differential"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-009",
+              "NA-ASYNC-004"
+            ],
+            "nep_ids": [
+              "0141"
+            ],
+            "invariant_families": [
+              "INV-CONSERVATION-*",
+              "INV-CALLBACK-*"
+            ],
+            "mutation_families": [
+              "transfer-call-polarity",
+              "refund-cap",
+              "promise-result-semantics"
+            ],
+            "source_pages": [
+              "integrations/fungible-tokens.md",
+              "primitives/ft/ft.md",
+              "primitives/ft/standard.md",
+              "primitives/tokenized-vaults.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/ft-transfer-call.md"
+            ]
+          },
+          {
+            "card_id": "DOC-NFT-001",
+            "signal_hits": 1,
+            "signals": [
+              "tokens",
+              "callback_entrypoints"
+            ],
+            "activation_signals": [
+              "tokens"
+            ],
+            "owner_role": "token-accounting",
+            "agent_roles": [
+              "token-accounting",
+              "nep-differential"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-009",
+              "NA-STATE-001",
+              "NA-INTEGRATION-002"
+            ],
+            "nep_ids": [
+              "0171",
+              "0178"
+            ],
+            "invariant_families": [
+              "INV-AUTH-*",
+              "INV-SETTLE-ONCE-*"
+            ],
+            "mutation_families": [
+              "access-macro-removal",
+              "refund-cap"
+            ],
+            "source_pages": [
+              "primitives/nft/nft.md",
+              "primitives/nft/standard.md",
+              "smart-contracts/security/checklist.md"
+            ]
+          }
+        ],
+        "warnings": []
+      },
+      "packets": [
+        {
+          "packet_id": "l0-model:protocol-modeler",
+          "phase": "l0-model",
+          "role_id": "protocol-modeler",
+          "output_path": "intent-model.json",
+          "dependencies": [],
+          "retry_limit": 1,
+          "candidate_outputs": [],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "isolated-l1-l2:pattern-matcher",
+          "phase": "isolated-l1-l2",
+          "role_id": "pattern-matcher",
+          "output_path": "l1/candidates.jsonl",
+          "dependencies": [
+            "l0-model:protocol-modeler"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "l1/candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "isolated-l1-l2:intent-reasoner:pass-01",
+          "phase": "isolated-l1-l2",
+          "role_id": "intent-reasoner",
+          "output_path": "l2/pass-01/candidates.jsonl",
+          "dependencies": [
+            "l0-model:protocol-modeler"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "l2/pass-01/candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "isolated-l1-l2:intent-reasoner:pass-02",
+          "phase": "isolated-l1-l2",
+          "role_id": "intent-reasoner",
+          "output_path": "l2/pass-02/candidates.jsonl",
+          "dependencies": [
+            "l0-model:protocol-modeler"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "l2/pass-02/candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:entrypoints-auth:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "entrypoints-auth",
+          "output_path": "discovery/pass-01/entrypoints-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/entrypoints-auth.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/entrypoints-auth.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:entrypoints-auth:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "entrypoints-auth",
+          "output_path": "discovery/pass-02/entrypoints-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/entrypoints-auth.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:async-promises:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "async-promises",
+          "output_path": "discovery/pass-01/async-promises.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/async-promises.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/async-promises.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:async-promises:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "async-promises",
+          "output_path": "discovery/pass-02/async-promises.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/async-promises.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:state-storage:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "state-storage",
+          "output_path": "discovery/pass-01/state-storage.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/state-storage.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/state-storage.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:state-storage:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "state-storage",
+          "output_path": "discovery/pass-02/state-storage.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/state-storage.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:token-accounting:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "token-accounting",
+          "output_path": "discovery/pass-01/token-accounting.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/token-accounting.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/token-accounting.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:token-accounting:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "token-accounting",
+          "output_path": "discovery/pass-02/token-accounting.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/token-accounting.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:math-economics:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "math-economics",
+          "output_path": "discovery/pass-01/math-economics.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/math-economics.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:math-economics:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "math-economics",
+          "output_path": "discovery/pass-02/math-economics.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/math-economics.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:gas-dos:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "gas-dos",
+          "output_path": "discovery/pass-01/gas-dos.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/gas-dos.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:gas-dos:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "gas-dos",
+          "output_path": "discovery/pass-02/gas-dos.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/gas-dos.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:invariant-flow:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "invariant-flow",
+          "output_path": "discovery/pass-01/invariant-flow.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/invariant-flow.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:invariant-flow:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "invariant-flow",
+          "output_path": "discovery/pass-02/invariant-flow.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/invariant-flow.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:periphery-build:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "periphery-build",
+          "output_path": "discovery/pass-01/periphery-build.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/periphery-build.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:periphery-build:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "periphery-build",
+          "output_path": "discovery/pass-02/periphery-build.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/periphery-build.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:coverage-sweep:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "coverage-sweep",
+          "output_path": "discovery/pass-01/coverage-sweep.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/coverage-sweep.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:coverage-sweep:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "coverage-sweep",
+          "output_path": "discovery/pass-02/coverage-sweep.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/coverage-sweep.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:numerical-gap:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "numerical-gap",
+          "output_path": "discovery/pass-01/numerical-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/numerical-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:numerical-gap:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "numerical-gap",
+          "output_path": "discovery/pass-02/numerical-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/numerical-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:trust-gap:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "trust-gap",
+          "output_path": "discovery/pass-01/trust-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/trust-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:trust-gap:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "trust-gap",
+          "output_path": "discovery/pass-02/trust-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/trust-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:flow-gap:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "flow-gap",
+          "output_path": "discovery/pass-01/flow-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/flow-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:flow-gap:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "flow-gap",
+          "output_path": "discovery/pass-02/flow-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/flow-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:upgrade-keys:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "upgrade-keys",
+          "output_path": "discovery/pass-01/upgrade-keys.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/upgrade-keys.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/upgrade-keys-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:upgrade-keys:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "upgrade-keys",
+          "output_path": "discovery/pass-02/upgrade-keys.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/upgrade-keys.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/upgrade-keys-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:intents-auth:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "intents-auth",
+          "output_path": "discovery/pass-01/intents-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/intents-auth.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/intents-auth-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:intents-auth:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "intents-auth",
+          "output_path": "discovery/pass-02/intents-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/intents-auth.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/intents-auth-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:bridge-relayer:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "bridge-relayer",
+          "output_path": "discovery/pass-01/bridge-relayer.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/bridge-relayer.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/bridge-relayer-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:bridge-relayer:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "bridge-relayer",
+          "output_path": "discovery/pass-02/bridge-relayer.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/bridge-relayer.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/bridge-relayer-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:chain-signatures-yield:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "chain-signatures-yield",
+          "output_path": "discovery/pass-01/chain-signatures-yield.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/chain-signatures-yield.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/chain-signatures-yield-applicability.json",
+            "guidance/chain-signatures-yield.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:chain-signatures-yield:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "chain-signatures-yield",
+          "output_path": "discovery/pass-02/chain-signatures-yield.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/chain-signatures-yield.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/chain-signatures-yield-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:runtime-consensus:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "runtime-consensus",
+          "output_path": "discovery/pass-01/runtime-consensus.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/runtime-consensus.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/runtime-consensus-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:runtime-consensus:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "runtime-consensus",
+          "output_path": "discovery/pass-02/runtime-consensus.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/runtime-consensus.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/runtime-consensus-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:oracle-freshness:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "oracle-freshness",
+          "output_path": "discovery/pass-01/oracle-freshness.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/oracle-freshness.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/oracle-freshness-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:oracle-freshness:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "oracle-freshness",
+          "output_path": "discovery/pass-02/oracle-freshness.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/oracle-freshness.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/oracle-freshness-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:invariant-synthesis",
+          "phase": "blind-l3-active",
+          "role_id": "invariant-synthesis",
+          "output_path": "discovery/invariant-synthesis.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/invariant-synthesis.jsonl"
+          ],
+          "additional_outputs": [
+            "invariant-ledger.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "blind-l3-active:mutation-analysis",
+          "phase": "blind-l3-active",
+          "role_id": "mutation-analysis",
+          "output_path": "discovery/mutation-analysis.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/mutation-analysis.jsonl"
+          ],
+          "additional_outputs": [
+            "mutation-results.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "blind-l3-active:async-state-explorer",
+          "phase": "blind-l3-active",
+          "role_id": "async-state-explorer",
+          "output_path": "discovery/async-state-explorer.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/async-state-explorer.jsonl"
+          ],
+          "additional_outputs": [
+            "async-schedules.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "blind-l3-active:nep-differential",
+          "phase": "blind-l3-active",
+          "role_id": "nep-differential",
+          "output_path": "discovery/nep-differential.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/nep-differential.jsonl"
+          ],
+          "additional_outputs": [
+            "nep-differential.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-process-legacy",
+          "phase": "nep-coverage",
+          "role_id": "nep-process-legacy",
+          "output_path": "nep/nep-process-legacy.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-process-legacy-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-process-legacy-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-token-assets",
+          "phase": "nep-coverage",
+          "role_id": "nep-token-assets",
+          "output_path": "nep/nep-token-assets.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-token-assets-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-token-assets-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-contract-interfaces",
+          "phase": "nep-coverage",
+          "role_id": "nep-contract-interfaces",
+          "output_path": "nep/nep-contract-interfaces.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-contract-interfaces-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-contract-interfaces-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-wallet-auth",
+          "phase": "nep-coverage",
+          "role_id": "nep-wallet-auth",
+          "output_path": "nep/nep-wallet-auth.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-wallet-auth-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-wallet-auth-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-runtime-resources",
+          "phase": "nep-coverage",
+          "role_id": "nep-runtime-resources",
+          "output_path": "nep/nep-runtime-resources.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-runtime-resources-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-runtime-resources-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-crypto-host",
+          "phase": "nep-coverage",
+          "role_id": "nep-crypto-host",
+          "output_path": "nep/nep-crypto-host.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-crypto-host-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-crypto-host-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-protocol-node",
+          "phase": "nep-coverage",
+          "role_id": "nep-protocol-node",
+          "output_path": "nep/nep-protocol-node.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-protocol-node-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-protocol-node-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "dedup-chains:corpus-echo",
+          "phase": "dedup-chains",
+          "role_id": "corpus-echo",
+          "output_path": "corpus-echo-candidates.jsonl",
+          "dependencies": [
+            "nep-coverage"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "corpus-echo-candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "fresh_context": true
+        },
+        {
+          "packet_id": "dedup-chains:chain-constructor",
+          "phase": "dedup-chains",
+          "role_id": "chain-constructor",
+          "output_path": "deduplicated.jsonl",
+          "dependencies": [
+            "nep-coverage"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "chain-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "chain-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "fresh_context": true
+        },
+        {
+          "packet_id": "two-stage-judge:evidence-triage",
+          "phase": "two-stage-judge",
+          "role_id": "evidence-triage",
+          "output_path": "triage.jsonl",
+          "dependencies": [
+            "dedup-chains:chain-constructor"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "two-stage-judge:adversarial-verifier",
+          "phase": "two-stage-judge",
+          "role_id": "adversarial-verifier",
+          "output_path": "verdicts.jsonl",
+          "dependencies": [
+            "two-stage-judge:evidence-triage"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "counterexample-rescan:counterexample-rescan",
+          "phase": "counterexample-rescan",
+          "role_id": "counterexample-rescan",
+          "output_path": "counterexample-rescan-candidates.jsonl",
+          "dependencies": [
+            "two-stage-judge:adversarial-verifier"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "counterexample-rescan-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "unresolved-assumptions.jsonl",
+            "rescan-summary.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "informed-rescan:verified-seed-variant",
+          "phase": "informed-rescan",
+          "role_id": "verified-seed-variant",
+          "output_path": "informed-rescan-candidates.jsonl",
+          "dependencies": [
+            "counterexample-rescan:counterexample-rescan"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "informed-rescan-candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        }
+      ],
+      "selected_pattern_references": [
+        "auth.md",
+        "async.md",
+        "account.md",
+        "state.md",
+        "econ.md",
+        "resource.md",
+        "integration.md",
+        "runtime.md"
+      ]
+    },
+    "semantic-near": {
+      "surface": {
+        "schema_version": 3,
+        "files": [
+          {
+            "path": "src/lib.rs",
+            "language": "rs",
+            "lines": 31,
+            "signals": [
+              "callback_entrypoints",
+              "native_transfers",
+              "near_sdk",
+              "promises",
+              "storage",
+              "vault"
+            ],
+            "nep_signals": []
+          }
+        ],
+        "file_count": 1,
+        "signal_counts": {
+          "callback_entrypoints": 1,
+          "native_transfers": 1,
+          "near_sdk": 1,
+          "promises": 1,
+          "storage": 1,
+          "vault": 1
+        },
+        "selected_roles": [
+          "entrypoints-auth",
+          "async-promises",
+          "state-storage",
+          "token-accounting",
+          "math-economics",
+          "gas-dos",
+          "invariant-flow",
+          "periphery-build",
+          "coverage-sweep",
+          "numerical-gap",
+          "trust-gap",
+          "flow-gap",
+          "upgrade-keys",
+          "intents-auth",
+          "bridge-relayer",
+          "chain-signatures-yield",
+          "runtime-consensus",
+          "oracle-freshness",
+          "invariant-synthesis",
+          "mutation-analysis",
+          "async-state-explorer"
+        ],
+        "selected_pattern_categories": [
+          "auth",
+          "async",
+          "account",
+          "state",
+          "econ",
+          "resource"
+        ],
+        "selected_pattern_references": [
+          "references/auth.md",
+          "references/async.md",
+          "references/account.md",
+          "references/state.md",
+          "references/econ.md",
+          "references/resource.md"
+        ],
+        "capability_roles": [
+          "protocol-modeler",
+          "pattern-matcher",
+          "intent-reasoner"
+        ],
+        "active_test_requirements": {
+          "invariant_ledger": true,
+          "mutation_analysis": true,
+          "async_schedules": true,
+          "nep_differential": false,
+          "temporal_upgrade": false
+        },
+        "nep_source_commit": "91562ccd72f6d30f4e37e4b53f7f193cc808b5d8",
+        "nep_signal_counts": {},
+        "nep_roles": [
+          "nep-process-legacy",
+          "nep-token-assets",
+          "nep-contract-interfaces",
+          "nep-wallet-auth",
+          "nep-runtime-resources",
+          "nep-crypto-host",
+          "nep-protocol-node"
+        ],
+        "nep_review_queue": [
+          {
+            "nep_id": "0001",
+            "title": "NEP Purpose and Guidelines",
+            "source_status": "Approved",
+            "category": "process-legacy",
+            "role_id": "nep-process-legacy",
+            "activation": "process_only",
+            "version_gate": "not executable",
+            "signal_hits": 0,
+            "screening": "process_only"
+          },
+          {
+            "nep_id": "0021",
+            "title": "Fungible Token Standard",
+            "source_status": "Final",
+            "category": "process-legacy",
+            "role_id": "nep-process-legacy",
+            "activation": "superseded",
+            "version_gate": "legacy exported interface",
+            "signal_hits": 0,
+            "screening": "legacy_if_target_uses"
+          },
+          {
+            "nep_id": "0141",
+            "title": "Fungible Token Standard",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported FT interface/version",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0145",
+            "title": "Storage Management",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported storage-management interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0148",
+            "title": "Fungible Token Metadata",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported metadata interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0171",
+            "title": "Non Fungible Token Standard",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT core interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0177",
+            "title": "Non Fungible Token Metadata",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT metadata interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0178",
+            "title": "Non Fungible Token Approval Management",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT approval interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0181",
+            "title": "Non Fungible Token Enumeration",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported NFT enumeration interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0199",
+            "title": "Non Fungible Token Royalties and Payouts",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported payout interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0245",
+            "title": "Multi Token Standard",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "exported multi-token interface",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0256",
+            "title": "Non-Fungible Token Events",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "NFT events claim or consumer",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0264",
+            "title": "Utilization of unspent gas for promise function calls",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active promise gas-weight semantics",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0297",
+            "title": "Events",
+            "source_status": "Final",
+            "category": "contract-interfaces",
+            "role_id": "nep-contract-interfaces",
+            "activation": "claimed_interface",
+            "version_gate": "event claim or material consumer",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0300",
+            "title": "Fungible Token Events",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "FT events claim or consumer",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0330",
+            "title": "Source Metadata",
+            "source_status": "Final",
+            "category": "contract-interfaces",
+            "role_id": "nep-contract-interfaces",
+            "activation": "claimed_interface",
+            "version_gate": "metadata export or source-verification claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0364",
+            "title": "Efficient signature verification and hashing precompile functions",
+            "source_status": "Final",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "runtime_feature",
+            "version_gate": "active host-function ABI",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0366",
+            "title": "Meta Transactions",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "active DelegateAction semantics",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0368",
+            "title": "Bridge Wallets",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "wallet_integration",
+            "version_gate": "bridge-wallet API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0393",
+            "title": "Soulbound Token",
+            "source_status": "Final",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "SBT issuer/registry claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0399",
+            "title": "Flat Storage",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "node_feature",
+            "version_gate": "active flat-storage implementation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0408",
+            "title": "Injected Wallet API",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "wallet_integration",
+            "version_gate": "injected-wallet API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0413",
+            "title": "Near Wallet API - support for signMessage method",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "wallet_integration",
+            "version_gate": "signMessage implementation/verification",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0418",
+            "title": "Remove attached_deposit view panic",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "target view-call runtime behavior",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0448",
+            "title": "Zero-balance Accounts",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "active account-creation rules",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0452",
+            "title": "Linkdrop Standard",
+            "source_status": "Final",
+            "category": "contract-interfaces",
+            "role_id": "nep-contract-interfaces",
+            "activation": "claimed_interface",
+            "version_gate": "linkdrop API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0455",
+            "title": "Parameter Compute Costs",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "node_feature",
+            "version_gate": "active compute-cost parameter set",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0488",
+            "title": "Host Functions for BLS12-381 Curve Operations",
+            "source_status": "Final",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "runtime_feature",
+            "version_gate": "active BLS12-381 host ABI",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0491",
+            "title": "Non-Refundable Storage Staking",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active account storage-balance model",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0492",
+            "title": "Restrict creation of Ethereum Addresses",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "active account-ID creation validation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0508",
+            "title": "Resharding v2",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "V2 layout transition version/network",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0509",
+            "title": "Stateless validation Stage 0",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "stateless-validation activation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0514",
+            "title": "Reducing the number of Block Producer Seats in `testnet`",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "testnet genesis/epoch configuration",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0518",
+            "title": "Web3-Compatible Wallets Support",
+            "source_status": "New",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "advisory_feature",
+            "version_gate": "proposal or experimental feature only",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0519",
+            "title": "Yield Execution",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active yield/resume host ABI",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0536",
+            "title": "Reduce the number of gas refunds",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "active gas-refund model",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0539",
+            "title": "Cross-Shard Congestion Control",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "congestion-control activation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0568",
+            "title": "Resharding V3",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "V3 layout transition version/network",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0584",
+            "title": "Cross-shard bandwidth scheduler",
+            "source_status": "Final",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "node_feature",
+            "version_gate": "bandwidth-scheduler activation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0591",
+            "title": "Global Contracts",
+            "source_status": "Final",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "runtime_feature",
+            "version_gate": "global-contract protocol feature",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0611",
+            "title": "Pending Transaction Queue and Gas Keys",
+            "source_status": "Draft",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental feature only",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0616",
+            "title": "Deterministic AccountIds",
+            "source_status": "Approved",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "runtime_feature",
+            "version_gate": "deterministic-account feature activation",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0621",
+            "title": "Vault NEP",
+            "source_status": "Approved",
+            "category": "token-assets",
+            "role_id": "nep-token-assets",
+            "activation": "claimed_interface",
+            "version_gate": "vault API claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0635",
+            "title": "P-256 ECDSA Signature Verification Host Function",
+            "source_status": "Draft",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental host feature",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0638",
+            "title": "`chain_id()` host function",
+            "source_status": "Draft",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental host feature",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0639",
+            "title": "Dynamic Resharding",
+            "source_status": "Draft",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental node feature",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0641",
+            "title": "Offchain Authorizations for Smart Contracts",
+            "source_status": "Final",
+            "category": "wallet-auth",
+            "role_id": "nep-wallet-auth",
+            "activation": "claimed_interface",
+            "version_gate": "w_resolve_auth or verifier claim",
+            "signal_hits": 0,
+            "screening": "exclude_with_target_reason_unless_claimed"
+          },
+          {
+            "nep_id": "0642",
+            "title": "Account cost increase",
+            "source_status": "New",
+            "category": "runtime-resources",
+            "role_id": "nep-runtime-resources",
+            "activation": "advisory_feature",
+            "version_gate": "proposal or experimental feature only",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0645",
+            "title": "ML-DSA-65 Post-Quantum Transaction Signatures",
+            "source_status": "Draft",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "advisory_feature",
+            "version_gate": "draft protocol feature; confirm implementation version",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0646",
+            "title": "FIPS 202 SHA-3 Host Functions",
+            "source_status": "Draft",
+            "category": "crypto-host",
+            "role_id": "nep-crypto-host",
+            "activation": "advisory_feature",
+            "version_gate": "draft/experimental host feature",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          },
+          {
+            "nep_id": "0652",
+            "title": "Early Chunk Producer Reassignment",
+            "source_status": "Draft",
+            "category": "protocol-node",
+            "role_id": "nep-protocol-node",
+            "activation": "target_runtime_feature",
+            "version_gate": "only when target runtime explicitly implements EarlyKickout at a pinned protocol version",
+            "signal_hits": 0,
+            "screening": "advisory_if_implemented"
+          }
+        ],
+        "official_docs_source_commit": "117e74217efdf921cf55da6b5e0b0e3f622bc4db",
+        "official_guidance_signal_counts": {
+          "DOC-ASYNC-001": 1,
+          "DOC-ASYNC-002": 1,
+          "DOC-ASYNC-003": 1,
+          "DOC-ASYNC-004": 1,
+          "DOC-ASYNC-005": 1,
+          "DOC-ASYNC-006": 1,
+          "DOC-AUTH-001": 2,
+          "DOC-BRIDGE-001": 0,
+          "DOC-BRIDGE-002": 0,
+          "DOC-BUILD-001": 0,
+          "DOC-DUP-001": 0,
+          "DOC-ECON-001": 0,
+          "DOC-FT-001": 0,
+          "DOC-FT-002": 0,
+          "DOC-GAS-001": 0,
+          "DOC-GLOBAL-001": 0,
+          "DOC-INIT-001": 0,
+          "DOC-INTENT-001": 0,
+          "DOC-KEY-001": 0,
+          "DOC-KEY-002": 0,
+          "DOC-META-001": 0,
+          "DOC-MEV-001": 0,
+          "DOC-MEV-002": 0,
+          "DOC-MPC-001": 0,
+          "DOC-MPC-002": 0,
+          "DOC-NFT-001": 0,
+          "DOC-ORACLE-001": 0,
+          "DOC-RELAYER-001": 0,
+          "DOC-RPC-001": 0,
+          "DOC-SERIAL-001": 0,
+          "DOC-STORAGE-001": 1,
+          "DOC-STORAGE-002": 1,
+          "DOC-STORAGE-003": 1,
+          "DOC-TEE-001": 0,
+          "DOC-UPGRADE-001": 0,
+          "DOC-VAULT-001": 1,
+          "DOC-WALLET-001": 0,
+          "DOC-YIELD-001": 0
+        },
+        "selected_attacker_cards": [
+          "DOC-ASYNC-001",
+          "DOC-ASYNC-002",
+          "DOC-ASYNC-003",
+          "DOC-ASYNC-004",
+          "DOC-ASYNC-005",
+          "DOC-ASYNC-006",
+          "DOC-AUTH-001",
+          "DOC-STORAGE-001",
+          "DOC-STORAGE-002",
+          "DOC-STORAGE-003",
+          "DOC-VAULT-001"
+        ],
+        "official_guidance_review_queue": [
+          {
+            "card_id": "DOC-AUTH-001",
+            "signal_hits": 2,
+            "signals": [
+              "near_sdk",
+              "callback_entrypoints"
+            ],
+            "activation_signals": [
+              "near_sdk",
+              "callback_entrypoints"
+            ],
+            "owner_role": "entrypoints-auth",
+            "agent_roles": [
+              "entrypoints-auth",
+              "async-promises"
+            ],
+            "canonical_pattern_ids": [
+              "NA-AUTH-001",
+              "NA-ASYNC-003"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-AUTH-*",
+              "INV-CALLBACK-*"
+            ],
+            "mutation_families": [
+              "identity-substitution"
+            ],
+            "source_pages": [
+              "protocol/accounts-contracts/account-model.md",
+              "protocol/data-flow/near-data-flow.md",
+              "protocol/network/runtime.md",
+              "protocol/transactions/meta-tx.md",
+              "smart-contracts/anatomy/environment.md",
+              "smart-contracts/anatomy/functions.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/one_yocto.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-001",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "callback_entrypoints"
+            ],
+            "activation_signals": [
+              "callback_entrypoints"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "entrypoints-auth"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-003",
+              "NA-AUTH-002"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-AUTH-*",
+              "INV-CALLBACK-*"
+            ],
+            "mutation_families": [
+              "access-macro-removal"
+            ],
+            "source_pages": [
+              "smart-contracts/anatomy/crosscontract.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/callbacks.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-002",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "serialization"
+            ],
+            "activation_signals": [
+              "promises"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "token-accounting"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-004",
+              "NA-ASYNC-009"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-CALLBACK-*",
+              "INV-SETTLE-ONCE-*"
+            ],
+            "mutation_families": [
+              "promise-result-semantics",
+              "serializer-mismatch"
+            ],
+            "source_pages": [
+              "integrations/deposits.md",
+              "integrations/errors/introduction.md",
+              "protocol/data-flow/near-data-flow.md",
+              "protocol/data-flow/token-transfer-flow.md",
+              "protocol/network/runtime.md",
+              "protocol/transactions/transaction-execution.md",
+              "smart-contracts/anatomy/crosscontract.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/callback-failures.md",
+              "smart-contracts/security/cross-contract-calls/callbacks.md",
+              "smart-contracts/security/cross-contract-calls/ft-transfer-call.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-003",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "native_transfers"
+            ],
+            "activation_signals": [
+              "native_transfers"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "token-accounting"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-002",
+              "NA-ACCOUNT-003"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-COMPENSATE-*",
+              "INV-CONSERVATION-*"
+            ],
+            "mutation_families": [
+              "refund-principal"
+            ],
+            "source_pages": [
+              "protocol/data-flow/token-transfer-flow.md",
+              "smart-contracts/anatomy/actions.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/refunds.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-004",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "callback_entrypoints"
+            ],
+            "activation_signals": [
+              "callback_entrypoints"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "gas-dos",
+              "async-state-explorer"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-002",
+              "NA-ASYNC-005",
+              "NA-RESOURCE-005"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-COMPENSATE-*",
+              "INV-CALLBACK-*"
+            ],
+            "mutation_families": [
+              "callback-gas",
+              "promise-result-semantics"
+            ],
+            "source_pages": [
+              "smart-contracts/anatomy/yield-resume.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/callback-failures.md",
+              "smart-contracts/security/cross-contract-calls/callback-panics.md",
+              "smart-contracts/security/cross-contract-calls/refunds.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-005",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "tokens"
+            ],
+            "activation_signals": [
+              "promises"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "async-state-explorer",
+              "invariant-synthesis"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ASYNC-001",
+              "NA-ASYNC-002"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-PENDING-*",
+              "INV-SETTLE-ONCE-*"
+            ],
+            "mutation_families": [
+              "late-reservation"
+            ],
+            "source_pages": [
+              "primitives/liquid-staking/deploy-your-own-contract.md",
+              "primitives/liquid-staking/liquid-staking.md",
+              "primitives/lockup/introduction.md",
+              "primitives/lockup/lockup.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/reentrancy.md"
+            ]
+          },
+          {
+            "card_id": "DOC-ASYNC-006",
+            "signal_hits": 1,
+            "signals": [
+              "promises",
+              "gas"
+            ],
+            "activation_signals": [
+              "promises",
+              "gas"
+            ],
+            "owner_role": "async-promises",
+            "agent_roles": [
+              "async-promises",
+              "gas-dos",
+              "periphery-build"
+            ],
+            "canonical_pattern_ids": [
+              "NA-RESOURCE-005",
+              "NA-ASYNC-004"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-CALLBACK-*"
+            ],
+            "mutation_families": [
+              "callback-gas",
+              "terminal-promise"
+            ],
+            "source_pages": [
+              "protocol/transactions/transaction-execution.md",
+              "smart-contracts/anatomy/actions.md",
+              "smart-contracts/anatomy/best-practices.md",
+              "smart-contracts/anatomy/crosscontract.md",
+              "smart-contracts/anatomy/yield-resume.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/cross-contract-calls/callback-failures.md",
+              "smart-contracts/security/cross-contract-calls/callback-panics.md"
+            ]
+          },
+          {
+            "card_id": "DOC-STORAGE-001",
+            "signal_hits": 1,
+            "signals": [
+              "storage"
+            ],
+            "activation_signals": [
+              "storage"
+            ],
+            "owner_role": "state-storage",
+            "agent_roles": [
+              "state-storage",
+              "gas-dos"
+            ],
+            "canonical_pattern_ids": [
+              "NA-RESOURCE-001",
+              "NA-RESOURCE-005"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-STORAGE-*",
+              "INV-CONSERVATION-*"
+            ],
+            "mutation_families": [
+              "storage-accounting"
+            ],
+            "source_pages": [
+              "protocol/storage/storage-staking.md",
+              "smart-contracts/anatomy/collections.md",
+              "smart-contracts/anatomy/storage.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/storage.md"
+            ]
+          },
+          {
+            "card_id": "DOC-STORAGE-002",
+            "signal_hits": 1,
+            "signals": [
+              "storage",
+              "tokens"
+            ],
+            "activation_signals": [
+              "storage"
+            ],
+            "owner_role": "state-storage",
+            "agent_roles": [
+              "state-storage",
+              "token-accounting"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ACCOUNT-001",
+              "NA-INTEGRATION-002",
+              "NA-ACCOUNT-003"
+            ],
+            "nep_ids": [
+              "0145"
+            ],
+            "invariant_families": [
+              "INV-STORAGE-*",
+              "INV-CONSERVATION-*"
+            ],
+            "mutation_families": [
+              "storage-accounting",
+              "refund-principal"
+            ],
+            "source_pages": [
+              "primitives/ft/ft.md",
+              "primitives/ft/standard.md",
+              "primitives/nft/nft.md",
+              "primitives/nft/standard.md",
+              "protocol/storage/storage-staking.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/storage.md"
+            ]
+          },
+          {
+            "card_id": "DOC-STORAGE-003",
+            "signal_hits": 1,
+            "signals": [
+              "storage"
+            ],
+            "activation_signals": [
+              "storage"
+            ],
+            "owner_role": "state-storage",
+            "agent_roles": [
+              "state-storage"
+            ],
+            "canonical_pattern_ids": [
+              "NA-RESOURCE-002",
+              "NA-RESOURCE-003",
+              "NA-RESOURCE-004",
+              "NA-STATE-001"
+            ],
+            "nep_ids": [],
+            "invariant_families": [
+              "INV-STORAGE-*",
+              "INV-MIGRATION-*"
+            ],
+            "mutation_families": [
+              "storage-accounting",
+              "migration-layout"
+            ],
+            "source_pages": [
+              "smart-contracts/anatomy/collections.md",
+              "smart-contracts/anatomy/storage.md",
+              "smart-contracts/security/checklist.md",
+              "smart-contracts/security/storage.md"
+            ]
+          },
+          {
+            "card_id": "DOC-VAULT-001",
+            "signal_hits": 1,
+            "signals": [
+              "vault",
+              "tokens",
+              "accrual",
+              "numeric_precision"
+            ],
+            "activation_signals": [
+              "vault",
+              "accrual"
+            ],
+            "owner_role": "token-accounting",
+            "agent_roles": [
+              "token-accounting",
+              "math-economics",
+              "invariant-synthesis"
+            ],
+            "canonical_pattern_ids": [
+              "NA-ACCOUNT-005",
+              "NA-ECON-002",
+              "NA-ACCOUNT-004"
+            ],
+            "nep_ids": [
+              "0621"
+            ],
+            "invariant_families": [
+              "INV-CONSERVATION-*",
+              "INV-SUPPLY-*",
+              "INV-PENDING-*"
+            ],
+            "mutation_families": [
+              "arithmetic-rounding",
+              "late-reservation"
+            ],
+            "source_pages": [
+              "primitives/liquid-staking/deploy-your-own-contract.md",
+              "primitives/liquid-staking/liquid-staking.md",
+              "primitives/lockup/introduction.md",
+              "primitives/lockup/lockup.md",
+              "primitives/tokenized-vaults.md",
+              "smart-contracts/security/checklist.md"
+            ]
+          }
+        ],
+        "warnings": []
+      },
+      "packets": [
+        {
+          "packet_id": "l0-model:protocol-modeler",
+          "phase": "l0-model",
+          "role_id": "protocol-modeler",
+          "output_path": "intent-model.json",
+          "dependencies": [],
+          "retry_limit": 1,
+          "candidate_outputs": [],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "isolated-l1-l2:pattern-matcher",
+          "phase": "isolated-l1-l2",
+          "role_id": "pattern-matcher",
+          "output_path": "l1/candidates.jsonl",
+          "dependencies": [
+            "l0-model:protocol-modeler"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "l1/candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "isolated-l1-l2:intent-reasoner:pass-01",
+          "phase": "isolated-l1-l2",
+          "role_id": "intent-reasoner",
+          "output_path": "l2/pass-01/candidates.jsonl",
+          "dependencies": [
+            "l0-model:protocol-modeler"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "l2/pass-01/candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "isolated-l1-l2:intent-reasoner:pass-02",
+          "phase": "isolated-l1-l2",
+          "role_id": "intent-reasoner",
+          "output_path": "l2/pass-02/candidates.jsonl",
+          "dependencies": [
+            "l0-model:protocol-modeler"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "l2/pass-02/candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:entrypoints-auth:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "entrypoints-auth",
+          "output_path": "discovery/pass-01/entrypoints-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/entrypoints-auth.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/entrypoints-auth.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:entrypoints-auth:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "entrypoints-auth",
+          "output_path": "discovery/pass-02/entrypoints-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/entrypoints-auth.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:async-promises:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "async-promises",
+          "output_path": "discovery/pass-01/async-promises.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/async-promises.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/async-promises.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:async-promises:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "async-promises",
+          "output_path": "discovery/pass-02/async-promises.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/async-promises.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:state-storage:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "state-storage",
+          "output_path": "discovery/pass-01/state-storage.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/state-storage.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/state-storage.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:state-storage:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "state-storage",
+          "output_path": "discovery/pass-02/state-storage.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/state-storage.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:token-accounting:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "token-accounting",
+          "output_path": "discovery/pass-01/token-accounting.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/token-accounting.jsonl"
+          ],
+          "additional_outputs": [
+            "guidance/token-accounting.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:token-accounting:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "token-accounting",
+          "output_path": "discovery/pass-02/token-accounting.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/token-accounting.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:math-economics:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "math-economics",
+          "output_path": "discovery/pass-01/math-economics.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/math-economics.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:math-economics:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "math-economics",
+          "output_path": "discovery/pass-02/math-economics.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/math-economics.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:gas-dos:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "gas-dos",
+          "output_path": "discovery/pass-01/gas-dos.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/gas-dos.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:gas-dos:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "gas-dos",
+          "output_path": "discovery/pass-02/gas-dos.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/gas-dos.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:invariant-flow:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "invariant-flow",
+          "output_path": "discovery/pass-01/invariant-flow.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/invariant-flow.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:invariant-flow:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "invariant-flow",
+          "output_path": "discovery/pass-02/invariant-flow.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/invariant-flow.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:periphery-build:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "periphery-build",
+          "output_path": "discovery/pass-01/periphery-build.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/periphery-build.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:periphery-build:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "periphery-build",
+          "output_path": "discovery/pass-02/periphery-build.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/periphery-build.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:coverage-sweep:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "coverage-sweep",
+          "output_path": "discovery/pass-01/coverage-sweep.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/coverage-sweep.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:coverage-sweep:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "coverage-sweep",
+          "output_path": "discovery/pass-02/coverage-sweep.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/coverage-sweep.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:numerical-gap:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "numerical-gap",
+          "output_path": "discovery/pass-01/numerical-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/numerical-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:numerical-gap:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "numerical-gap",
+          "output_path": "discovery/pass-02/numerical-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/numerical-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:trust-gap:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "trust-gap",
+          "output_path": "discovery/pass-01/trust-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/trust-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:trust-gap:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "trust-gap",
+          "output_path": "discovery/pass-02/trust-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/trust-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:flow-gap:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "flow-gap",
+          "output_path": "discovery/pass-01/flow-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/flow-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:flow-gap:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "flow-gap",
+          "output_path": "discovery/pass-02/flow-gap.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/flow-gap.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:upgrade-keys:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "upgrade-keys",
+          "output_path": "discovery/pass-01/upgrade-keys.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/upgrade-keys.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/upgrade-keys-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:upgrade-keys:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "upgrade-keys",
+          "output_path": "discovery/pass-02/upgrade-keys.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/upgrade-keys.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/upgrade-keys-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:intents-auth:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "intents-auth",
+          "output_path": "discovery/pass-01/intents-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/intents-auth.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/intents-auth-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:intents-auth:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "intents-auth",
+          "output_path": "discovery/pass-02/intents-auth.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/intents-auth.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/intents-auth-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:bridge-relayer:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "bridge-relayer",
+          "output_path": "discovery/pass-01/bridge-relayer.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/bridge-relayer.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/bridge-relayer-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:bridge-relayer:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "bridge-relayer",
+          "output_path": "discovery/pass-02/bridge-relayer.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/bridge-relayer.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/bridge-relayer-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:chain-signatures-yield:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "chain-signatures-yield",
+          "output_path": "discovery/pass-01/chain-signatures-yield.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/chain-signatures-yield.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/chain-signatures-yield-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:chain-signatures-yield:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "chain-signatures-yield",
+          "output_path": "discovery/pass-02/chain-signatures-yield.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/chain-signatures-yield.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/chain-signatures-yield-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:runtime-consensus:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "runtime-consensus",
+          "output_path": "discovery/pass-01/runtime-consensus.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/runtime-consensus.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/runtime-consensus-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:runtime-consensus:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "runtime-consensus",
+          "output_path": "discovery/pass-02/runtime-consensus.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/runtime-consensus.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/runtime-consensus-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:oracle-freshness:pass-01",
+          "phase": "blind-l3-active",
+          "role_id": "oracle-freshness",
+          "output_path": "discovery/pass-01/oracle-freshness.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-01/oracle-freshness.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-01/oracle-freshness-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 1
+        },
+        {
+          "packet_id": "blind-l3-active:oracle-freshness:pass-02",
+          "phase": "blind-l3-active",
+          "role_id": "oracle-freshness",
+          "output_path": "discovery/pass-02/oracle-freshness.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/pass-02/oracle-freshness.jsonl"
+          ],
+          "additional_outputs": [
+            "discovery/pass-02/oracle-freshness-applicability.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "discovery_pass": 2
+        },
+        {
+          "packet_id": "blind-l3-active:invariant-synthesis",
+          "phase": "blind-l3-active",
+          "role_id": "invariant-synthesis",
+          "output_path": "discovery/invariant-synthesis.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/invariant-synthesis.jsonl"
+          ],
+          "additional_outputs": [
+            "invariant-ledger.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "blind-l3-active:mutation-analysis",
+          "phase": "blind-l3-active",
+          "role_id": "mutation-analysis",
+          "output_path": "discovery/mutation-analysis.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/mutation-analysis.jsonl"
+          ],
+          "additional_outputs": [
+            "mutation-results.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "blind-l3-active:async-state-explorer",
+          "phase": "blind-l3-active",
+          "role_id": "async-state-explorer",
+          "output_path": "discovery/async-state-explorer.jsonl",
+          "dependencies": [
+            "isolated-l1-l2:pattern-matcher",
+            "isolated-l1-l2:intent-reasoner:pass-01",
+            "isolated-l1-l2:intent-reasoner:pass-02"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "discovery/async-state-explorer.jsonl"
+          ],
+          "additional_outputs": [
+            "async-schedules.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-process-legacy",
+          "phase": "nep-coverage",
+          "role_id": "nep-process-legacy",
+          "output_path": "nep/nep-process-legacy.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-process-legacy-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-process-legacy-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-token-assets",
+          "phase": "nep-coverage",
+          "role_id": "nep-token-assets",
+          "output_path": "nep/nep-token-assets.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-token-assets-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-token-assets-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-contract-interfaces",
+          "phase": "nep-coverage",
+          "role_id": "nep-contract-interfaces",
+          "output_path": "nep/nep-contract-interfaces.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-contract-interfaces-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-contract-interfaces-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-wallet-auth",
+          "phase": "nep-coverage",
+          "role_id": "nep-wallet-auth",
+          "output_path": "nep/nep-wallet-auth.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-wallet-auth-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-wallet-auth-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-runtime-resources",
+          "phase": "nep-coverage",
+          "role_id": "nep-runtime-resources",
+          "output_path": "nep/nep-runtime-resources.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-runtime-resources-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-runtime-resources-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-crypto-host",
+          "phase": "nep-coverage",
+          "role_id": "nep-crypto-host",
+          "output_path": "nep/nep-crypto-host.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-crypto-host-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-crypto-host-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "nep-coverage:nep-protocol-node",
+          "phase": "nep-coverage",
+          "role_id": "nep-protocol-node",
+          "output_path": "nep/nep-protocol-node.jsonl",
+          "dependencies": [
+            "blind-l3-active"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "nep/nep-protocol-node-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "nep/nep-protocol-node-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "dedup-chains:corpus-echo",
+          "phase": "dedup-chains",
+          "role_id": "corpus-echo",
+          "output_path": "corpus-echo-candidates.jsonl",
+          "dependencies": [
+            "nep-coverage"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "corpus-echo-candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "fresh_context": true
+        },
+        {
+          "packet_id": "dedup-chains:chain-constructor",
+          "phase": "dedup-chains",
+          "role_id": "chain-constructor",
+          "output_path": "deduplicated.jsonl",
+          "dependencies": [
+            "nep-coverage"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "chain-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "chain-candidates.jsonl"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced",
+          "fresh_context": true
+        },
+        {
+          "packet_id": "two-stage-judge:evidence-triage",
+          "phase": "two-stage-judge",
+          "role_id": "evidence-triage",
+          "output_path": "triage.jsonl",
+          "dependencies": [
+            "dedup-chains:chain-constructor"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "two-stage-judge:adversarial-verifier",
+          "phase": "two-stage-judge",
+          "role_id": "adversarial-verifier",
+          "output_path": "verdicts.jsonl",
+          "dependencies": [
+            "two-stage-judge:evidence-triage"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "counterexample-rescan:counterexample-rescan",
+          "phase": "counterexample-rescan",
+          "role_id": "counterexample-rescan",
+          "output_path": "counterexample-rescan-candidates.jsonl",
+          "dependencies": [
+            "two-stage-judge:adversarial-verifier"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "counterexample-rescan-candidates.jsonl"
+          ],
+          "additional_outputs": [
+            "unresolved-assumptions.jsonl",
+            "rescan-summary.json"
+          ],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        },
+        {
+          "packet_id": "informed-rescan:verified-seed-variant",
+          "phase": "informed-rescan",
+          "role_id": "verified-seed-variant",
+          "output_path": "informed-rescan-candidates.jsonl",
+          "dependencies": [
+            "counterexample-rescan:counterexample-rescan"
+          ],
+          "retry_limit": 1,
+          "candidate_outputs": [
+            "informed-rescan-candidates.jsonl"
+          ],
+          "additional_outputs": [],
+          "isolation": "instruction_only_unless_runtime_enforced"
+        }
+      ],
+      "selected_pattern_references": [
+        "auth.md",
+        "async.md",
+        "account.md",
+        "state.md",
+        "econ.md",
+        "resource.md"
+      ]
+    }
+  },
+  "mutation_operators": {
+    "schema_version": 1,
+    "families": {
+      "identity-substitution": [
+        {
+          "operator_id": "identity-substitution/predecessor-signer",
+          "description": "Substitute signer identity for the immediate predecessor at an authorization boundary."
+        },
+        {
+          "operator_id": "identity-substitution/mpc-participant",
+          "description": "Change the participant identity in an MPC session view."
+        },
+        {
+          "operator_id": "identity-substitution/mpc-subset",
+          "description": "Change the participant subset in an MPC session view."
+        },
+        {
+          "operator_id": "identity-substitution/mpc-message",
+          "description": "Change the message bound to an MPC session view."
+        },
+        {
+          "operator_id": "identity-substitution/mpc-tweak",
+          "description": "Change the tweak bound to an MPC session view."
+        }
+      ],
+      "access-macro-removal": [
+        {
+          "operator_id": "access-macro-removal/private",
+          "description": "Remove private callback enforcement."
+        },
+        {
+          "operator_id": "access-macro-removal/init",
+          "description": "Remove initialization or reinitialization enforcement."
+        },
+        {
+          "operator_id": "access-macro-removal/payable",
+          "description": "Remove attached-deposit or payability enforcement."
+        },
+        {
+          "operator_id": "access-macro-removal/one-yocto",
+          "description": "Remove the exact one-yocto deposit guard."
+        }
+      ],
+      "late-reservation": [
+        {
+          "operator_id": "late-reservation/reserve-after-dispatch",
+          "description": "Move the debit or reservation after asynchronous promise dispatch."
+        },
+        {
+          "operator_id": "late-reservation/presignature-consumption",
+          "description": "Remove globally atomic presignature consumption."
+        },
+        {
+          "operator_id": "late-reservation/resume-beneficiary",
+          "description": "Remove or change the beneficiary binding in a mutating resume record."
+        },
+        {
+          "operator_id": "late-reservation/resume-operation-mode",
+          "description": "Remove or change the operation-mode binding in a mutating resume record."
+        },
+        {
+          "operator_id": "late-reservation/resume-filter",
+          "description": "Remove or change the filter binding in a mutating resume record."
+        }
+      ],
+      "promise-result-semantics": [
+        {
+          "operator_id": "promise-result-semantics/ignore-result",
+          "description": "Ignore the promise result before settlement."
+        },
+        {
+          "operator_id": "promise-result-semantics/invert-result",
+          "description": "Invert the success/failure interpretation of a promise result."
+        },
+        {
+          "operator_id": "promise-result-semantics/decode-result",
+          "description": "Decode a promise result using an incompatible value or representation."
+        }
+      ],
+      "callback-gas": [
+        {
+          "operator_id": "callback-gas/under-reserve-gas",
+          "description": "Reduce reserved callback gas below the amount needed by the tested path."
+        }
+      ],
+      "refund-cap": [
+        {
+          "operator_id": "refund-cap/remove-cap",
+          "description": "Remove the resolver or refund cap."
+        }
+      ],
+      "storage-accounting": [
+        {
+          "operator_id": "storage-accounting/reuse-prefix",
+          "description": "Reuse a persistent collection prefix for a different collection."
+        },
+        {
+          "operator_id": "storage-accounting/remove-charge",
+          "description": "Remove a storage charge for newly occupied state."
+        },
+        {
+          "operator_id": "storage-accounting/remove-cleanup",
+          "description": "Remove storage cleanup or its associated accounting."
+        }
+      ],
+      "terminal-promise": [
+        {
+          "operator_id": "terminal-promise/remove-return",
+          "description": "Remove the returned terminal Promise from an asynchronous chain."
+        }
+      ],
+      "arithmetic-rounding": [
+        {
+          "operator_id": "arithmetic-rounding/unchecked-arithmetic",
+          "description": "Replace checked arithmetic with an unchecked operation."
+        },
+        {
+          "operator_id": "arithmetic-rounding/rounding-direction",
+          "description": "Change the rounding direction at a value conversion or distribution boundary."
+        }
+      ],
+      "migration-layout": [
+        {
+          "operator_id": "migration-layout/serialization-change",
+          "description": "Change persisted serialization incompatibly."
+        },
+        {
+          "operator_id": "migration-layout/layout-change",
+          "description": "Change persisted state layout incompatibly."
+        },
+        {
+          "operator_id": "migration-layout/migration-change",
+          "description": "Change migration logic so it no longer preserves the old-state interpretation."
+        }
+      ],
+      "key-capability": [
+        {
+          "operator_id": "key-capability/wrong-key",
+          "description": "Substitute a key with different capabilities."
+        },
+        {
+          "operator_id": "key-capability/receiver-restriction",
+          "description": "Weaken the key receiver restriction."
+        },
+        {
+          "operator_id": "key-capability/method-restriction",
+          "description": "Weaken the key method restriction."
+        },
+        {
+          "operator_id": "key-capability/allowance",
+          "description": "Change the assumed access-key allowance."
+        },
+        {
+          "operator_id": "key-capability/balance",
+          "description": "Change the assumed key or account balance backing an operation."
+        },
+        {
+          "operator_id": "key-capability/nonce-lane",
+          "description": "Change the nonce-lane assumption used for authorization or replay protection."
+        }
+      ],
+      "yield-resume-binding": [
+        {
+          "operator_id": "yield-resume-binding/requester",
+          "description": "Remove the yield requester binding."
+        },
+        {
+          "operator_id": "yield-resume-binding/responder",
+          "description": "Remove the permitted responder binding."
+        },
+        {
+          "operator_id": "yield-resume-binding/payload",
+          "description": "Remove the resumed payload binding."
+        },
+        {
+          "operator_id": "yield-resume-binding/expiry",
+          "description": "Remove expiry enforcement on a resumed operation."
+        },
+        {
+          "operator_id": "yield-resume-binding/terminal-state",
+          "description": "Remove the terminal-state or one-time-resume binding."
+        }
+      ],
+      "refund-principal": [
+        {
+          "operator_id": "refund-principal/beneficiary-as-payer",
+          "description": "Send the refund to the beneficiary instead of the actual payer or operation owner."
+        },
+        {
+          "operator_id": "refund-principal/relayer-as-payer",
+          "description": "Send the refund to the relayer instead of the actual payer or operation owner."
+        }
+      ],
+      "transfer-call-polarity": [
+        {
+          "operator_id": "transfer-call-polarity/unused-versus-spent",
+          "description": "Invert receiver unused-amount and caller spent-amount interpretations."
+        }
+      ],
+      "route-finality": [
+        {
+          "operator_id": "route-finality/backend",
+          "description": "Weaken route backend selection."
+        },
+        {
+          "operator_id": "route-finality/finality",
+          "description": "Weaken the route finality requirement."
+        },
+        {
+          "operator_id": "route-finality/emitter",
+          "description": "Weaken the permitted event emitter check."
+        },
+        {
+          "operator_id": "route-finality/chain",
+          "description": "Weaken the source or destination chain binding."
+        },
+        {
+          "operator_id": "route-finality/domain",
+          "description": "Weaken the route domain binding."
+        }
+      ],
+      "serializer-mismatch": [
+        {
+          "operator_id": "serializer-mismatch/receipt",
+          "description": "Mismatch the schema or serializer across a receipt boundary."
+        },
+        {
+          "operator_id": "serializer-mismatch/relayer",
+          "description": "Mismatch the schema or serializer across a relayer boundary."
+        },
+        {
+          "operator_id": "serializer-mismatch/external-chain",
+          "description": "Mismatch the schema or serializer across an external-chain boundary."
+        }
+      ],
+      "deployed-code-identity": [
+        {
+          "operator_id": "deployed-code-identity/unverified-code",
+          "description": "Accept a deployed or global-contract code identity without verification."
+        },
+        {
+          "operator_id": "deployed-code-identity/unverified-version",
+          "description": "Accept a deployed or global-contract version change without verification."
+        }
+      ]
+    }
+  }
+}

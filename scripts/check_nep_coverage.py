@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import json
 from pathlib import Path
@@ -38,7 +40,7 @@ def main() -> int:
     parser.add_argument(
         "--registry",
         type=Path,
-        default=Path(__file__).resolve().parent.parent / "references" / "nep-registry.json",
+        default=Path(__file__).resolve().parent.parent / reference_relative('nep_registry'),
     )
     args = parser.parse_args()
     registry = json.loads(args.registry.read_text(encoding="utf-8"))

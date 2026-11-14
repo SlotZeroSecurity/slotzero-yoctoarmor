@@ -1,4 +1,6 @@
 """Threat-model input, evidence, and reporting regressions; no live audit."""
+
+from support import reference_relative
 import copy
 import json
 import os
@@ -156,11 +158,11 @@ class ThreatModelTests(unittest.TestCase):
                 packets = [json.loads(line) for line in (run / "work-packets.jsonl").read_text().splitlines()]
                 for packet in packets:
                     self.assertEqual(packet["allowed_inputs"][0], str(self.target / "THREAT_MODEL.md"))
-                    view = worker_view(run, packet["packet_id"], ROOT / "references/agent-catalog.md")
+                    view = worker_view(run, packet["packet_id"], ROOT / reference_relative('agent_catalog'))
                     self.assertTrue(view["prompt"].startswith("FIRST,"))
                     self.assertIn(manifest["threat_model"]["sha256"], view["prompt"])
                     if packet["role_id"] in {"protocol-modeler", "intent-reasoner"}:
-                        self.assertEqual(view["references"], ["references/neutral-schemas.md"])
+                        self.assertEqual(view["references"], [reference_relative('neutral_schemas')])
                         self.assertEqual(view["owned_official_cards"], [])
 
     def test_modification_and_deletion_preserve_run_state(self):

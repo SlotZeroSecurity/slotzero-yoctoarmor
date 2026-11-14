@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 import argparse
 import hashlib
 import json
@@ -67,9 +69,9 @@ CONFIDENCE_AXES = {
     "execution": (0, 3),
     "counter_evidence": (0, 2),
 }
-NEP_REGISTRY_PATH = Path(__file__).resolve().parent.parent / "references" / "nep-registry.json"
+NEP_REGISTRY_PATH = Path(__file__).resolve().parent.parent / reference_relative('nep_registry')
 OFFICIAL_DOCS_REGISTRY_PATH = (
-    Path(__file__).resolve().parent.parent / "references" / "official-docs-registry.json"
+    Path(__file__).resolve().parent.parent / reference_relative('docs_registry')
 )
 
 

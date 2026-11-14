@@ -1,6 +1,8 @@
 """Mandatory specialist and mutation coverage for every new review."""
 from __future__ import annotations
 
+from reference_paths import reference_relative
+
 from collections import Counter
 from pathlib import Path
 import re
@@ -10,7 +12,7 @@ SPECIALIST_ROLES = (
     "upgrade-keys", "intents-auth", "bridge-relayer", "chain-signatures-yield",
     "runtime-consensus", "oracle-freshness",
 )
-REGISTRY = Path(__file__).resolve().parents[1] / "references/mutation-operators.json"
+REGISTRY = Path(__file__).resolve().parents[1] / reference_relative('mutation_operators')
 
 
 def operator_inventory() -> dict[str, list[dict]]:

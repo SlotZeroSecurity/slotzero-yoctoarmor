@@ -1,4 +1,6 @@
 """Presentation checks with inert ledgers; lifecycle tests cover approval gates."""
+
+from support import reference_relative
 import json
 from pathlib import Path
 import sys
@@ -20,7 +22,7 @@ class AnnexLayoutTests(unittest.TestCase):
                          "scope": ["src/lib.rs"], "discovery_passes_planned": 1}
         self.state = {"discovery_pass_status": {"l2": {"1": "complete"}, "l3": {"1": "complete"}}}
         (self.run / "run-state.json").write_text(json.dumps(self.state))
-        self.banner = (ROOT / "references/report-template.md").read_text().split("\n# ", 1)[0]
+        self.banner = (ROOT / reference_relative('technical_annex_template')).read_text().split("\n# ", 1)[0]
         self.rows = []
         self.write_rows("work-packets.jsonl", [])
         self.write_rows("dispositions.jsonl", [])
