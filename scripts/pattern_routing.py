@@ -1,4 +1,4 @@
-"""Validate and route the local attack lenses without reading historical ledgers."""
+"""Validate and route the local attack lenses using only the pattern library."""
 
 from __future__ import annotations
 
@@ -34,7 +34,10 @@ def validate_index(path: Path = INDEX, *, package_root: Path | None = None) -> d
         if not file.is_file() or file.resolve().parent != reference_path("lens_auth", root=root).resolve().parent:
             raise ValueError(f"missing or misplaced lens file: {category}")
         text = file.read_text(encoding="utf-8")
+        raw_headings = re.findall(r"^## (.+)$", text, re.M)
         headings = re.findall(r"^## (NA-[A-Z]+-\d{3}) —", text, re.M)
+        if len(raw_headings) != len(headings):
+            raise ValueError(f"malformed pattern heading: {category}")
         if headings != row["ids"] or len(headings) != len(set(headings)):
             raise ValueError(f"lens headings differ from index: {category}")
         for card_id in headings:
@@ -56,6 +59,12 @@ def validate_index(path: Path = INDEX, *, package_root: Path | None = None) -> d
             # Activation in the index is a routing summary, not necessarily a verbatim field.
             if not isinstance(card.get("activation"), str) or not card["activation"].strip():
                 raise ValueError(f"missing activation summary: {card_id}")
+            if card.get("kind") not in {"security", "quality", "quality_only", "conditional", "applicability", "policy"}:
+                raise ValueError(f"invalid pattern kind: {card_id}")
+            related = card.get("related_ids")
+            if (not isinstance(related, list) or any(not isinstance(cid, str) for cid in related)
+                    or len(related) != len(set(related)) or card_id in related):
+                raise ValueError(f"invalid related IDs: {card_id}")
             if card.get("title") != block.splitlines()[0] or card.get("kind") != values["Kind"]:
                 raise ValueError(f"lens metadata differs from index: {card_id}")
             seen.add(card_id)

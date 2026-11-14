@@ -70,7 +70,7 @@ class PackagePolicyTests(unittest.TestCase):
         for relative in ("SKILL.md", reference_relative('maintenance'), "scripts/package_policy.py",
                          "tests/url-fixture.py", "references/url-fixture.json",
                          "agents/url-fixture.yaml", "tests/url-fixture.rs",
-                         reference_relative('catalog')):
+                         reference_relative('target_binding')):
             path = self.skill / relative
             original = path.read_bytes() if path.exists() else None
             try:

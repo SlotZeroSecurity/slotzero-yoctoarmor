@@ -64,7 +64,14 @@ def validate_registry(path: Path, *, package_root: Path | None = None) -> dict[s
         fail(f"registry: document_count={expected_count} but neps={len(neps)}")
 
     owned: list[str] = []
-    skill_root = Path(__file__).resolve().parents[1] if package_root is None else package_root
+    if package_root is None:
+        relative = Path(reference_relative('nep_registry'))
+        resolved = path.resolve()
+        if resolved.parts[-len(relative.parts):] != relative.parts:
+            fail("registry outside package layout: supply --package-root explicitly")
+        skill_root = resolved.parents[len(relative.parts) - 1]
+    else:
+        skill_root = package_root.resolve()
     for category_id, category in categories.items():
         if not isinstance(category, dict):
             fail(f"category {category_id}: expected object")
@@ -196,12 +203,17 @@ def main() -> int:
         default=Path(__file__).resolve().parent.parent / reference_relative('nep_registry'),
     )
     parser.add_argument(
+        "--package-root",
+        type=Path,
+        help="Package containing the checklists, required for a registry outside its normal package layout.",
+    )
+    parser.add_argument(
         "--source-root",
         type=Path,
         help="Optional local checkout of near/NEPs to compare without network access.",
     )
     args = parser.parse_args()
-    data = validate_registry(args.registry.resolve())
+    data = validate_registry(args.registry.resolve(), package_root=args.package_root)
     result: dict[str, object] = {
         "registry_documents": len(data["neps"]),
         "source_commit": data["source"]["commit"],

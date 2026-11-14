@@ -5,7 +5,6 @@
     {
       "id": "worker-slot-race",
       "domain": "job_service",
-      "mechanism_keys": ["capacity-reservation"],
       "target_bindings": {
         "actors": "Two callers allowed to enqueue jobs.",
         "resource": "One remaining worker slot.",
@@ -17,12 +16,16 @@
       "candidate": "Both callers pass the capacity read, then both insert after validation.",
       "safe_control": "A conditional insert reserves a slot in a serializable transaction before validation; completion uses a unique reservation ID.",
       "expected": "Investigate the first schedule; exclude the control only after proving its isolation and reservation semantics.",
-      "renaming_control": "Rename enqueue to allocate_session and jobs to sessions without changing behavior; applicability must remain the same."
+      "renaming_control": "Rename enqueue to allocate_session and jobs to sessions without changing behavior; applicability must remain the same.",
+      "pattern_ids": [
+        "NA-ASYNC-010",
+        "NA-ASYNC-001",
+        "NA-RESOURCE-001"
+      ]
     },
     {
       "id": "charge-acknowledgement-loss",
       "domain": "payments",
-      "mechanism_keys": ["effect-bookkeeping-gap", "outcome-classification", "retry-accounting"],
       "target_bindings": {
         "actors": "Customer, merchant service, external payment processor.",
         "resource": "One charge and its merchant ledger entry.",
@@ -34,12 +37,21 @@
       "candidate": "A timeout is treated as proof of failure; retry creates a second charge and increments customer spending twice.",
       "safe_control": "The processor enforces one charge per logical payment key; the merchant reconciles outcome and records the ledger entry idempotently.",
       "expected": "Trace actual committed charges, ambiguous acknowledgements, and counter commits. Do not infer the charge failed from the timeout.",
-      "renaming_control": "An API named mint_receipt that only records a log is not an external value-creation effect; names do not establish prerequisites."
+      "renaming_control": "An API named mint_receipt that only records a log is not an external value-creation effect; names do not establish prerequisites.",
+      "pattern_ids": [
+        "NA-ASYNC-011",
+        "NA-ASYNC-005",
+        "NA-ACCOUNT-002",
+        "NA-INTEGRATION-003",
+        "NA-ASYNC-012",
+        "NA-ASYNC-004",
+        "NA-ASYNC-014",
+        "NA-ASYNC-002"
+      ]
     },
     {
       "id": "database-copy-cutover",
       "domain": "database_migration",
-      "mechanism_keys": ["live-snapshot-cutover", "bounded-resumable-work", "overlapping-bulk-operations"],
       "target_bindings": {
         "actors": "Migration operator and normal account writers.",
         "resource": "Account entitlements copied between tables.",
@@ -51,12 +63,22 @@
       "candidate": "The copy uses an old snapshot while writes continue and a second operator can start the same migration.",
       "safe_control": "A unique migration epoch prevents overlap; a consistent snapshot plus exact-once change capture includes intervening writes before cutover.",
       "expected": "Treat operator overlap and intervening user writes as distinct causes. A pause is one possible control, not the only safe architecture.",
-      "renaming_control": "Using a document store instead of SQL does not remove the mechanism if the same boundaries remain."
+      "renaming_control": "Using a document store instead of SQL does not remove the mechanism if the same boundaries remain.",
+      "pattern_ids": [
+        "NA-STATE-006",
+        "NA-STATE-003",
+        "NA-ASYNC-006",
+        "NA-ECON-001",
+        "NA-RESOURCE-006",
+        "NA-RESOURCE-005",
+        "NA-ASYNC-008",
+        "NA-ASYNC-016",
+        "NA-ASYNC-001"
+      ]
     },
     {
       "id": "inventory-replacement-orders",
       "domain": "fulfillment",
-      "mechanism_keys": ["competing-attempt-cleanup", "orphaned-replay-markers", "external-authority-survival"],
       "target_bindings": {
         "actors": "Customer, order service, warehouse worker.",
         "resource": "Inventory reservation, order attempts, dispatch command.",
@@ -68,12 +90,21 @@
       "candidate": "Cancel deletes the order but retains its consumed request key and an executable dispatch command.",
       "safe_control": "Cancellation is disallowed after irreversible dispatch; earlier cancellation atomically preserves a recoverable claim and reconciles the request key.",
       "expected": "Separate the surviving authority from blocked recovery. An immutable rightful recipient does not alone establish theft.",
-      "renaming_control": "A method named revoke that only deletes a row is not evidence of external revocation."
+      "renaming_control": "A method named revoke that only deletes a row is not evidence of external revocation.",
+      "pattern_ids": [
+        "NA-STATE-009",
+        "NA-STATE-001",
+        "NA-ASYNC-005",
+        "NA-STATE-015",
+        "NA-ACCOUNT-003",
+        "NA-INTEGRATION-003",
+        "NA-CRYPTO-008",
+        "NA-CRYPTO-002"
+      ]
     },
     {
       "id": "artifact-authenticity-and-readiness",
       "domain": "artifact_service",
-      "mechanism_keys": ["semantic-authenticity", "acceptance-versus-usability"],
       "target_bindings": {
         "actors": "Uploader, validation worker, deployment service.",
         "resource": "Deployment capacity and accepted artifact.",
@@ -85,12 +116,18 @@
       "candidate": "Readable metadata is enough to reserve all deployment capacity and mark an unverified artifact ready.",
       "safe_control": "Capacity is bounded and provisional, readiness requires all actual validators, and failure safely releases the reservation.",
       "expected": "Verify actual integrity policy, validator rejection, readiness predicates, shared-resource impact, and recovery.",
-      "renaming_control": "This service has no chain maturity or proof circuit; only its own signature and screening rules apply."
+      "renaming_control": "This service has no chain maturity or proof circuit; only its own signature and screening rules apply.",
+      "pattern_ids": [
+        "NA-INTEGRATION-007",
+        "NA-INTEGRATION-003",
+        "NA-ASYNC-005",
+        "NA-INTEGRATION-008",
+        "NA-ECON-001"
+      ]
     },
     {
       "id": "partial-batch-and-minimum-payout",
       "domain": "payout_service",
-      "mechanism_keys": ["partial-completion-conservation", "post-cost-viability", "rejected-operation-recovery", "unassigned-remainders"],
       "target_bindings": {
         "actors": "Account holder, batch service, destination provider.",
         "resource": "Customer funds, provider costs, partial acceptance, and residual credit.",
@@ -102,12 +139,23 @@
       "candidate": "Any positive accepted amount is treated as full settlement and an unusable post-fee remainder disappears.",
       "safe_control": "The service reconciles accepted amount, costs, and customer remainder, validates provider-specific minima, and preserves feasible recovery.",
       "expected": "Use the actual accepted/unused polarity and downstream policy. Do not invent partial acceptance for an enforced atomic all-or-nothing provider.",
-      "renaming_control": "Identical 'success' fields in two providers can mean different business outcomes; bind each interface."
+      "renaming_control": "Identical 'success' fields in two providers can mean different business outcomes; bind each interface.",
+      "pattern_ids": [
+        "NA-ASYNC-015",
+        "NA-ASYNC-009",
+        "NA-ACCOUNT-003",
+        "NA-ASYNC-004",
+        "NA-INTEGRATION-006",
+        "NA-INTEGRATION-003",
+        "NA-STATE-004",
+        "NA-ACCOUNT-006",
+        "NA-ACCOUNT-007",
+        "NA-ACCOUNT-002"
+      ]
     },
     {
       "id": "legacy-storage-copy",
       "domain": "object_storage",
-      "mechanism_keys": ["payload-replication-cost", "legacy-resource-pricing", "resource-harm-gate"],
       "target_bindings": {
         "actors": "Tenant creating versions and storage billing service.",
         "resource": "Bytes replicated into versions and indexes.",
@@ -119,12 +167,19 @@
       "candidate": "New objects are priced correctly, but copying large legacy objects repeats an uncharged embedded attachment.",
       "safe_control": "All actual byte deltas are charged, or a documented bounded legacy subsidy funds the copies.",
       "expected": "Measure old/new and short/long controls, payer cost, retained copies, and cleanup before asserting resource harm.",
-      "renaming_control": "Memory, storage, and bandwidth have distinct cost models even if all are called size."
+      "renaming_control": "Memory, storage, and bandwidth have distinct cost models even if all are called size.",
+      "pattern_ids": [
+        "NA-RESOURCE-008",
+        "NA-RESOURCE-001",
+        "NA-RESOURCE-005",
+        "NA-RESOURCE-009",
+        "NA-STATE-007",
+        "NA-STATE-004"
+      ]
     },
     {
       "id": "credential-and-processor-rotation",
       "domain": "delegated_api",
-      "mechanism_keys": ["dependency-generation", "immutable-resource-identity", "principal-payer-binding", "restricted-credential-exposure"],
       "target_bindings": {
         "actors": "End user, forwarding client, scoped API key, external processor.",
         "resource": "Original payment account and refund recipient.",
@@ -136,12 +191,25 @@
       "candidate": "A delayed refund reads the new global account and pays the request originator instead of the actual payer.",
       "safe_control": "Immutable request context binds resource generation and payer; response acceptance follows explicit generation policy and credential scopes.",
       "expected": "Prove forwarding, rotation, and limited-credential reachability. The appropriate controls are target-specific capabilities, not a universal attached-payment guard.",
-      "renaming_control": "Do not infer authority solely from variables named owner, signer, or caller."
+      "renaming_control": "Do not infer authority solely from variables named owner, signer, or caller.",
+      "pattern_ids": [
+        "NA-ASYNC-013",
+        "NA-ASYNC-004",
+        "NA-INTEGRATION-003",
+        "NA-ECON-004",
+        "NA-ECON-001",
+        "NA-ASYNC-002",
+        "NA-STATE-003",
+        "NA-AUTH-009",
+        "NA-AUTH-001",
+        "NA-ASYNC-003",
+        "NA-AUTH-010",
+        "NA-AUTH-003"
+      ]
     },
     {
       "id": "transaction-atomicity-control",
       "domain": "single_database",
-      "mechanism_keys": ["capacity-reservation", "effect-bookkeeping-gap"],
       "target_bindings": {
         "actors": "Concurrent database clients.",
         "resource": "One locally allocated record and its accounting row.",
@@ -153,12 +221,20 @@
       "candidate": "A reviewer assumes a gap because the source has a check followed by two writes.",
       "safe_control": "The database demonstrably enforces serializable execution and atomic rollback for all these effects.",
       "expected": "Not applicable to these mechanisms under the established semantics; do not manufacture independent commits from sequential source lines.",
-      "renaming_control": "Renaming the two writes to mint and finalize does not create separate commit boundaries."
+      "renaming_control": "Renaming the two writes to mint and finalize does not create separate commit boundaries.",
+      "pattern_ids": [
+        "NA-ASYNC-010",
+        "NA-ASYNC-001",
+        "NA-RESOURCE-001",
+        "NA-ASYNC-011",
+        "NA-ASYNC-005",
+        "NA-ACCOUNT-002",
+        "NA-INTEGRATION-003"
+      ]
     },
     {
       "id": "policy-and-review-control",
       "domain": "expense_workflow",
-      "mechanism_keys": ["optional-policy-semantics", "optimistic-approval-policy", "configuration-cross-constraints"],
       "target_bindings": {
         "actors": "Employee and authorized reviewer.",
         "resource": "Expense approval and optional category restrictions.",
@@ -170,12 +246,21 @@
       "candidate": "A reviewer calls absent category restrictions and no-veto execution authorization bugs.",
       "safe_control": "Documented policy intentionally permits unrestricted members and optimistic approval; implementation matches those rules.",
       "expected": "Do not report those intended semantics as a bypass. Investigate only a demonstrated mismatch, hidden prerequisite, or promised availability failure.",
-      "renaming_control": "A setting called whitelist can be restrictive or permissive; the name alone does not establish policy."
+      "renaming_control": "A setting called whitelist can be restrictive or permissive; the name alone does not establish policy.",
+      "pattern_ids": [
+        "NA-STATE-008",
+        "NA-STATE-004",
+        "NA-STATE-001",
+        "NA-OFFCHAIN-007",
+        "NA-STATE-014",
+        "NA-ECON-003",
+        "NA-STATE-016",
+        "NA-ECON-002"
+      ]
     },
     {
       "id": "history-and-recovery-expiry",
       "domain": "leased_jobs",
-      "mechanism_keys": ["history-resize-semantics", "expired-recovery-operation", "deadline-observability"],
       "target_bindings": {
         "actors": "Worker, retry scheduler, operator resizing history.",
         "resource": "Leased capacity, deduplication history, and cancellation attempts.",
@@ -187,7 +272,18 @@
       "candidate": "A resize forgets relevant completed work and an expired cancellation leaves a reservation without retry.",
       "safe_control": "History epochs survive resize, recovery is idempotent, and evidence is checked against execution time rather than observation time.",
       "expected": "Prove actual eviction and expiry semantics. Passage of time does not universally revoke authority or remove history.",
-      "renaming_control": "Timeout, expiry, and retention are different concepts even when represented by timestamps."
+      "renaming_control": "Timeout, expiry, and retention are different concepts even when represented by timestamps.",
+      "pattern_ids": [
+        "NA-STATE-010",
+        "NA-STATE-001",
+        "NA-INTEGRATION-003",
+        "NA-ASYNC-017",
+        "NA-ASYNC-005",
+        "NA-ACCOUNT-003",
+        "NA-STATE-004",
+        "NA-OFFCHAIN-011",
+        "NA-OFFCHAIN-006"
+      ]
     }
   ]
 }

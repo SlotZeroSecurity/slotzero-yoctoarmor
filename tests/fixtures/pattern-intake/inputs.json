@@ -1,0 +1,12 @@
+{
+  "cases": [
+    {"id": "covered-report", "input": "A withdrawal checks a user's available balance, dispatches an external transfer, and debits the balance only in its callback. A second withdrawal can pass the same check while the first is pending."},
+    {"id": "useful-variant", "input": "A task admission service deduplicates redelivery using an idempotency key, but resets that key's record before a delayed billing acknowledgement arrives. The old acknowledgement increments the new attempt's usage counter. Reconciliation must bind the acknowledgement to the original operation generation."},
+    {"id": "distinct-mechanism", "input": "A relayer's deployed HTTP gateway and backend disagree on how an ambiguous request body is framed. One actor can supply a request interpreted as one message at the gateway and two at the backend, causing an appended privileged request to bypass gateway authentication. The direct cause is parser disagreement at the gateway/backend boundary, not a contract callback or a leaked credential."},
+    {"id": "category-overlap", "input": "A job service verifies one free worker slot, waits for an external validation reply, and allocates the slot only afterward. Concurrent requests overbook the same slot. The cost is bounded, but the promised per-user capacity isolation is violated. Reserve the slot before external validation."},
+    {"id": "repeat-after-update", "input": "The supplied report again describes a generation-unbound billing acknowledgement. Assume the current card already explains acknowledgement generation, retry-key reuse, and safe reconciliation. The new material supplies no additional mechanism or control."},
+    {"id": "unsupported-claim", "input": "A report claims an attacker can overwrite an arbitrary release artifact because the artifact name is its SHA-256 digest. It supplies no collision, alternative preimage, framing ambiguity, or authorization bypass."},
+    {"id": "partial-extraction", "input": "Only page one of a supplied three-page report is readable. It says a private callback checks the immediate caller against the current contract. Pages two and three cannot be extracted or inspected. No vulnerable call path is available."},
+    {"id": "quality-heuristic", "input": "A test suite replaces production authorization with an always-allow mock and never exercises denial or callback failure. There is no demonstrated production authorization bypass."}
+  ]
+}

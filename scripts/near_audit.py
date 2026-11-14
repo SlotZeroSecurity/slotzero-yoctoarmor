@@ -28,7 +28,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from reference_paths import reference_path, reference_relative
+from reference_paths import reference_path, reference_relative, missing_resource_paths
 from package_policy import external_url_paths
 from run_integrity import (
     RUN_SCHEMA, STATE_SCHEMA, artifact_path, atomic_write_json, atomic_write_jsonl,
@@ -71,19 +71,12 @@ PHASES = (
     "informed-rescan",
     "final",
 )
+# Compatibility field name: corpus_hash binds only the reusable pattern library.
 CORPUS_FILES = (
-    reference_path('attack_index', root=REFERENCES.parent),
-    *sorted((REFERENCES / "patterns/attack-lenses").glob("*.md")),
-    reference_path('historical_id_map', root=REFERENCES.parent),
-    reference_path('original_findings_index', root=REFERENCES.parent),
-    reference_path('pdf_corpus_2022_2023', root=REFERENCES.parent),
-    reference_path('pdf_corpus_2024_2026', root=REFERENCES.parent),
-    reference_path('report_registry', root=REFERENCES.parent),
-    reference_path('issue_findings', root=REFERENCES.parent),
-    reference_path('issue_registry', root=REFERENCES.parent),
-    reference_path('issue_review', root=REFERENCES.parent),
-    reference_path('legacy_design_review', root=REFERENCES.parent),
-    reference_path('target_binding', root=REFERENCES.parent),
+    reference_path('attack_index'),
+    *[reference_path('lens_' + category) for category in
+      ('auth', 'async', 'account', 'state', 'econ', 'resource', 'integration', 'crypto', 'runtime', 'offchain')],
+    reference_path('target_binding'),
 )
 
 
@@ -187,7 +180,8 @@ def tool_versions() -> dict[str, object]:
 
 
 def prompt_hashes() -> dict[str, str]:
-    paths = [SKILL / "SKILL.md", *sorted(REFERENCES.rglob("*.md"))]
+    paths = [SKILL / "SKILL.md", *[path for folder in ("references", "runtime", "docs")
+                                       for path in sorted((SKILL / folder).rglob("*.md"))]]
     return {path.relative_to(SKILL).as_posix(): sha256_bytes(path.read_bytes()) for path in paths}
 
 
@@ -248,14 +242,14 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
         "l0-model",
         "protocol-modeler",
         ["neutral-surface.json", "semantic-ir.json", "target source", "manifests", "tests", "target docs", "neutral schemas"],
-        ["security model", "attack lenses", "official cards and registry", "historical findings", reference_relative('issue_findings'), reference_relative('issue_registry'), reference_relative('target_binding'), "training answers", "benchmark answers"],
+        ["security model", "attack lenses", "official cards and registry", "pattern guidance", reference_relative('target_binding'), "training answers", "benchmark answers"],
         "intent-model.json",
         [],
     )
     append(
         "isolated-l1-l2",
         "pattern-matcher",
-        ["target source", "surface.json", "semantic-ir.json", "intent-model.json", "attack-lenses-index.json", *routed_lenses, "target-binding protocol", "optional selected historical examples after target binding"],
+        ["target source", "surface.json", "semantic-ir.json", "intent-model.json", reference_relative('attack_index'), *routed_lenses, reference_relative('target_binding'), "selected card variants after target binding"],
         ["l2/candidates.jsonl", "peer candidates", "training answers", "benchmark answers"],
         "l1/candidates.jsonl",
         ["l0-model:protocol-modeler"],
@@ -267,7 +261,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
         append(
             "isolated-l1-l2", "intent-reasoner",
             ["target source", "target docs/tests", "manifests", "semantic-ir.json", "intent-model.json", "neutral schemas"],
-            ["security model", "corpus", "attack lenses", reference_relative('issue_findings'), reference_relative('issue_registry'), reference_relative('target_binding'), "training answers", "official attacker cards and registry", "l1/candidates.jsonl", "peer candidates", "prior-pass candidates", "benchmark answers"],
+            ["security model", "corpus", "attack lenses", reference_relative('target_binding'), "training answers", "official attacker cards and registry", "l1/candidates.jsonl", "peer candidates", "prior-pass candidates", "benchmark answers"],
             output, ["l0-model:protocol-modeler"], candidate_outputs=[output],
             discovery_pass=number if passes > 1 else None,
         )
@@ -279,7 +273,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
             "blind-l3-active",
             str(role),
             ["assigned target cluster", "surface.json", "semantic-ir role packet", "intent-model.json", "role rules"],
-            ["peer candidates", "prior-pass candidates", "deduplicated findings", "historical corpus", "attack lenses", reference_relative('issue_findings'), reference_relative('issue_registry'), reference_relative('target_binding'), "training answers", "benchmark answers"],
+            ["peer candidates", "prior-pass candidates", "deduplicated findings", "pattern library", "attack lenses", reference_relative('target_binding'), "training answers", "benchmark answers"],
             output,
             ["isolated-l1-l2:pattern-matcher", *l2_ids],
             candidate_outputs=[output],
@@ -299,7 +293,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
             "nep-coverage",
             str(role),
             ["surface.json", "semantic-ir.json", "NEP registry", "owned checklist", "target evidence"],
-            ["other NEP checklists", "peer candidates", "historical corpus", "attack lenses", reference_relative('issue_findings'), reference_relative('issue_registry'), reference_relative('target_binding'), "training answers", "benchmark answers"],
+            ["other NEP checklists", "peer candidates", "pattern library", "attack lenses", reference_relative('target_binding'), "training answers", "benchmark answers"],
             f"nep/{role}.jsonl",
             ["blind-l3-active"],
             candidate_outputs=[f"nep/{role}-candidates.jsonl"],
@@ -308,7 +302,7 @@ def make_work_packets(run_dir: Path, surface: dict[str, object], passes: int = 1
     # Account for the already-required post-blind corpus review; no model dispatch.
     append(
         "dedup-chains", "corpus-echo",
-        ["frozen blind artifacts", "attack-lenses-index.json", *routed_lenses, "target-binding protocol", "optional selected historical examples after target binding", "target evidence"],
+        ["frozen blind artifacts", reference_relative('attack_index'), *routed_lenses, reference_relative('target_binding'), "selected card variants after target binding", "target evidence"],
         ["training answers", "benchmark answers"], "corpus-echo-candidates.jsonl", ["nep-coverage"],
         candidate_outputs=["corpus-echo-candidates.jsonl"],
     )
@@ -857,7 +851,6 @@ def render_report(args: argparse.Namespace) -> dict[str, object]:
 
 def doctor(args: argparse.Namespace) -> dict[str, object]:
     """Inspect the installed package without starting a run or creating caches."""
-    from pdf_corpus_registry import load_manifest
     from check_nep_registry import validate_registry
     from pattern_routing import validate_index
     errors = []
@@ -865,17 +858,13 @@ def doctor(args: argparse.Namespace) -> dict[str, object]:
         errors.append("Python 3.10 or newer is required")
     if sys.platform not in {"darwin", "linux"}:
         errors.append("supported platforms are macOS and Linux")
-    required = ("audit_workflow", "neutral_schemas", "capability_model", "agent_catalog", "technical_annex_template")
-    for name in required:
-        if not reference_path(name, root=SKILL).is_file():
-            errors.append(f"missing reference: {name}")
+    errors.extend(f"missing package resource: {name}" for name in missing_resource_paths(SKILL))
     from reference_links import reference_link_errors
     errors.extend(reference_link_errors(SKILL))
     errors.extend(f"external URL in {path}" for path in external_url_paths(SKILL))
     counts = {}
     for label, check in (
         ("attack_lenses", validate_index),
-        ("pdf_registry", lambda: load_manifest(reference_path('report_registry', root=REFERENCES.parent))),
         ("nep_registry", lambda: validate_registry(reference_path('nep_registry', root=REFERENCES.parent))),
     ):
         try:

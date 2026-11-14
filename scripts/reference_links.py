@@ -37,7 +37,8 @@ def heading_anchors(text: str) -> set[str]:
 def reference_link_errors(root: Path) -> list[str]:
     errors = []
     cache: dict[Path, set[str]] = {}
-    for path in [root / "README.md", root / "SKILL.md", *sorted((root / "references").rglob("*.md"))]:
+    for path in [root / "README.md", root / "SKILL.md", *[p for folder in ("references", "runtime", "docs")
+                                                    for p in sorted((root / folder).rglob("*.md"))]]:
         if not path.is_file():
             errors.append(f"missing document: {path.relative_to(root)}")
             continue

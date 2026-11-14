@@ -48,7 +48,8 @@ def view(run_dir: Path, packet_id: str, catalog: Path) -> dict:
         surface_path = "neutral-surface.json"
     elif role == "pattern-matcher":
         headings = ["### L1 pattern prompt"]
-        references = [reference_relative('attack_index'), *surface.get("selected_pattern_references", []), reference_relative('finding_schema')]
+        references = [reference_relative('attack_index'), *surface.get("selected_pattern_references", []),
+                      reference_relative('target_binding'), reference_relative('finding_schema')]
         surface_path = "surface.json"
     elif phase == "blind-l3-active":
         headings = [f"### `{role}`", "## Active-testing prompt" if role in {
@@ -58,16 +59,18 @@ def view(run_dir: Path, packet_id: str, catalog: Path) -> dict:
         surface_path = "surface.json"
     elif phase == "nep-coverage":
         headings = [f"### `{role}`", "## NEP coverage prompt"]
-        references = [reference_relative('nep_registry'), f"references/standards/neps/{role}.md", reference_relative('finding_schema')]
+        references = [reference_relative('nep_registry'), f"runtime/standards/neps/{role}.md", reference_relative('finding_schema')]
         surface_path = "surface.json"
     else:
         heading = {
-            "corpus-echo": "## Corpus echo prompt", "evidence-triage": "## Verification prompt",
+            "corpus-echo": "## Pattern variant review prompt", "evidence-triage": "## Verification prompt",
             "adversarial-verifier": "## Verification prompt", "counterexample-rescan": "## Counterexample-rescan prompt",
             "verified-seed-variant": "## Verified-seed informed-rescan prompt",
         }.get(role)
         headings = [heading] if heading else []
-        references = []
+        references = ([reference_relative('attack_index'), *surface.get("selected_pattern_references", []),
+                       reference_relative('target_binding')]
+                      if role == "corpus-echo" else [])
         surface_path = "surface.json"
     if role in {"evidence-triage", "adversarial-verifier"}:
         references.extend([reference_relative('threat_model'), reference_relative('finding_schema'), reference_relative('verification_reporting')])
@@ -104,7 +107,7 @@ def view(run_dir: Path, packet_id: str, catalog: Path) -> dict:
                                   str(packet["output_path"])),
         "{surface_manifest}": surface_path,
         "{nep_registry}": reference_relative('nep_registry'),
-        "{assigned_checklist}": f"references/standards/neps/{role}.md",
+        "{assigned_checklist}": f"runtime/standards/neps/{role}.md",
         "{verdict_path}": str(packet["output_path"]),
         "{assumptions_path}": "unresolved-assumptions.jsonl",
         "{rescan_output}": str(packet["output_path"]),
@@ -125,9 +128,9 @@ def view(run_dir: Path, packet_id: str, catalog: Path) -> dict:
     if packet.get("fresh_context"):
         instruction += "Start in a fresh host context with a new worker identity; never reuse a discovery worker's conversation.\n"
     if role in SPECIALIST_ROLES and phase == "blind-l3-active":
-        instruction += "Assess applicability even without surface signals. Investigate applicable or uncertain paths; emit the assigned -applicability.json with exact target citations, rationale, and any limitation under references/workflow/review-contract.md.\n"
+        instruction += "Assess applicability even without surface signals. Investigate applicable or uncertain paths; emit the assigned -applicability.json with exact target citations, rationale, and any limitation under runtime/workflow/review-contract.md.\n"
     if role == "mutation-analysis":
-        instruction += "Account for every operator in references/workflow/mutation-operators.json using schema-2 mutation-results.jsonl; record all identified sites, outcome evidence, and blocked/not-applicable rationales. Never modify audited source.\n"
+        instruction += "Account for every operator in runtime/workflow/mutation-operators.json using schema-2 mutation-results.jsonl; record all identified sites, outcome evidence, and blocked/not-applicable rationales. Never modify audited source.\n"
     if role == "chain-constructor":
         instruction += "Construct and deduplicate target-supported attack chains from the frozen candidates in this new context; preserve all raw evidence and dispositions.\n"
     unresolved = sorted(set(re.findall(r"\{[a-z][a-z_]*\}", body)))
