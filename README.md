@@ -26,12 +26,8 @@ Clone branch v1 from https://github.com/SlotZeroSecurity/slotzero-nearshield.git
 Install the complete package as near-yoctoarmor-v1 in this tool's supported
 skills directory. Preserve any existing installation outside skill-discovery
 directories and avoid duplicate copies.
-Run scripts/near_audit.py doctor and scripts/maintain.py check with Python.
 Show the installed path and how to invoke the skill.
 ```
-
-You need Git, Python 3.10+, macOS or Linux, and repository access. Start a new chat after installation.
-Designed for Codex; full Claude Code audit execution remains unverified. See [manual setup and other hosts](docs/usage.md#installation-alternatives).
 
 <a id="run-a-review"></a>
 
@@ -52,19 +48,12 @@ $near-yoctoarmor-v1 Audit /absolute/path/to/near-project with --loop 1.
 Read THREAT_MODEL.md first and keep audit files outside the project.
 ```
 
-In Claude Code, use `/near-yoctoarmor-v1` instead. Replace the example path with your project.
 `--loop 1` runs one discovery pass with all required review checks. The host needs tools for independent agents.
 For more passes, selected files, and troubleshooting, open the [usage guide](docs/usage.md).
 
 <a id="how-it-works"></a>
 
 ## 🔎 How it works
-
-One coordinator organizes the review. Separate agents look for weaknesses, then independent reviewers challenge the evidence.
-
-<p align="center">
-  <img src="assets/audit-flow.png" width="600" alt="Audit flow: prepare code and threat model; understand intent (L0); discover with patterns, logic, and specialists (L1-L3); verify; deliver two draft reports for human review.">
-</p>
 
 | Level | What it means |
 | --- | --- |
@@ -74,25 +63,41 @@ One coordinator organizes the review. Separate agents look for weaknesses, then 
 | **L3 — Challenge** | Combine specialist searches, testing, independent verification, and a check for missed paths. |
 | **L4 — Measure** | Measure performance on separate, independently reviewed benchmarks. Requires recorded qualification evidence. |
 
-L2 and discovery specialists search independently without seeing peer findings. Pattern matches still need proof.
-L4 is separate from a normal audit and is not claimed automatically.
-
 <a id="meet-the-specialists"></a>
 
 ## 🧑‍🔬 Meet the specialists
 
-The framework combines **96 patterns across 10 categories** with independent review. Each group asks different questions:
+The framework combines **12 core discovery roles** with **96 attack patterns across 10 categories**.
 
-| Focus | The question |
-| --- | --- |
-| Permissions and keys | Can the wrong person gain control? |
-| Callbacks | What happens when a later call fails, repeats, or arrives late? |
-| Balances and math | Do deposits, refunds, fees, and rounding add up? |
-| State and upgrades | Do records stay consistent as the contract changes? |
-| Gas and integrations | Can heavy work or an external service break the system? |
-| Standards and verification | Does behavior follow NEAR's rules, and does the suspected attack hold up? |
+### 12 core discovery roles
+
+- **`entrypoints-auth`** — Checks public methods, permissions, access keys, and initialization for unauthorized access.
+- **`async-promises`** — Traces promises and callbacks for failures, replay, ordering problems, and incorrect refunds.
+- **`state-storage`** — Examines persistent state, storage costs, collection behavior, and cleanup.
+- **`token-accounting`** — Reconciles token balances, supply, transfers, approvals, fees, and refunds.
+- **`math-economics`** — Tests arithmetic, rounding, pricing, rewards, and economic incentives for abuse.
+- **`gas-dos`** — Looks for attacker-controlled workloads that exhaust gas or block essential operations.
+- **`invariant-flow`** — Checks that related state and value flows remain consistent throughout each lifecycle.
+- **`periphery-build`** — Reviews interfaces, serialization, dependencies, build settings, and surrounding integrations.
+- **`coverage-sweep`** — Independently reviews the full scope for overlooked methods, branches, and promise paths.
+- **`numerical-gap`** — Investigates interactions between arithmetic, storage costs, and asynchronous state.
+- **`trust-gap`** — Finds authority mismatches across identities, access keys, external contracts, and callbacks.
+- **`flow-gap`** — Traces value movement, failure recovery, lifecycle transitions, and migrations for missing steps.
 
 Explore the [full agent catalog](runtime/workflow/agent-catalog.md). Agents run within the host's available capacity.
+
+### 10 attack-pattern categories
+
+- **[Authorization](references/auth.md) — 12 patterns:** Covers caller identity confusion, exposed privileged methods, access-key boundaries, and replay.
+- **[Async execution](references/async.md) — 17 patterns:** Covers split-receipt double spending, stale callbacks, failed compensation, and pending-operation recovery.
+- **[Accounting](references/account.md) — 7 patterns:** Covers liabilities, reserves, storage charges, reward accrual, claim recovery, and vault-share dilution.
+- **[State](references/state.md) — 16 patterns:** Covers inconsistent records, unsafe migrations, missing lifecycle transitions, and conflicting configuration.
+- **[Economics](references/econ.md) — 4 patterns:** Covers asset and unit confusion, arithmetic errors, ordering manipulation, and incorrect compensation.
+- **[Resources](references/resource.md) — 10 patterns:** Covers unpaid storage, collection collisions, unbounded work, sponsorship, and refund attribution.
+- **[Integration](references/integration.md) — 8 patterns:** Covers receiver identity, interface mismatches, bridge proof and finality races, and unreliable external inputs.
+- **[Cryptography](references/crypto.md) — 8 patterns:** Covers ambiguous encoding, threshold-signing assumptions, nonce reuse, secret handling, and attestation binding.
+- **[Runtime](references/runtime.md) — 2 patterns:** Covers unmetered host execution and failures in consensus agreement or liveness.
+- **[Offchain](references/offchain.md) — 12 patterns:** Covers indexer trust, relayer retries, unsafe inputs, build integrity, testing, monitoring, and recovery documentation.
 
 <a id="what-you-receive"></a>
 
@@ -102,5 +107,3 @@ Every completed audit automatically delivers two downloadable files:
 
 - **`slotzero-report.md`** — findings, confidence, suggested fixes, and unverified leads.
 - **`technical-annex.md`** — affected code, attack paths, tests, coverage, and limitations.
-
-Reports stay **Draft** until human review. Confidence measures evidence; severity measures impact. An automated review cannot guarantee bug-free code.
