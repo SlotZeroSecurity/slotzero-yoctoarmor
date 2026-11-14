@@ -22,7 +22,7 @@ Open [Codex](https://learn.chatgpt.com/docs/build-skills) or [Claude Code](https
 
 ```text
 Install NEAR YoctoArmor v1 locally as a personal skill for this AI tool.
-Clone branch v1 from https://github.com/SlotZeroSecurity/slotzero-nearshield.git
+Clone branch v1 from https://github.com/SlotZeroSecurity/slotzero-yoctoarmor.git
 Install the complete package as near-yoctoarmor-v1 in this tool's supported
 skills directory. Preserve any existing installation outside skill-discovery
 directories and avoid duplicate copies.
