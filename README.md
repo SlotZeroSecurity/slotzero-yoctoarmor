@@ -71,33 +71,37 @@ The framework combines **12 core discovery roles** with **96 attack patterns acr
 
 ### 12 core discovery roles
 
-- **`entrypoints-auth`** — Checks public methods, permissions, access keys, and initialization for unauthorized access.
-- **`async-promises`** — Traces promises and callbacks for failures, replay, ordering problems, and incorrect refunds.
-- **`state-storage`** — Examines persistent state, storage costs, collection behavior, and cleanup.
-- **`token-accounting`** — Reconciles token balances, supply, transfers, approvals, fees, and refunds.
-- **`math-economics`** — Tests arithmetic, rounding, pricing, rewards, and economic incentives for abuse.
-- **`gas-dos`** — Looks for attacker-controlled workloads that exhaust gas or block essential operations.
-- **`invariant-flow`** — Checks that related state and value flows remain consistent throughout each lifecycle.
-- **`periphery-build`** — Reviews interfaces, serialization, dependencies, build settings, and surrounding integrations.
-- **`coverage-sweep`** — Independently reviews the full scope for overlooked methods, branches, and promise paths.
-- **`numerical-gap`** — Investigates interactions between arithmetic, storage costs, and asynchronous state.
-- **`trust-gap`** — Finds authority mismatches across identities, access keys, external contracts, and callbacks.
-- **`flow-gap`** — Traces value movement, failure recovery, lifecycle transitions, and migrations for missing steps.
+| Role | What it reviews |
+| --- | --- |
+| **`entrypoints-auth`** | Checks public methods, permissions, access keys, and initialization for unauthorized access. |
+| **`async-promises`** | Traces promises and callbacks for failures, replay, ordering problems, and incorrect refunds. |
+| **`state-storage`** | Examines persistent state, storage costs, collection behavior, and cleanup. |
+| **`token-accounting`** | Reconciles token balances, supply, transfers, approvals, fees, and refunds. |
+| **`math-economics`** | Tests arithmetic, rounding, pricing, rewards, and economic incentives for abuse. |
+| **`gas-dos`** | Looks for attacker-controlled workloads that exhaust gas or block essential operations. |
+| **`invariant-flow`** | Checks that related state and value flows remain consistent throughout each lifecycle. |
+| **`periphery-build`** | Reviews interfaces, serialization, dependencies, build settings, and surrounding integrations. |
+| **`coverage-sweep`** | Independently reviews the full scope for overlooked methods, branches, and promise paths. |
+| **`numerical-gap`** | Investigates interactions between arithmetic, storage costs, and asynchronous state. |
+| **`trust-gap`** | Finds authority mismatches across identities, access keys, external contracts, and callbacks. |
+| **`flow-gap`** | Traces value movement, failure recovery, lifecycle transitions, and migrations for missing steps. |
 
 Explore the [full agent catalog](runtime/workflow/agent-catalog.md). Agents run within the host's available capacity.
 
 ### 10 attack-pattern categories
 
-- **[Authorization](references/auth.md) — 12 patterns:** Covers caller identity confusion, exposed privileged methods, access-key boundaries, and replay.
-- **[Async execution](references/async.md) — 17 patterns:** Covers split-receipt double spending, stale callbacks, failed compensation, and pending-operation recovery.
-- **[Accounting](references/account.md) — 7 patterns:** Covers liabilities, reserves, storage charges, reward accrual, claim recovery, and vault-share dilution.
-- **[State](references/state.md) — 16 patterns:** Covers inconsistent records, unsafe migrations, missing lifecycle transitions, and conflicting configuration.
-- **[Economics](references/econ.md) — 4 patterns:** Covers asset and unit confusion, arithmetic errors, ordering manipulation, and incorrect compensation.
-- **[Resources](references/resource.md) — 10 patterns:** Covers unpaid storage, collection collisions, unbounded work, sponsorship, and refund attribution.
-- **[Integration](references/integration.md) — 8 patterns:** Covers receiver identity, interface mismatches, bridge proof and finality races, and unreliable external inputs.
-- **[Cryptography](references/crypto.md) — 8 patterns:** Covers ambiguous encoding, threshold-signing assumptions, nonce reuse, secret handling, and attestation binding.
-- **[Runtime](references/runtime.md) — 2 patterns:** Covers unmetered host execution and failures in consensus agreement or liveness.
-- **[Offchain](references/offchain.md) — 12 patterns:** Covers indexer trust, relayer retries, unsafe inputs, build integrity, testing, monitoring, and recovery documentation.
+| Category | Patterns | What it covers |
+| --- | ---: | --- |
+| **[Authorization](references/auth.md)** | 12 | Covers caller identity confusion, exposed privileged methods, access-key boundaries, and replay. |
+| **[Async execution](references/async.md)** | 17 | Covers split-receipt double spending, stale callbacks, failed compensation, and pending-operation recovery. |
+| **[Accounting](references/account.md)** | 7 | Covers liabilities, reserves, storage charges, reward accrual, claim recovery, and vault-share dilution. |
+| **[State](references/state.md)** | 16 | Covers inconsistent records, unsafe migrations, missing lifecycle transitions, and conflicting configuration. |
+| **[Economics](references/econ.md)** | 4 | Covers asset and unit confusion, arithmetic errors, ordering manipulation, and incorrect compensation. |
+| **[Resources](references/resource.md)** | 10 | Covers unpaid storage, collection collisions, unbounded work, sponsorship, and refund attribution. |
+| **[Integration](references/integration.md)** | 8 | Covers receiver identity, interface mismatches, bridge proof and finality races, and unreliable external inputs. |
+| **[Cryptography](references/crypto.md)** | 8 | Covers ambiguous encoding, threshold-signing assumptions, nonce reuse, secret handling, and attestation binding. |
+| **[Runtime](references/runtime.md)** | 2 | Covers unmetered host execution and failures in consensus agreement or liveness. |
+| **[Offchain](references/offchain.md)** | 12 | Covers indexer trust, relayer retries, unsafe inputs, build integrity, testing, monitoring, and recovery documentation. |
 
 <a id="what-you-receive"></a>
 
