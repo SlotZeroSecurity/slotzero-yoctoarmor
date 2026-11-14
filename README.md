@@ -111,3 +111,8 @@ Every completed audit automatically delivers two downloadable files:
 
 - **`slotzero-report.md`** — findings, confidence, suggested fixes, and unverified leads.
 - **`technical-annex.md`** — affected code, attack paths, tests, coverage, and limitations.
+
+## 📑 Sample reports
+
+- [Sample security report](docs/sample-slotzero-report.md)
+- [Sample technical annex](docs/sample-technical-annex.md)
