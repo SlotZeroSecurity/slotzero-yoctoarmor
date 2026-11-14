@@ -39,7 +39,7 @@ You need Git, Python 3.10+, macOS or Linux, and access to this repository.
 **1. Clone the complete skill.**
 
 ```bash
-git clone --branch v1_1 --single-branch \
+git clone --branch v1 --single-branch \
   https://github.com/SlotZeroSecurity/slotzero-nearshield.git \
   nearshield-v1
 ```
@@ -194,7 +194,7 @@ useful variants improve an existing card; distinct mechanisms get a permanent ID
 in the best-fitting category. No report archive or consumed-file registry is kept.
 See [adding patterns](docs/adding-patterns.md).
 
-The installation command selects `v1_1` and requires that branch to be published.
-Before publication, use the complete local package or extracted release archive.
+The installation command selects the published `v1` release branch.
+For local installation, use the complete package or extracted release archive.
 Existing runs require the package that created them. The skill name and report
 formats remain `nearshield-v1`.

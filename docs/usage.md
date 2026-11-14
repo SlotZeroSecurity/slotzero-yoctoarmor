@@ -10,7 +10,7 @@ Detailed setup, options, reporting rules, and maintenance reference. Start with
 Install the complete package, not just `SKILL.md`. Use the shared clone command
 in the README, then copy the complete folder to the appropriate path below
 if installing manually.
-Use branch `v1_1` once published, or the complete extracted release archive,
+Use branch `v1`, or the complete extracted release archive,
 and a fresh destination; do not overwrite an installation needed
 by an existing run. Restart your AI host after installing.
 
