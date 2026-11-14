@@ -6,9 +6,8 @@
 
 <p>
   <a href="https://slotzerosecurity.com/"><img src="https://img.shields.io/badge/Website-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Website"></a>
-  <a href="https://slotzerosecurity.com/contact"><img src="https://img.shields.io/badge/Request_an_Audit-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Request an Audit"></a>
-  <a href="https://github.com/SlotZeroSecurity/audits"><img src="https://img.shields.io/badge/Public_Reports-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Public Reports"></a>
   <a href="https://x.com/Slot_Zero_Sec"><img src="https://img.shields.io/badge/Twitter-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="Twitter"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-006DFF?style=for-the-badge&labelColor=0a0a0a" alt="MIT License"></a>
 </p>
 
 [Install](#install) · [Run](#run-a-review) · [Threat model](#threat-model) · [How it works](#how-it-works) · [Specialists](#meet-the-specialists) · [Reports](#what-you-receive) · [Usage guide](docs/usage.md)
@@ -63,30 +62,9 @@ For more passes, selected files, and troubleshooting, open the [usage guide](doc
 
 One coordinator organizes the review. Separate agents look for weaknesses, then independent reviewers challenge the evidence.
 
-```mermaid
-flowchart TB
-    A["Code + threat model"] --> B["L0 · Understand intent"]
-    B --> C["L1 · Known bug patterns"]
-    B --> D["L2 · Fresh logic review"]
-    B --> E["L3 · Specialist searches"]
-    C --> F["Test · challenge · recheck"]
-    D --> F
-    E --> F
-    F --> G["Two draft reports"]
-    G --> H["Human review"]
-
-    subgraph Q["Separate evaluation"]
-        K["L4 · Benchmark results"]
-    end
-
-    classDef discovery fill:#eaf2ff,stroke:#3b82f6,color:#102a43
-    classDef review fill:#e7f5ef,stroke:#2f855a,color:#113b2b
-    classDef qualification fill:#f5f3ff,stroke:#8b5cf6,color:#39246a,stroke-dasharray:4 3
-    class A,B,C,D,E discovery
-    class F,G,H review
-    class K qualification
-    style Q fill:transparent,stroke:#8b5cf6,stroke-dasharray:4 3
-```
+<p align="center">
+  <img src="assets/audit-flow.png" width="600" alt="Audit flow: prepare code and threat model; understand intent (L0); discover with patterns, logic, and specialists (L1-L3); verify; deliver two draft reports for human review.">
+</p>
 
 | Level | What it means |
 | --- | --- |
@@ -96,7 +74,7 @@ flowchart TB
 | **L3 — Challenge** | Combine specialist searches, testing, independent verification, and a check for missed paths. |
 | **L4 — Measure** | Measure performance on separate, independently reviewed benchmarks. Requires recorded qualification evidence. |
 
-The branches show separate viewpoints. L2 and discovery specialists do not see peer findings; pattern matches still need proof.
+L2 and discovery specialists search independently without seeing peer findings. Pattern matches still need proof.
 L4 is separate from a normal audit and is not claimed automatically.
 
 <a id="meet-the-specialists"></a>
@@ -126,7 +104,3 @@ Every completed audit automatically delivers two downloadable files:
 - **`technical-annex.md`** — affected code, attack paths, tests, coverage, and limitations.
 
 Reports stay **Draft** until human review. Confidence measures evidence; severity measures impact. An automated review cannot guarantee bug-free code.
-
----
-
-[MIT license](LICENSE). Existing third-party notices apply. Pattern organization informed by [0xsimao/0xsimao-ai](https://github.com/0xsimao/0xsimao-ai); layout inspired by [sanbir/solana-auditor-skills](https://github.com/sanbir/solana-auditor-skills).

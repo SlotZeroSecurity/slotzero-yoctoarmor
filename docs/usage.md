@@ -209,28 +209,11 @@ Generated build output, vendored dependencies, and unrelated crates are excluded
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    TM[Read threat model or record explicit override] --> A[Freeze scope and build semantic inventory]
-    A --> B[L0: target intent model]
-    B --> C[L1: routed pattern baseline]
-    B --> D[L2: fresh blind intent passes]
-    C --> E[L3: blind specialist passes and active testing]
-    D --> E
-    E --> F[Seven NEP review roles]
-    F --> G[Post-blind pattern variant review and chain construction]
-    G --> H[Lossless candidate deduplication]
-    H --> I[Evidence triage and adversarial verification]
-    I --> J[One counterexample-guided rescan]
-    J --> K[Judge new candidates and finalize draft evidence]
-    K --> L[Compact draft report and technical annex]
-    L --> M{Human review supplied}
-    M -->|Pending| N[Retain draft and unresolved decisions]
-    M -->|Reviewed blind TPs| O[One bounded verified-seed informed pass]
-    O --> P[Deduplicate, judge, and review new candidates]
-    P --> Q[Approved reporting after all human gates]
-    M -->|Complete review with no TP seeds| Q
-```
+<p align="center">
+  <img src="../assets/audit-flow.png" width="600" alt="Audit flow: prepare code and threat model; understand intent (L0); discover with patterns, logic, and specialists (L1-L3); verify; deliver two draft reports for human review.">
+</p>
+
+See the [complete audit workflow](../runtime/workflow/audit-workflow.md) for phase gates, feedback, and rescans.
 
 ### Components
 
